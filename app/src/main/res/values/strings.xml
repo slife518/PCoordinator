@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PCoordinator</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="Welcome">환영합니다.</string>
+    <string name="Warnning">이메일 또는 비밀번호를 확인하세요</string>
+    <string name="CheckRepass">패스워드를 다시 입력바랍니다.</string>
+    <string name="CheckUnit">필수항목을 입력바랍니다.</string>
+    <string name="NewPossible">사용가능합니다.</string>
+    <string name="NewImpossible">이미 존재하는 이메일입니다.</string>
+</resources>

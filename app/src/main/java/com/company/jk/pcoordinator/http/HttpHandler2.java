@@ -28,8 +28,8 @@ import java.util.Vector;
 public class HttpHandler2 {
 
     private static UrlPath url = new UrlPath();
-    private final static String urlPath = url.getUrlPath();
-    private final static String TAG = "HttpHandler";
+    private static String urlPath = null;
+    private final static String TAG = "HttpHandler2";
     private static JSONObject jObject = null; //group들로 구성된 json
     private JSONArray jsonArray = null;
     private JSONObject jsonObject1;
@@ -47,6 +47,7 @@ public class HttpHandler2 {
         private  String mobile = "";
 
         public  Builder(String mode){
+            urlPath =  url.getUrlPath() + '/' + mode;
             this.mode = mode;
         }
         public  Builder email(String val){ this.email = val;  return  this; }

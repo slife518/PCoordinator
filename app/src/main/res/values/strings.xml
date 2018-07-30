@@ -7,4 +7,5 @@
     <string name="CheckUnit">필수항목을 입력바랍니다.</string>
     <string name="NewPossible">사용가능합니다.</string>
     <string name="NewImpossible">이미 존재하는 이메일입니다.</string>
+    <string name="kakao_app_key">372742df6635ddbed509361059e27033</string>
 </resources>

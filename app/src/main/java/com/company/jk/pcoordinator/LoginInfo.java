@@ -12,18 +12,8 @@ public class LoginInfo {
     public static LoginInfo getInstance(){
         Log.i("LoginInfo","객체호출");
 
-
-
         return  loginInfo;
     }
-
-//    private static String email;
-//    private static String name;
-//    private static String birthday;
-//    private static String age;
-//    private static String level;
-//    private static String site;
-//    private static String password;
 
     private String email;
     private String name;

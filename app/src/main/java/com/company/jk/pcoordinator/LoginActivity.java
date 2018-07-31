@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
             String result = "";
-            HttpHandler2 httpHandler = new HttpHandler2.Builder("signin").email(loginInfo.getEmail()).pw(loginInfo.getPassword()).build();
+            HttpHandler2 httpHandler = new HttpHandler2.Builder("signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
 
             sb = httpHandler.getData();
             try {

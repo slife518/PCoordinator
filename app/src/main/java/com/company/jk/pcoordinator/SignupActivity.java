@@ -72,7 +72,7 @@ public class SignupActivity extends AppCompatActivity {
                 } else {
                     tcode = "newMember";
                     Log.i(TAG, "OnClickMethod: id.getText().toString  " +_emailText.getText().toString());
-                    new HttpTaskSignIn().execute(_emailText.getText().toString(), _nameText.getText().toString(), _passwordText.getText().toString(), _mobileText.getText().toString(), _addressText.getText().toString());
+                    new HttpTaskSignIn().execute(_emailText.getText().toString(), _nameText.getText().toString(), _passwordText.getText().toString(), _reEnterPasswordText.getText().toString(), _mobileText.getText().toString(), _addressText.getText().toString());
                 }
 
 //            }else if(v.getId() == R.id.btDoubleChk){
@@ -94,7 +94,7 @@ public class SignupActivity extends AppCompatActivity {
             HttpHandler2 httpHandler = null;
             switch (tcode) {
                 case "newMember":
-                    httpHandler = new HttpHandler2.Builder(tcode).email(args[0]).name(args[1]).pw(args[2]).mobile(args[3]).address(args[4]).build();
+                    httpHandler = new HttpHandler2.Builder(tcode).email(args[0]).name(args[1]).password(args[2]).repassword(args[3]).mobile(args[4]).address(args[5]).build();
 //					httpHandler.setValue(tcode, args[0],args[1], args[2], args[3]);
                     break;
                 case "chkId":

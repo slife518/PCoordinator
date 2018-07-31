@@ -11,24 +11,14 @@ public class LoginInfo {
 
     public static LoginInfo getInstance(){
         Log.i("LoginInfo","객체호출");
-
-
-
         return  loginInfo;
     }
-
-//    private static String email;
-//    private static String name;
-//    private static String birthday;
-//    private static String age;
-//    private static String level;
-//    private static String site;
-//    private static String password;
 
     private String email;
     private String name;
     private String birthday;
     private String age;
+    private String address;
     private String level;
     private String site;
     private String password;
@@ -54,6 +44,7 @@ public class LoginInfo {
     public String getAge() {
         return age;
     }
+    public String getAddress() { return address; }
 
     public void setPassword(String password) {
         this.password = password;
@@ -76,4 +67,5 @@ public class LoginInfo {
     public void setAge(String age) {
         this.age = age;
     }
+    public void setAddress(String address) { this.address = address; }
 }

@@ -40,7 +40,8 @@ public class HttpHandler2 {
         private  String mode = "";  //필수
         private  String email = "";
         private  String name = "";
-        private  String pw = "";
+        private  String password = "";
+        private  String repassword = "";
         private  String birthday = "";
         private  String seq = "";
         private  String address = "";
@@ -49,10 +50,12 @@ public class HttpHandler2 {
         public  Builder(String mode){
             urlPath =  url.getUrlPath() + '/' + mode;
             this.mode = mode;
+            Log.i(TAG, urlPath);
         }
         public  Builder email(String val){ this.email = val;  return  this; }
         public  Builder name(String val){ this.name = val;  return  this; }
-        public  Builder pw(String val){ this.pw = val;  return  this; }
+        public  Builder password(String val){ this.password = val;  return  this; }
+        public  Builder repassword(String val){ this.repassword = val;  return  this; }
         public  Builder address(String val){ this.address = val;  return  this; }
         public  Builder mobile(String val){ this.mobile = val;  return  this; }
 
@@ -65,12 +68,14 @@ public class HttpHandler2 {
     public HttpHandler2(Builder builder){
 
         nameValue.add(new BasicNameValuePair("mode", builder.mode));// DB 조회시 모드
-        nameValue.add(new BasicNameValuePair("email", builder.email));// DB 조회시 모드
-        nameValue.add(new BasicNameValuePair("pw", builder.pw));// DB 조회시 모드
-        nameValue.add(new BasicNameValuePair("birthday", builder.birthday));// DB 조회시 모드
-        nameValue.add(new BasicNameValuePair("address", builder.address));// DB 조회시 모드
-        nameValue.add(new BasicNameValuePair("mobile", builder.mobile));// DB 조회시 모드
-        nameValue.add(new BasicNameValuePair("seq", builder.seq));// DB 조회시 모드
+        nameValue.add(new BasicNameValuePair("name", builder.name));//
+        nameValue.add(new BasicNameValuePair("email", builder.email));//
+        nameValue.add(new BasicNameValuePair("password", builder.password));//
+        nameValue.add(new BasicNameValuePair("repassword", builder.repassword));//
+        nameValue.add(new BasicNameValuePair("birthday", builder.birthday));//
+        nameValue.add(new BasicNameValuePair("address", builder.address));//
+        nameValue.add(new BasicNameValuePair("mobile", builder.mobile));//
+        nameValue.add(new BasicNameValuePair("seq", builder.seq));//
 
     }
 

@@ -17,9 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.jizard.testapplication.NoticeActivity;
-import com.example.jizard.testapplication.R;
-import com.example.jizard.testapplication.datatype.NoticeData;
+import com.company.jk.pcoordinator.MainActivity;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

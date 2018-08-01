@@ -1,157 +1,172 @@
 package com.company.jk.pcoordinator;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.ViewGroup;
 
-import com.example.jizard.testapplication.adapter.ReplyListAdapter;
-import com.example.jizard.testapplication.datatype.ReplyData;
-import com.example.jizard.testapplication.parser.ReplyParser;
-import com.squareup.picasso.Picasso;
+import com.company.jk.pcoordinator.http.HttpHandler2;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
-/**
- * Created by gold24park on 2016. 4. 5..
- */
-public class MainActivity extends Activity {
 
-    private final String TAG_TYPE = "notice";
+public class MainActivity extends AppCompatActivity {
+    //DATA parsing 관련
 
-    private String title,writer,regist_day,r_count,content,img1,img2,img3;
-    private TextView tv_title,tv_content,tv_count,tv_writer,tv_date;
-    private ImageView iv_img1,iv_img2,iv_img3;
-    private View header;
-    private static ListView replyListView;
-    private static String cnum, id;
-    private static ReplyListAdapter replyListAdapter;
-    private static Context context;
+    final static String Controller = "BuyTransation";
+    final static String TAG = "MainActivity";
+    StringBuffer sb = new StringBuffer();
+    LoginInfo loginInfo = LoginInfo.getInstance();
+
+    private static final String TAG_RESULTS="posts";
+    private static final String TAG_WRITER = "writer";
+    private static final String TAG_TITLE = "title";
+    private static final String TAG_DATE = "regist_day";
+    private static final String TAG_CONTENT = "content";
+    JSONArray posts = null;
+    ArrayList<HashMap<String,String>> noticeList;
+    //UI 관련
+    private RecyclerView rv;
+    private LinearLayoutManager mLinearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        init();
-        receiveIntentData();
+        noticeList = new ArrayList<HashMap<String, String>>();
+        mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rv = (RecyclerView)findViewById(R.id.rv);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(mLinearLayoutManager);
 
+        new HttpTaskGetData().execute(loginInfo.getEmail());
+
+
+    }
+    /** JSON 파싱 메소드 **/
+    public void getData(String url) {
+        class GetDataJSON extends AsyncTask<String,Void,String> {
+            @Override
+            protected String doInBackground(String... params) {
+                //JSON 받아온다.
+                String uri = params[0];
+                BufferedReader br = null;
+                try {
+                    URL url = new URL(uri);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    StringBuilder sb = new StringBuilder();
+
+                    br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                    String json;
+                    while((json = br.readLine()) != null) {
+                        sb.append(json+"\n");
+                    }
+                    return sb.toString().trim();
+                }catch (Exception e) {
+                    return null;
+                }
+            }
+            @Override
+            protected void onPostExecute(String myJSON) {
+                makeList(myJSON); //리스트를 보여줌
+            }
+        }
+        GetDataJSON g = new GetDataJSON();
+        g.execute(url);
+    }
+    /** JSON -> LIST 가공 메소드 **/
+    public void makeList(String myJSON) {
         try {
-            updateReplyList();
-            loadReplyFragment();
-        } catch (ExecutionException e) {
+            JSONObject jsonObj = new JSONObject(myJSON);
+            posts = jsonObj.getJSONArray(TAG_RESULTS);
+            for(int i=0; i<posts.length(); i++) {
+                //JSON에서 각각의 요소를 뽑아옴
+                JSONObject c = posts.getJSONObject(i);
+                String title = c.getString(TAG_TITLE);
+                String writer = c.getString(TAG_WRITER);
+                String date = c.getString(TAG_DATE);
+                String content = c.getString(TAG_CONTENT);
+                if(content.length() > 50 ) {
+                    content = content.substring(0,50) + "..."; //50자 자르고 ... 붙이기
+                }
+                if(title.length() > 16 ) {
+                    title = title.substring(0,16) + "..."; //18자 자르고 ... 붙이기
+                }
+
+                //HashMap에 붙이기
+                HashMap<String,String> posts = new HashMap<String,String>();
+                posts.put(TAG_TITLE,title);
+                posts.put(TAG_WRITER,writer);
+                posts.put(TAG_DATE,date);
+                posts.put(TAG_CONTENT, content);
+
+                //ArrayList에 HashMap 붙이기
+                noticeList.add(posts);
+            }
+            //카드 리스트뷰 어댑터에 연결
+            NoticeAdapter adapter = new NoticeAdapter(getApplicationContext(),noticeList);
+            Log.e("onCreate[noticeList]", "" + noticeList.size());
+            rv.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
+        }catch(JSONException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
+    }
 
-        //뷰에 정보 세팅 & 출력
-        tv_title.setText(title);
-        tv_writer.setText(writer);
-        tv_date.setText(regist_day);
-        tv_content.setText(content);
-        tv_count.setText(r_count);
 
-        loadImage1(img1);
-        loadImage2(img2);
-        loadImage3(img3);
+    //  DB 쓰레드 작업
+    class HttpTaskGetData extends AsyncTask<String, String, String> {
+        @Override
+        protected String doInBackground(String... args) {
+            String result = "";
+            HttpHandler2 httpHandler = new HttpHandler2.Builder(Controller,"getBoardData").build();
 
-        iv_img1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               Toast.makeText(context.getApplicationContext(), "클릭1", Toast.LENGTH_SHORT);
+            sb = httpHandler.getData();
+            try {
+                //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
+//                JSONObject jsonObject = httpHandler.getNeedJSONObject(sb, "result");
+                makeList(sb.toString()); //리스트를 보여줌
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
-        iv_img2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context.getApplicationContext(), "클릭2", Toast.LENGTH_SHORT);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String value) {
+            super.onPostExecute(value);
+            if (value != "") {   // 구매목록에 담겼으면 구매이력화면으로 이동
+//                Intent intent = new Intent(Context, )
+//                toastMessage = getString((R.string.Welcome));
+//                intent.putExtra("jsReserved", String.valueOf(sb));
+//                startActivity(intent);
+//                finish();
+            } else {
+//                toastMessage = getString(R.string.Warnning);
             }
-        });
-        iv_img3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context.getApplicationContext(), "클릭3", Toast.LENGTH_SHORT);
-            }
-        });
-    }
-
-    public static void updateReplyList() throws ExecutionException, InterruptedException {
-        String url = "http://pho901121.cafe24.com/login/db_get_reply.php?cnum=" + cnum + "&id=" + id;
-        ReplyParser replyParser = new ReplyParser(context);
-        ArrayList<ReplyData> replyList = replyParser.execute(url).get();
-        replyListAdapter = new ReplyListAdapter(context, replyList);
-        replyListView.setAdapter(replyListAdapter);
-        replyListAdapter.notifyDataSetChanged();
-    }
-
-    public void loadReplyFragment() {
-        HashMap<String, String> postInfomation = new HashMap<String, String>();
-        postInfomation.put("id", id);
-        postInfomation.put("cnum", cnum);
-        postInfomation.put("type", TAG_TYPE);
-
-        Fragment fragment = new ReplyFragment().addInformation(postInfomation);
-        final FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.ll_reply_fragment, fragment); //fragment 지운 후 add
-        transaction.commit();
-    }
-
-    public void loadImage1(String url) {
-        if(!url.isEmpty()) {
-            Picasso.with(this).load(url).into(iv_img1);
-            Toast.makeText(context, "image: " + url, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
         }
-    }
-    public void loadImage2(String url) {
-        if(!url.isEmpty()) {
-            Picasso.with(this).load(url).into(iv_img2);
-        }
-    }
-    public void loadImage3(String url) {
-        if(!url.isEmpty()) {
-            Picasso.with(this).load(url).into(iv_img3);
-        }
-    }
 
 
-    public void init() {
-        context = getApplicationContext();
-        header = getLayoutInflater().inflate(R.layout.header_notice, null);
-        replyListView = (ListView) findViewById(R.id.lv_reply);
-        replyListView.addHeaderView(header);
-        tv_title = (TextView) header.findViewById(R.id.tv_title);
-        tv_writer = (TextView) header.findViewById(R.id.tv_writer);
-        tv_date = (TextView) header.findViewById(R.id.tv_date);
-        tv_count = (TextView) header.findViewById(R.id.tv_count);
-        tv_content = (TextView) header.findViewById(R.id.tv_content);
-        iv_img1 = (ImageView) header.findViewById(R.id.iv_img1);
-        iv_img2 = (ImageView) header.findViewById(R.id.iv_img2);
-        iv_img3 = (ImageView) header.findViewById(R.id.iv_img3);
-    }
-
-    public void receiveIntentData() {
-        Intent intent = getIntent();
-        title = intent.getStringExtra("title");
-        writer = intent.getStringExtra("writer");
-        regist_day = intent.getStringExtra("regist_day");
-        r_count = intent.getStringExtra("r_count");
-        content = intent.getStringExtra("content");
-        cnum = intent.getStringExtra("cnum");
-        img1 = intent.getStringExtra("img1");
-        img2 = intent.getStringExtra("img2");
-        img3 = intent.getStringExtra("img3");
-        id = intent.getStringExtra("id");
     }
 }
-
-
-출처: http://jizard.tistory.com/40 [JIZARD]

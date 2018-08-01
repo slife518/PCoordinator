@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     LoginInfo loginInfo = LoginInfo.getInstance();
 
     final static String TAG = "Login";
+    final static String Controller = "Login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
             String result = "";
-            HttpHandler2 httpHandler = new HttpHandler2.Builder("signin").email(loginInfo.getEmail()).pw(loginInfo.getPassword()).build();
+            HttpHandler2 httpHandler = new HttpHandler2.Builder(Controller,"signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
 
             sb = httpHandler.getData();
             try {
@@ -139,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String value) {
             super.onPostExecute(value);
             if (value != "") {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                 toastMessage = getString((R.string.Welcome));
                 intent.putExtra("jsReserved", String.valueOf(sb));
                 startActivity(intent);

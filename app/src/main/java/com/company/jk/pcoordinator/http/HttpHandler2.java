@@ -47,8 +47,10 @@ public class HttpHandler2 {
         private  String address = "";
         private  String mobile = "";
 
-        public  Builder(String mode){
-            urlPath =  url.getUrlPath() + '/' + mode;
+        private  String itemCode;
+
+        public  Builder(String controller , String mode){
+            urlPath =  url.getUrlPath() + controller + '/' + mode;
             this.mode = mode;
             Log.i(TAG, urlPath);
         }
@@ -58,6 +60,7 @@ public class HttpHandler2 {
         public  Builder repassword(String val){ this.repassword = val;  return  this; }
         public  Builder address(String val){ this.address = val;  return  this; }
         public  Builder mobile(String val){ this.mobile = val;  return  this; }
+        public  Builder itemCode(String val){ this.itemCode = val;  return  this; }
 
         public  HttpHandler2 build(){
             return  new HttpHandler2(this);
@@ -76,6 +79,8 @@ public class HttpHandler2 {
         nameValue.add(new BasicNameValuePair("address", builder.address));//
         nameValue.add(new BasicNameValuePair("mobile", builder.mobile));//
         nameValue.add(new BasicNameValuePair("seq", builder.seq));//
+
+        nameValue.add(new BasicNameValuePair("itemCode", builder.itemCode));//
 
     }
 

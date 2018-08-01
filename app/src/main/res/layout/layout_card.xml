@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/btn_default_small"
+        app:cardBackgroundColor="@color/cardview_shadow_end_color"
+        app:cardCornerRadius="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/temp_constraint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/descript"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="few clouds"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/weather_icon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:layout_constraintTop_toBottomOf="@+id/descript" />
+
+                    <TextView
+                        android:id="@+id/current_temp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="28.38C"
+                        android:textColor="@android:color/black"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/weather_icon"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/high_row_temp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="22C / 36C"
+                        android:textColor="#323232"
+                        android:textSize="15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/weather_icon" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/temp_constraint">
+
+                    <TextView
+                        android:id="@+id/city_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Seoul"
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp" />
+
+                    <ImageButton
+                        android:id="@+id/del_btn"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@android:drawable/ic_delete"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/humidity_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="습도 : "
+                        android:textColor="@android:color/black"
+                        android:textSize="12dp"
+                        app:layout_constraintTop_toBottomOf="@id/del_btn" />
+
+                    <TextView
+                        android:id="@+id/humidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="55%"
+                        android:textSize="12dp"
+                        app:layout_constraintLeft_toRightOf="@id/humidity_title"
+                        app:layout_constraintTop_toBottomOf="@id/del_btn" />
+
+                    <TextView
+                        android:id="@+id/cloudy_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="구름의 양 : "
+                        android:textColor="@android:color/black"
+                        android:textSize="12dp"
+                        app:layout_constraintTop_toBottomOf="@id/humidity_title" />
+
+                    <TextView
+                        android:id="@+id/cloudy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="많음"
+                        android:textSize="12dp"
+                        app:layout_constraintLeft_toRightOf="@id/cloudy_title"
+                        app:layout_constraintTop_toBottomOf="@id/humidity" />
+
+                    <TextView
+                        android:id="@+id/wind_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="풍속 : "
+                        android:textColor="@android:color/black"
+                        android:textSize="12dp"
+                        app:layout_constraintTop_toBottomOf="@id/cloudy_title" />
+
+                    <TextView
+                        android:id="@+id/wind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="셈"
+                        android:textSize="12dp"
+                        app:layout_constraintLeft_toRightOf="@id/wind_title"
+                        app:layout_constraintTop_toBottomOf="@id/cloudy" />
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_margin="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/today">
+
+                <com.example.kitri.weathercast.ForecastView
+                    android:id="@+id/forecast"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

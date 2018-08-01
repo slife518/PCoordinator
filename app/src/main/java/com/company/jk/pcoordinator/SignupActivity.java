@@ -22,6 +22,7 @@ import com.company.jk.pcoordinator.http.NetworkUtil;
 
 public class SignupActivity extends AppCompatActivity {
     final static String TAG = "Regist";
+    final static String Controller = "Login";
     private static String tcode;
 
     private JSONObject jObject = null; //group들로 구성된 json
@@ -94,11 +95,11 @@ public class SignupActivity extends AppCompatActivity {
             HttpHandler2 httpHandler = null;
             switch (tcode) {
                 case "newMember":
-                    httpHandler = new HttpHandler2.Builder(tcode).email(args[0]).name(args[1]).password(args[2]).repassword(args[3]).mobile(args[4]).address(args[5]).build();
+                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).password(args[2]).repassword(args[3]).mobile(args[4]).address(args[5]).build();
 //					httpHandler.setValue(tcode, args[0],args[1], args[2], args[3]);
                     break;
                 case "chkId":
-                    httpHandler = new HttpHandler2.Builder(tcode).email(args[0]).build();
+                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).build();
 //					httpHandler.setValue(tcode, args[0]);
                     break;
             }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PCoordinator</string>
+    <string name="app_name">당신의 코디네이터 박코디입니다. </string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="Welcome">환영합니다.</string>
     <string name="Warnning">이메일 또는 비밀번호를 확인하세요</string>
@@ -7,4 +7,11 @@
     <string name="CheckUnit">필수항목을 입력바랍니다.</string>
     <string name="NewPossible">사용가능합니다.</string>
     <string name="NewImpossible">이미 존재하는 이메일입니다.</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="tab_text_1">남성복</string>
+    <string name="tab_text_2">여성복</string>
+    <string name="tab_text_3">아동복</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

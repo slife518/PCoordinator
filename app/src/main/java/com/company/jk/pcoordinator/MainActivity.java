@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.company.jk.pcoordinator.http.HttpHandler2;
 
@@ -29,8 +30,8 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     //DATA parsing 관련
 
-    final static String Controller = "BuyTransation";
-    final static String TAG = "MainActivity";
+    private static final String Controller = "BuyTransation";
+    private static final String TAG = "MainActivity";
     StringBuffer sb = new StringBuffer();
     LoginInfo loginInfo = LoginInfo.getInstance();
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_TITLE = "title";
     private static final String TAG_DATE = "regist_day";
     private static final String TAG_CONTENT = "content";
-    JSONArray posts = null;
+
     ArrayList<HashMap<String,String>> noticeList;
     //UI 관련
     private RecyclerView rv;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         noticeList = new ArrayList<HashMap<String, String>>();
         mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -56,48 +59,22 @@ public class MainActivity extends AppCompatActivity {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(mLinearLayoutManager);
 
-        new HttpTaskGetData().execute(loginInfo.getEmail());
+        new HttpTaskGetData().execute();
 
 
-    }
-    /** JSON 파싱 메소드 **/
-    public void getData(String url) {
-        class GetDataJSON extends AsyncTask<String,Void,String> {
-            @Override
-            protected String doInBackground(String... params) {
-                //JSON 받아온다.
-                String uri = params[0];
-                BufferedReader br = null;
-                try {
-                    URL url = new URL(uri);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    StringBuilder sb = new StringBuilder();
-
-                    br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-                    String json;
-                    while((json = br.readLine()) != null) {
-                        sb.append(json+"\n");
-                    }
-                    return sb.toString().trim();
-                }catch (Exception e) {
-                    return null;
-                }
-            }
-            @Override
-            protected void onPostExecute(String myJSON) {
-                makeList(myJSON); //리스트를 보여줌
-            }
-        }
-        GetDataJSON g = new GetDataJSON();
-        g.execute(url);
     }
     /** JSON -> LIST 가공 메소드 **/
     public void makeList(String myJSON) {
         try {
+
+            Log.i(TAG, "여기" + myJSON);
+
             JSONObject jsonObj = new JSONObject(myJSON);
-            posts = jsonObj.getJSONArray(TAG_RESULTS);
+            JSONArray  posts = jsonObj.getJSONArray("rs");
+
             for(int i=0; i<posts.length(); i++) {
+
+                Log.i(TAG, "makeList" + posts.length());
                 //JSON에서 각각의 요소를 뽑아옴
                 JSONObject c = posts.getJSONObject(i);
                 String title = c.getString(TAG_TITLE);
@@ -112,20 +89,22 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //HashMap에 붙이기
-                HashMap<String,String> posts = new HashMap<String,String>();
-                posts.put(TAG_TITLE,title);
-                posts.put(TAG_WRITER,writer);
-                posts.put(TAG_DATE,date);
-                posts.put(TAG_CONTENT, content);
+                HashMap<String,String> hmposts = new HashMap<String,String>();
+                hmposts.put(TAG_TITLE,title);
+                hmposts.put(TAG_WRITER,writer);
+                hmposts.put(TAG_DATE,date);
+                hmposts.put(TAG_CONTENT, content);
 
                 //ArrayList에 HashMap 붙이기
-                noticeList.add(posts);
+                noticeList.add(hmposts);
             }
             //카드 리스트뷰 어댑터에 연결
             NoticeAdapter adapter = new NoticeAdapter(getApplicationContext(),noticeList);
             Log.e("onCreate[noticeList]", "" + noticeList.size());
             rv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+
+
 
         }catch(JSONException e) {
             e.printStackTrace();
@@ -141,10 +120,12 @@ public class MainActivity extends AppCompatActivity {
             HttpHandler2 httpHandler = new HttpHandler2.Builder(Controller,"getBoardData").build();
 
             sb = httpHandler.getData();
+
+            Log.i(TAG, sb.toString());
             try {
-                //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
-//                JSONObject jsonObject = httpHandler.getNeedJSONObject(sb, "result");
-                makeList(sb.toString()); //리스트를 보여줌
+
+                result = sb.toString();
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -155,16 +136,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String value) {
             super.onPostExecute(value);
-            if (value != "") {   // 구매목록에 담겼으면 구매이력화면으로 이동
-//                Intent intent = new Intent(Context, )
-//                toastMessage = getString((R.string.Welcome));
-//                intent.putExtra("jsReserved", String.valueOf(sb));
-//                startActivity(intent);
-//                finish();
+            if (value != "") {
+                makeList(sb.toString());
             } else {
-//                toastMessage = getString(R.string.Warnning);
+                Toast.makeText(MainActivity.this, "공지사항이 없습니다.", Toast.LENGTH_SHORT).show();
             }
-//            Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+
         }
 
 

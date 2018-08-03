@@ -19,12 +19,12 @@ import java.util.HashMap;
 /**
  * Created by jungkukjo on 01/08/2018.
  */
-public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     Context context;
     ArrayList<HashMap<String,String>> noticeList; //공지사항 정보 담겨있음
 
 
-    public NoticeAdapter(Context context, ArrayList<HashMap<String,String>> noticeList) {
+    public MainAdapter(Context context, ArrayList<HashMap<String,String>> noticeList) {
         this.context = context;
         this.noticeList = noticeList;
     }

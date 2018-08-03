@@ -14,4 +14,6 @@
     <string name="tab_text_3">아동복</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="shopping">쇼핑</string>
+    <string name="account">내정보</string>
 </resources>

@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.company.jk.pcoordinator.MainActivity">
+    <item
+        android:id="@+id/bottomBarItemOne"
+        android:orderInCategory="100"
+        android:icon="@drawable/shopping_cart"
+        android:title="@string/shopping"/>
+    <item
+        android:id="@+id/bottomBarItemTwo"
+        android:orderInCategory="100"
+        android:icon="@drawable/account_box"
+        android:title="@string/account"/>
+    <item
+        android:id="@+id/bottomBarItemThree"
+        android:orderInCategory="100"
+        android:icon="@drawable/baseline_credit_card"
+        android:title="@string/shopping"/>
+    <item
+        android:id="@+id/bottomBarItemFour"
+        android:orderInCategory="100"
+        android:icon="@drawable/baseline_favorite_black"
+        android:title="@string/shopping"/>
+</menu>

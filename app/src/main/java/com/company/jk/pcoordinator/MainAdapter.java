@@ -50,7 +50,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, Main2Activity.class);
+                Intent intent = new Intent(context, Main2Activity_bak.class);
                 intent.putExtra("tv_seq", noticeItem.get("title"));
 //                context.startActivity(intent);
                 Toast.makeText(context, noticeItem.get("title"), Toast.LENGTH_SHORT).show();

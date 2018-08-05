@@ -1,4 +1,4 @@
-package com.company.jk.pcoordinator;
+package com.company.jk.pcoordinator.shopping;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

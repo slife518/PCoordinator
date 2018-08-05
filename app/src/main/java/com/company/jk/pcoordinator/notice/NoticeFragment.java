@@ -1,13 +1,20 @@
-package com.company.jk.pcoordinator;
+package com.company.jk.pcoordinator.notice;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.company.jk.pcoordinator.login.LoginInfo;
+import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.HttpHandler2;
 
 import org.json.JSONArray;
@@ -18,11 +25,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class NoticeActivity extends AppCompatActivity{
+public class NoticeFragment extends Fragment{
     //DATA parsing 관련
 
     private static final String Controller = "BuyTransation";
-    private static final String TAG = "NoticeActivity";
+    private static final String TAG = "NoticeFragment";
     StringBuffer sb = new StringBuffer();
     LoginInfo loginInfo = LoginInfo.getInstance();
 
@@ -36,24 +43,37 @@ public class NoticeActivity extends AppCompatActivity{
     //UI 관련
     private RecyclerView rv;
     private LinearLayoutManager mLinearLayoutManager;
+    Context mContext;
+    View v;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        v = inflater.inflate(R.layout.fragment_notice, container, false);
+
+        mContext = getActivity();
+
+        return  v;
+
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice);
+    public void onResume() {
 
         noticeList = new ArrayList<HashMap<String, String>>();
-        mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLinearLayoutManager = new LinearLayoutManager(mContext);
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rv = (RecyclerView)findViewById(R.id.rv);
+        rv = (RecyclerView)v.findViewById(R.id.rv);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(mLinearLayoutManager);
 
         new HttpTaskGetData().execute();
 
-
+        super.onResume();
     }
+
     /** JSON -> LIST 가공 메소드 **/
     public void makeList(String myJSON) {
         try {
@@ -90,7 +110,7 @@ public class NoticeActivity extends AppCompatActivity{
                 noticeList.add(hmposts);
             }
             //카드 리스트뷰 어댑터에 연결
-            NoticeAdapter adapter = new NoticeAdapter(getApplicationContext(),noticeList);
+            NoticeAdapter adapter = new NoticeAdapter(getContext().getApplicationContext(),noticeList);
             Log.e("onCreate[noticeList]", "" + noticeList.size());
             rv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
@@ -131,7 +151,7 @@ public class NoticeActivity extends AppCompatActivity{
             if (value != "") {
                 makeList(sb.toString());
             } else {
-                Toast.makeText(NoticeActivity.this, "공지사항이 없습니다.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(NoticeFragment.this, "공지사항이 없습니다.", Toast.LENGTH_SHORT).show();
             }
 
         }

@@ -20,9 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
-import android.widget.TextView;
 
-public class Main2Activity extends AppCompatActivity {
+import com.company.jk.pcoordinator.shopping.MasonryAdapter;
+import com.company.jk.pcoordinator.shopping.SpacesItemDecoration;
+
+public class Main2Activity_bak extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -42,7 +44,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.fragment_shopping);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

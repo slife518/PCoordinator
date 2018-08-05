@@ -1,4 +1,4 @@
-package com.company.jk.pcoordinator;
+package com.company.jk.pcoordinator.login;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -6,19 +6,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 
+import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.HttpHandler2;
-import com.company.jk.pcoordinator.http.NetworkUtil;
 
 public class SignupActivity extends AppCompatActivity {
     final static String TAG = "Regist";

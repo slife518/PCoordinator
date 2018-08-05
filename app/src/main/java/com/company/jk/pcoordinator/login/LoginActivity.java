@@ -1,4 +1,4 @@
-package com.company.jk.pcoordinator;
+package com.company.jk.pcoordinator.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,17 +7,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import com.company.jk.pcoordinator.MainActivity;
+import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.HttpHandler2;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 
@@ -140,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String value) {
             super.onPostExecute(value);
             if (value != "") {
-                Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 toastMessage = getString((R.string.Welcome));
                 intent.putExtra("jsReserved", String.valueOf(sb));
                 startActivity(intent);

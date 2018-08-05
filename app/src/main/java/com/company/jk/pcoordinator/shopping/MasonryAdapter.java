@@ -1,11 +1,14 @@
-package com.company.jk.pcoordinator;
+package com.company.jk.pcoordinator.shopping;
 
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.company.jk.pcoordinator.cart.CartFragment;
+import com.company.jk.pcoordinator.login.LoginActivity;
+import com.company.jk.pcoordinator.login.LoginInfo;
+import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.HttpHandler2;
+import com.company.jk.pcoordinator.myinfo.MyinfoFragment;
 
 import org.json.JSONObject;
 
@@ -82,11 +90,19 @@ public class MasonryAdapter extends RecyclerView.Adapter<MasonryAdapter.MasonryV
 
         holder.imageView.setImageResource(imgArray[position]);
         holder.textView.setText(nameArray[position]);
+
+        //ㅇㅣ미지 클릭 시 이동 하기
         holder.imageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 if(loginCheck(position)) {
-                    new HttpTaskSignIn().execute(loginInfo.getEmail(), String.valueOf(position));
+
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    CartFragment myFragment = new CartFragment();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame, myFragment).addToBackStack(null).commit();
+
+
+                   // new HttpTaskSignIn().execute(loginInfo.getEmail(), String.valueOf(position));
                 }else{
                     //로그인되어 있지 않으면 로그인 화면으로 이동
                 }

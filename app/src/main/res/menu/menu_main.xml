@@ -3,23 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.company.jk.pcoordinator.MainActivity">
     <item
-        android:id="@+id/bottomBarItemOne"
+        android:id="@+id/bottomBarItemHome"
         android:orderInCategory="100"
-        android:icon="@drawable/shopping_cart"
+        android:icon="@drawable/ic_outline_home_24px"
         android:title="@string/shopping"/>
     <item
-        android:id="@+id/bottomBarItemTwo"
+        android:id="@+id/bottomBarItemCart"
         android:orderInCategory="100"
-        android:icon="@drawable/account_box"
+        android:icon="@drawable/ic_outline_shopping_cart_24px"
+        android:title="@string/cart"/>
+    <item
+        android:id="@+id/bottomBarItemPerson"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_outline_person_24px"
         android:title="@string/account"/>
     <item
-        android:id="@+id/bottomBarItemThree"
+        android:id="@+id/bottomBarItemEtc"
         android:orderInCategory="100"
-        android:icon="@drawable/baseline_credit_card"
-        android:title="@string/shopping"/>
-    <item
-        android:id="@+id/bottomBarItemFour"
-        android:orderInCategory="100"
-        android:icon="@drawable/baseline_favorite_black"
-        android:title="@string/shopping"/>
+        android:icon="@drawable/ic_outline_format_list_numbered_24px"
+        android:title="@string/etc"/>
 </menu>

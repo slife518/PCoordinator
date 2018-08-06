@@ -13,15 +13,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.company.jk.pcoordinator.BaseFragment;
 import com.company.jk.pcoordinator.R;
 
 public class ShoppingFragment extends Fragment {
@@ -35,6 +34,10 @@ public class ShoppingFragment extends Fragment {
     private String toastMessage = " ";
     Context mContext;
     View v;
+
+    private static final String TAG = "ShoppingFragment";
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +56,6 @@ public class ShoppingFragment extends Fragment {
     @Override
     public void onResume() {
 
-//        Toolbar toolbar = v.findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -72,7 +71,7 @@ public class ShoppingFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toastMessage = getString(R.string.Warnning);
+//                toastMessage = getString(R.string.Warnning);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -123,6 +122,8 @@ public class ShoppingFragment extends Fragment {
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
+
+            Log.i(TAG, "지금클릭한 건 " + sectionNumber);
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -131,13 +132,13 @@ public class ShoppingFragment extends Fragment {
         }
 
 
-        public void OnClickMethod(View v){      // TODO Auto-generated
-            ImageView imageView = v.findViewById(R.id.img);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v){
-                }
-            });
-        }
+//        public void OnClickMethod(View v){      // TODO Auto-generated
+//            ImageView imageView = v.findViewById(R.id.img);
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v){
+//                }
+//            });
+//        }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -145,16 +146,16 @@ public class ShoppingFragment extends Fragment {
 
             View v = inflater.inflate(R.layout.fragment_main, container, false);
 
-            mRecyclerView = v.findViewById(R.id.masonry_grid);
+            mRecyclerView = v.findViewById(R.id.masonry_grid);    //pinterest view 를 위한 recyclerview
             mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-            MasonryAdapter adapter = new MasonryAdapter(v.getContext(), getArguments().getInt(ARG_SECTION_NUMBER));
+            ShoppingAdapter adapter = new ShoppingAdapter(v.getContext(), getArguments().getInt(ARG_SECTION_NUMBER));
             mRecyclerView.setAdapter(adapter);
             SpacesItemDecoration decoration = new SpacesItemDecoration(16);
             mRecyclerView.addItemDecoration(decoration);
 
             return v;
+            }
         }
-    }
 
 
     /**

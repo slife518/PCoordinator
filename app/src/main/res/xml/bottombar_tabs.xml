@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <tabs>
         <tab
             id="@+id/tab_call_log"
+            activeColor="@color/primary"
+            titlesize = "6dp"
             title="shopping" />
         <tab
             id="@+id/tab_contacts"
@@ -12,4 +13,3 @@
             title="macro" />
     </tabs>
 
-</PreferenceScreen>

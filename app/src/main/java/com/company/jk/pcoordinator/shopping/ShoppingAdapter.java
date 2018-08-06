@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -23,14 +21,13 @@ import com.company.jk.pcoordinator.login.LoginActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.HttpHandler2;
-import com.company.jk.pcoordinator.myinfo.MyinfoFragment;
 
 import org.json.JSONObject;
 
 /**
  * Created by Suleiman on 26-07-2015.
  */
-public class MasonryAdapter extends RecyclerView.Adapter<MasonryAdapter.MasonryView> {
+public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingView> {
     final static String TAG = "BuyTransation";
     private Context context;
     final static String Controller = "BuyTransation";
@@ -46,7 +43,7 @@ public class MasonryAdapter extends RecyclerView.Adapter<MasonryAdapter.MasonryV
     int[] imgList3 = {R.drawable.four,
             R.drawable.five, R.drawable.six, R.drawable.seven, R.drawable.eight,
             R.drawable.nine, R.drawable.ten, R.drawable.two, R.drawable.one, R.drawable.three};     //아동복
-    private int tabname;
+    private int tabindex;
 
     String[] nameList = {"와이셔츠", "정장바지", "팬티", "런닝", "정장양말", "캐주얼바지",
             "라운드티", "후드티", "집업", "잠옷"};    //남성복
@@ -55,28 +52,41 @@ public class MasonryAdapter extends RecyclerView.Adapter<MasonryAdapter.MasonryV
     String[] nameList3 = {"상의", "바지", "치마", "기저귀", "양말", "점퍼",
             "라운드티", "후드티", "집업", "잠옷"};    //아동복
 
-    public MasonryAdapter(Context context, int tab ) {
+    public ShoppingAdapter(Context context, int tab ) {
         this.context = context;
-        tabname = tab;
+        tabindex = tab;
     }
 
     @Override
-    public MasonryView onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ShoppingView onCreateViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
-        MasonryView masonryView = new MasonryView(layoutView);
-        return masonryView;
+//        MasonryView masonryView = new MasonryView(layoutView);
+        return new ShoppingView(layoutView);
+    }
+
+
+    class ShoppingView extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView textView;
+
+        public ShoppingView(View itemView) {
+            super(itemView);
+
+            imageView = (ImageView) itemView.findViewById(R.id.img);
+            textView = (TextView) itemView.findViewById(R.id.img_name);
+
+        }
     }
 
     @Override
-    public void onBindViewHolder(MasonryView holder, final int position) {
+    public void onBindViewHolder(ShoppingView holder, final int position) {
 
         int[] imgArray = null;
         String[] nameArray = null;
 
-
-        Log.i("onBindViewHolder 는", String.valueOf(tabname));
+        Log.i("onBindViewHolder 는", String.valueOf(tabindex));
         //탭화면에 따라 다른이미지를 보여준다.
-        switch (tabname) {
+        switch (tabindex) {
             case 1: imgArray = imgList.clone();
                      nameArray = nameList.clone();
                      break;
@@ -91,7 +101,7 @@ public class MasonryAdapter extends RecyclerView.Adapter<MasonryAdapter.MasonryV
         holder.imageView.setImageResource(imgArray[position]);
         holder.textView.setText(nameArray[position]);
 
-        //ㅇㅣ미지 클릭 시 이동 하기
+        //이미지 클릭 시 이동 하기
         holder.imageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -103,8 +113,6 @@ public class MasonryAdapter extends RecyclerView.Adapter<MasonryAdapter.MasonryV
 
 
                    // new HttpTaskSignIn().execute(loginInfo.getEmail(), String.valueOf(position));
-                }else{
-                    //로그인되어 있지 않으면 로그인 화면으로 이동
                 }
                 //Toast.makeText( context, "Clicked at position" + position, Toast.LENGTH_LONG).show();
             }
@@ -151,18 +159,6 @@ public class MasonryAdapter extends RecyclerView.Adapter<MasonryAdapter.MasonryV
         return nameList.length;
     }
 
-    class MasonryView extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textView;
-
-        public MasonryView(View itemView) {
-            super(itemView);
-
-            imageView = (ImageView) itemView.findViewById(R.id.img);
-            textView = (TextView) itemView.findViewById(R.id.img_name);
-
-        }
-    }
 
     //  DB 쓰레드 작업
     class HttpTaskSignIn extends AsyncTask<String, String, String> {

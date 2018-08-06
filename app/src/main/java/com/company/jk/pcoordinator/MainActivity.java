@@ -2,6 +2,7 @@ package com.company.jk.pcoordinator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.company.jk.pcoordinator.cart.CartFragment;
 import com.company.jk.pcoordinator.myinfo.MyinfoFragment;
@@ -14,6 +15,7 @@ import com.roughike.bottombar.OnMenuTabClickListener;
 public class MainActivity extends AppCompatActivity {
 
     BottomBar bottomBar;
+    private final  static String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,15 +25,16 @@ public class MainActivity extends AppCompatActivity {
         bottomBar.setItemsFromMenu(R.menu.menu_main, new OnMenuTabClickListener() {
             @Override
             public void onMenuTabSelected(int menuItemId) {
+                Log.i(TAG, "이번클릭한 메뉴id 는 " + menuItemId);
                 if(menuItemId==R.id.bottomBarItemHome){
-                    ShoppingFragment nf = new ShoppingFragment();   //쇼핑하기
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame,nf).commit();
+                    ShoppingFragment sf = new ShoppingFragment();   //쇼핑하기
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame,sf).commit();
                 }else if(menuItemId==R.id.bottomBarItemCart){        //배송정보
-                    CartFragment nf = new CartFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, nf).commit();
+                    CartFragment cf = new CartFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, cf).commit();
                 }else if(menuItemId==R.id.bottomBarItemPerson){     //내정보
-                    MyinfoFragment nf = new MyinfoFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, nf).commit();
+                    MyinfoFragment mf = new MyinfoFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, mf).commit();
                 }else if(menuItemId==R.id.bottomBarItemEtc){        //기타공지사항 등.
                     NoticeFragment nf = new NoticeFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, nf).commit();
@@ -40,13 +43,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onMenuTabReSelected(int menuItemId) {
-
+                Log.i(TAG, "다시 클릭한 메뉴id 는 " + menuItemId);
             }
+
         });
 
-        bottomBar.mapColorForTab(0, "#F44336");
-        bottomBar.mapColorForTab(1, "#D1C4E9");
-        bottomBar.mapColorForTab(2, "#E91E63");
+        bottomBar.mapColorForTab(0, "#AB47BC");
+        bottomBar.mapColorForTab(1, "#AB47BC");
+        bottomBar.mapColorForTab(2, "#AB47BC");
+        bottomBar.mapColorForTab(3, "#AB47BC");
         BottomBarBadge unread;
         unread = bottomBar.makeBadgeForTabAt(3, "#FF0000", 13);
         unread.show();

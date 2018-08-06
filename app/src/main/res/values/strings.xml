@@ -21,4 +21,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yes">예</string>
+    <string name="no">아니요</string>
+    <string name="name">이름</string>
+    <string name="age">생년월일</string>
+    <string name="birthday">생년월일</string>
+    <string name="tel">연락처</string>
+    <string name="myinfo">내정보관리</string>
 </resources>

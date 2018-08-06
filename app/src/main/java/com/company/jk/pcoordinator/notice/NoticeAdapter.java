@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.company.jk.pcoordinator.Main2Activity_bak;
+
 import com.company.jk.pcoordinator.R;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, Main2Activity_bak.class);
+                Intent intent = new Intent(context, NoticeFragment.class);
                 intent.putExtra("tv_seq", noticeItem.get("title"));
 //                context.startActivity(intent);
                 Toast.makeText(context, noticeItem.get("title"), Toast.LENGTH_SHORT).show();

@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         bottomBar.mapColorForTab(1, "#AB47BC");
         bottomBar.mapColorForTab(2, "#AB47BC");
         bottomBar.mapColorForTab(3, "#AB47BC");
+        bottomBar.setActiveTabColor("#000000");
         BottomBarBadge unread;
         unread = bottomBar.makeBadgeForTabAt(3, "#FF0000", 13);
         unread.show();

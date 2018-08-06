@@ -17,12 +17,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <View
+        android:id="@+id/basetop"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/base"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/memberinfo"
+        android:textSize="15dp"
+        android:paddingLeft="5dp"
+        android:layout_marginLeft="3dp"
+        app:layout_constraintTop_toBottomOf="@+id/basetop" />
+
+    <View
+        android:id="@+id/basetop2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/base"
+        app:layout_constraintTop_toBottomOf="@id/tv_title1"
+        android:layout_margin="10dp"/>
+
+
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/name"
         android:paddingLeft="5dp"
+        android:layout_marginLeft="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/edit_name"
         android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
         app:layout_constraintHorizontal_bias="0.38"/>
@@ -33,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@+id/basetop2" />
 
     <TextView
         android:id="@+id/tv_birthday"
@@ -41,6 +69,7 @@
         android:layout_height="wrap_content"
         android:text="@string/birthday"
         android:paddingLeft="5dp"
+        android:layout_marginLeft="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/edit_birthday"
         android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
         app:layout_constraintHorizontal_bias="0.38"/>
@@ -60,6 +89,7 @@
         android:layout_height="wrap_content"
         android:text="@string/tel"
         android:paddingLeft="5dp"
+        android:layout_marginLeft="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/edit_tel"
         android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
         app:layout_constraintHorizontal_bias="0.38"/>
@@ -72,6 +102,13 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_birthday" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/base"
+        app:layout_constraintTop_toBottomOf="@id/edit_tel"
+        android:layout_margin="10dp"/>
 
 
 

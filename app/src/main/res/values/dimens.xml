@@ -5,5 +5,11 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="myinfo_text_marginBottom">20dp</dimen>
+    <dimen name="myinfo_text_marginleft">10dp</dimen>
+    <dimen name="myinfo_edit_marginright">15dp</dimen>
+    <dimen name="myinfo_text_h5">30dp</dimen>
+    <dimen name="myinfo_text_h4">20dp</dimen>
+    <dimen name="myinfo_text_h2">15dp</dimen>
+    <dimen name="myinfo_text_h1">10dp</dimen>
 
 </resources>

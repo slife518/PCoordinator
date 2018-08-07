@@ -29,4 +29,12 @@
     <string name="tel">연락처</string>
     <string name="myinfo">내정보관리</string>
     <string name="memberinfo">회원정보</string>
+    <string name="deliverysite">배송지</string>
+    <string name="address">주소</string>
+    <string name="sitechange">배송지변경</string>
+    <string name="bodyinfo">바디정보</string>
+    <string name="size_top">상의</string>
+    <string name="email">이메일</string>
+
+    <string name="spinner_title">Select Category</string>
 </resources>

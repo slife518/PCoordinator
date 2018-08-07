@@ -8,109 +8,206 @@
 
     <TextView
         android:id="@+id/tv_title"
+        android:text="@string/myinfo"
+        android:textSize="@dimen/myinfo_text_h5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/myinfo"
-        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/basetop"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/base"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        android:layout_margin="10dp"/>
-
     <TextView
         android:id="@+id/tv_title1"
+        android:text="@string/memberinfo"
+        android:textSize="@dimen/myinfo_text_h4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/memberinfo"
-        android:textSize="15dp"
-        android:paddingLeft="5dp"
-        android:layout_marginLeft="3dp"
-        app:layout_constraintTop_toBottomOf="@+id/basetop" />
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
+    <TextView
+        android:id="@+id/tv_deliverysite"
+        android:text="@string/deliverysite"
+        android:textSize="@dimen/myinfo_text_h4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mline1"/>
+    <TextView
+        android:id="@+id/tv_bodyinfo"
+        android:text="@string/bodyinfo"
+        android:textSize="@dimen/myinfo_text_h4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bline1"/>
 
-    <View
-        android:id="@+id/basetop2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/base"
-        app:layout_constraintTop_toBottomOf="@id/tv_title1"
-        android:layout_margin="10dp"/>
-
+    <TextView
+        android:id="@+id/tv_email"
+        android:text="@string/email"
+        android:textSize="@dimen/myinfo_text_h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
+        android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_email"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView
         android:id="@+id/tv_name"
+        android:text="@string/name"
+        android:textSize="@dimen/myinfo_text_h2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:paddingLeft="5dp"
-        android:layout_marginLeft="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_name"
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
         android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
-        app:layout_constraintHorizontal_bias="0.38"/>
+        app:layout_constraintBottom_toBottomOf="@+id/edit_name"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/tv_birthday"
+        android:text="@string/birthday"
+        android:textSize="@dimen/myinfo_text_h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
+        android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_birthday"/>
+
+    <TextView
+        android:id="@+id/tv_tel"
+        android:text="@string/tel"
+        android:textSize="@dimen/myinfo_text_h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
+        android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_tel"/>
+
+    <TextView
+        android:id="@+id/tv_sitechange"
+        android:text="@string/sitechange"
+        android:textSize="@dimen/myinfo_text_h1"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/myinfo_text_marginleft"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mline1"/>
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:text="@string/address"
+        android:textSize="@dimen/myinfo_text_h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_address"/>
+
+    <TextView
+        android:id="@+id/tv_size_top"
+        android:text="@string/size_top"
+        android:textSize="@dimen/myinfo_text_h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_size_top"/>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/base"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"/>
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/base"
+        app:layout_constraintTop_toBottomOf="@id/tv_title1"/>
+    <View
+        android:id="@+id/mline1"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/base"
+        app:layout_constraintTop_toBottomOf="@id/edit_tel"/>
+    <View
+        android:id="@+id/mline2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/base"
+        app:layout_constraintTop_toBottomOf="@id/tv_deliverysite"/>
+
+    <View
+        android:id="@+id/bline1"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/base"
+        app:layout_constraintTop_toBottomOf="@id/edit_address"/>
+    <View
+        android:id="@+id/bline2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/base"
+        app:layout_constraintTop_toBottomOf="@id/tv_bodyinfo"/>
+
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/myinfo_edit_marginright"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line2" />
 
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/myinfo_edit_marginright"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/basetop2" />
-
-    <TextView
-        android:id="@+id/tv_birthday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/birthday"
-        android:paddingLeft="5dp"
-        android:layout_marginLeft="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_birthday"
-        android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
-        app:layout_constraintHorizontal_bias="0.38"/>
+        app:layout_constraintTop_toBottomOf="@+id/edit_email" />
 
     <EditText
         android:id="@+id/edit_birthday"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/myinfo_edit_marginright"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_name" />
-
-
-    <TextView
-        android:id="@+id/tv_tel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tel"
-        android:paddingLeft="5dp"
-        android:layout_marginLeft="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_tel"
-        android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
-        app:layout_constraintHorizontal_bias="0.38"/>
-
 
     <EditText
         android:id="@+id/edit_tel"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/myinfo_edit_marginright"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_birthday" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/base"
-        app:layout_constraintTop_toBottomOf="@id/edit_tel"
-        android:layout_margin="10dp"/>
+    <EditText
+        android:id="@+id/edit_address"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/myinfo_edit_marginright"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mline2"/>
 
-
-
+    <Spinner
+        android:prompt="@string/spinner_title"
+        android:id="@+id/spinner_size_top"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:layout_marginEnd="@dimen/myinfo_edit_marginright"
+        app:layout_constraintStart_toEndOf="@+id/tv_bodyinfo"
+        app:layout_constraintTop_toBottomOf="@+id/bline2"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -109,7 +110,12 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     CartFragment myFragment = new CartFragment();
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame, myFragment).addToBackStack(null).commit();
+
+                    //왼쪽에서 오른쪽 슬라이드
+                     //activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment).addToBackStack(null).commit();
+
+                    //아래에서 위쪽 슬라이드
+                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations( R.animator.slide_up, 0, 0, R.animator.slide_down).replace(R.id.frame, myFragment).addToBackStack(null).commit();
 
 
                    // new HttpTaskSignIn().execute(loginInfo.getEmail(), String.valueOf(position));

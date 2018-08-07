@@ -36,5 +36,9 @@
     <string name="size_top">상의</string>
     <string name="email">이메일</string>
 
-    <string name="spinner_title">Select Category</string>
+    <string name="spinner_mantopsize">남자 상의 사이즈 선택</string>
+    <string name="spinner_manbottomsize">남자 허리 사이즈 선택</string>
+    <string name="spinner_womantopsize">여자 상의 사이즈 선택</string>
+    <string name="spinner_womanbottomsize">여자 허리 사이즈 선택</string>
+    <string name="sex">성별</string>
 </resources>

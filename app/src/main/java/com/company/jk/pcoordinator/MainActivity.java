@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.company.jk.pcoordinator.cart.CartFragment;
-import com.company.jk.pcoordinator.myinfo.MyinfoFragment;
+import com.company.jk.pcoordinator.mypage.MyinfoFragment;
+import com.company.jk.pcoordinator.mypage.MypageFragment;
 import com.company.jk.pcoordinator.notice.NoticeFragment;
 import com.company.jk.pcoordinator.shopping.ShoppingFragment;
 import com.roughike.bottombar.BottomBar;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                     CartFragment cf = new CartFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, cf).commit();
                 }else if(menuItemId==R.id.bottomBarItemPerson){     //내정보
-                    MyinfoFragment mf = new MyinfoFragment();
+                    MypageFragment mf = new MypageFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, mf).commit();
                 }else if(menuItemId==R.id.bottomBarItemEtc){        //기타공지사항 등.
                     NoticeFragment nf = new NoticeFragment();

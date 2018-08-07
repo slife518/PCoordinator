@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.company.jk.pcoordinator.myinfo.MyinfoFragment">
+    tools:context="com.company.jk.pcoordinator.mypage.MyinfoFragment">
 
     <TextView
         android:id="@+id/tv_title"
@@ -122,6 +122,18 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/spinner_size_top"/>
 
+    <TextView
+        android:id="@+id/tv_sex"
+        android:text="@string/sex"
+        android:textSize="@dimen/myinfo_text_h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/myinfo_text_marginBottom"
+        android:layout_marginLeft="@dimen/myinfo_text_marginleft"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_sex"/>
+
+
     <View
         android:id="@+id/line1"
         android:layout_width="match_parent"
@@ -201,13 +213,23 @@
         app:layout_constraintTop_toBottomOf="@+id/mline2"/>
 
     <Spinner
-        android:prompt="@string/spinner_title"
-        android:id="@+id/spinner_size_top"
+        android:prompt="@string/spinner_mantopsize"
+        android:id="@+id/spinner_sex"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:spinnerMode="dialog"
         android:layout_marginEnd="@dimen/myinfo_edit_marginright"
         app:layout_constraintStart_toEndOf="@+id/tv_bodyinfo"
         app:layout_constraintTop_toBottomOf="@+id/bline2"/>
+
+    <Spinner
+        android:prompt="@string/spinner_mantopsize"
+        android:id="@+id/spinner_size_top"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:layout_marginEnd="@dimen/myinfo_edit_marginright"
+        app:layout_constraintStart_toEndOf="@+id/tv_bodyinfo"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_sex"/>
 
 </android.support.constraint.ConstraintLayout>

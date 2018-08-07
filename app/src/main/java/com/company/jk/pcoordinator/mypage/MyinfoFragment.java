@@ -1,7 +1,6 @@
-package com.company.jk.pcoordinator.myinfo;
+package com.company.jk.pcoordinator.mypage;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,37 +36,36 @@ public class MyinfoFragment extends Fragment implements AdapterView.OnItemSelect
         mContext = getActivity();
 
         // Spinner element
-        Spinner spinner = (Spinner) v.findViewById(R.id.spinner_size_top);
+        Spinner spinner_sizetop = (Spinner) v.findViewById(R.id.spinner_size_top);
+        Spinner spinner_sex = (Spinner) v.findViewById(R.id.spinner_sex);
 
         // Spinner click listener
-        spinner.setOnItemSelectedListener(this);
-//            public void onItemSelected(AdapterView<?> parent, View view,
-//                                       int position, long id) {
-//                Toast.makeText(mContext, "선택하신건은" + position, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                Toast.makeText(mContext, "선택하지 않았습니다.", Toast.LENGTH_SHORT).show();
-//            }
-
+        spinner_sizetop.setOnItemSelectedListener(this);
+        spinner_sex.setOnItemSelectedListener(this);
 
         // Spinner Drop down elements
-        List<String> categories = new ArrayList <String>();
-        categories.add("90");
-        categories.add("95");
-        categories.add("100");
-        categories.add("105");
-        categories.add("110");
+        List<String> mantopsize = new ArrayList <String>();
+        List<String> sex = new ArrayList <String>();
+        //categories.add("90");
+        mantopsize.add("95");
+        mantopsize.add("100");
+        mantopsize.add("105");
+        mantopsize.add("110");
+
+        sex.add("남");
+        sex.add("여");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, mantopsize);
+        ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, sex);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+        spinner_sizetop.setAdapter(dataAdapter);
+        spinner_sex.setAdapter(dataAdapter1);
 
 
         return  v;
@@ -80,7 +78,7 @@ public class MyinfoFragment extends Fragment implements AdapterView.OnItemSelect
         String item = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
-            Toast.makeText(mContext, "선택하신건은" + item , Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, id+"선택하신건은" + item , Toast.LENGTH_SHORT).show();
 
 
     }

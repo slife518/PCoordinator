@@ -11,5 +11,6 @@
     <dimen name="myinfo_text_h4">20dp</dimen>
     <dimen name="myinfo_text_h2">15dp</dimen>
     <dimen name="myinfo_text_h1">10dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 
 </resources>

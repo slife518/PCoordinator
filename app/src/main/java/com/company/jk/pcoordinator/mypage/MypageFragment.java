@@ -4,49 +4,58 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.company.jk.pcoordinator.R;
 
-public class MypageFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public MypageFragment() {
-        // Required empty public constructor
-    }
-
-    public static MypageFragment newInstance(String param1, String param2) {
-        MypageFragment fragment = new MypageFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class MypageFragment extends Fragment{
+    TextView txCustomerinfo;
+    View v;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mypage, container, false);
+
+        v = inflater.inflate(R.layout.fragment_mypage, container, false);
+
+        // BtnOnClickListener의 객체 생성.
+        BtnOnClickListener onClickListener = new BtnOnClickListener() ;
+
+        // 각 Button의 이벤트 리스너로 onClickListener 지정.
+        Button btn_myinfo = (Button) v.findViewById(R.id.btn_myinfo) ;
+        btn_myinfo.setOnClickListener(onClickListener) ;
+        Button btn_bodyinfo = (Button) v.findViewById(R.id.btn_bodyinfo) ;
+        btn_bodyinfo.setOnClickListener(onClickListener) ;
+
+        return v;
     }
+
+
+    class BtnOnClickListener implements Button.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            switch (view.getId()) {
+                case R.id.btn_myinfo :
+                    MyinfoFragment myFragment = new MyinfoFragment();
+                    //왼쪽에서 오른쪽 슬라이드
+                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment).addToBackStack(null).commit();
+                    break;
+                case R.id.btn_bodyinfo :
+                    BodyFragment myFragment2 = new BodyFragment();
+                    //왼쪽에서 오른쪽 슬라이드
+                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment2).addToBackStack(null).commit();
+                    break;
+            } } }
 
 }

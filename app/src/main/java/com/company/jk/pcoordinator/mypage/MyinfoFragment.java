@@ -3,11 +3,13 @@ package com.company.jk.pcoordinator.mypage;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyinfoFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class MyinfoFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     Context mContext;
     View v;
@@ -38,10 +40,13 @@ public class MyinfoFragment extends Fragment implements AdapterView.OnItemSelect
         // Spinner element
         Spinner spinner_sizetop = (Spinner) v.findViewById(R.id.spinner_size_top);
         Spinner spinner_sex = (Spinner) v.findViewById(R.id.spinner_sex);
+        ImageView iv_back = (ImageView) v.findViewById(R.id.btback);
+
 
         // Spinner click listener
         spinner_sizetop.setOnItemSelectedListener(this);
         spinner_sex.setOnItemSelectedListener(this);
+        iv_back.setOnClickListener(this);
 
         // Spinner Drop down elements
         List<String> mantopsize = new ArrayList <String>();
@@ -88,4 +93,15 @@ public class MyinfoFragment extends Fragment implements AdapterView.OnItemSelect
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btback:
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                MypageFragment myFragment = new MypageFragment();
+                //왼쪽에서 오른쪽 슬라이드
+                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
+                break;
+        }
+    }
 }

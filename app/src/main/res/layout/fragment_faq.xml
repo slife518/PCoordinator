@@ -1,0 +1,110 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Top label/button text field. -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:addStatesFromChildren="true"
+        android:gravity="center_vertical"
+        android:paddingRight="0dip"
+        android:background="@android:drawable/edit_text">
+
+        <!--
+            TextView label goes at the left.
+        -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/linear_layout_10_from"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            />
+
+        <!--
+            EditText goes in between.
+            android:background="@null" 속성으로,
+            에디트박스의 배경이미지를 없애고, 이 레이아웃의 배경으로
+            에디트박스를 배치하여, 다른 텍스트뷰와 이미지 버튼위젯들을
+            같이 한줄에 배치할 수 있도록 설정합니다.
+            위의 LinearLayout 태그의 android:background="@android:drawable/edit_text"
+            속성설정으로, 현재줄의 배경을 에디트박스 이미지로 설정하고 있습니다.
+        -->
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:background="@null"
+            />
+
+        <!--
+            The button goes at the right.
+        -->
+        <ImageButton
+            style="@android:style/Widget.Button.Inset"
+            android:src="@android:drawable/star_big_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginBottom="2dip"
+            android:padding="10dip"
+            />
+
+    </LinearLayout>
+
+    <!-- Bottom label/button text field.  (Identical to the top one
+         except for the label.)  -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:addStatesFromChildren="true"
+        android:gravity="center_vertical"
+        android:paddingRight="0dip"
+        android:background="@android:drawable/edit_text">
+
+        <!--
+            TextView label goes at the left.
+        -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/linear_layout_10_to"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            />
+
+        <!--
+            EditText goes in between.
+        -->
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:background="@null"
+            />
+
+        <!--
+            The button goes at the right.
+        -->
+        <ImageButton
+            style="@android:style/Widget.Button.Inset"
+            android:src="@android:drawable/star_big_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:layout_marginRight="2dip"
+            android:layout_marginBottom="2dip"
+            android:padding="10dip"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

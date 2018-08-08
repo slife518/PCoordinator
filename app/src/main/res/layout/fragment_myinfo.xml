@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.company.jk.pcoordinator.mypage.MyinfoFragment">
 
+    <ImageView
+        android:id="@+id/btback"
+        style="@style/IconBack40x40"/>
     <TextView
         android:id="@+id/tv_title"
         android:text="@string/myinfo"
@@ -16,6 +19,7 @@
         android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/tv_title1"
         android:text="@string/memberinfo"

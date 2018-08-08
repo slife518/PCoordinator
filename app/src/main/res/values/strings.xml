@@ -7,6 +7,7 @@
     <string name="CheckUnit">필수항목을 입력바랍니다.</string>
     <string name="NewPossible">사용가능합니다.</string>
     <string name="NewImpossible">이미 존재하는 이메일입니다.</string>
+    <string name="hint_email">이메일을 입력하세요</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="tab_text_1">남성복</string>
@@ -35,10 +36,25 @@
     <string name="bodyinfo">바디정보</string>
     <string name="size_top">상의</string>
     <string name="email">이메일</string>
+    <string name="logout">로그아웃</string>
 
     <string name="spinner_mantopsize">남자 상의 사이즈 선택</string>
     <string name="spinner_manbottomsize">남자 허리 사이즈 선택</string>
     <string name="spinner_womantopsize">여자 상의 사이즈 선택</string>
     <string name="spinner_womanbottomsize">여자 허리 사이즈 선택</string>
     <string name="sex">성별</string>
+    <string name="txCustomerinfo">고객정보</string>
+    <string name="deposit">적립금</string>
+    <string name="question">문의하기</string>
+    <string name="faq">자주묻는질문</string>
+    <string name="hint_weight">체중(kg)</string>
+    <string name="hint_tall">신장(cm)</string>
+    <string name="btn_save">저장하기</string>
+    <string name="hint_topsize">상의 사이즈</string>
+
+
+
+    <string name="hello">Hello World, Test011Activity!</string>
+    <string name="linear_layout_10_from">From:</string>
+    <string name="linear_layout_10_to">To:</string>
 </resources>

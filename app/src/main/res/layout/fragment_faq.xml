@@ -14,17 +14,13 @@
         android:paddingRight="0dip"
         android:background="@android:drawable/edit_text">
 
-        <!--
-            TextView label goes at the left.
-        -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/linear_layout_10_from"
+            android:text="@string/txCustomerinfo"
             android:textColor="?android:attr/textColorSecondary"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             />
-
         <!--
             EditText goes in between.
             android:background="@null" 속성으로,
@@ -41,13 +37,9 @@
             android:singleLine="true"
             android:background="@null"
             />
-
-        <!--
-            The button goes at the right.
-        -->
         <ImageButton
             style="@android:style/Widget.Button.Inset"
-            android:src="@android:drawable/star_big_on"
+            android:src="@drawable/ic_baseline_keyboard_arrow_right_24px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dip"
@@ -58,9 +50,7 @@
 
     </LinearLayout>
 
-    <!-- Bottom label/button text field.  (Identical to the top one
-         except for the label.)  -->
-
+    <!-- 한줄에 여러 위젯을 표현하는 LinearLayout  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,43 +58,21 @@
         android:gravity="center_vertical"
         android:paddingRight="0dip"
         android:background="@android:drawable/edit_text">
-
-        <!--
-            TextView label goes at the left.
-        -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/linear_layout_10_to"
+            android:text="@string/bodyinfo"
             android:textColor="?android:attr/textColorSecondary"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            />
-
-        <!--
-            EditText goes in between.
-        -->
+            android:textAppearance="?android:attr/textAppearanceLargeInverse" />
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:singleLine="true"
-            android:background="@null"
-            />
-
-        <!--
-            The button goes at the right.
-        -->
+            android:background="@null"/>
         <ImageButton
-            style="@android:style/Widget.Button.Inset"
-            android:src="@android:drawable/star_big_on"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dip"
-            android:layout_marginRight="2dip"
-            android:layout_marginBottom="2dip"
-            android:padding="10dip"
-            />
-
+            android:id="@+id/btn_bodyinfo"
+            style="@style/ImageButtonForward"/>
     </LinearLayout>
 
 </LinearLayout>

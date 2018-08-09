@@ -26,10 +26,6 @@ import com.company.jk.pcoordinator.R;
 public class ShoppingFragment extends Fragment {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
     private String toastMessage = " ";
     Context mContext;
@@ -37,14 +33,11 @@ public class ShoppingFragment extends Fragment {
 
     private static final String TAG = "ShoppingFragment";
 
-
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         v = inflater.inflate(R.layout.fragment_shopping, container, false);
         mContext = getActivity();
         return  v;
-
     }
 
     @Override
@@ -112,7 +105,6 @@ public class ShoppingFragment extends Fragment {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
         RecyclerView mRecyclerView;
-        private String toastMessage = " ";
 
         public PlaceholderFragment() {
         }

@@ -1,8 +1,13 @@
 package com.company.jk.pcoordinator;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.company.jk.pcoordinator.cart.CartFragment;
 import com.company.jk.pcoordinator.mypage.MyinfoFragment;
@@ -49,11 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        bottomBar.mapColorForTab(0, "#CCCCCC");
-        bottomBar.mapColorForTab(1, "#CCCCCC");
-        bottomBar.mapColorForTab(2, "#CCCCCC");
-        bottomBar.mapColorForTab(3, "#CCCCCC");
-        bottomBar.setActiveTabColor("#000000");
+        bottomBar.mapColorForTab(0, "#9C27B0");
+        bottomBar.mapColorForTab(1, "#9C27B0");
+        bottomBar.mapColorForTab(2, "#9C27B0");
+        bottomBar.mapColorForTab(3, "#9C27B0");
+        bottomBar.setActiveTabColor("#9C27B0");
         BottomBarBadge unread;
         unread = bottomBar.makeBadgeForTabAt(3, "#FF0000", 13);
         unread.show();

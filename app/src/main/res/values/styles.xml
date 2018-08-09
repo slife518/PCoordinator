@@ -4,19 +4,15 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
-
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-
         <item name="android:windowBackground">@color/primary</item>
-
         <item name="colorControlNormal">@color/iron</item>
         <item name="colorControlActivated">@color/white</item>
         <item name="colorControlHighlight">@color/white</item>
         <item name="android:textColorHint">@color/iron</item>
-
         <item name="colorButtonNormal">@color/primary_darker</item>
         <item name="android:colorButtonNormal">@color/primary_darker</item>
     </style>
@@ -28,10 +24,18 @@
     </style>
 
     <style name="AppTheme.NoActionBar">
+        <item name="colorPrimaryDark">@color/white</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+
+    <style name="AppTheme.NoActionBar.White" parent="AppTheme.NoActionBar" >
+        <item name="colorPrimaryDark">@color/white</item>
+    </style>
+    <style name="AppTheme.NoActionBar.Purple" parent="AppTheme.NoActionBar" >
+        <item name="colorPrimaryDark">@color/primaryColorDark</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -58,6 +62,13 @@
         <item name="android:paddingLeft">20dp</item>
         <item name="android:layout_width">match_parent</item>
     </style>
-
-
+    <style name="ImageButtonForward">
+        <item name="android:src">@drawable/ic_baseline_keyboard_arrow_right_24px</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">2dip</item>
+        <item name="android:layout_marginBottom">2dip</item>
+        <!--<item name="android:background">null</item>-->
+        <item name="android:padding">10dip</item>
+    </style>
 </resources>

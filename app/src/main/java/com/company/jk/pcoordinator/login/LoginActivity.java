@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //자동로그인 구현
     private void setAutoLogin() {
-        mPreference = getSharedPreferences("HeartForce", MODE_PRIVATE);
+        mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
         SharedPreferences.Editor editor = mPreference.edit();
         if (cb_auto.isChecked()) {
             editor.putString("Email", loginInfo.getEmail());

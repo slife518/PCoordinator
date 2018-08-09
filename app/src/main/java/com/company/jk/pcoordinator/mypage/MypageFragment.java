@@ -36,6 +36,8 @@ public class MypageFragment extends Fragment{
         btn_myinfo.setOnClickListener(onClickListener) ;
         Button btn_bodyinfo = (Button) v.findViewById(R.id.btn_bodyinfo) ;
         btn_bodyinfo.setOnClickListener(onClickListener) ;
+        Button btn_faq = (Button) v.findViewById(R.id.btn_faq) ;
+        btn_faq.setOnClickListener(onClickListener) ;
 
         return v;
     }
@@ -55,6 +57,11 @@ public class MypageFragment extends Fragment{
                     BodyFragment myFragment2 = new BodyFragment();
                     //왼쪽에서 오른쪽 슬라이드
                     activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment2).addToBackStack(null).commit();
+                    break;
+                case R.id.btn_faq :
+                    FAQFragment myFragment3 = new FAQFragment();
+                    //왼쪽에서 오른쪽 슬라이드
+                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment3).addToBackStack(null).commit();
                     break;
             } } }
 

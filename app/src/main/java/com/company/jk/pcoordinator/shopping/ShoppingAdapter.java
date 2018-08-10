@@ -28,7 +28,7 @@ import org.json.JSONObject;
 /**
  * Created by Suleiman on 26-07-2015.
  */
-public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingView> {
+public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingViewHolder> {
     final static String TAG = "BuyTransation";
     private Context context;
     final static String Controller = "BuyTransation";
@@ -54,25 +54,21 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             "라운드티", "후드티", "집업", "잠옷"};    //아동복
 
     public ShoppingAdapter(Context context, int tab ) {
+        Log.i(TAG, "ShoppingAdapter 호출");
         this.context = context;
         tabindex = tab;
     }
 
-    @Override
-    public ShoppingView onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
-//        MasonryView masonryView = new MasonryView(layoutView);
-        return new ShoppingView(layoutView);
-    }
 
 
-    class ShoppingView extends RecyclerView.ViewHolder {
+    class ShoppingViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
 
-        public ShoppingView(View itemView) {
+        public ShoppingViewHolder(View itemView) {
             super(itemView);
 
+            Log.i(TAG, "ShoppingViewHolder 호출");
             imageView = (ImageView) itemView.findViewById(R.id.img);
             textView = (TextView) itemView.findViewById(R.id.img_name);
 
@@ -80,7 +76,16 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     }
 
     @Override
-    public void onBindViewHolder(ShoppingView holder, final int position) {
+    public ShoppingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+//        MasonryView masonryView = new MasonryView(layoutView);
+        return new ShoppingViewHolder(layoutView);
+    }
+
+
+
+    @Override
+    public void onBindViewHolder(ShoppingViewHolder holder, final int position) {
 
         int[] imgArray = null;
         String[] nameArray = null;

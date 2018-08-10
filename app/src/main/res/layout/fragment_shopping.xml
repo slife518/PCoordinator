@@ -21,10 +21,9 @@
             android:layout_weight="1"
             android:background="@color/primaryColorDark"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/app_name">
+            app:title="@string/shopping"
+            android:theme="@style/ToolbarTheme"/>
 
-        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"

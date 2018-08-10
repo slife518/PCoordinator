@@ -35,6 +35,9 @@ public class ShoppingFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i(TAG, "onCreateView 호출");
+
         v = inflater.inflate(R.layout.fragment_shopping, container, false);
         mContext = getActivity();
         return  v;
@@ -49,6 +52,7 @@ public class ShoppingFragment extends Fragment {
     @Override
     public void onResume() {
 
+        Log.i(TAG, "onResume 호출");
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
         // Set up the ViewPager with the sections adapter.

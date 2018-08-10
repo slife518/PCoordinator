@@ -74,6 +74,25 @@
             android:text="@string/btn_save"
             android:layout_marginTop="3dp"
             android:textColor="@android:color/black"/>
+
+
+        <Spinner
+            android:prompt="@string/spinner_mantopsize"
+            android:id="@+id/spinner_sex"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:layout_marginEnd="@dimen/myinfo_edit_marginright"        />
+
+        <Spinner
+            android:prompt="@string/spinner_mantopsize"
+            android:id="@+id/spinner_size_top"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:layout_marginEnd="@dimen/myinfo_edit_marginright"/>
+
+
     </LinearLayout>
 </ScrollView>
 

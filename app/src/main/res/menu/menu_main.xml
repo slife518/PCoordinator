@@ -5,12 +5,12 @@
     <item
         android:id="@+id/bottomBarItemHome"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_outline_home_24px"
+        android:icon="@drawable/ic_baseline_home_24px"
         android:title="@string/shopping"/>
     <item
         android:id="@+id/bottomBarItemCart"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_outline_shopping_cart_24px"
+        android:icon="@drawable/ic_baseline_shopping_cart_24px"
         android:title="@string/cart"/>
     <item
         android:id="@+id/bottomBarItemPerson"

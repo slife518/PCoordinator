@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <tabs>
-        <tab
-            id="@+id/tab_call_log"
-            activeColor="@color/primary"
-            titlesize = "6dp"
-            title="shopping" />
-        <tab
-            id="@+id/tab_contacts"
-            title="contacts" />
-        <tab
-            id="@+id/tab_macro_setting"
-            title="macro" />
-    </tabs>
-
+<tabs>
+    <tab
+        id="@+id/bottomBarItemHome"
+        icon="@drawable/ic_baseline_home_24px"
+        title="@string/shopping"/>
+    <tab
+        id="@+id/bottomBarItemCart"
+        icon="@drawable/ic_baseline_shopping_cart_24px"
+        title="@string/cart"/>
+    <tab
+        id="@+id/bottomBarItemPerson"
+        icon="@drawable/ic_outline_person_24px"
+        title="@string/account"/>
+    <tab
+        id="@+id/bottomBarItemEtc"
+        icon="@drawable/ic_outline_format_list_numbered_24px"
+        title="@string/etc"/>
+    <tab
+        id="@+id/tab_food"
+        icon="@drawable/ic_outline_format_list_numbered_24px"
+        title="Food" />
+</tabs>

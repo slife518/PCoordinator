@@ -7,7 +7,6 @@
     <string name="CheckUnit">필수항목을 입력바랍니다.</string>
     <string name="NewPossible">사용가능합니다.</string>
     <string name="NewImpossible">이미 존재하는 이메일입니다.</string>
-    <string name="hint_email">이메일을 입력하세요</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="tab_text_1">남성복</string>
@@ -15,27 +14,35 @@
     <string name="tab_text_3">아동복</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="shopping">쇼핑</string>
-    <string name="account">내정보</string>
-    <string name="cart">카트</string>
-    <string name="etc">더보기</string>
+    <string name="shopping">Shopping</string>
+    <string name="account">Mypage</string>
+    <string name="cart">Cart</string>
+    <string name="etc">Etc</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="yes">예</string>
     <string name="no">아니요</string>
+    <string name="email">이메일</string>
+    <string name="hint_email">이메일</string>
     <string name="name">이름</string>
+    <string name="hint_name">이름</string>
     <string name="age">생년월일</string>
+    <string name="hint_age">생년월일</string>
     <string name="birthday">생년월일</string>
+    <string name="hint_birthday">생년월일</string>
     <string name="tel">연락처</string>
+    <string name="hint_tel">연락처</string>
     <string name="myinfo">내정보관리</string>
     <string name="memberinfo">회원정보</string>
     <string name="deliverysite">배송지</string>
     <string name="address">주소</string>
+    <string name="hint_address">주소</string>
     <string name="sitechange">배송지변경</string>
     <string name="bodyinfo">바디정보</string>
     <string name="size_top">상의</string>
-    <string name="email">이메일</string>
+    <string name="hint_size_top">상의</string>
+
     <string name="logout">로그아웃</string>
 
     <string name="spinner_mantopsize">남자 상의 사이즈 선택</string>

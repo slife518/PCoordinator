@@ -12,8 +12,11 @@ public class UrlPath {
 //    private final static String uploadPath = "http://124.49.80.186:8080/UploadToServer.php/";
 //    private final static String profileImgPath = "http://124.49.80.186:8080/img/";
 
-//    private final static String urlPath = "http://172.21.18.102:80/dev.php/";  //\Bitnami\wampstack-7.1.11-0\apache2\htdocs  --회사로컬
-    private final static String urlPath = "http://slife705.cafe24.com/index.php/";  // 운영서버
+    //private final static String urlPath = "http://192.168.0.6:8080/dev.php/";  //래미안
+
+//    private final static String urlPath = "http://172.21.18.102:80/dev.php/";  //\Bitnami\wampstack-7.1.11-0\apache2\htdocs
+    private final static String urlPath = "http://slife705.cafe24.com/index.php/";  //\Bitnami\wampstack-7.1.11-0\apache2\htdocs
+    private final static String urlImg = "http://slife705.cafe24.com/etc/img/";  //\Bitnami\wampstack-7.1.11-0\apache2\htdocs
     private final static String uploadPath = "http://172.21.18.102:80/UploadToServer.php/";
     private final static String profileImgPath = "http://172.21.18.102:80/img/";
 
@@ -21,9 +24,7 @@ public class UrlPath {
     public String getUrlPath(){
         return  urlPath;
     }
-    public String getImgPath(){
-        return  uploadPath;
-    }
+    public String getImgPath(){ return  urlImg;}
     public String getProfilePath(){return  profileImgPath;
 
     }

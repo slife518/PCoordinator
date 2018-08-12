@@ -60,8 +60,8 @@
     <string name="hint_topsize">상의 사이즈</string>
 
 
-
     <string name="hello">Hello World, Test011Activity!</string>
     <string name="linear_layout_10_from">From:</string>
     <string name="linear_layout_10_to">To:</string>
+    <string name="postNo">주소찾기</string>
 </resources>

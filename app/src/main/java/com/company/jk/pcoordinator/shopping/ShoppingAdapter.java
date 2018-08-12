@@ -18,10 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.cart.CartFragment;
+import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.HttpHandler2;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -33,25 +35,29 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     private Context context;
     final static String Controller = "BuyTransation";
     StringBuffer sb = new StringBuffer();
+
+    private static UrlPath urlPath = new UrlPath();
     LoginInfo loginInfo = LoginInfo.getInstance();
 
-    int[] imgList = {R.drawable.two, R.drawable.one, R.drawable.three, R.drawable.four,
-            R.drawable.five, R.drawable.six, R.drawable.seven, R.drawable.eight,
-            R.drawable.nine, R.drawable.ten};    //남성복
-    int[] imgList2 = { R.drawable.five, R.drawable.six, R.drawable.seven, R.drawable.eight,
-            R.drawable.two, R.drawable.one, R.drawable.three, R.drawable.four,
-            R.drawable.nine, R.drawable.ten};     //여성복
-    int[] imgList3 = {R.drawable.four,
-            R.drawable.five, R.drawable.six, R.drawable.seven, R.drawable.eight,
-            R.drawable.nine, R.drawable.ten, R.drawable.two, R.drawable.one, R.drawable.three};     //아동복
+    String url_man_img1 = urlPath.getImgPath() +  "man/man_yshirts.jpg"; //와이셔츠
+//    String url_man_img2 = "http://slife705.cafe24.com/etc/img/man/man_pants.jpg"; //정장바지
+    String url_man_img2 = urlPath.getImgPath() +  "man/man_pants.jpg"; //정장바지
+    String url_woman_img1 = urlPath.getImgPath() +  "woman/woman_blaus1.jpg";
+    String url_woman_img2 = urlPath.getImgPath() +  "woman/woman_skirt1.jpg";
+    String url_child_img1 = urlPath.getImgPath() +  "child/child_inner.jpg";
+    String url_child_img2 = urlPath.getImgPath() +  "child/child_outer.jpg";
+
+    String[] imgList = {url_man_img1, url_man_img2};    //남성복
+    String[] imgList2 = {url_woman_img1, url_woman_img2};     //여성복
+    String[] imgList3 = {url_child_img1, url_child_img2}; //아동복
     private int tabindex;
 
-    String[] nameList = {"와이셔츠", "정장바지", "팬티", "런닝", "정장양말", "캐주얼바지",
-            "라운드티", "후드티", "집업", "잠옷"};    //남성복
-    String[] nameList2 = {"치마", "바지", "팬티", "브라", "니트", "캐주얼바지",
-            "라운드티", "후드티", "집업", "잠옷"};    //여성복
-    String[] nameList3 = {"상의", "바지", "치마", "기저귀", "양말", "점퍼",
-            "라운드티", "후드티", "집업", "잠옷"};    //아동복
+//    String[] nameList = {"와이셔츠", "정장바지", "팬티", "런닝", "정장양말", "캐주얼바지",
+//            "라운드티", "후드티", "집업", "잠옷"};    //남성복
+//    String[] nameList2 = {"치마", "바지", "팬티", "브라", "니트", "캐주얼바지",
+//            "라운드티", "후드티", "집업", "잠옷"};    //여성복
+//    String[] nameList3 = {"상의", "바지", "치마", "기저귀", "양말", "점퍼",
+//            "라운드티", "후드티", "집업", "잠옷"};    //아동복
 
     public ShoppingAdapter(Context context, int tab ) {
         Log.i(TAG, "ShoppingAdapter 호출");
@@ -63,14 +69,14 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
 
     class ShoppingViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView textView;
+       // TextView textView;
 
         public ShoppingViewHolder(View itemView) {
             super(itemView);
 
             Log.i(TAG, "ShoppingViewHolder 호출");
             imageView = (ImageView) itemView.findViewById(R.id.img);
-            textView = (TextView) itemView.findViewById(R.id.img_name);
+          //  textView = (TextView) itemView.findViewById(R.id.img_name);
 
         }
     }
@@ -87,25 +93,26 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     @Override
     public void onBindViewHolder(ShoppingViewHolder holder, final int position) {
 
-        int[] imgArray = null;
-        String[] nameArray = null;
+        String[] imgArray = null;
+//        String[] nameArray = null;
 
         Log.i("onBindViewHolder 는", String.valueOf(tabindex));
         //탭화면에 따라 다른이미지를 보여준다.
         switch (tabindex) {
             case 1: imgArray = imgList.clone();
-                     nameArray = nameList.clone();
+//                     nameArray = nameList.clone();
                      break;
             case 2: imgArray = imgList2.clone();
-                     nameArray = nameList2.clone();
+//                     nameArray = nameList2.clone();
                      break;
             case 3: imgArray = imgList3.clone();
-                     nameArray = nameList3.clone();
+//                     nameArray = nameList3.clone();
                      break;
         }
 
-        holder.imageView.setImageResource(imgArray[position]);
-        holder.textView.setText(nameArray[position]);
+        Picasso.with(context).load(imgArray[position]).into(holder.imageView);
+        //holder.imageView.setImageResource(imgArray[position]);
+//        holder.textView.setText(nameArray[position]);
 
         //이미지 클릭 시 이동 하기
         holder.imageView.setOnClickListener(new View.OnClickListener(){
@@ -167,7 +174,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
 
     @Override
     public int getItemCount() {
-        return nameList.length;
+        return imgList.length;
     }
 
 

@@ -1,19 +1,29 @@
 package com.company.jk.pcoordinator.mypage;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.login.LoginActivity;
+import com.company.jk.pcoordinator.login.LoginInfo;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MypageFragment extends Fragment{
+
     TextView txCustomerinfo;
     View v;
 
@@ -38,6 +48,8 @@ public class MypageFragment extends Fragment{
         btn_bodyinfo.setOnClickListener(onClickListener) ;
         Button btn_faq = (Button) v.findViewById(R.id.btn_faq) ;
         btn_faq.setOnClickListener(onClickListener) ;
+        Button btn_logout = (Button) v.findViewById(R.id.btn_Logout);
+        btn_logout.setOnClickListener(onClickListener);
 
         return v;
     }
@@ -63,6 +75,36 @@ public class MypageFragment extends Fragment{
                     //왼쪽에서 오른쪽 슬라이드
                     activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment3).addToBackStack(null).commit();
                     break;
+                case R.id.btn_Logout:
+                    showLogout();
+                    break;
             } } }
 
+
+
+    void showLogout()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle("로그아웃");
+        builder.setMessage("로그아웃 하시겠습니까");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences mPreference =  getActivity().getSharedPreferences("pcoordinator", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = mPreference.edit();
+                        editor.clear().commit();
+
+                        //Toast.makeText(context.getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getContext(), LoginActivity.class );
+                        getActivity().startActivity(intent);
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext().getApplicationContext(),"취소되었습니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
+    }
 }

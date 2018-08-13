@@ -1,27 +1,33 @@
 package com.company.jk.pcoordinator.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.mypage.MyinfoFragment;
 
 public class AddressPostActivity extends AppCompatActivity {
 
     private WebView webView;
     private TextView result;
     private Handler handler;
+    private static final int RESULT_CODE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_post);
-
-        result = (TextView) findViewById(R.id.result);
 
         // WebView 초기화
         init_webView();
@@ -43,7 +49,8 @@ public class AddressPostActivity extends AppCompatActivity {
         // web client 를 chrome 으로 설정
         webView.setWebChromeClient(new WebChromeClient());
         // webview url load
-        webView.loadUrl("http://192.168.0.6:8080/dev.php/login/addresspost");
+//        webView.loadUrl("http://192.168.0.6:8080/dev.php/login/addresspost");
+        webView.loadUrl("http://slife705.cafe24.com/index.php/login/addresspost");  //회사
     }
 
     private class AndroidBridge {
@@ -52,11 +59,19 @@ public class AddressPostActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    result.setText(String.format("(%s) %s %s", arg1, arg2, arg3));
+
+                    String result = String.format("(%s) %s %s", arg1, arg2, arg3);
+                    Intent intent = getIntent();
+                    intent.putExtra("result", result);
+                    setResult(RESULT_CODE, intent);
+                    finish();
+//
+//                    result.setText(String.format("(%s) %s %s", arg1, arg2, arg3));
                     // WebView를 초기화 하지않으면 재사용할 수 없음
                     init_webView();
                 }
             });
         }
     }
+
 }

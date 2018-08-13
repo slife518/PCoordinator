@@ -36,7 +36,7 @@
     <string name="myinfo">내정보관리</string>
     <string name="memberinfo">회원정보</string>
     <string name="deliverysite">배송지</string>
-    <string name="address">주소</string>
+    <string name="address">우편번호찾기</string>
     <string name="hint_address">주소</string>
     <string name="sitechange">배송지변경</string>
     <string name="bodyinfo">바디정보</string>
@@ -64,4 +64,6 @@
     <string name="linear_layout_10_from">From:</string>
     <string name="linear_layout_10_to">To:</string>
     <string name="postNo">주소찾기</string>
+    <string name="hint_address_detail">상세주소</string>
+    <string name="select">적용</string>
 </resources>

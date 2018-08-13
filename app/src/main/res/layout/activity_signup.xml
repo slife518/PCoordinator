@@ -51,29 +51,45 @@
 
             <!-- Address Label -->
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="7"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/input_address"
+                <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address"
-                    android:inputType="textPostalAddress" />
+                    android:text="@string/address"
+                    android:hint="@string/address" />
             </android.support.design.widget.TextInputLayout>
 
 
             <!-- 주소찾기 Button -->
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_findAddress"
-                android:layout_width="10dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:onClick="OnClickMethod"
                 android:text="@string/postNo" />
 
         </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/et_address_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_address_detail"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
         <!--  Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -152,6 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
+            android:onClick="OnClickMethod"
             android:text="Already a member? Login"
             android:textSize="16dip" />
 

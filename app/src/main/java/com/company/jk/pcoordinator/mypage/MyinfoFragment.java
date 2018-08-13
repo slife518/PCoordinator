@@ -5,35 +5,35 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.login.AddressPostActivity;
-import com.company.jk.pcoordinator.login.LoginActivity;
-import com.company.jk.pcoordinator.login.SignupActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MyinfoFragment extends Fragment implements View.OnClickListener {
 
+    private static final int ADDRESS_REQUEST = 1888;
+    private static final String TAG = "MyinfoFragment";
     Context mContext;
+    TextView tv_address;
+    EditText et_address_detail;
+    ImageView iv_back;
+    Button bt_button_findaddress;
     Intent intent;
     View v;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -42,19 +42,18 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
 
         v = inflater.inflate(R.layout.fragment_myinfo, container, false);
-        mContext = getActivity();
+//        mContext = getActivity();
+        mContext = v.getContext();
 
-
-        ImageView iv_back = (ImageView) v.findViewById(R.id.btback);
-        EditText et_address = (EditText)v.findViewById(R.id.et_address);
-
-
+        tv_address              = (TextView) v.findViewById(R.id.tv_address);
+        et_address_detail      = (EditText) v.findViewById(R.id.et_address_detail) ;
+        iv_back                  = (ImageView) v.findViewById(R.id.btback);
+        bt_button_findaddress = (Button) v.findViewById(R.id.btn_findAddress);
 
         iv_back.setOnClickListener(this);
-        et_address.setOnClickListener(this);
+        bt_button_findaddress.setOnClickListener(this);
 
-
-
+        tv_address.setText("집주소를 입력");
 
         return  v;
     }
@@ -70,10 +69,29 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                 //왼쪽에서 오른쪽 슬라이드
                 activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
                 break;
-            case R.id.et_address:
+            case R.id.btn_findAddress:
                 intent = new Intent(mContext, AddressPostActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, ADDRESS_REQUEST);
                 break;
         }
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADDRESS_REQUEST) {
+            switch (resultCode) {
+                case 1:
+                    String result = data.getStringExtra("result");
+                    Log.i(TAG, "result는 " + result);
+                    tv_address.setText(result);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
 }

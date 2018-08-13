@@ -18,6 +18,7 @@ import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.HttpHandler2;
 
 public class SignupActivity extends AppCompatActivity {
+    private static final int ADDRESS_REQUEST = 1777;
     final static String TAG = "Regist";
     final static String Controller = "Login";
     private static String tcode;
@@ -29,9 +30,9 @@ public class SignupActivity extends AppCompatActivity {
 
     Intent intent;					//Activity
 //    EditText id, pass, rePass, nickname;
-    EditText _nameText, _addressText, _emailText, _mobileText, _passwordText,_reEnterPasswordText;
+    EditText _nameText, _emailText, _mobileText, _passwordText,_reEnterPasswordText;
     Button _signupButton;					//activity handler
-    TextView _loginLink;
+    TextView _loginLink, _addressText;
     String sitecd;
 
     @Override
@@ -40,7 +41,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         _nameText = (EditText) findViewById(R.id.input_name);
-        _addressText = (EditText) findViewById(R.id.input_address);
+        _addressText = (TextView) findViewById(R.id.tv_address);
         _emailText = (EditText) findViewById(R.id.input_email);
         _mobileText = (EditText) findViewById(R.id.input_mobile);
         _passwordText = (EditText) findViewById(R.id.input_password);
@@ -51,10 +52,13 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void OnClickMethod(View v) {
-        try {
-            String a = "";
-            if (v.getId() == R.id.btn_signup) {
-                // 유효성체크
+        switch (v.getId()){
+            case R.id.btn_findAddress:
+                intent = new Intent(getApplicationContext(), AddressPostActivity.class);
+                startActivityForResult(intent, ADDRESS_REQUEST);
+                break;
+
+            case R.id.btn_signup:
                 if (_emailText.getText().toString() == ""
                         || _nameText.getText().toString().equals("")
                         || _passwordText.getText().toString().equals("")
@@ -73,12 +77,32 @@ public class SignupActivity extends AppCompatActivity {
                     new HttpTaskSignIn().execute(_emailText.getText().toString(), _nameText.getText().toString(), _passwordText.getText().toString(), _reEnterPasswordText.getText().toString(), _mobileText.getText().toString(), _addressText.getText().toString());
                 }
 
-//            }else if(v.getId() == R.id.btDoubleChk){
-//                tcode = "chkId";
-//                new HttpTaskSignIn().execute(id.getText().toString());
+                break;
+
+            case R.id.link_login :
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class );
+                getApplicationContext().startActivity(intent);
+                break;
+        }
+
+
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADDRESS_REQUEST) {
+            switch (resultCode) {
+                case 1:
+                    String result = data.getStringExtra("result");
+                    Log.i(TAG, "result는 " + result);
+                    _addressText.setText(result);
+                    break;
+                default:
+                    break;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

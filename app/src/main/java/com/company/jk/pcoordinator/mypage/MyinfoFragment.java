@@ -3,8 +3,12 @@ package com.company.jk.pcoordinator.mypage;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +27,11 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
     private static final int ADDRESS_REQUEST = 1888;
     private static final String TAG = "MyinfoFragment";
     Context mContext;
-    TextView tv_address;
-    EditText et_address_detail;
-    ImageView iv_back;
-    Button bt_button_findaddress;
+    TextView _addressText;
+    EditText _addressDetailText;
+    TextInputLayout _addressDetail;
+    ImageView _back;
+    AppCompatImageButton _btn_findaddress;
     Intent intent;
     View v;
 
@@ -45,15 +50,31 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
 //        mContext = getActivity();
         mContext = v.getContext();
 
-        tv_address              = (TextView) v.findViewById(R.id.tv_address);
-        et_address_detail      = (EditText) v.findViewById(R.id.et_address_detail) ;
-        iv_back                  = (ImageView) v.findViewById(R.id.btback);
-        bt_button_findaddress = (Button) v.findViewById(R.id.btn_findAddress);
+        _addressText              = (TextView) v.findViewById(R.id.tv_address);
+        _addressDetailText      = (EditText) v.findViewById(R.id.et_address_detail) ;
+        _addressDetail = (TextInputLayout) v.findViewById(R.id.input_address_detail);
+        _back                  = (ImageView) v.findViewById(R.id.btback);
+        _btn_findaddress = (AppCompatImageButton) v.findViewById(R.id.btn_findAddress);
 
-        iv_back.setOnClickListener(this);
-        bt_button_findaddress.setOnClickListener(this);
+        _back.setOnClickListener(this);
+        _btn_findaddress.setOnClickListener(this);
 
-        tv_address.setText("집주소를 입력");
+        _addressText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!_addressText.getText().toString().isEmpty()){   //주소에 값이 있으면 상세주소칸 표시
+                    _addressDetail.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                _addressDetailText.setVisibility(View.VISIBLE);
+            }
+        });
 
         return  v;
     }
@@ -85,13 +106,14 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                 case 1:
                     String result = data.getStringExtra("result");
                     Log.i(TAG, "result는 " + result);
-                    tv_address.setText(result);
+                    _addressText.setText(result);
                     break;
                 default:
                     break;
             }
         }
     }
+
 
 
 }

@@ -3,7 +3,10 @@ package com.company.jk.pcoordinator.login;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +33,8 @@ public class SignupActivity extends AppCompatActivity {
 
     Intent intent;					//Activity
 //    EditText id, pass, rePass, nickname;
-    EditText _nameText, _emailText, _mobileText, _passwordText,_reEnterPasswordText;
+    EditText _nameText, _emailText, _mobileText, _passwordText,_reEnterPasswordText, _addressDetailText;
+    TextInputLayout _address_detail;
     Button _signupButton;					//activity handler
     TextView _loginLink, _addressText;
     String sitecd;
@@ -42,6 +46,8 @@ public class SignupActivity extends AppCompatActivity {
 
         _nameText = (EditText) findViewById(R.id.input_name);
         _addressText = (TextView) findViewById(R.id.tv_address);
+        _addressDetailText = (EditText) findViewById(R.id.et_address_detail);
+        _address_detail = (TextInputLayout) findViewById(R.id.input_address_detail);
         _emailText = (EditText) findViewById(R.id.input_email);
         _mobileText = (EditText) findViewById(R.id.input_mobile);
         _passwordText = (EditText) findViewById(R.id.input_password);
@@ -49,6 +55,23 @@ public class SignupActivity extends AppCompatActivity {
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _loginLink = (TextView) findViewById(R.id.link_login);
 
+
+        _addressText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!_addressText.getText().toString().isEmpty()){   //주소에 값이 있으면 상세주소칸 표시
+                    _address_detail.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                _address_detail.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public void OnClickMethod(View v) {
@@ -87,8 +110,6 @@ public class SignupActivity extends AppCompatActivity {
 
 
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

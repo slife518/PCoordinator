@@ -88,25 +88,26 @@
                     android:id="@+id/tv_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/address"
-                    android:inputType="textPostalAddress" />
+                    android:text="@string/address"/>
             </android.support.design.widget.TextInputLayout>
 
 
-            <!-- 주소찾기 Button -->
-            <android.support.v7.widget.AppCompatButton
+            <!-- 우편번호찾기 Button -->
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/btn_findAddress"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/postNo" />
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_search_24px"/>
 
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_address_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:visibility="gone"
             android:layout_marginTop="8dp">
 
             <EditText
@@ -115,7 +116,6 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_address_detail"/>
         </android.support.design.widget.TextInputLayout>
-
 
         <Button android:id="@+id/btn_save"
             android:layout_width="fill_parent"

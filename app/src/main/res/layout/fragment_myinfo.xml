@@ -33,6 +33,7 @@
                 android:textSize="@dimen/myinfo_text_h2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:hint="@string/hint_email" />
         </android.support.design.widget.TextInputLayout>
 
@@ -56,6 +57,7 @@
                 android:textSize="@dimen/myinfo_text_h2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="@string/hint_tel" />
         </android.support.design.widget.TextInputLayout>
 
@@ -68,6 +70,7 @@
                 android:textSize="@dimen/myinfo_text_h2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="@string/hint_birthday" />
         </android.support.design.widget.TextInputLayout>
 

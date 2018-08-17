@@ -13,5 +13,7 @@
     <dimen name="myinfo_text_h1">10dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
+    <dimen name="text_password">13dp</dimen>
+
 </resources>
 

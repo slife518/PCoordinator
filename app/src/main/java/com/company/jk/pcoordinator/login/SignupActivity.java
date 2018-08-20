@@ -23,7 +23,7 @@ import com.company.jk.pcoordinator.http.HttpHandler2;
 public class SignupActivity extends AppCompatActivity {
     private static final int ADDRESS_REQUEST = 1777;
     final static String TAG = "Regist";
-    final static String Controller = "Login";
+    final static String Controller = "Pc_Login";
     private static String tcode;
 
     private JSONObject jObject = null; //group들로 구성된 json

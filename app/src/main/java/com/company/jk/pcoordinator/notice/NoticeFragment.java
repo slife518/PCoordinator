@@ -28,7 +28,7 @@ import java.util.HashMap;
 public class NoticeFragment extends Fragment{
     //DATA parsing 관련
 
-    private static final String Controller = "BuyTransation";
+    private static final String Controller = "Pc_BuyTransation";
     private static final String TAG = "NoticeFragment";
     StringBuffer sb = new StringBuffer();
     LoginInfo loginInfo = LoginInfo.getInstance();

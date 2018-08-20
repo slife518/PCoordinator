@@ -33,7 +33,7 @@ import org.json.JSONObject;
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingViewHolder> {
     final static String TAG = "BuyTransation";
     private Context context;
-    final static String Controller = "BuyTransation";
+    final static String Controller = "Pc_BuyTransation";
     StringBuffer sb = new StringBuffer();
 
     private static UrlPath urlPath = new UrlPath();

@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     LoginInfo loginInfo = LoginInfo.getInstance();
 
     final static String TAG = "Login";
-    final static String Controller = "Login";
+    final static String Controller = "PC_Login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

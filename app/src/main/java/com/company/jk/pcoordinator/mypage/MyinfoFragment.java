@@ -41,7 +41,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
     private static String tcode;
     private JSONObject jObject = null; //group들로 구성된 json
     private StringBuffer sb = new StringBuffer();
-    final static String Controller = "Login";
+    final static String Controller = "Pc_Login";
     private String toastMessage = " ";
 
 
@@ -62,7 +62,8 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        tcode = "select_customer_info";
+        new HttpTaskSignIn().execute(loginInfo.getEmail());
     }
 
     @Override
@@ -118,8 +119,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        tcode = "select_customer_info";
-        new HttpTaskSignIn().execute(loginInfo.getEmail());
+
     }
 
     @Override
@@ -209,7 +209,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                     case "select_customer_info":
                         _email.setText(jObject.getString("email"));
                         _name.setText(jObject.getString("nickname"));
-                        _tel.setText(jObject.getString("mobile"));
+                        _tel.setText(jObject.getString("tel"));
                         _addressText.setText(jObject.getString("address1"));
                         _addressDetailText.setText(jObject.getString("address2"));
                         break;

@@ -2,6 +2,7 @@ package com.company.jk.pcoordinator.mypage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +33,8 @@ import com.company.jk.pcoordinator.login.SignupActivity;
 
 import org.json.JSONObject;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class MyinfoFragment extends Fragment implements View.OnClickListener {
 
@@ -38,20 +43,21 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
 
     Context mContext;
     LoginInfo loginInfo = LoginInfo.getInstance();
+    SharedPreferences mPreference;
     private static String tcode;
     private JSONObject jObject = null; //group들로 구성된 json
     private StringBuffer sb = new StringBuffer();
-    final static String Controller = "Pc_Login";
+    private static final String Controller = "Pc_Login";
     private String toastMessage = " ";
 
 
-    TextView _addressText;
-    EditText _addressDetailText, _email, _name, _tel, _birthday, _password, _repassword;
-    TextInputLayout _addressDetail;
+    TextView _address1;
+    EditText _address2, _email, _name, _tel, _birthday, _password, _repassword;
     ImageView _back;
     AppCompatImageButton _btn_findaddress;
     Button _btn_save, _btn_save_pw;
     Intent intent;
+    CheckBox _cb_auto;
     View v;
 
     @Override
@@ -74,32 +80,43 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         v = inflater.inflate(R.layout.fragment_myinfo, container, false);
 //        mContext = getActivity();
         mContext = v.getContext();
-
+        mPreference = getContext().getSharedPreferences("pcoordinator", MODE_PRIVATE);
 
         _email = (EditText) v.findViewById(R.id.et_email);
         _birthday = (EditText) v.findViewById(R.id.et_birthday);
         _name = (EditText) v.findViewById(R.id.et_name);
         _tel = (EditText) v.findViewById(R.id.et_tel);
-        _addressText              = (TextView) v.findViewById(R.id.tv_address);
-        _addressDetailText      = (EditText) v.findViewById(R.id.et_address_detail) ;
-        _addressDetail = (TextInputLayout) v.findViewById(R.id.input_address_detail);
+        _address1              = (TextView) v.findViewById(R.id.tv_address);
+        _address2      = (EditText) v.findViewById(R.id.et_address_detail) ;
         _back                  = (ImageView) v.findViewById(R.id.btback);
         _btn_findaddress = (AppCompatImageButton) v.findViewById(R.id.btn_findAddress);
         _btn_save = (Button) v.findViewById(R.id.btn_save);
         _btn_save_pw = (Button) v.findViewById(R.id.btn_password_save);
-
+        _cb_auto = (CheckBox)v.findViewById(R.id.cb_Auto);
 
         _back.setOnClickListener(this);
         _btn_save.setOnClickListener(this);
         _btn_save_pw.setOnClickListener(this);
         _btn_findaddress.setOnClickListener(this);
-        _addressText.setOnClickListener(this);
+        _address1.setOnClickListener(this);
+        _cb_auto.setChecked(mPreference.getBoolean("AutoChecked", true));
+        _cb_auto.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        mPreference = getContext().getSharedPreferences("pcoordinator", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = mPreference.edit();
+                        editor.putBoolean("AutoChecked", _cb_auto.isChecked());
+                        editor.commit();
+                    }
+                }
+        );
 
-        _addressText.addTextChangedListener(new TextWatcher() {
+        _address1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!_addressText.getText().toString().isEmpty()){   //주소에 값이 있으면 상세주소칸 표시
-                    _addressDetail.setVisibility(View.VISIBLE);
+                if(!_address1.getText().toString().isEmpty()){   //주소에 값이 있으면 상세주소칸 표시
+                    _address2.setVisibility(View.VISIBLE);
                 }
             }
             @Override
@@ -108,7 +125,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                _addressDetailText.setVisibility(View.VISIBLE);
+                _address2.setVisibility(View.VISIBLE);
             }
         });
 
@@ -139,7 +156,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_save:  //고객정보 저장
                 if(check_validation_info()){
                     tcode = "save_customer_info";
-                    new HttpTaskSignIn().execute(_email.getText().toString(), _name.getText().toString(),_tel.getText().toString(), _addressText.getText().toString(), _addressDetailText.getText().toString());
+                    new HttpTaskSignIn().execute(_email.getText().toString(), _name.getText().toString(),_birthday.getText().toString(), _tel.getText().toString(), _address1.getText().toString(), _address2.getText().toString());
                 }
                 break;
             case R.id.btn_password_save:  //비밀번호 변경 저장
@@ -167,7 +184,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                 case 1:
                     String result = data.getStringExtra("result");
                     Log.i(TAG, "result는 " + result);
-                    _addressText.setText(result);
+                    _address1.setText(result);
                     break;
                 default:
                     break;
@@ -181,11 +198,12 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         @Override
         protected String doInBackground(String... args) {
             String result = "";
-
+            int i = 0;
             HttpHandler2 httpHandler = null;
             switch (tcode) {
                 case "save_customer_info":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).mobile(args[2]).address(args[3]).address_detail(args[4]).build();
+                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[i++]).name(args[i++]).birthday(args[i++]).tel(args[i++]).address1(args[i++]).address2(args[i++]).build();
+//                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).birthday(args[2]).tel(args[3]).address1(args[4]).address2(args[5]).build();
                     break;
                 case "save_customer_pw":
                     httpHandler = new HttpHandler2.Builder(Controller, tcode).password(args[0]).repassword(args[1]).build();
@@ -210,8 +228,8 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                         _email.setText(jObject.getString("email"));
                         _name.setText(jObject.getString("nickname"));
                         _tel.setText(jObject.getString("tel"));
-                        _addressText.setText(jObject.getString("address1"));
-                        _addressDetailText.setText(jObject.getString("address2"));
+                        _address1.setText(jObject.getString("address1"));
+                        _address2.setText(jObject.getString("address2"));
                         break;
                 }
 

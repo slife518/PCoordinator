@@ -137,7 +137,7 @@ public class SignupActivity extends AppCompatActivity {
             HttpHandler2 httpHandler = null;
             switch (tcode) {
                 case "newMember":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).password(args[2]).repassword(args[3]).mobile(args[4]).address(args[5]).build();
+                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).password(args[2]).repassword(args[3]).tel(args[4]).address1(args[5]).build();
 //					httpHandler.setValue(tcode, args[0],args[1], args[2], args[3]);
                     break;
                 case "chkId":
@@ -169,7 +169,7 @@ public class SignupActivity extends AppCompatActivity {
                 switch (tcode) {
                     case("newMember"): //최초
                         if (value.equals("true")){
-                            toastMessage = getString(R.string.Welcome);
+                            toastMessage = getString(R.string.RegisterNewMember);
                             startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                             finish();
                             break;

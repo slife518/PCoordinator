@@ -45,12 +45,15 @@ public class LoginActivity extends AppCompatActivity {
         mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
         String id = mPreference.getString("Email", "");
         String pass = mPreference.getString("Password", "");
-        cb_auto.setChecked(true);
+        //cb_auto.setChecked(true);
         cb_auto.setChecked(mPreference.getBoolean("AutoChecked", true));
 
         Log.i(TAG, "아이디는 " + id);
         et_email.setText(id);
         et_pw.setText(pass);
+        if(!mPreference.getBoolean("AutoChecked", false)) {
+            cb_auto.toggle();
+        }
 
         if(NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())){
 

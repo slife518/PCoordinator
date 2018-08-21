@@ -18,10 +18,13 @@ public class LoginInfo {
     private String name;
     private String birthday;
     private String age;
-    private String address;
-    private String level;
-    private String site;
+    private String address1;
+    private String address2;
+
+    private String tel;
     private String password;
+
+    private String register_auth_code;   //이메일 인증 코드 ( 최초는 0, 인증은 1)
 
     public String getPassword() {
         return password;
@@ -35,16 +38,13 @@ public class LoginInfo {
     public String getName() {
         return name;
     }
-    public String getLevel() {
-        return level;
-    }
-    public String getSite() {
-        return site;
-    }
     public String getAge() {
         return age;
     }
-    public String getAddress() { return address; }
+    public String getAddress1() { return address1; }
+    public String getAddress2() { return address2; }
+    public String getTel() { return tel; }
+    public String getRegister_auth_code() {    return register_auth_code;  }
 
     public void setPassword(String password) {
         this.password = password;
@@ -58,14 +58,12 @@ public class LoginInfo {
     public void setName(String name) {
         this.name = name;
     }
-    public void setLevel(String level) {
-        this.level = level;
-    }
-    public void setSite(String site) {
-        this.site = site;
-    }
     public void setAge(String age) {
         this.age = age;
     }
-    public void setAddress(String address) { this.address = address; }
+    public void setAddress1(String address) { this.address1 = address1; }
+    public void setAddress2(String address) { this.address2 = address2; }
+    public void setTel(String tel) { this.tel = tel; }
+    public void setRegister_auth_code(String register_auth_code) {    this.register_auth_code = register_auth_code; }
+
 }

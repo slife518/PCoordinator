@@ -44,9 +44,9 @@ public class HttpHandler2 {
         private  String repassword = "";
         private  String birthday = "";
         private  String seq = "";
-        private  String address = "";
-        private  String address_detail = "";
-        private  String mobile = "";
+        private  String address1 = "";
+        private  String address2 = "";
+        private  String tel = "";
 
         private  String itemCode;
 
@@ -57,11 +57,12 @@ public class HttpHandler2 {
         }
         public  Builder email(String val){ this.email = val;  return  this; }
         public  Builder name(String val){ this.name = val;  return  this; }
+        public  Builder birthday(String val){ this.birthday = val;  return  this; }
         public  Builder password(String val){ this.password = val;  return  this; }
         public  Builder repassword(String val){ this.repassword = val;  return  this; }
-        public  Builder address(String val){ this.address = val;  return  this; }
-        public  Builder address_detail(String val){ this.address_detail = val;  return  this; }
-        public  Builder mobile(String val){ this.mobile = val;  return  this; }
+        public  Builder address1(String val){ this.address1 = val;  return  this; }
+        public  Builder address2(String val){ this.address2 = val;  return  this; }
+        public  Builder tel(String val){ this.tel = val;  return  this; }
         public  Builder itemCode(String val){ this.itemCode = val;  return  this; }
 
         public  HttpHandler2 build(){
@@ -78,9 +79,9 @@ public class HttpHandler2 {
         nameValue.add(new BasicNameValuePair("password", builder.password));//
         nameValue.add(new BasicNameValuePair("repassword", builder.repassword));//
         nameValue.add(new BasicNameValuePair("birthday", builder.birthday));//
-        nameValue.add(new BasicNameValuePair("address", builder.address));//
-        nameValue.add(new BasicNameValuePair("address_detail", builder.address_detail));//
-        nameValue.add(new BasicNameValuePair("mobile", builder.mobile));//
+        nameValue.add(new BasicNameValuePair("address1", builder.address1));//
+        nameValue.add(new BasicNameValuePair("address2", builder.address2));//
+        nameValue.add(new BasicNameValuePair("tel", builder.tel));//
         nameValue.add(new BasicNameValuePair("seq", builder.seq));//
         nameValue.add(new BasicNameValuePair("itemCode", builder.itemCode));//
 

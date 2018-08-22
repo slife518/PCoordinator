@@ -52,7 +52,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
 
 
     TextView _address1;
-    EditText _address2, _email, _name, _tel, _birthday, _password, _repassword;
+    EditText _address2, _email, _name, _tel, _birthday, _old_password, _password, _repassword;
     ImageView _back;
     AppCompatImageButton _btn_findaddress;
     Button _btn_save, _btn_save_pw;
@@ -88,6 +88,9 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         _tel = (EditText) v.findViewById(R.id.et_tel);
         _address1              = (TextView) v.findViewById(R.id.tv_address);
         _address2      = (EditText) v.findViewById(R.id.et_address_detail) ;
+        _old_password = (EditText) v.findViewById(R.id.et_old_password);
+        _password = (EditText) v.findViewById(R.id.et_new_password);
+        _repassword = (EditText) v.findViewById(R.id.et_new_password2);
         _back                  = (ImageView) v.findViewById(R.id.btback);
         _btn_findaddress = (AppCompatImageButton) v.findViewById(R.id.btn_findAddress);
         _btn_save = (Button) v.findViewById(R.id.btn_save);
@@ -162,7 +165,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_password_save:  //비밀번호 변경 저장
                 if(check_validation_pw()){
                     tcode = "save_customer_pw";
-                    new HttpTaskSignIn().execute(_password.getText().toString(), _repassword.getText().toString());
+                    new HttpTaskSignIn().execute(_email.getText().toString(), _old_password.getText().toString(),  _password.getText().toString(), _repassword.getText().toString());
                 }
                 break;
         }
@@ -173,6 +176,17 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
     }
 
     public boolean check_validation_pw(){
+        if(_password.getText().toString().length() < 5){
+            toastMessage = "자릿수가 최소 5자리이상만 가능합니다.";
+            Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+            return  false;
+        }
+        if(!_password.getText().toString().equals(_repassword.getText().toString())){
+            toastMessage = "비밀번호와 비밀번호 확인이 다릅니다. ";
+            Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+            return  false;
+        }
+
         return  true;
     }
 
@@ -206,10 +220,10 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
 //                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).birthday(args[2]).tel(args[3]).address1(args[4]).address2(args[5]).build();
                     break;
                 case "save_customer_pw":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).password(args[0]).repassword(args[1]).build();
+                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[i++]).oldpassword(args[i++]).password(args[i++]).repassword(args[i++]).build();
                     break;
                 case "select_customer_info":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).build();
+                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[i++]).build();
                     break;
             }
             sb = httpHandler.getData();
@@ -227,6 +241,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                     case "select_customer_info":
                         _email.setText(jObject.getString("email"));
                         _name.setText(jObject.getString("nickname"));
+                        _birthday.setText(jObject.getString("birthday"));
                         _tel.setText(jObject.getString("tel"));
                         _address1.setText(jObject.getString("address1"));
                         _address2.setText(jObject.getString("address2"));
@@ -240,14 +255,17 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        protected void onPostExecute(String value) {
-            Log.i(TAG, "onPostExecute: value "+ value + "onPostExecute: tcode) " + tcode);
-            super.onPostExecute(value);
+        protected void onPostExecute(String result) {
+            Log.i(TAG, "onPostExecute: result "+ result + " ,tcode) " + tcode);
+            super.onPostExecute(result);
             try {
                 switch (tcode) {
-                    case("save_customer_info"): //최초
-                        if (value.equals("true")){
+                    case("save_customer_info"): case "save_customer_pw":
+                        if (result.equals("true")){
                             toastMessage = "저장되었습니다.";
+                            break;
+                        }else{
+                            toastMessage = result;
                             break;
                         }
                     case("select_customer_info"):
@@ -257,6 +275,8 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
             }catch (Exception e) {
                 e.printStackTrace();
             }
+            Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+            tcode = "";   //초기화
         }
     }
 }

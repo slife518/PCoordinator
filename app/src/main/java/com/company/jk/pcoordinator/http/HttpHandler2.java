@@ -40,6 +40,7 @@ public class HttpHandler2 {
         private  String mode = "";  //필수
         private  String email = "";
         private  String name = "";
+        private  String oldpassword = "";
         private  String password = "";
         private  String repassword = "";
         private  String birthday = "";
@@ -58,6 +59,7 @@ public class HttpHandler2 {
         public  Builder email(String val){ this.email = val;  return  this; }
         public  Builder name(String val){ this.name = val;  return  this; }
         public  Builder birthday(String val){ this.birthday = val;  return  this; }
+        public  Builder oldpassword(String val){ this.oldpassword = val;  return  this; }
         public  Builder password(String val){ this.password = val;  return  this; }
         public  Builder repassword(String val){ this.repassword = val;  return  this; }
         public  Builder address1(String val){ this.address1 = val;  return  this; }
@@ -76,6 +78,7 @@ public class HttpHandler2 {
         nameValue.add(new BasicNameValuePair("mode", builder.mode));// DB 조회시 모드
         nameValue.add(new BasicNameValuePair("name", builder.name));//
         nameValue.add(new BasicNameValuePair("email", builder.email));//
+        nameValue.add(new BasicNameValuePair("oldpassword", builder.oldpassword));//
         nameValue.add(new BasicNameValuePair("password", builder.password));//
         nameValue.add(new BasicNameValuePair("repassword", builder.repassword));//
         nameValue.add(new BasicNameValuePair("birthday", builder.birthday));//

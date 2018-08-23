@@ -72,4 +72,8 @@
     <string name="newpassword2">새 비밀번호를 한번 더 확인하세요</string>
     <string name="btn_save_password">비밀번호변경</string>
     <string name="RegisterNewMember">환영합니다. 이메일 인증 후 로그인 가능합니다.</string>
+    <string name="txPassword">비밀번호관리</string>
+    <string name="message_confirm_password">비밀번호와 비밀번호 확인 다릅니다.</string>
+    <string name="message_OK">확인</string>
+    <string name="message_no">아니요</string>
 </resources>

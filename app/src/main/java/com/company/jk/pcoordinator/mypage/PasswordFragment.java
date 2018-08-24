@@ -100,30 +100,30 @@ public class PasswordFragment extends Fragment implements View.OnClickListener {
 
     public boolean check_validation_pw(){
         if(_password.getText().toString().length() < 5){
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setMessage(R.string.message_confirm_password_count)
+                    .setPositiveButton(R.string.message_OK, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+            AlertDialog alert =  builder.create();
+//            alert.setTitle("확인바랍니다.");
+            alert.show();
 
-            toastMessage = "자릿수가 최소 5자리이상만 가능합니다.";
-            Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
             return  false;
         }
         if(!_password.getText().toString().equals(_repassword.getText().toString())){
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
             builder.setMessage(R.string.message_confirm_password)
-                    .setPositiveButton(R.string.message_OK, new DialogInterface.OnClickListener() {
+                   .setPositiveButton(R.string.message_OK, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    })
-                    .setNegativeButton(R.string.message_no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
                         }
                     });
-             builder.create();
-
-            //toastMessage =  "비밀번호와 비밀번호 확인이 다릅니다. "; // R.string.message_confirm_password;//
-            //Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+            AlertDialog alert =  builder.create();
+//            alert.setTitle("확인바랍니다.");
+            alert.show();
             return  false;
         }
 

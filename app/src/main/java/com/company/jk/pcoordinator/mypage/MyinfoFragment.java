@@ -52,10 +52,10 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
 
 
     TextView _address1;
-    EditText _address2, _email, _name, _tel, _birthday, _old_password, _password, _repassword;
+    EditText _address2, _email, _name, _tel, _birthday;
     ImageView _back;
     AppCompatImageButton _btn_findaddress;
-    Button _btn_save, _btn_save_pw;
+    Button _btn_save;
     Intent intent;
     CheckBox _cb_auto;
     View v;
@@ -88,18 +88,13 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         _tel = (EditText) v.findViewById(R.id.et_tel);
         _address1              = (TextView) v.findViewById(R.id.tv_address);
         _address2      = (EditText) v.findViewById(R.id.et_address_detail) ;
-        _old_password = (EditText) v.findViewById(R.id.et_old_password);
-        _password = (EditText) v.findViewById(R.id.et_new_password);
-        _repassword = (EditText) v.findViewById(R.id.et_new_password2);
         _back                  = (ImageView) v.findViewById(R.id.btback);
         _btn_findaddress = (AppCompatImageButton) v.findViewById(R.id.btn_findAddress);
         _btn_save = (Button) v.findViewById(R.id.btn_save);
-        _btn_save_pw = (Button) v.findViewById(R.id.btn_password_save);
         _cb_auto = (CheckBox)v.findViewById(R.id.cb_Auto);
 
         _back.setOnClickListener(this);
         _btn_save.setOnClickListener(this);
-        _btn_save_pw.setOnClickListener(this);
         _btn_findaddress.setOnClickListener(this);
         _address1.setOnClickListener(this);
         _cb_auto.setChecked(mPreference.getBoolean("AutoChecked", true));
@@ -162,31 +157,10 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                     new HttpTaskSignIn().execute(_email.getText().toString(), _name.getText().toString(),_birthday.getText().toString(), _tel.getText().toString(), _address1.getText().toString(), _address2.getText().toString());
                 }
                 break;
-            case R.id.btn_password_save:  //비밀번호 변경 저장
-                if(check_validation_pw()){
-                    tcode = "save_customer_pw";
-                    new HttpTaskSignIn().execute(_email.getText().toString(), _old_password.getText().toString(),  _password.getText().toString(), _repassword.getText().toString());
-                }
-                break;
         }
     }
 
     public boolean check_validation_info(){
-        return  true;
-    }
-
-    public boolean check_validation_pw(){
-        if(_password.getText().toString().length() < 5){
-            toastMessage = "자릿수가 최소 5자리이상만 가능합니다.";
-            Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
-            return  false;
-        }
-        if(!_password.getText().toString().equals(_repassword.getText().toString())){
-            toastMessage = "비밀번호와 비밀번호 확인이 다릅니다. ";
-            Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
-            return  false;
-        }
-
         return  true;
     }
 
@@ -218,9 +192,6 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                 case "save_customer_info":
                     httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[i++]).name(args[i++]).birthday(args[i++]).tel(args[i++]).address1(args[i++]).address2(args[i++]).build();
 //                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).birthday(args[2]).tel(args[3]).address1(args[4]).address2(args[5]).build();
-                    break;
-                case "save_customer_pw":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[i++]).oldpassword(args[i++]).password(args[i++]).repassword(args[i++]).build();
                     break;
                 case "select_customer_info":
                     httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[i++]).build();

@@ -1,6 +1,8 @@
-package com.company.jk.pcoordinator.http;
+package com.company.jk.pcoordinator.login;
 
 import android.util.Log;
+
+import com.company.jk.pcoordinator.http.UrlPath;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,7 +27,7 @@ import java.util.Vector;
 /**
  * Created by JK Builder Pettern 을 이용하여 재정의
  */
-public class HttpHandler2 {
+public class LoginService {
 
     private static UrlPath url = new UrlPath();
     private static String urlPath = null;
@@ -67,13 +69,13 @@ public class HttpHandler2 {
         public  Builder tel(String val){ this.tel = val;  return  this; }
         public  Builder itemCode(String val){ this.itemCode = val;  return  this; }
 
-        public  HttpHandler2 build(){
-            return  new HttpHandler2(this);
+        public  LoginService build(){
+            return  new LoginService(this);
         }
 
         //setValue();
     }
-    public HttpHandler2(Builder builder){
+    public LoginService(Builder builder){
 
         nameValue.add(new BasicNameValuePair("mode", builder.mode));// DB 조회시 모드
         nameValue.add(new BasicNameValuePair("name", builder.name));//

@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.company.jk.pcoordinator.bossbaby.BossBabyFragment;
 import com.company.jk.pcoordinator.cart.CartFragment;
 import com.company.jk.pcoordinator.mypage.MyinfoFragment;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
@@ -36,10 +37,9 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(int menuItemId) {
                 Log.i(TAG, "이번클릭한 메뉴id 는 " + menuItemId);
                 if(menuItemId==R.id.bottomBarItemHome){
-                    CartFragment cf = new CartFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, cf).commit();
+                    BossBabyFragment bf = new BossBabyFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
                 }else if(menuItemId==R.id.bottomBarItemCart){        //배송정보
-
                     ShoppingFragment sf = new ShoppingFragment();   //쇼핑하기
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame,sf).commit();
                 }else if(menuItemId==R.id.bottomBarItemPerson){     //내정보
@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
                 }else if(menuItemId==R.id.bottomBarItemEtc){        //기타공지사항 등.
                     NoticeFragment nf = new NoticeFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, nf).commit();
+//                }else if(menuItemId==R.id.bottomBarItemHome){       //보스베이비;
+//                    CartFragment cf = new CartFragment();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, cf).commit();
                 }
             }
 

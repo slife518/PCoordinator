@@ -6,7 +6,7 @@
         android:id="@+id/bottomBarItemHome"
         android:orderInCategory="100"
         android:icon="@drawable/ic_baseline_home_24px"
-        android:title="@string/shopping"/>
+        android:title="@string/recordBaby"/>
     <item
         android:id="@+id/bottomBarItemCart"
         android:orderInCategory="100"

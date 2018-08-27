@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.http.HttpHandler2;
+import com.company.jk.pcoordinator.login.HttpHandler2;
 
 import org.json.JSONArray;
 import org.json.JSONException;

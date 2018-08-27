@@ -3,37 +3,26 @@ package com.company.jk.pcoordinator.mypage;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageButton;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.http.HttpHandler2;
-import com.company.jk.pcoordinator.login.AddressPostActivity;
+import com.company.jk.pcoordinator.login.LoginService;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
 import org.json.JSONObject;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class PasswordFragment extends Fragment implements View.OnClickListener {
 
@@ -148,13 +137,13 @@ public class PasswordFragment extends Fragment implements View.OnClickListener {
         protected String doInBackground(String... args) {
             String result = "";
             int i = 0;
-            HttpHandler2 httpHandler = null;
+            LoginService serviceHandler = null;
             switch (tcode) {
                 case "save_customer_pw":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[i++]).oldpassword(args[i++]).password(args[i++]).repassword(args[i++]).build();
+                    serviceHandler = new LoginService.Builder(Controller, tcode).email(args[i++]).oldpassword(args[i++]).password(args[i++]).repassword(args[i++]).build();
                     break;
             }
-            sb = httpHandler.getData();
+            sb = serviceHandler.getData();
             try {
                 //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
 //				JSONObject jsonObject = httpHandler.getNeedJSONObject(sb, "result");

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.cart.CartFragment;
@@ -22,7 +20,7 @@ import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.http.HttpHandler2;
+import com.company.jk.pcoordinator.login.LoginService;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -183,7 +181,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         @Override
         protected String doInBackground(String... args) {
             String result = "";
-            HttpHandler2 httpHandler = new HttpHandler2.Builder(Controller,"buyItem").email(args[0]).itemCode(args[1]).build();
+            LoginService httpHandler = new LoginService.Builder(Controller,"buyItem").email(args[0]).itemCode(args[1]).build();
 
             sb = httpHandler.getData();
             try {

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
@@ -25,11 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.http.HttpHandler2;
+import com.company.jk.pcoordinator.login.LoginService;
 import com.company.jk.pcoordinator.login.AddressPostActivity;
-import com.company.jk.pcoordinator.login.LoginActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
-import com.company.jk.pcoordinator.login.SignupActivity;
 
 import org.json.JSONObject;
 
@@ -187,26 +184,26 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         protected String doInBackground(String... args) {
             String result = "";
             int i = 0;
-            HttpHandler2 httpHandler = null;
+            LoginService serviceHandler = null;
             switch (tcode) {
                 case "save_customer_info":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[i++]).name(args[i++]).birthday(args[i++]).tel(args[i++]).address1(args[i++]).address2(args[i++]).build();
-//                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).birthday(args[2]).tel(args[3]).address1(args[4]).address2(args[5]).build();
+                    serviceHandler = new LoginService.Builder(Controller, tcode).email(args[i++]).name(args[i++]).birthday(args[i++]).tel(args[i++]).address1(args[i++]).address2(args[i++]).build();
+//                    serviceHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).birthday(args[2]).tel(args[3]).address1(args[4]).address2(args[5]).build();
                     break;
                 case "select_customer_info":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[i++]).build();
+                    serviceHandler = new LoginService.Builder(Controller, tcode).email(args[i++]).build();
                     break;
             }
-            sb = httpHandler.getData();
+            sb = serviceHandler.getData();
             try {
                 //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
-//				JSONObject jsonObject = httpHandler.getNeedJSONObject(sb, "result");
+//				JSONObject jsonObject = serviceHandler.getNeedJSONObject(sb, "result");
 //				result = jsonObject.getString("name");
                 jObject = new JSONObject(sb.toString());
 
 
                 switch (tcode) {
-                    case "save_customer_info": case "save_customer_pw":
+                    case "save_customer_info":
                         result = jObject.getString("result");
                         break;
                     case "select_customer_info":

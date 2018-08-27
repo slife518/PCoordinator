@@ -77,4 +77,5 @@
     <string name="message_OK">확인</string>
     <string name="message_no">아니요</string>
     <string name="message_confirm_password_count">자릿수가 최소 5자리이상만 가능합니다.</string>
+    <string name="recordBaby">기록하기</string>
 </resources>

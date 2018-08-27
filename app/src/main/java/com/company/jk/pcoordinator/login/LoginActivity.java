@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.http.HttpHandler2;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 
 public class LoginActivity extends AppCompatActivity {
@@ -113,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
             String result = "";
-            HttpHandler2 httpHandler = new HttpHandler2.Builder(Controller,"signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
+            LoginService httpHandler = new LoginService.Builder(Controller,"signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
 
             sb = httpHandler.getData();
             try {

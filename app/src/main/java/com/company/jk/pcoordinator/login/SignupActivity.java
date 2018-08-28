@@ -133,18 +133,18 @@ public class SignupActivity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             String result = "";
 
-            HttpHandler2 httpHandler = null;
+            LoginService loginservice = null;
             switch (tcode) {
                 case "newMember":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).password(args[2]).repassword(args[3]).tel(args[4]).address1(args[5]).build();
+                    loginservice = new LoginService.Builder(Controller, tcode).email(args[0]).name(args[1]).password(args[2]).repassword(args[3]).tel(args[4]).address1(args[5]).build();
 //					httpHandler.setValue(tcode, args[0],args[1], args[2], args[3]);
                     break;
                 case "chkId":
-                    httpHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).build();
+                    loginservice = new LoginService.Builder(Controller, tcode).email(args[0]).build();
 //					httpHandler.setValue(tcode, args[0]);
                     break;
             }
-            sb = httpHandler.getData();
+            sb = loginservice.getData();
             try {
                 //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
 //				JSONObject jsonObject = httpHandler.getNeedJSONObject(sb, "result");

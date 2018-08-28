@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">당신의 코디네이터 박코디입니다. </string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="Welcome">환영합니다.</string>
     <string name="Warnning">이메일 또는 비밀번호를 확인하세요</string>
@@ -7,19 +6,6 @@
     <string name="CheckUnit">필수항목을 입력바랍니다.</string>
     <string name="NewPossible">사용가능합니다.</string>
     <string name="NewImpossible">이미 존재하는 이메일입니다.</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="tab_text_1">남성복</string>
-    <string name="tab_text_2">여성복</string>
-    <string name="tab_text_3">아동복</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="shopping">Shopping</string>
-    <string name="account">Mypage</string>
-    <string name="cart">Cart</string>
-    <string name="etc">Etc</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="yes">예</string>
     <string name="no">아니요</string>
@@ -35,32 +21,11 @@
     <string name="hint_tel">연락처</string>
     <string name="myinfo">내정보관리</string>
     <string name="memberinfo">회원정보</string>
-    <string name="deliverysite">배송지</string>
-    <string name="address">우번번호로 주소찾기</string>
-    <string name="hint_address">주소</string>
-    <string name="sitechange">배송지변경</string>
-    <string name="bodyinfo">바디정보</string>
-    <string name="size_top">상의</string>
-    <string name="hint_size_top">상의</string>
-
-    <string name="logout">로그아웃</string>
-
-    <string name="spinner_mantopsize">남자 상의 사이즈 선택</string>
-    <string name="spinner_manbottomsize">남자 허리 사이즈 선택</string>
-    <string name="spinner_womantopsize">여자 상의 사이즈 선택</string>
-    <string name="spinner_womanbottomsize">여자 허리 사이즈 선택</string>
     <string name="sex">성별</string>
     <string name="txCustomerinfo">고객정보</string>
-    <string name="deposit">적립금</string>
-    <string name="question">문의하기</string>
-    <string name="faq">자주묻는질문</string>
-    <string name="hint_weight">체중(kg)</string>
-    <string name="hint_tall">신장(cm)</string>
     <string name="btn_save">저장하기</string>
-    <string name="hint_topsize">상의 사이즈</string>
-
-
-    <string name="hello">Hello World, Test011Activity!</string>
+    <string name="address">우번번호로 주소찾기</string>
+    <string name="hint_address">주소</string>
     <string name="linear_layout_10_from">From:</string>
     <string name="linear_layout_10_to">To:</string>
     <string name="postNo">우편번호</string>
@@ -77,5 +42,50 @@
     <string name="message_OK">확인</string>
     <string name="message_no">아니요</string>
     <string name="message_confirm_password_count">자릿수가 최소 5자리이상만 가능합니다.</string>
-    <string name="recordBaby">기록하기</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="app_name">당신의 코디네이터 박코디입니다. </string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="tab_text_1">남성복</string>
+    <string name="tab_text_2">여성복</string>
+    <string name="tab_text_3">아동복</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="shopping">Shopping</string>
+    <string name="account">Mypage</string>
+    <string name="cart">Cart</string>
+    <string name="etc">Etc</string>
+
+
+
+    <string name="deliverysite">배송지</string>
+
+    <string name="sitechange">배송지변경</string>
+    <string name="bodyinfo">바디정보</string>
+    <string name="size_top">상의</string>
+    <string name="hint_size_top">상의</string>
+
+    <string name="logout">로그아웃</string>
+
+    <string name="spinner_mantopsize">남자 상의 사이즈 선택</string>
+    <string name="spinner_manbottomsize">남자 허리 사이즈 선택</string>
+    <string name="spinner_womantopsize">여자 상의 사이즈 선택</string>
+    <string name="spinner_womanbottomsize">여자 허리 사이즈 선택</string>
+
+    <string name="deposit">적립금</string>
+    <string name="question">문의하기</string>
+    <string name="faq">자주묻는질문</string>
+    <string name="hint_weight">체중(kg)</string>
+    <string name="hint_tall">신장(cm)</string>
+
+    <string name="hint_topsize">상의 사이즈</string>
+
+
+    <string name="hello">Hello World, Test011Activity!</string>
+
+
+    <string name="record">Record</string>
 </resources>

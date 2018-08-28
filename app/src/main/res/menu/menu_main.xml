@@ -5,21 +5,17 @@
     <item
         android:id="@+id/bottomBarItemHome"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_baseline_home_24px"
-        android:title="@string/recordBaby"/>
+        android:title="@string/record"/>
     <item
-        android:id="@+id/bottomBarItemCart"
+        android:id="@+id/bottomBarItemRecord"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_baseline_shopping_cart_24px"
-        android:title="@string/cart"/>
+        android:title="@string/record"/>
     <item
         android:id="@+id/bottomBarItemPerson"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_outline_person_24px"
         android:title="@string/account"/>
     <item
         android:id="@+id/bottomBarItemEtc"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_outline_format_list_numbered_24px"
         android:title="@string/etc"/>
 </menu>

@@ -5,9 +5,9 @@
         icon="@drawable/ic_baseline_home_24px"
         title="@string/shopping"/>
     <tab
-        id="@+id/bottomBarItemCart"
-        icon="@drawable/ic_baseline_shopping_cart_24px"
-        title="@string/cart"/>
+        id="@+id/bottomBarItemRecord"
+        icon="@drawable/ic_baseline_create_24px"
+        title="@string/record"/>
     <tab
         id="@+id/bottomBarItemPerson"
         icon="@drawable/ic_outline_person_24px"
@@ -16,8 +16,4 @@
         id="@+id/bottomBarItemEtc"
         icon="@drawable/ic_outline_format_list_numbered_24px"
         title="@string/etc"/>
-    <tab
-        id="@+id/tab_food"
-        icon="@drawable/ic_outline_format_list_numbered_24px"
-        title="Food" />
 </tabs>

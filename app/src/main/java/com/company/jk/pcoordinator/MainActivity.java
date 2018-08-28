@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 if(menuItemId==R.id.bottomBarItemHome){
                     BossBabyFragment bf = new BossBabyFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
-                }else if(menuItemId==R.id.bottomBarItemCart){        //배송정보
+                }else if(menuItemId==R.id.bottomBarItemRecord){        //기록하기
                     ShoppingFragment sf = new ShoppingFragment();   //쇼핑하기
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame,sf).commit();
                 }else if(menuItemId==R.id.bottomBarItemPerson){     //내정보

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.login.HttpHandler2;
+import com.company.jk.pcoordinator.login.LoginService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -129,7 +129,7 @@ public class NoticeFragment extends Fragment{
         @Override
         protected String doInBackground(String... args) {
             String result = "";
-            HttpHandler2 httpHandler = new HttpHandler2.Builder(Controller,"getBoardData").build();
+            LoginService httpHandler = new LoginService.Builder(Controller,"getBoardData").build();
 
             sb = httpHandler.getData();
 

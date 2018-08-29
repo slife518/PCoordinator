@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
+import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,7 +43,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
     LoginInfo loginInfo = LoginInfo.getInstance();
     SharedPreferences mPreference;
     private static String tcode;
-    private JSONObject jObject = null; //group들로 구성된 json
+
     private StringBuffer sb = new StringBuffer();
     private static final String Controller = "Pc_Login";
     private String toastMessage = " ";
@@ -50,6 +51,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
 
     TextView _address1;
     EditText _address2, _email, _name, _tel, _birthday;
+    View _layout_address_detail;
     ImageView _back;
     AppCompatImageButton _btn_findaddress;
     Button _btn_save;
@@ -85,6 +87,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         _tel = (EditText) v.findViewById(R.id.et_tel);
         _address1              = (TextView) v.findViewById(R.id.tv_address);
         _address2      = (EditText) v.findViewById(R.id.et_address_detail) ;
+//        _layout_address_detail = (View) v.findViewById(R.id.layout_address_detail);
         _back                  = (ImageView) v.findViewById(R.id.btback);
         _btn_findaddress = (AppCompatImageButton) v.findViewById(R.id.btn_findAddress);
         _btn_save = (Button) v.findViewById(R.id.btn_save);
@@ -107,22 +110,23 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                 }
         );
 
-        _address1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!_address1.getText().toString().isEmpty()){   //주소에 값이 있으면 상세주소칸 표시
-                    _address2.setVisibility(View.VISIBLE);
-                }
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                _address2.setVisibility(View.VISIBLE);
-            }
-        });
+//        _address1.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if(!_address1.getText().toString().isEmpty()){   //주소에 값이 있으면 상세주소칸 표시
+////                    _address2.setVisibility(View.VISIBLE);
+//                    _layout_address_detail.setVisibility(View.VISIBLE);
+//                }
+//            }
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                _layout_address_detail.setVisibility(View.VISIBLE);
+//            }
+//        });
 
         return  v;
     }
@@ -182,31 +186,37 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
     class HttpTaskSignIn extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... args) {
-            String result = "";
             int i = 0;
             LoginService serviceHandler = null;
             switch (tcode) {
                 case "save_customer_info":
                     serviceHandler = new LoginService.Builder(Controller, tcode).email(args[i++]).name(args[i++]).birthday(args[i++]).tel(args[i++]).address1(args[i++]).address2(args[i++]).build();
-//                    serviceHandler = new HttpHandler2.Builder(Controller, tcode).email(args[0]).name(args[1]).birthday(args[2]).tel(args[3]).address1(args[4]).address2(args[5]).build();
                     break;
                 case "select_customer_info":
                     serviceHandler = new LoginService.Builder(Controller, tcode).email(args[i++]).build();
                     break;
             }
-            sb = serviceHandler.getData();
+            return serviceHandler.getData().toString();
+        }
+
+        @Override
+        protected void onPostExecute(String sb) {
+            super.onPostExecute(sb);
+            JSONObject jObject = null; //group들로 구성된 json
             try {
-                //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
-//				JSONObject jsonObject = serviceHandler.getNeedJSONObject(sb, "result");
-//				result = jsonObject.getString("name");
-                jObject = new JSONObject(sb.toString());
-
-
+                jObject = new JSONObject(sb);
                 switch (tcode) {
-                    case "save_customer_info":
-                        result = jObject.getString("result");
-                        break;
-                    case "select_customer_info":
+                    case("save_customer_info"): case "save_customer_pw":
+                        String result = jObject.getString("result");
+                        if (result.equals("true")){
+                            toastMessage = "저장되었습니다.";
+                            break;
+                        }else{
+                            toastMessage = result;
+                            break;
+                        }
+
+                    case("select_customer_info"):
                         _email.setText(jObject.getString("email"));
                         _name.setText(jObject.getString("nickname"));
                         _birthday.setText(jObject.getString("birthday"));
@@ -216,35 +226,16 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                         break;
                 }
 
+                if(!toastMessage.isEmpty()) {
+                    Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return result;
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            Log.i(TAG, "onPostExecute: result "+ result + " ,tcode) " + tcode);
-            super.onPostExecute(result);
-            try {
-                switch (tcode) {
-                    case("save_customer_info"): case "save_customer_pw":
-                        if (result.equals("true")){
-                            toastMessage = "저장되었습니다.";
-                            break;
-                        }else{
-                            toastMessage = result;
-                            break;
-                        }
-                    case("select_customer_info"):
-
-                        break;
-                }
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-            Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
             tcode = "";   //초기화
+            toastMessage = "";   //초기화
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.company.jk.pcoordinator.bossbaby;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,13 +17,16 @@ import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
-public class BossBabyFragment extends Fragment {
+public class WebviewFragment extends Fragment {
 
     private static final String TAG = "BossBabyFragment";
-    LoginInfo loginInfo = LoginInfo.getInstance();
     private WebView mWebView;
     private WebSettings mWebSettings;
     View v;
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     private  String url ;
 
@@ -38,13 +42,13 @@ public class BossBabyFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_boss_baby, container, false);
 
-        UrlPath urlPath = new UrlPath();
+
         mWebView = (WebView) v.findViewById(R.id.webview);  //레이어와 연결
         mWebView.setWebViewClient(new WebViewClient());  // 클릭시 새창 안뜨게
         mWebSettings = mWebView.getSettings();   //세부세팅등록
 
         mWebSettings.setJavaScriptEnabled(true);  //자바스크립트 사용 허용
-        url = urlPath.getUrlPath() + "native/auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
+
         Log.i(TAG, url);
 
         mWebView.loadUrl(url);   //원하는 url 입력

@@ -26,7 +26,7 @@ import com.company.jk.pcoordinator.login.AddressPostActivity;
 public class MyinfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int ADDRESS_REQUEST = 1888;
-    private static final String TAG = "MyinfoFragment";
+    String TAG = "MyinfoFragment";
     TextView _addressText;
     EditText _addressDetailText;
     TextInputLayout _addressDetail;

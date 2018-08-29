@@ -60,7 +60,6 @@
     <string name="etc">Etc</string>
 
 
-
     <string name="deliverysite">배송지</string>
 
     <string name="sitechange">배송지변경</string>
@@ -88,4 +87,6 @@
 
 
     <string name="record">Record</string>
+    <string name="mybody">InBody</string>
+    <string name="mybaby">My baby</string>
 </resources>

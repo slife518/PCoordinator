@@ -19,13 +19,15 @@ public class UrlPath {
     private final static String uploadPath = "http://172.21.18.102:80/UploadToServer.php/";
     private final static String profileImgPath = "http://172.21.18.102:80/img/";
 
+    private final static String urlBabyImg = urlImg + "babyprofile/";
+
 
     public String getUrlPath(){
         return  urlPath;
     }
     public String getImgPath(){ return  urlImg;}
-    public String getProfilePath(){return  profileImgPath;
-
-    }
+    public String getProfilePath(){return  profileImgPath;}
+    public String getUrlBabyImg(){return urlBabyImg;}     //아기사진폴더
 }
+
 

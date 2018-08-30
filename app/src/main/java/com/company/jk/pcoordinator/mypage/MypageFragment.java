@@ -1,10 +1,8 @@
 package com.company.jk.pcoordinator.mypage;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -18,7 +16,7 @@ import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.login.LoginActivity;
-import com.company.jk.pcoordinator.login.LoginInfo;
+import com.company.jk.pcoordinator.mypage.mybaby.MybabyFragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -44,6 +42,8 @@ public class MypageFragment extends Fragment{
         // 각 Button의 이벤트 리스너로 onClickListener 지정.
         Button btn_myinfo = (Button) v.findViewById(R.id.btn_myinfo) ;
         btn_myinfo.setOnClickListener(onClickListener) ;
+        Button btn_mybabyinfo = (Button) v.findViewById(R.id.btn_mybabyinfo) ;
+        btn_mybabyinfo.setOnClickListener(onClickListener) ;
         Button btn_password = (Button) v.findViewById(R.id.btn_password) ;
         btn_password.setOnClickListener(onClickListener) ;
         Button btn_bodyinfo = (Button) v.findViewById(R.id.btn_bodyinfo) ;
@@ -71,6 +71,10 @@ public class MypageFragment extends Fragment{
                     PasswordFragment myFragment2 = new PasswordFragment();
                     //왼쪽에서 오른쪽 슬라이드
                     activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment2).addToBackStack(null).commit();
+                    break;
+                case R.id.btn_mybabyinfo:   //아기정보관리
+                    MybabyFragment mybabyFragment = new MybabyFragment();
+                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, mybabyFragment).addToBackStack(null).commit();
                     break;
                 case R.id.btn_bodyinfo :
                     BodyFragment myFragment3 = new BodyFragment();

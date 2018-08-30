@@ -39,6 +39,10 @@
                             android:text="@string/txCustomerinfo"
                             style="@style/Mypagebutton"/>
                         <Button
+                            android:id="@+id/btn_mybabyinfo"
+                            android:text="@string/mybabyinfo"
+                            style="@style/Mypagebutton"/>
+                        <Button
                             android:id="@+id/btn_password"
                             android:text="@string/txPassword"
                             style="@style/Mypagebutton"/>

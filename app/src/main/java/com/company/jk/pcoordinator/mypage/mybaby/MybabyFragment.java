@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,56 +16,58 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.common.JsonUtil;
+import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.http.MyVolley;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
-//import org.json.JSONArray;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class MybabyFragment extends Fragment {
     RecyclerView mRecyclerView;
+    ArrayList<Mybabyinfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
     RecyclerViewAdapter mAdapter;
     View v;
     Context mContext;
     LoginInfo loginInfo = LoginInfo.getInstance();
+    String TAG = "MybabyFragment";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_mybaby, container, false);
         mContext = v.getContext();
 
-        // Inflate the layout for this fragment
-        final RequestQueue queue = MyVolley.getInstance(getActivity()).getRequestQueue();
-
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_mybaby, container, false);
-
-        String server_url = new UrlPath().getUrlPath() + "Pc_baby/get_baby_info";
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("email", loginInfo.getEmail());
-
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST, server_url,JsonUtil.getJsonStringFromMap(params), networkSuccessListener(), networkErrorListener());
-        queue.add(myReq);
-
         mRecyclerView = (RecyclerView)v.findViewById(R.id.recyclerView_main);
         mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
+        // Adapter 생성
+        mAdapter = new RecyclerViewAdapter(items);
+        mRecyclerView.setAdapter(mAdapter);
 
+
+        // Inflate the layout for this fragment
+        final RequestQueue queue = MyVolley.getInstance(getActivity()).getRequestQueue();
+        String server_url = new UrlPath().getUrlPath() + "Pc_baby/get_baby_info/" +loginInfo.getEmail();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("email", loginInfo.getEmail());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET, server_url, null, networkSuccessListener(), networkErrorListener());
+        queue.add(myReq);
 
         return v;
     }
@@ -74,26 +77,33 @@ public class MybabyFragment extends Fragment {
         return new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.i(TAG, "결과값은 " + response);
                 String id = null;
+                String name = null;
+                String birthday = null;
+                String sex = null;
+                String father = null;
+                String mother = null;
 
-                JSONArray jsonArray = JsonUtil.getJsonArrayFromJsonObject(response);
+                JSONArray jsonArray = JsonParse.getJsonArrayFromJsonObject(response, "result");
 
-                try {
-                    id = response.getString("id");
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    try {
+                        JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                        id = jsonObject.getString("baby_id");
+                        name = jsonObject.getString("babyname");
+                        birthday = jsonObject.getString("birthday");
+                        sex = jsonObject.getString("sex");
+                        father = jsonObject.getString("father");
+                        mother = jsonObject.getString("mother");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    items.add(new Mybabyinfo(id, name, birthday, sex, father, mother));
                 }
-                // ArrayList 에 Item 객체(데이터) 넣기
-                ArrayList<Mybabyinfo> items = new ArrayList();
-                items.add(new Mybabyinfo("1","조민준", "2017년8월1일", "남자", "조정국", "배윤지"));
-                items.add(new Mybabyinfo("2","조민준", "2017년8월1일", "남자", "조정국", "배윤지"));
-                mRecyclerView.setLayoutManager(mLayoutManager);
-                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
-                // Adapter 생성
-                mAdapter = new RecyclerViewAdapter(items);
-                mRecyclerView.setAdapter(mAdapter);
 
+                mAdapter.notifyDataSetChanged();
             }
         };
     }
@@ -101,12 +111,9 @@ public class MybabyFragment extends Fragment {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, error.getMessage(), error);
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         };
     }
-
-
-
-
 }

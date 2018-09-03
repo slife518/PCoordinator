@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.company.jk.pcoordinator.R;
 
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+//    public TextView mID;
     public TextView mName;
     public TextView mSex;
     public TextView mBirthday;
@@ -19,6 +20,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public RecyclerViewHolder(View itemView) {
         super(itemView);
         mPicture = (ImageView) itemView.findViewById(R.id.baby_image);
+//        mID = (TextView) itemView.findViewById(R.id.ID);
         mName = (TextView) itemView.findViewById(R.id.baby_name);
         mSex = (TextView) itemView.findViewById(R.id.sex);
         mBirthday = (TextView) itemView.findViewById(R.id.birthday);

@@ -90,4 +90,5 @@
     <string name="mybody">InBody</string>
     <string name="mybaby">My baby</string>
     <string name="mybabyinfo">아기정보</string>
+    <string name="hint_sex">성별</string>
 </resources>

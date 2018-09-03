@@ -1,6 +1,7 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.UrlPath;
+import com.company.jk.pcoordinator.login.LoginInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     Context mContext;
     final static String TAG = "RecyclerViewAdapter";
     UrlPath urlPath = new UrlPath();
+    LoginInfo loginInfo = LoginInfo.getInstance();
 
     public RecyclerViewAdapter(ArrayList itemList) {
         mItems = itemList;
@@ -56,7 +59,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, String.format("%d 선택", position + 1), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext.getApplicationContext(), MybabyDetailActivity.class );
+                intent.putExtra("email", loginInfo.getEmail());
+                intent.putExtra("baby_id", mItems.get(position).id );
+
+                mContext.startActivity(intent);
+               // Toast.makeText(mContext, String.format("%d 선택", position + 1), Toast.LENGTH_SHORT).show();
             }
         });
     }

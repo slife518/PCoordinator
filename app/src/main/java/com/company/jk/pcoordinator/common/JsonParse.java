@@ -33,6 +33,22 @@ public class JsonParse {
         return jsonObject1;
     }
 
+    public static JSONObject getJsonObjectFromString(String rs, String group) {
+
+        JSONObject jsonObject = new JSONObject(); //group들로 구성된 json
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject1 = new JSONObject();
+        try {
+            jsonObject = new JSONObject(rs);
+            jsonArray = new JSONArray(jsonObject.getString(group));  //
+            for (int i = 0; i < jsonArray.length(); i++) {
+                jsonObject1 = (JSONObject) jsonArray.get(i);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject1;
+    }
 
     //StringBuffer 에서 jsonObject 추출
     public static JSONObject getJsonObjectFromStringBuffer(StringBuffer sb){
@@ -56,6 +72,32 @@ public class JsonParse {
             e.printStackTrace();
         }
         return  jsonArray;
+    }
+
+    //StringBuffer 에서 JSONArray
+    public static JSONArray getJsonArrayFromString(String rs){
+        JSONArray jsonArray = new JSONArray(); //group들로 구성된 json
+
+        try {
+            jsonArray = new JSONArray(rs);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return  jsonArray;
+    }
+
+
+    public static JSONArray getJsonArrayFromString(String rs, String group) {
+
+        JSONObject jsonObject = new JSONObject(); //group들로 구성된 json
+        JSONArray jsonArray = new JSONArray();
+        try {
+            jsonObject = new JSONObject(rs);
+            jsonArray = new JSONArray(jsonObject.getString(group));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonArray;
     }
 
     //result 이름의 jsonObject 를 jsonArray 에 담는다.

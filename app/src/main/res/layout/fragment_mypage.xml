@@ -51,18 +51,6 @@
                             android:text="@string/bodyinfo"
                             style="@style/Mypagebutton"/>
                         <Button
-                            android:id="@+id/btn_deposit"
-                            android:text="@string/deposit"
-                            style="@style/Mypagebutton"/>
-                        <Button
-                            android:id="@+id/btn_question"
-                            android:text="@string/question"
-                            style="@style/Mypagebutton"/>
-                        <Button
-                            android:id="@+id/btn_faq"
-                            android:text="@string/faq"
-                            style="@style/Mypagebutton"/>
-                        <Button
                             android:id="@+id/btn_Logout"
                             android:text="@string/logout"
                             style="@style/Mypagebutton"/>

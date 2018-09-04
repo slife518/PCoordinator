@@ -1,7 +1,6 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -13,32 +12,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.http.UrlPath;
-import com.company.jk.pcoordinator.login.AddressPostActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
-import com.company.jk.pcoordinator.mypage.MyinfoFragment;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class MybabyFragment extends Fragment  implements View.OnClickListener {
+public class MybabyFragment extends Fragment implements View.OnClickListener {
     RecyclerView mRecyclerView;
     ArrayList<Mybabyinfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
@@ -55,12 +51,12 @@ public class MybabyFragment extends Fragment  implements View.OnClickListener {
         v = inflater.inflate(R.layout.fragment_mybaby, container, false);
         mContext = v.getContext();
 
-        _back                  = (ImageView) v.findViewById(R.id.btback);
+        _back = (ImageView) v.findViewById(R.id.btback);
         _back.setOnClickListener(this);
 
         mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView = (RecyclerView)v.findViewById(R.id.recyclerView_main);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView_main);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
@@ -78,7 +74,9 @@ public class MybabyFragment extends Fragment  implements View.OnClickListener {
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) { }}) {
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -94,7 +92,7 @@ public class MybabyFragment extends Fragment  implements View.OnClickListener {
     }
 
 
-    private  void  responseSuccess(String response){
+    private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);
         String id = null;
         String name = null;
@@ -112,11 +110,12 @@ public class MybabyFragment extends Fragment  implements View.OnClickListener {
                 id = rs.getString("baby_id");
                 name = rs.getString("babyname");
                 birthday = rs.getString("birthday");
-                if(rs.getString("sex").equals("1")){
+                if (rs.getString("sex").equals("1")) {
                     sex = "남자";
-                }else {
+                } else {
                     sex = "여자";
-                };
+                }
+                ;
                 father = rs.getString("father");
                 mother = rs.getString("mother");
             } catch (JSONException e) {
@@ -126,13 +125,14 @@ public class MybabyFragment extends Fragment  implements View.OnClickListener {
         }
 
         mAdapter.notifyDataSetChanged();
-    };
+    }
 
+    ;
 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btback:
 
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();

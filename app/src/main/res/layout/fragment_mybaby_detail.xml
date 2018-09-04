@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout style="@style/EditIcon">
+            <ImageView
+                android:id="@+id/btback"
+                style="@style/IconBack40x40"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tv_title"
+                android:text="@string/mybaby"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:textSize="30dp"
+                android:gravity="center"
+                android:layout_height="40dp"
+                android:layout_weight="10"/>
+        </LinearLayout>
+
+        <LinearLayout style="@style/EditIcon">
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:hint="@string/hint_sex"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout style="@style/EditIcon">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:src="@drawable/icon_person_small"/>
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:hint="@string/name"
+                android:inputType="text"/>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/EditIcon">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:src="@drawable/birthday"/>
+            <EditText
+                android:id="@+id/et_birthday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:hint="@string/hint_birthday"
+                android:inputType="phone"/>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/EditIcon">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:src="@drawable/ic_baseline_accessibility_24px"/>
+            <EditText
+                android:id="@+id/et_sex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:hint="@string/hint_sex"/>
+
+        </LinearLayout>
+
+        <Button android:id="@+id/btn_save"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_save"
+            android:layout_marginTop="3dp"
+            android:background="#0011ff"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+</ScrollView>

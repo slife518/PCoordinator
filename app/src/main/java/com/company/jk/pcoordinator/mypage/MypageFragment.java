@@ -48,8 +48,6 @@ public class MypageFragment extends Fragment{
         btn_password.setOnClickListener(onClickListener) ;
         Button btn_bodyinfo = (Button) v.findViewById(R.id.btn_bodyinfo) ;
         btn_bodyinfo.setOnClickListener(onClickListener) ;
-        Button btn_faq = (Button) v.findViewById(R.id.btn_faq) ;
-        btn_faq.setOnClickListener(onClickListener) ;
         Button btn_logout = (Button) v.findViewById(R.id.btn_Logout);
         btn_logout.setOnClickListener(onClickListener);
 
@@ -80,11 +78,6 @@ public class MypageFragment extends Fragment{
                     BodyFragment myFragment3 = new BodyFragment();
                     //왼쪽에서 오른쪽 슬라이드
                     activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment3).addToBackStack(null).commit();
-                    break;
-                case R.id.btn_faq :
-                    FAQFragment myFragment4 = new FAQFragment();
-                    //왼쪽에서 오른쪽 슬라이드
-                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment4).addToBackStack(null).commit();
                     break;
                 case R.id.btn_Logout:
                     showLogout();

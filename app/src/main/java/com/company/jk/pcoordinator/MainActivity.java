@@ -1,34 +1,25 @@
 package com.company.jk.pcoordinator;
 
-import android.os.Build;
-import android.support.annotation.IdRes;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Toast;
+
 import com.company.jk.pcoordinator.bossbaby.WebviewFragment;
-import com.company.jk.pcoordinator.cart.CartFragment;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
-import com.company.jk.pcoordinator.mypage.MyinfoFragment;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
 import com.company.jk.pcoordinator.notice.NoticeFragment;
-import com.company.jk.pcoordinator.shopping.ShoppingFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final static String TAG = "MainActivity";
     BottomBar bottomBar;
-    private  String url ;
+    private String url;
 
-    private final  static String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,24 +30,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(int menuItemId) {
                 Log.i(TAG, "이번클릭한 메뉴id 는 " + menuItemId);
-                if(menuItemId==R.id.bottomBarItemHome){
+                if (menuItemId == R.id.bottomBarItemHome) {
                     WebviewFragment bf = new WebviewFragment();
                     UrlPath urlPath = new UrlPath();
                     LoginInfo loginInfo = LoginInfo.getInstance();
                     url = urlPath.getUrlPath() + "native/auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
                     bf.setUrl(url);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
-                }else if(menuItemId==R.id.bottomBarItemRecord){        //기록하기
+                } else if (menuItemId == R.id.bottomBarItemRecord) {        //기록하기
                     WebviewFragment bf = new WebviewFragment();
                     UrlPath urlPath = new UrlPath();
                     LoginInfo loginInfo = LoginInfo.getInstance();
                     url = urlPath.getUrlPath() + "native/record/newRecord";
                     bf.setUrl(url);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
-                }else if(menuItemId==R.id.bottomBarItemPerson){     //내정보
+                } else if (menuItemId == R.id.bottomBarItemPerson) {     //내정보
                     MypageFragment mf = new MypageFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, mf).commit();
-                }else if(menuItemId==R.id.bottomBarItemEtc){        //기타공지사항 등.
+                } else if (menuItemId == R.id.bottomBarItemEtc) {        //기타공지사항 등.
                     NoticeFragment nf = new NoticeFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, nf).commit();
 //                }else if(menuItemId==R.id.bottomBarItemHome){       //보스베이비;
@@ -73,5 +64,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-  }
+}
 

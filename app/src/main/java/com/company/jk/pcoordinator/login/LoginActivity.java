@@ -13,14 +13,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 
+import org.json.JSONObject;
+
 public class LoginActivity extends AppCompatActivity {
-    private String toastMessage = " ";
+    final static String TAG = "Login";
+    final static String Controller = "PC_Login";
     StringBuffer sb = new StringBuffer();
     SharedPreferences mPreference;
     Button btn;
@@ -30,9 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox cb_auto;
     Intent intent;
     LoginInfo loginInfo = LoginInfo.getInstance();
-
-    final static String TAG = "Login";
-    final static String Controller = "PC_Login";
+    private String toastMessage = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +49,11 @@ public class LoginActivity extends AppCompatActivity {
         Log.i(TAG, "아이디는 " + id);
         et_email.setText(id);
         et_pw.setText(pass);
-        if(!mPreference.getBoolean("AutoChecked", false)) {
+        if (!mPreference.getBoolean("AutoChecked", false)) {
             cb_auto.toggle();
         }
 
-        if(NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())){
+        if (NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())) {
 
             if (cb_auto.isChecked()) {   //자동로그인일 경우
                 btn.callOnClick();
@@ -72,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginInfo.setPassword(et_pw.getText().toString());
                 setAutoLogin();   //자동로그인
                 //ID 체크 후 회원이면 예약현황화면으로 이동
-                if(NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())) {
+                if (NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())) {
                     new HttpTaskSignIn().execute("signin");
                 }
                 break;
@@ -88,9 +87,9 @@ public class LoginActivity extends AppCompatActivity {
     private void findViewsById() {  // 위젯 세팅
 
         btn = findViewById(R.id.btn_login);
-        et_email =  findViewById(R.id.input_email);
+        et_email = findViewById(R.id.input_email);
         et_pw = findViewById(R.id.input_password);
-        tv_signupLink =  findViewById(R.id.link_signup);
+        tv_signupLink = findViewById(R.id.link_signup);
         cb_auto = findViewById(R.id.cb_Auto);
     }
 
@@ -112,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
             String result = "";
-            LoginService httpHandler = new LoginService.Builder(Controller,"signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
+            LoginService httpHandler = new LoginService.Builder(Controller, "signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
 
             sb = httpHandler.getData();
             try {
@@ -123,12 +122,12 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(sb.toString());
                 result = jsonObject.getString("nickname");
                 Log.i(TAG, result);
-              //  String level = jsonObject.getString("level");
-              //  String birthday = jsonObject.getString("birthday");
-                if (result !=""){
+                //  String level = jsonObject.getString("level");
+                //  String birthday = jsonObject.getString("birthday");
+                if (result != "") {
                     loginInfo.setName(result);
-                  //  loginInfo.setBirthday(birthday);
-                  //  loginInfo.setLevel(level);
+                    //  loginInfo.setBirthday(birthday);
+                    //  loginInfo.setLevel(level);
 
                 }
             } catch (Exception e) {

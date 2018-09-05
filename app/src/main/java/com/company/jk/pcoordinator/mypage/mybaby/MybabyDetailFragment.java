@@ -1,6 +1,7 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -30,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +44,8 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     ImageView _btn_back, _profile;
     Button _btn_save;
     View v;
-    EditText _name, _sex, _birthday, _father, _mother, _owner;
+    EditText _name, _sex, _father, _mother, _owner;
+    DatePicker _birthday;
     Context mContext;
     String email, baby_id;
     UrlPath urlPath = new UrlPath();
@@ -54,7 +59,6 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,8 +66,11 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         mContext = v.getContext();
 
         findViewsById(v);
+
         _btn_back.setOnClickListener(this);
         _btn_save.setOnClickListener(this);
+        _birthday.setOnClickListener(this);
+
 
         Log.i(TAG, "이메일은 " + email + " id는 " + baby_id);
         //data binding start
@@ -79,7 +86,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, error.getLocalizedMessage());
             }
-        }) {
+        }){
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -103,8 +110,9 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             String name = rs.getString("babyname");
             String id = rs.getString("baby_id");
             String birthday = rs.getString("birthday");
+//            _birthday.setText(birthday.substring(0, 4)+"년"+birthday.substring(4, 6)+"월"+birthday.substring(6, 8)+"일");
+            _birthday.init(birthday) ;
             String sex = rs.getString("sex");
-
 
             String imgUrl = urlPath.getUrlBabyImg() + id + ".JPG";  //확장자 대소문자 구별함.
             Log.i(TAG, imgUrl);
@@ -127,65 +135,52 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         _profile = v.findViewById(R.id.iv_profile);
         _name = v.findViewById(R.id.et_name);
         _sex = v.findViewById(R.id.et_sex);
-        _birthday = v.findViewById(R.id.et_birthday);
+        _birthday = v.findViewById(R.id.tv_birthday);
         _btn_back = v.findViewById(R.id.btback);
     }
 
-
-    @Override
+        @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btback:
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                MybabyFragment myFragment = new MybabyFragment();
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
-                break;
-            case R.id.btn_save:
-                    save_data();
-                break;
+        if(v==_btn_back){
+            AppCompatActivity activity = (AppCompatActivity) v.getContext();
+            MybabyFragment myFragment = new MybabyFragment();
+            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
+        }else if(v==_btn_save){
+            save_data();
+        }else if(v==_birthday){
+            Calendar c=Calendar.getInstance();
+            int year=c.get(Calendar.YEAR);
+            int month=c.get(Calendar.MONTH);
+            int day=c.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog=new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    _birthday.setText(year+"년"+(month+1)+"월"+dayOfMonth+"일");
+                }
+            },year, month, day);
+
+            datePickerDialog.show();
         }
     }
 
     private  void save_data(){
 
-//        String server_url = new UrlPath().getUrlPath() + "Pc_baby/update";
-//        RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);
-//        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, error.getLocalizedMessage());
-//            }
-//        }) {
-//            @Override
-//            protected Map<String, String> getParams() {
-//                Map<String, String> params = new HashMap<>();
-//                params.put("email", email);
-//                params.put("baby_id", baby_id);
-//                return params;
-//            }
-//        };
-//        postReqeustQueue.add(postStringRequest);
-
-
-
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/update";
         //request parameters
         Map<String, String> params = new HashMap<>();
-        params.put("email", email);
+        params.put("owner", email);
         params.put("baby_id", baby_id);
-        params.put("babyname", _name.toString());
-        params.put("birthday", _birthday.toString());
-        params.put("sex", _sex.toString());
-
+        params.put("babyname", _name.getText().toString());
+        Log.i(TAG, _birthday.getText().toString());
+        Log.i(TAG, _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(5, 7)+_birthday.getText().toString().substring(8, 10));
+        params.put("birthday", _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(4, 6)+_birthday.getText().toString().substring(6, 8));
+        params.put("sex", _sex.getText().toString());
 
         // Inflate the layout for this fragment
         final RequestQueue queue = MyVolley.getInstance(getActivity()).getRequestQueue();
         JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST, server_url, new JSONObject(params), networkSuccessListener(), networkErrorListener());
+
         queue.add(myReq);
     }
 
@@ -194,9 +189,14 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             @Override
             public void onResponse(JSONObject response) {
                 Log.i(TAG, "결과값은 " + response);
-                String from_server = null;
+                Boolean result = null;
                 try {
-                    from_server = response.getString("test");
+                    result = response.getBoolean("result");
+                    if(result){
+                        showToast( getString(R.string.save));
+                    }else {
+                        showToast( getString(R.string.savefail));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -208,10 +208,16 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(TAG, error.getMessage());
-                Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_SHORT).show();
+                showToast("Network Error");
             }
         };
     }
 
+
+
+    private void showToast(String message){
+        Toast toast=Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
 }

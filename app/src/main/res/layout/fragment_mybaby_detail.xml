@@ -71,13 +71,23 @@
                 android:maxHeight="20dp"
                 android:maxWidth="20dp"
                 android:src="@drawable/birthday"/>
-            <EditText
-                android:id="@+id/et_birthday"
-                android:layout_width="0dp"
+
+            <DatePicker
+                android:id="@+id/tv_birthday"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="8"
+                android:datePickerMode="spinner"
                 android:hint="@string/hint_birthday"
-                android:inputType="phone"/>
+                android:calendarViewShown="false"
+                />
+            <!---->
+            <!--<TextView-->
+                <!--android:id="@+id/tv_birthday"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="8"-->
+                <!--android:hint="@string/hint_birthday"-->
+                <!--android:inputType="phone"/>-->
 
         </LinearLayout>
 

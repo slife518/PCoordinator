@@ -42,6 +42,7 @@
     <string name="message_OK">확인</string>
     <string name="message_no">아니요</string>
     <string name="message_confirm_password_count">자릿수가 최소 5자리이상만 가능합니다.</string>
+    <string name="save">저장되었습니다.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -91,4 +92,6 @@
     <string name="mybaby">My baby</string>
     <string name="mybabyinfo">아기정보</string>
     <string name="hint_sex">성별</string>
+    <string name="savefail">저장되지 않았습니다. 다시한번 확인 바랍니다.</string>
+
 </resources>

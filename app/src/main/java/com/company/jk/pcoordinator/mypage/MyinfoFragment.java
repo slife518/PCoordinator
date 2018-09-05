@@ -9,9 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
-import android.text.Editable;
-import android.text.Layout;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +79,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         mPreference = getContext().getSharedPreferences("pcoordinator", MODE_PRIVATE);
 
         _email = (EditText) v.findViewById(R.id.et_email);
-        _birthday = (EditText) v.findViewById(R.id.et_birthday);
+        _birthday = (EditText) v.findViewById(R.id.tv_birthday);
         _name = (EditText) v.findViewById(R.id.et_name);
         _tel = (EditText) v.findViewById(R.id.et_tel);
         _address1              = (TextView) v.findViewById(R.id.tv_address);

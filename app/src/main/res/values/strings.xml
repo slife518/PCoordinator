@@ -93,5 +93,8 @@
     <string name="mybabyinfo">아기정보</string>
     <string name="hint_sex">성별</string>
     <string name="savefail">저장되지 않았습니다. 다시한번 확인 바랍니다.</string>
+    <string name="milk">분유</string>
+    <string name="rice">이유식</string>
+    <string name="remain_contents">남기고싶은말</string>
 
 </resources>

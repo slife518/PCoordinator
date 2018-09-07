@@ -10,6 +10,7 @@ import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
 import com.company.jk.pcoordinator.notice.NoticeFragment;
+import com.company.jk.pcoordinator.record.RecordFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -38,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
                     bf.setUrl(url);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
                 } else if (menuItemId == R.id.bottomBarItemRecord) {        //기록하기
-                    WebviewFragment bf = new WebviewFragment();
-                    UrlPath urlPath = new UrlPath();
-                    LoginInfo loginInfo = LoginInfo.getInstance();
-                    url = urlPath.getUrlPath() + "native/record/newRecord";
-                    bf.setUrl(url);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
+//                    WebviewFragment bf = new WebviewFragment();
+//                    UrlPath urlPath = new UrlPath();
+//                    LoginInfo loginInfo = LoginInfo.getInstance();
+//                    url = urlPath.getUrlPath() + "native/record/newRecord";
+//                    bf.setUrl(url);
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
+                    RecordFragment rf = new RecordFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, rf).commit();
                 } else if (menuItemId == R.id.bottomBarItemPerson) {     //내정보
                     MypageFragment mf = new MypageFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, mf).commit();

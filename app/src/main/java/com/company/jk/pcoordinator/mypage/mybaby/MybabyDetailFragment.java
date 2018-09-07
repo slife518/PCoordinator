@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,9 +45,10 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     static final String TAG = "MybabyDetailFragment";
     ImageView _btn_back, _profile;
     Button _btn_save;
+    RadioButton _boy, _girl;
     View v;
     EditText _name, _sex, _father, _mother, _owner;
-    DatePicker _birthday;
+    TextView _birthday;
     Context mContext;
     String email, baby_id;
     UrlPath urlPath = new UrlPath();
@@ -111,7 +114,8 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             String id = rs.getString("baby_id");
             String birthday = rs.getString("birthday");
 //            _birthday.setText(birthday.substring(0, 4)+"년"+birthday.substring(4, 6)+"월"+birthday.substring(6, 8)+"일");
-            _birthday.init(birthday) ;
+            _birthday.setText(birthday);
+
             String sex = rs.getString("sex");
 
             String imgUrl = urlPath.getUrlBabyImg() + id + ".JPG";  //확장자 대소문자 구별함.
@@ -120,9 +124,9 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             _name.setText(name);
             _birthday.setText(birthday);
             if (sex.equals("1")) {
-                _sex.setText("남자");
+                _boy.setChecked(true);
             } else {
-                _sex.setText("여자");
+                _girl.setChecked(true);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -134,7 +138,8 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         _btn_save = v.findViewById(R.id.btn_save);
         _profile = v.findViewById(R.id.iv_profile);
         _name = v.findViewById(R.id.et_name);
-        _sex = v.findViewById(R.id.et_sex);
+        _boy = v.findViewById(R.id.rd_boy);
+        _girl = v.findViewById(R.id.rd_girl);
         _birthday = v.findViewById(R.id.tv_birthday);
         _btn_back = v.findViewById(R.id.btback);
     }
@@ -156,7 +161,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             DatePickerDialog datePickerDialog=new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    _birthday.setText(year+"년"+(month+1)+"월"+dayOfMonth+"일");
+                    _birthday.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 }
             },year, month, day);
 
@@ -172,10 +177,15 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         params.put("owner", email);
         params.put("baby_id", baby_id);
         params.put("babyname", _name.getText().toString());
-        Log.i(TAG, _birthday.getText().toString());
-        Log.i(TAG, _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(5, 7)+_birthday.getText().toString().substring(8, 10));
-        params.put("birthday", _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(4, 6)+_birthday.getText().toString().substring(6, 8));
-        params.put("sex", _sex.getText().toString());
+//        Log.i(TAG, _birthday.getText().toString());
+//        Log.i(TAG, _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(5, 7)+_birthday.getText().toString().substring(8, 10));
+        params.put("birthday", _birthday.getText().toString());
+        if(_boy.isChecked()){
+            params.put("sex", "1");
+        }else if(_girl.isChecked()){
+            params.put("sex", "2");
+        }
+
 
         // Inflate the layout for this fragment
         final RequestQueue queue = MyVolley.getInstance(getActivity()).getRequestQueue();

@@ -58,9 +58,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         holder.mName.setText(mItems.get(position).name);
         holder.mSex.setText(mItems.get(position).sex);
         holder.mBirthday.setText(mItems.get(position).birthday);
-        holder.mFather.setText(mItems.get(position).father);
-        holder.mMother.setText(mItems.get(position).mother);
-
+//        holder.mFather.setText(mItems.get(position).father);
+//        holder.mMother.setText(mItems.get(position).mother);
+//
         String imgUrl = urlPath.getUrlBabyImg() + mItems.get(position).id + ".JPG";  //확장자 대소문자 구별함.
         Log.i(TAG, imgUrl);
         Picasso.with(mContext).load(imgUrl).into(holder.mPicture);

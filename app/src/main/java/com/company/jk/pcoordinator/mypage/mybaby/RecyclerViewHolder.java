@@ -13,8 +13,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public TextView mName;
     public TextView mSex;
     public TextView mBirthday;
-    public TextView mMother;
-    public TextView mFather;
+//    public TextView mMother;
+//    public TextView mFather;
     public ImageView mPicture;
 
     public RecyclerViewHolder(View itemView) {
@@ -24,8 +24,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         mName = (TextView) itemView.findViewById(R.id.baby_name);
         mSex = (TextView) itemView.findViewById(R.id.sex);
         mBirthday = (TextView) itemView.findViewById(R.id.birthday);
-        mMother = (TextView) itemView.findViewById(R.id.mother_name);
-        mFather = (TextView) itemView.findViewById(R.id.father_name);
+//        mMother = (TextView) itemView.findViewById(R.id.mother_name);
+//        mFather = (TextView) itemView.findViewById(R.id.father_name);
 
     }
 }

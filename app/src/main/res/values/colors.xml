@@ -21,4 +21,7 @@
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
+
+    <color name="mc_title_bar">#FF16C2DD</color>
+    <color name="mc_state_pressed">#FF1088DD</color>
 </resources>

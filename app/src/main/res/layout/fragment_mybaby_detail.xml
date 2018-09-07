@@ -72,43 +72,34 @@
                 android:maxWidth="20dp"
                 android:src="@drawable/birthday"/>
 
-            <DatePicker
+
+            <TextView
                 android:id="@+id/tv_birthday"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:datePickerMode="spinner"
+                android:layout_weight="8"
                 android:hint="@string/hint_birthday"
-                android:calendarViewShown="false"
-                />
-            <!---->
-            <!--<TextView-->
-                <!--android:id="@+id/tv_birthday"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="8"-->
-                <!--android:hint="@string/hint_birthday"-->
-                <!--android:inputType="phone"/>-->
+                android:inputType="phone"/>
 
         </LinearLayout>
 
         <LinearLayout style="@style/EditIcon">
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:maxHeight="20dp"
-                android:maxWidth="20dp"
-                android:src="@drawable/ic_baseline_accessibility_24px"/>
-            <EditText
-                android:id="@+id/et_sex"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:hint="@string/hint_sex"/>
-
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/rd_boy"
+                        android:text = "남자아이"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/rd_girl"
+                        android:text = "여자아이"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
         </LinearLayout>
+
 
         <Button android:id="@+id/btn_save"
             android:layout_width="fill_parent"

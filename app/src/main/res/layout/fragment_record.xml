@@ -42,13 +42,15 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_date"
+            android:id="@+id/tv_date"
+            android:editable="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5" />
 
         <EditText
-            android:id="@+id/et_time"
+            android:id="@+id/tv_time"
+            android:editable="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5" />
@@ -73,7 +75,7 @@
             android:text="0" />
 
         <Button
-            android:id="@+id/bt_milk_plus"
+            android:id="@+id/btn_milk_plus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -81,7 +83,7 @@
             android:text="+10"/>
 
         <Button
-            android:id="@+id/bt_milk_minus"
+            android:id="@+id/btn_milk_minus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -109,7 +111,7 @@
             android:text="0" />
 
         <Button
-            android:id="@+id/bt_rice_plus"
+            android:id="@+id/btn_rice_plus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -117,7 +119,7 @@
             android:text="+10"/>
 
         <Button
-            android:id="@+id/bt_rice_minus"
+            android:id="@+id/btn_rice_minus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -130,6 +132,12 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:hint="@string/remain_contents"/>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:text="@string/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
 
 </LinearLayout>

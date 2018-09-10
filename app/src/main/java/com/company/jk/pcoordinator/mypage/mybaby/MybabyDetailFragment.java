@@ -1,9 +1,16 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -34,6 +41,10 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -46,7 +57,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     ImageView _btn_back, _profile;
     Button _btn_save;
     RadioButton _boy, _girl;
-    View v;
+
     EditText _name, _sex, _father, _mother, _owner;
     TextView _birthday;
     Context mContext;
@@ -65,6 +76,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v;
         v = inflater.inflate(R.layout.fragment_mybaby_detail, container, false);
         mContext = v.getContext();
 
@@ -78,7 +90,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         Log.i(TAG, "이메일은 " + email + " id는 " + baby_id);
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/get_baby_info_detail";
-        RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);
+        RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -98,7 +110,9 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
                 return params;
             }
         };
-        postReqeustQueue.add(postStringRequest);
+        postRequestQueue.add(postStringRequest);
+
+        //data binding end
 
         return v;
     }
@@ -166,6 +180,34 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             },year, month, day);
 
             datePickerDialog.show();
+        }else if(v==_profile){
+            Log.i(TAG, "이미지클릭");
+
+            final AlertDialog.Builder build = new AlertDialog.Builder( // 다이얼로그
+                    getActivity());
+            build.setTitle("프로필 사진 등록")
+                    .setMessage("프로필 사진을 등록을 원하시면 \n\n'등록'을 눌러주시기 바랍니다. ")
+                    .setPositiveButton("등록",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    Intent intent = new Intent();
+                                    intent.setAction(Intent.ACTION_PICK);
+                                    intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                                    intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    intent.setType("image/*");
+                                    Log.i(TAG, "사진선택1");
+                                    startActivityForResult(intent, 4);
+                                    Log.i(TAG, "사진선택완료2");
+
+                                }
+                            })
+                    .setNegativeButton("취소",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                }
+                            }).show();
         }
     }
 
@@ -225,7 +267,65 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
 
 
-    private void showToast(String message){
+
+    // 비트맵을 원하는 폴더에 사진파일로 저장하기
+    public static void saveBitmaptoJpeg(Bitmap bitmap,String folder, String name){
+        String ex_storage = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        Log.i(TAG, "데이터 딕셔너리의 경로는 " + Environment.getDataDirectory().getAbsolutePath());
+        // Get Absolute Path in External Sdcard
+//		String foler_name = "/"+folder+"/";
+        String file_name = name+".jpg";
+//		String string_path = ex_storage+foler_name;
+
+        String string_path = "/data/data/kr.co.jkcompany.heartforceset/files/";
+        Log.i(TAG, "string_path는  " + (string_path+file_name));
+        File file_path;
+        try{
+            file_path = new File(string_path);
+            if(!file_path.isDirectory()){
+                file_path.mkdirs();
+            }
+            FileOutputStream out = new FileOutputStream(string_path+file_name);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+
+        }catch(FileNotFoundException exception){
+            Log.e("FileNotFoundException", exception.getMessage());
+        }catch(IOException exception){
+            Log.e("IOException", exception.getMessage());
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode,	Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        //Intent x = getActivity().getIntent();
+//		if (requestCode == Crop.REQUEST_PICK && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
+        if (requestCode == 4 && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
+//		if (resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
+// 따라서, Activity에서 사용되는 RESULT_OK값을 가져와서 사용한다.
+            Log.i("onActivityResult", "request pick");
+            beginCrop(imageReturnedIntent.getData());
+        } else if (requestCode == Crop.REQUEST_CROP) {   // Crop.REQUEST_CROP = 6709
+            Log.i("onActivityResult", "request crop");
+            handleCrop(resultCode, imageReturnedIntent, getActivity());
+        } else {
+            Log.i("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
+        }
+    }
+
+
+        private void beginCrop(Uri source) {
+            Log.d("beginCrop", "Start" +source.toString());
+            Uri destination = Uri.fromFile(new File(getActivity().getCacheDir(), "cropped"));
+            Crop.of(source, destination).asSquare().start(getActivity(),this);
+            Log.d("beginCrop", "End");
+
+        }
+
+
+        private void showToast(String message){
         Toast toast=Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
     }

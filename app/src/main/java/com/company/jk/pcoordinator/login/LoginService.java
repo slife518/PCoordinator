@@ -41,6 +41,7 @@ public class LoginService {
 
         private  String mode = "";  //필수
         private  String email = "";
+        private  String babyID = "";
         private  String name = "";
         private  String oldpassword = "";
         private  String password = "";
@@ -60,6 +61,7 @@ public class LoginService {
         }
         public  Builder email(String val){ this.email = val;  return  this; }
         public  Builder name(String val){ this.name = val;  return  this; }
+        public  Builder babyID(String val){ this.babyID = val;  return  this; }
         public  Builder birthday(String val){ this.birthday = val;  return  this; }
         public  Builder oldpassword(String val){ this.oldpassword = val;  return  this; }
         public  Builder password(String val){ this.password = val;  return  this; }
@@ -79,6 +81,7 @@ public class LoginService {
 
         nameValue.add(new BasicNameValuePair("mode", builder.mode));// DB 조회시 모드
         nameValue.add(new BasicNameValuePair("name", builder.name));//
+        nameValue.add(new BasicNameValuePair("babyID", builder.babyID));//
         nameValue.add(new BasicNameValuePair("email", builder.email));//
         nameValue.add(new BasicNameValuePair("oldpassword", builder.oldpassword));//
         nameValue.add(new BasicNameValuePair("password", builder.password));//

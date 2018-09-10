@@ -110,7 +110,8 @@ public class LoginActivity extends AppCompatActivity {
     class HttpTaskSignIn extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... args) {
-            String result = "";
+            String name = "";
+            String babyID = "";
             LoginService httpHandler = new LoginService.Builder(Controller, "signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
 
             sb = httpHandler.getData();
@@ -120,12 +121,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 //결과값이 한건의 json인 경우
                 JSONObject jsonObject = new JSONObject(sb.toString());
-                result = jsonObject.getString("nickname");
-                Log.i(TAG, result);
+                name = jsonObject.getString("nickname");
+                babyID = jsonObject.getString("baby_id");
+
+                Log.i(TAG, name);
                 //  String level = jsonObject.getString("level");
                 //  String birthday = jsonObject.getString("birthday");
-                if (result != "") {
-                    loginInfo.setName(result);
+                if (name != "") {
+                    loginInfo.setName(name);
+                    loginInfo.setBabyID(babyID);
                     //  loginInfo.setBirthday(birthday);
                     //  loginInfo.setLevel(level);
 
@@ -133,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return result;
+            return name;
         }
 
         @Override

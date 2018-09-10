@@ -21,6 +21,7 @@ public class LoginInfo {
     private String address1;
     private String address2;
 
+    private String babyID;
     private String tel;
     private String password;
 
@@ -31,6 +32,9 @@ public class LoginInfo {
     }
     public String getEmail() {
         return email;
+    }
+    public  String getBabyID(){
+        return  babyID;
     }
     public String getBirthday() {
         return birthday;
@@ -52,6 +56,7 @@ public class LoginInfo {
     public void setEmail(String email) {
         this.email = email;
     }
+    public  void  setBabyID(String babyID){ this.babyID = babyID;}
     public void setBirthday(String birthday) {
         this.birthday= birthday;
     }

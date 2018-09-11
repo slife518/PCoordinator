@@ -35,6 +35,7 @@ import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyVolley;
+import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import com.soundcloud.android.crop.Crop;
 
 public class MybabyDetailFragment extends Fragment implements View.OnClickListener {
 
@@ -63,6 +65,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     Context mContext;
     String email, baby_id;
     UrlPath urlPath = new UrlPath();
+    Upload upload = new Upload();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -265,9 +268,6 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         };
     }
 
-
-
-
     // 비트맵을 원하는 폴더에 사진파일로 저장하기
     public static void saveBitmaptoJpeg(Bitmap bitmap,String folder, String name){
         String ex_storage = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -324,6 +324,30 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
         }
 
+
+    private void handleCrop(int resultCode, Intent result, Context ct) {
+        if (resultCode == Activity.RESULT_OK) { // Activity 의 RESULT_OK값을 사용
+            Log.d("handleCrop", "RESULT_OK" + (Crop.getOutput(result).toString()));
+            _profile.setImageURI(Crop.getOutput(result));
+
+            final String absolutePath = Crop.getOutput(result).getPath();   // 쓰레드 내에서 사용할 변수는 final 로 정의 되어야 함.  uri 의 절대 경로는 uri.getPath()
+            //파일 업로드 시작! 파일 업로드 call 할 때는 반드시 쓰레드 이용해야 함.
+            new Thread(new Runnable() {
+                public void run() {
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {	}	});
+                    Log.i(TAG, "업로드할 사진의 절대 경로 " + absolutePath);
+                    upload.uploadFile(absolutePath, email);
+                    //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
+                }
+            }).start();
+
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Log.d("handleCrop", "RESULT_ERROR");
+            Toast.makeText(getActivity(), Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
+//Activity에서 사용되던 this는 Fragment에서 보통 getActivity() 또는 getContext() 로 변경해서 사용한다.
+        }
+    }
 
         private void showToast(String message){
         Toast toast=Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_SHORT);

@@ -50,9 +50,13 @@ public class MainActivity extends AppCompatActivity {
                 } else if (menuItemId == R.id.bottomBarItemPerson) {     //내정보
                     MypageFragment mf = new MypageFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, mf).commit();
-                } else if (menuItemId == R.id.bottomBarItemEtc) {        //기타공지사항 등.
-                    NoticeFragment nf = new NoticeFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, nf).commit();
+                } else if (menuItemId == R.id.bottomBarItemChart) {        //기타공지사항 등.
+                    WebviewFragment bf = new WebviewFragment();
+                    UrlPath urlPath = new UrlPath();
+                    LoginInfo loginInfo = LoginInfo.getInstance();
+                    url = urlPath.getUrlPath() + "native/auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
+                    bf.setUrl(url);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
 //                }else if(menuItemId==R.id.bottomBarItemHome){       //보스베이비;
 //                    CartFragment cf = new CartFragment();
 //                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, cf).commit();

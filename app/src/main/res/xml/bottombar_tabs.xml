@@ -9,11 +9,12 @@
         icon="@drawable/ic_baseline_create_24px"
         title="@string/record"/>
     <tab
+        id="@+id/bottomBarItemChart"
+        icon="@drawable/ic_baseline_bar_chart_24px"
+        title="@string/etc"/>
+    <tab
         id="@+id/bottomBarItemPerson"
         icon="@drawable/ic_outline_person_24px"
         title="@string/account"/>
-    <tab
-        id="@+id/bottomBarItemEtc"
-        icon="@drawable/ic_outline_format_list_numbered_24px"
-        title="@string/etc"/>
+
 </tabs>

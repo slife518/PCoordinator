@@ -74,6 +74,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             email = getArguments().getString("email");
             baby_id = getArguments().getString("baby_id");
         }
+
     }
 
     @Override
@@ -83,7 +84,9 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         v = inflater.inflate(R.layout.fragment_mybaby_detail, container, false);
         mContext = v.getContext();
 
+
         findViewsById(v);
+        initLoader();
 
         _btn_back.setOnClickListener(this);
         _btn_save.setOnClickListener(this);
@@ -91,12 +94,27 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
 
         Log.i(TAG, "이메일은 " + email + " id는 " + baby_id);
+
+        return v;
+    }
+
+    /**
+     * Called when the activity is first created.
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+//        initLoader();
+    }
+
+    private void initLoader() {
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/get_baby_info_detail";
         RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.i(TAG, "2");
                 responseSuccess(response);    // 결과값 받아와서 처리하는 부분
             }
         }, new Response.ErrorListener() {
@@ -113,13 +131,12 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
                 return params;
             }
         };
+        Log.i(TAG, "1");
         postRequestQueue.add(postStringRequest);
 
         //data binding end
 
-        return v;
     }
-
 
     private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);

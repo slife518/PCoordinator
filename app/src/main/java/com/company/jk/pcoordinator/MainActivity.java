@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                     WebviewFragment bf = new WebviewFragment();
                     UrlPath urlPath = new UrlPath();
                     LoginInfo loginInfo = LoginInfo.getInstance();
-                    url = urlPath.getUrlPath() + "native/auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
+                    url = urlPath.getUrlPath() + "auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
                     bf.setUrl(url);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
                 } else if (menuItemId == R.id.bottomBarItemRecord) {        //기록하기

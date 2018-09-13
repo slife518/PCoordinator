@@ -91,6 +91,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         _btn_back.setOnClickListener(this);
         _btn_save.setOnClickListener(this);
         _birthday.setOnClickListener(this);
+        _profile.setOnClickListener(this);
 
 
         Log.i(TAG, "이메일은 " + email + " id는 " + baby_id);
@@ -286,34 +287,34 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     }
 
     // 비트맵을 원하는 폴더에 사진파일로 저장하기
-    public static void saveBitmaptoJpeg(Bitmap bitmap,String folder, String name){
-        String ex_storage = Environment.getExternalStorageDirectory().getAbsolutePath();
-
-        Log.i(TAG, "데이터 딕셔너리의 경로는 " + Environment.getDataDirectory().getAbsolutePath());
-        // Get Absolute Path in External Sdcard
-//		String foler_name = "/"+folder+"/";
-        String file_name = name+".jpg";
-//		String string_path = ex_storage+foler_name;
-
-        String string_path = "/data/data/kr.co.jkcompany.heartforceset/files/";
-        Log.i(TAG, "string_path는  " + (string_path+file_name));
-        File file_path;
-        try{
-            file_path = new File(string_path);
-            if(!file_path.isDirectory()){
-                file_path.mkdirs();
-            }
-            FileOutputStream out = new FileOutputStream(string_path+file_name);
-
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.close();
-
-        }catch(FileNotFoundException exception){
-            Log.e("FileNotFoundException", exception.getMessage());
-        }catch(IOException exception){
-            Log.e("IOException", exception.getMessage());
-        }
-    }
+//    public static void saveBitmaptoJpeg(Bitmap bitmap,String folder, String name){
+//        String ex_storage = Environment.getExternalStorageDirectory().getAbsolutePath();
+//
+//        Log.i(TAG, "데이터 딕셔너리의 경로는 " + Environment.getDataDirectory().getAbsolutePath());
+//        // Get Absolute Path in External Sdcard
+////		String foler_name = "/"+folder+"/";
+//        String file_name = name+".jpg";
+////		String string_path = ex_storage+foler_name;
+//
+//        String string_path = "/data/data/kr.co.jkcompany.heartforceset/files/";
+//        Log.i(TAG, "string_path는  " + (string_path+file_name));
+//        File file_path;
+//        try{
+//            file_path = new File(string_path);
+//            if(!file_path.isDirectory()){
+//                file_path.mkdirs();
+//            }
+//            FileOutputStream out = new FileOutputStream(string_path+file_name);
+//
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+//            out.close();
+//
+//        }catch(FileNotFoundException exception){
+//            Log.e("FileNotFoundException", exception.getMessage());
+//        }catch(IOException exception){
+//            Log.e("IOException", exception.getMessage());
+//        }
+//    }
 
     public void onActivityResult(int requestCode, int resultCode,	Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
@@ -353,8 +354,8 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
                 public void run() {
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {	}	});
-                    Log.i(TAG, "업로드할 사진의 절대 경로 " + absolutePath);
-                    upload.uploadFile(absolutePath, email);
+                    Log.i(TAG, "파일명은 " + baby_id + " 업로드할 사진의 절대 경로 " + absolutePath);
+                    upload.uploadFile(absolutePath, baby_id, urlPath.getUrlBabyImg());
                     //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
                 }
             }).start();

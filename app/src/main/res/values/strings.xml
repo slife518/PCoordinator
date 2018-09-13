@@ -90,7 +90,7 @@
 
     <string name="record">Record</string>
     <string name="mybody">InBody</string>
-    <string name="mybaby">My baby</string>
+    <string name="mybaby">우리아이</string>
     <string name="mybabyinfo">아기정보</string>
     <string name="hint_sex">성별</string>
     <string name="savefail">저장되지 않았습니다. 다시한번 확인 바랍니다.</string>
@@ -99,5 +99,8 @@
     <string name="milk">분유</string>
     <string name="rice">이유식</string>
     <string name="remain_contents">남기고싶은말</string>
+    <string name="add">추가</string>
+    <string name="addBaby">우리아가추가</string>
+    <string name="hint_picture">picture</string>
 
 </resources>

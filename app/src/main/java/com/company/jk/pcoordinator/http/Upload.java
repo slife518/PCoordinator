@@ -17,10 +17,8 @@ public class Upload{
 
     final static String TAG = "Upload";
     int serverResponseCode = 0;
-    UrlPath urlPath = new UrlPath();
-    String upLoadServerUrl = urlPath.getImgPath();
 
-    public int uploadFile(String sourceFileUri, String newFileName) {
+    public int uploadFile(String sourceFileUri, String newFileName, String uploadURLPath) {
 
         Log.i(TAG, "업로드 시작 ");
 
@@ -35,6 +33,9 @@ public class Upload{
         int maxBufferSize = 1 * 102 * 102;
 
         File sourceFile = new File(sourceFileUri);
+//        String upLoadServerUrl = urlPath.getImgPath();
+        String upLoadServerUrl = uploadURLPath;
+
 
         if (!sourceFile.isFile()) {
             Log.e("uploadFile", "Source File not exist :"

@@ -101,6 +101,6 @@
     <string name="remain_contents">남기고싶은말</string>
     <string name="add">추가</string>
     <string name="addBaby">우리아가추가</string>
-    <string name="hint_picture">picture</string>
+    <string name="baby_picture">아기사진을 올려주세요</string>
 
 </resources>

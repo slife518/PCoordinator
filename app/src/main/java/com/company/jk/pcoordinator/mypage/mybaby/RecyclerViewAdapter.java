@@ -15,6 +15,8 @@ import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -61,8 +63,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 //        holder.mFather.setText(mItems.get(position).father);
 //        holder.mMother.setText(mItems.get(position).mother);
 //
-        String imgUrl = urlPath.getUrlBabyImg() + mItems.get(position).id + ".JPG";  //확장자 대소문자 구별함.
+        String imgUrl = urlPath.getUrlBabyImg() + mItems.get(position).id + ".jpg";  //확장자 대소문자 구별함.
+
         Log.i(TAG, imgUrl);
+        Picasso.with(mContext).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
+        Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE);  //image가 reload 되도록 하기 위하여 필요함.
         Picasso.with(mContext).load(imgUrl).into(holder.mPicture);
 
 

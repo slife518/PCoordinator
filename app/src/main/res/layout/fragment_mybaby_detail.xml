@@ -31,14 +31,17 @@
                 android:layout_weight="10"/>
         </LinearLayout>
 
-        <LinearLayout style="@style/EditIcon">
+        <FrameLayout style="@style/EditIcon">
+            <TextView
+                android:text="@string/baby_picture"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
             <ImageView
                 android:id="@+id/iv_profile"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:hint="@string/hint_picture"/>
-
-        </LinearLayout>
+                android:layout_height="200dp"/>
+        </FrameLayout>
 
 
         <LinearLayout style="@style/EditIcon">

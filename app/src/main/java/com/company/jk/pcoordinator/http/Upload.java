@@ -17,8 +17,11 @@ public class Upload{
 
     final static String TAG = "Upload";
     int serverResponseCode = 0;
+    UrlPath urlPath = new UrlPath();
+    String upLoadServerUrl = urlPath.getUploadPath();
 
-    public int uploadFile(String sourceFileUri, String newFileName, String uploadURLPath) {
+    // (업로드 절대경로, 신규파일명, 신규파일이 위치할 폴더명)
+    public int uploadFile(String sourceFileUri, String newFileName, String folderName) {
 
         Log.i(TAG, "업로드 시작 ");
 
@@ -34,8 +37,6 @@ public class Upload{
 
         File sourceFile = new File(sourceFileUri);
 //        String upLoadServerUrl = urlPath.getImgPath();
-        String upLoadServerUrl = uploadURLPath;
-
 
         if (!sourceFile.isFile()) {
             Log.e("uploadFile", "Source File not exist :"
@@ -47,6 +48,9 @@ public class Upload{
                 // open a URL connection to the Servlet
                 FileInputStream fileInputStream = new FileInputStream(sourceFile);
                 Log.i(TAG, "업로드할 서버패스는 " + upLoadServerUrl);
+
+                String filename = newFileName + ".jpg";  // jpg 로 저장(png, jpg, gif 는 서로 호완 됨
+
                 URL url = new URL(upLoadServerUrl);
 
                 // Open a HTTP  connection to  the URL
@@ -59,20 +63,24 @@ public class Upload{
                 conn.setRequestProperty("ENCTYPE", "multipart/form-data");
                 conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
                 conn.setRequestProperty("uploaded_file", sourceFileUri);
-
-                dos = new DataOutputStream(conn.getOutputStream());
+                conn.setRequestProperty("newFileName", filename);
+                Log.i(TAG, "업로드 파일명은 " + filename);
 
                 /// 변수 전달
-//                 파라미터 전송 로직  --> 안됨
-//                String str = newFileName + "." +  sourceFileUri.substring(sourceFileUri.length()-3, sourceFileUri.length());  // 신규 파일 이름
-                String str = newFileName + ".jpg";  // jpg 로 저장(png, jpg, gif 는 서로 호완 됨
-
+                dos = new DataOutputStream(conn.getOutputStream());
                 dos.writeBytes(twoHyphens + boundary + lineEnd); //필드 구분자 시작
                 dos.writeBytes( "Content-Disposition: form-data; name=\"" + "newFileName" + "\""+ lineEnd ) ;  // 파라미터 key
                 dos.writeBytes( lineEnd ) ;
-                dos.writeBytes(str) ;  // 파라미터 value
+                dos.writeBytes(filename) ;  // 파라미터 value
                 dos.writeBytes( lineEnd ) ;
-//                 파라미터 전송 끝
+
+                /// 변수 전달
+                dos = new DataOutputStream(conn.getOutputStream());
+                dos.writeBytes(twoHyphens + boundary + lineEnd); //필드 구분자 시작
+                dos.writeBytes( "Content-Disposition: form-data; name=\"" + "folderName" + "\""+ lineEnd ) ;  // 파라미터 key
+                dos.writeBytes( lineEnd ) ;
+                dos.writeBytes(folderName) ;  // 파라미터 value
+                dos.writeBytes( lineEnd ) ;
 
                 /// 파일 전달
                 dos.writeBytes(twoHyphens + boundary + lineEnd);

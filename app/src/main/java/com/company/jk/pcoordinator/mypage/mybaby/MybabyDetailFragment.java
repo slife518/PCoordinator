@@ -37,6 +37,8 @@ import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyVolley;
 import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -153,7 +155,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
             String sex = rs.getString("sex");
 
-            String imgUrl = urlPath.getUrlBabyImg() + id + ".JPG";  //확장자 대소문자 구별함.
+            String imgUrl = urlPath.getUrlBabyImg() + id + ".jpg";  //확장자 대소문자 구별함.
             Log.i(TAG, imgUrl);
             Picasso.with(mContext).load(imgUrl).into(_profile);
             _name.setText(name);
@@ -346,7 +348,9 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     private void handleCrop(int resultCode, Intent result, Context ct) {
         if (resultCode == Activity.RESULT_OK) { // Activity 의 RESULT_OK값을 사용
             Log.d("handleCrop", "RESULT_OK" + (Crop.getOutput(result).toString()));
+            _profile.setImageDrawable(null);
             _profile.setImageURI(Crop.getOutput(result));
+            _profile.invalidate();
 
             final String absolutePath = Crop.getOutput(result).getPath();   // 쓰레드 내에서 사용할 변수는 final 로 정의 되어야 함.  uri 의 절대 경로는 uri.getPath()
             //파일 업로드 시작! 파일 업로드 call 할 때는 반드시 쓰레드 이용해야 함.
@@ -355,7 +359,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {	}	});
                     Log.i(TAG, "파일명은 " + baby_id + " 업로드할 사진의 절대 경로 " + absolutePath);
-                    upload.uploadFile(absolutePath, baby_id, urlPath.getUrlBabyImg());
+                    upload.uploadFile(absolutePath, baby_id, "babyprofile");
                     //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
                 }
             }).start();

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.company.jk.pcoordinator.bossbaby.WebviewFragment;
+import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
@@ -32,12 +33,8 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(int menuItemId) {
                 Log.i(TAG, "이번클릭한 메뉴id 는 " + menuItemId);
                 if (menuItemId == R.id.bottomBarItemHome) {
-                    WebviewFragment bf = new WebviewFragment();
-                    UrlPath urlPath = new UrlPath();
-                    LoginInfo loginInfo = LoginInfo.getInstance();
-                    url = urlPath.getUrlPath() + "auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
-                    bf.setUrl(url);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
+                    HomeFragment hf = new HomeFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, hf).commit();
                 } else if (menuItemId == R.id.bottomBarItemRecord) {        //기록하기
 //                    WebviewFragment bf = new WebviewFragment();
 //                    UrlPath urlPath = new UrlPath();

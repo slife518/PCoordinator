@@ -3,7 +3,7 @@
     <tab
         id="@+id/bottomBarItemHome"
         icon="@drawable/ic_baseline_home_24px"
-        title="@string/shopping"/>
+        title="@string/Home"/>
     <tab
         id="@+id/bottomBarItemRecord"
         icon="@drawable/ic_baseline_create_24px"

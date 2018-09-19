@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.volley.Request;
@@ -40,6 +41,7 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
     LinearLayoutManager mLayoutManager;
     RecyclerViewAdapter mAdapter;
     ImageView _back;
+    Button _btn_add;
     View v;
     Context mContext;
     LoginInfo loginInfo = LoginInfo.getInstance();
@@ -52,7 +54,10 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
         mContext = v.getContext();
 
         _back = (ImageView) v.findViewById(R.id.btback);
+        _btn_add = v.findViewById(R.id.btn_add);
         _back.setOnClickListener(this);
+        _btn_add.setOnClickListener(this);
+
 
         mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -132,14 +137,19 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+
         switch (view.getId()) {
             case R.id.btback:
-
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 MypageFragment myFragment = new MypageFragment();
                 //왼쪽에서 오른쪽 슬라이드
                 activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
                 break;
+            case R.id.btn_add:
+                MybabyDetailFragment mybabyDetailFragment = new MybabyDetailFragment();
+                //왼쪽에서 오른쪽 슬라이드
+                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, mybabyDetailFragment).addToBackStack(null).commit();
+
         }
     }
 }

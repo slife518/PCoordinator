@@ -103,5 +103,7 @@
     <string name="addBaby">우리아가추가</string>
     <string name="baby_picture">아기사진을 올려주세요</string>
     <string name="Home">Home</string>
+    <string name="author">작성자ID</string>
+    <string name="comments">설명</string>
 
 </resources>

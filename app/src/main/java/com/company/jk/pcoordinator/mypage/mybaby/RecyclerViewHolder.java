@@ -1,6 +1,5 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +18,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public RecyclerViewHolder(View itemView) {
         super(itemView);
-        mPicture = (ImageView) itemView.findViewById(R.id.baby_image);
+        mPicture = (ImageView) itemView.findViewById(R.id.date);
 //        mID = (TextView) itemView.findViewById(R.id.ID);
         mName = (TextView) itemView.findViewById(R.id.baby_name);
         mSex = (TextView) itemView.findViewById(R.id.sex);

@@ -55,6 +55,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class HomeFragment extends Fragment implements OnSeekBarChangeListener, OnChartValueSelectedListener {
 
@@ -68,6 +72,7 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
 
     RecyclerView mRecyclerView;
     ArrayList<RecordHistoryinfo> items = new ArrayList();
+    ArrayList<RecordHistoryinfo> chartData = new ArrayList();
     LinearLayoutManager mLayoutManager;
     MilkRiceRecyclerViewAdapter mAdapter;
 
@@ -78,6 +83,47 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
 
         v = inflater.inflate(R.layout.fragment_home, container, false);
         mContext = v.getContext();
+
+
+        //listview layout
+        mLayoutManager = new LinearLayoutManager(mContext);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView_main);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
+        mAdapter = new MilkRiceRecyclerViewAdapter(items);
+        mRecyclerView.setAdapter(mAdapter);
+
+        //data binding start
+        String server_url = new UrlPath().getUrlPath() + "Pc_record/record_list";
+        RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);
+        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+//                params.put("email", loginInfo.getEmail());
+                params.put("baby_id", loginInfo.getBabyID());
+                return params;
+            }
+        };
+        postReqeustQueue.add(postStringRequest);
+        //data binding end
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         tvX = v.findViewById(R.id.tvXMax);
 
@@ -126,40 +172,6 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
         l.setXEntrySpace(6f);
 
 
-        //listview layout
-        mLayoutManager = new LinearLayoutManager(mContext);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView_main);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
-        mAdapter = new MilkRiceRecyclerViewAdapter(items);
-        mRecyclerView.setAdapter(mAdapter);
-
-        //data binding start
-        String server_url = new UrlPath().getUrlPath() + "Pc_record/record_list";
-        RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);
-        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-//                params.put("email", loginInfo.getEmail());
-                params.put("baby_id", loginInfo.getBabyID());
-                return params;
-            }
-        };
-        postReqeustQueue.add(postStringRequest);
-        //data binding end
-
 
         return v;
 
@@ -174,20 +186,32 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        tvX.setText("" + mSeekBarX.getProgress());
+        if(!chartData.isEmpty()) {
+            changChart(mSeekBarX.getProgress());
+        }
+
+    }
+
+    private  void changChart(int seekBar){
+        tvX.setText("" + seekBar);
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-        for (int i = 0; i < mSeekBarX.getProgress() + 1; i++) {
+
+        for (int i = 0; i < seekBar; i++) {
 //            float mult = (100 + 1);
 //            float val1 = (float) (Math.random() * mult) + mult / 3;
 //            float val2 = (float) (Math.random() * mult) + mult / 3;
-            float val1 = 300;
-            float val2 = 400;
+
+            float val1 = Float.parseFloat(chartData.get(i).milk);
+            float val2 = Float.parseFloat(chartData.get(i).rice);
+
+            Log.i(TAG,chartData.get(i).milk + "쌀은 " + chartData.get(i).rice );
+
             yVals1.add(new BarEntry(
                     i,
                     new float[]{val1, val2},
                     getResources().getDrawable(R.drawable.star)));
-        }
 
+        }
         BarDataSet set1;
 
         if (mChart.getData() != null &&
@@ -200,7 +224,7 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
             set1 = new BarDataSet(yVals1, "우리아기 식사량");
             set1.setDrawIcons(false);
             set1.setColors(getColors());
-            set1.setStackLabels(new String[]{"Milk", "Rice"});
+            set1.setStackLabels(new String[]{"분유", "이유식"});
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
             dataSets.add(set1);
@@ -215,7 +239,6 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
         mChart.setFitBars(true);
         mChart.invalidate();
     }
-
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         // TODO Auto-generated method stub
@@ -235,8 +258,8 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
 
         if (entry.getYVals() != null)
 //            Log.i("SELECTED", "Value: " + entry.getYVals()[h.getStackIndex()]);
-            Log.i("SELECTED", "Value: " + entry.getX());
-
+//            Log.i("SELECTED", "Value: " + entry.getX());
+            showToast(chartData.get(Math.round(entry.getX())).date);
         else
             Log.i("null SELECTED", "Value: " + entry.getY());
     }
@@ -261,6 +284,10 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
         return colors;
     }
 
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
     private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);
@@ -289,9 +316,34 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
                 e.printStackTrace();
             }
             items.add(new RecordHistoryinfo(id, date, time, milk, rice, author, comments));
-        }
+    }
 
         mAdapter.notifyDataSetChanged();
+
+
+        // 차트데이터 가져오기
+        jsonArray = null;
+        jsonArray = JsonParse.getJsonArrayFromString(response, "chartData");
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+            try {
+                JSONObject rs = (JSONObject) jsonArray.get(i);
+                date = rs.getString("record_date");
+                milk = rs.getString("milk");
+                rice = rs.getString("rice");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            chartData.add(new RecordHistoryinfo(null, date, "12:00:00", milk, rice, null, null));
+        }
+
+        mSeekBarX.setMax(chartData.size());
+        if(chartData.size() < 7) {
+            changChart(chartData.size());
+        }else{
+            changChart(7);
+        }
     }
 
 }

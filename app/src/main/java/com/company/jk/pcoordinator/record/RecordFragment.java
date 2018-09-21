@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
@@ -38,12 +39,40 @@ import java.util.Map;
  */
 public class RecordFragment extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
+    private String id;
     EditText _milk, _rice, _remainText;
     EditText _date, _time;
     Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save;
     static final String TAG = "RecordFragment";
     Context mContext;
     LoginInfo loginInfo = LoginInfo.getInstance();
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+
+            RecordHistoryinfo info = (RecordHistoryinfo)getArguments().getSerializable("RecordHistoryinfo");
+//            id = getArguments().getString("id");
+//            _date.setText(getArguments().getString("date"));
+//            _time.setText(getArguments().getString("time"));
+//            _milk.setText(getArguments().getString("milk"));
+//            _rice.setText(getArguments().getString("rice"));
+//            _remainText.setText(getArguments().getString("comments"));
+            id = info.getId();
+            _date.setText(info.getDate());
+            _time.setText(info.getTime());
+            _milk.setText(info.getMilk());
+            _rice.setText(info.getRice());
+            _remainText.setText(info.getComments());
+
+        }
+
+    }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +110,9 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _plusRice   = v.findViewById(R.id.btn_rice_plus);
         _minusRice  = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
+        if(!id.isEmpty()){
+            _save.setText("수정하기");
+        }
     }
 
     @Override

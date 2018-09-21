@@ -1,6 +1,9 @@
 package com.company.jk.pcoordinator.home;
 
-public class RecordHistoryinfo {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class RecordHistoryinfo implements Serializable {
     String id;
     String date;
     String time;

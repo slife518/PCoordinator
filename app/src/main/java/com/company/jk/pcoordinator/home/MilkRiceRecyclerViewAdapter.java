@@ -15,13 +15,14 @@ import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.mybaby.MybabyDetailFragment;
+import com.company.jk.pcoordinator.record.RecordFragment;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MilkRiceRecyclerViewAdapter extends RecyclerView.Adapter<MilkRiceRecyclerViewHolder> {
+public class MilkRiceRecyclerViewAdapter extends RecyclerView.Adapter<MilkRiceRecyclerViewHolder>  {
     final static String TAG = "RecyclerViewAdapter";
     Context mContext;
     UrlPath urlPath = new UrlPath();
@@ -33,12 +34,21 @@ public class MilkRiceRecyclerViewAdapter extends RecyclerView.Adapter<MilkRiceRe
     }
 
     // TODO: Rename and change types and number of parameters
-    public static Fragment newInstance(String param1, String param2) {
-        MybabyDetailFragment fragment = new MybabyDetailFragment();
-        Bundle args = new Bundle();
-        args.putString("email", param1);
-        args.putString("baby_id", param2);
-        fragment.setArguments(args);
+//    public static Fragment newInstance(String param1, String param2, String param3, String param4, String param5, String param6, String param7){
+    public static Fragment newInstance(RecordHistoryinfo info){
+        RecordFragment fragment = new RecordFragment();
+        Bundle bundle  = new Bundle();
+//        args.putString("email", param1);
+//        args.putString("date", param2);
+//        args.putString("time", param3);
+//        args.putString("id", param4);
+//        args.putString("milk", param5);
+//        args.putString("rice", param6);
+//        args.putString("comments", param7);
+        //args = new Bundle();
+        bundle .putSerializable("RecordHistoryinfo", info);
+        fragment.setArguments(bundle );
+        fragment.setArguments(bundle );
         return fragment;
     }
 
@@ -71,7 +81,8 @@ public class MilkRiceRecyclerViewAdapter extends RecyclerView.Adapter<MilkRiceRe
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 HomeFragment myFragment = new HomeFragment();
                 //왼쪽에서 오른쪽 슬라이드
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail(), mItems.get(position).id)).addToBackStack(null).commit();
+//                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail(), mItems.get(position).date , mItems.get(position).time , mItems.get(position).id, mItems.get(position).milk, mItems.get(position).rice,  mItems.get(position).comments)).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(mItems.get(position))).addToBackStack(null).commit();
 
             }
         });

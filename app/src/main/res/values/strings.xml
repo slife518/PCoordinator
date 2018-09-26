@@ -105,5 +105,6 @@
     <string name="Home">Home</string>
     <string name="author">작성자ID</string>
     <string name="comments">설명</string>
+    <string name="btn_cancel">취소하기</string>
 
 </resources>

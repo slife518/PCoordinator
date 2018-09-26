@@ -46,9 +46,9 @@ public class MilkRiceRecyclerViewAdapter extends RecyclerView.Adapter<MilkRiceRe
 //        args.putString("rice", param6);
 //        args.putString("comments", param7);
         //args = new Bundle();
-        bundle .putSerializable("RecordHistoryinfo", info);
-        fragment.setArguments(bundle );
-        fragment.setArguments(bundle );
+        bundle.putSerializable("RecordHistoryinfo", info);
+        fragment.setArguments(bundle);
+
         return fragment;
     }
 
@@ -79,7 +79,7 @@ public class MilkRiceRecyclerViewAdapter extends RecyclerView.Adapter<MilkRiceRe
             @Override
             public void onClick(View v) {
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                HomeFragment myFragment = new HomeFragment();
+                //HomeFragment myFragment = new HomeFragment();
                 //왼쪽에서 오른쪽 슬라이드
 //                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail(), mItems.get(position).date , mItems.get(position).time , mItems.get(position).id, mItems.get(position).milk, mItems.get(position).rice,  mItems.get(position).comments)).addToBackStack(null).commit();
                 activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(mItems.get(position))).addToBackStack(null).commit();

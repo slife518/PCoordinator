@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class RecordHistoryinfo implements Serializable {
     String id;
     String date;
+    String yearDate;
     String time;
     String milk;
     String rice;
@@ -15,6 +16,7 @@ public class RecordHistoryinfo implements Serializable {
 
     public RecordHistoryinfo(String id, String date, String time, String milk, String rice,  String author, String comments){
         this.id = id;
+        this.yearDate = date;
         this.date = date.substring(5,10 );
         this.milk = milk;
         this.rice = rice;
@@ -28,6 +30,9 @@ public class RecordHistoryinfo implements Serializable {
         return id;
     }
 
+    public String getYearDate() {
+        return yearDate;
+    }
     public String getDate() {
         return date;
     }

@@ -42,32 +42,27 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     private String id;
     EditText _milk, _rice, _remainText;
     EditText _date, _time;
-    Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save;
+    Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save, _cancel;
     static final String TAG = "RecordFragment";
     Context mContext;
     LoginInfo loginInfo = LoginInfo.getInstance();
-
+    RecordHistoryinfo info;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-            RecordHistoryinfo info = (RecordHistoryinfo)getArguments().getSerializable("RecordHistoryinfo");
-//            id = getArguments().getString("id");
-//            _date.setText(getArguments().getString("date"));
-//            _time.setText(getArguments().getString("time"));
-//            _milk.setText(getArguments().getString("milk"));
-//            _rice.setText(getArguments().getString("rice"));
-//            _remainText.setText(getArguments().getString("comments"));
-            id = info.getId();
-            _date.setText(info.getDate());
-            _time.setText(info.getTime());
-            _milk.setText(info.getMilk());
-            _rice.setText(info.getRice());
-            _remainText.setText(info.getComments());
-
-        }
+//        if (getArguments() != null) {
+//            Log.i(TAG, getArguments().toString());
+//            info = (RecordHistoryinfo)getArguments().getSerializable("RecordHistoryinfo");
+//            Log.i(TAG, info.getDate());
+//            id = info.getId();
+//            _date.setText(info.getDate());
+//            _time.setText(info.getTime());
+//            _milk.setText(info.getMilk());
+//            _rice.setText(info.getRice());
+//            _remainText.setText(info.getComments());
+//
+//        }
 
     }
 
@@ -88,14 +83,9 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _date.setOnClickListener(this);
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
+        _cancel.setOnClickListener(this);
 
-        long now = System.currentTimeMillis();
 
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
-        _date.setText(sdf.format(date));
-        _time.setText(stf.format(date));
         return v;
     }
 
@@ -110,8 +100,32 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _plusRice   = v.findViewById(R.id.btn_rice_plus);
         _minusRice  = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
-        if(!id.isEmpty()){
+
+        if (getArguments() != null) {
+
+            info = (RecordHistoryinfo)getArguments().getSerializable("RecordHistoryinfo");
+            Log.i(TAG, info.getDate());
+            id = info.getId();
+            _date.setText(info.getYearDate());
+            _time.setText(info.getTime());
+            _milk.setText(info.getMilk());
+            _rice.setText(info.getRice());
+            _remainText.setText(info.getComments());
+
             _save.setText("수정하기");
+
+
+
+        }else{
+
+            long now = System.currentTimeMillis();
+
+            Date date = new Date(now);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
+            _date.setText(sdf.format(date));
+            _time.setText(stf.format(date));
+
         }
     }
 
@@ -147,6 +161,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
             }
         }else if(v == _save){
             save_data();
+        }else if(v == _cancel){
+
         }
     }
 

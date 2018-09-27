@@ -111,8 +111,10 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-//                params.put("email", loginInfo.getEmail());
-                params.put("baby_id", loginInfo.getBabyID());
+                Log.i(TAG, "이메일은 "+loginInfo.getEmail());
+                params.put("email", loginInfo.getEmail());
+//                params.put("baby_id", loginInfo.getBabyID());
+
                 return params;
             }
         };

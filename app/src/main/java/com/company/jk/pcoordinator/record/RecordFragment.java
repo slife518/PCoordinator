@@ -1,11 +1,13 @@
 package com.company.jk.pcoordinator.record;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
@@ -42,9 +45,9 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     private String id;
     EditText _milk, _rice, _remainText;
     EditText _date, _time;
-    Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save, _cancel;
+    Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save, _delete, _cancel;
     static final String TAG = "RecordFragment";
-    Context mContext;
+    Context mContext; View v;
     LoginInfo loginInfo = LoginInfo.getInstance();
     RecordHistoryinfo info;
 
@@ -72,7 +75,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v;
+
         v = inflater.inflate(R.layout.fragment_record, container, false);
         mContext = v.getContext();
         findViewById(v);
@@ -83,6 +86,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _date.setOnClickListener(this);
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
+        _delete.setOnClickListener(this);
         _cancel.setOnClickListener(this);
 
 
@@ -100,6 +104,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _plusRice   = v.findViewById(R.id.btn_rice_plus);
         _minusRice  = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
+        _delete = v.findViewById(R.id.btn_delete);
+        _cancel = v.findViewById(R.id.btn_cancel);
 
         if (getArguments() != null) {
 
@@ -125,6 +131,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
             SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
             _date.setText(sdf.format(date));
             _time.setText(stf.format(date));
+            _cancel.setVisibility(v.GONE);
+            _delete.setVisibility(v.GONE);
 
         }
     }
@@ -159,10 +167,21 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
             if(Integer.parseInt(_rice.getText().toString()) > 0) {
                 _rice.setText(String.valueOf(Integer.parseInt(_rice.getText().toString()) - 10));
             }
-        }else if(v == _save){
+        }else if(v == _save) {
             save_data();
+//            HomeFragment hf = new HomeFragment();
+//            AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
+        }else if(v == _delete){
+            delete_data();
+//            HomeFragment hf = new HomeFragment();
+//            AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
         }else if(v == _cancel){
-
+            getActivity().onBackPressed();
+//            HomeFragment hf = new HomeFragment();
+//            AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
         }
     }
 
@@ -194,7 +213,15 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     private void responseSuccess(String response){
         Log.i(TAG, "결과값은 " + response);
         if(!response.isEmpty()){
-            showToast(getString(R.string.save));
+            AppCompatActivity activity = (AppCompatActivity)getActivity();
+            if(activity != null) {
+
+                showToast(getString(R.string.save));
+//                initialize();
+                HomeFragment hf = new HomeFragment();
+//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
+            }
         }else{
             showToast(getString(R.string.savefail));
         }
@@ -202,8 +229,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
 
     private  void save_data(){
 
-
-        String server_url = new UrlPath().getUrlPath() + "Pc_baby/save_record";
+        String server_url = new UrlPath().getUrlPath() + "Pc_record/save_record";
         Log.i(TAG, server_url);
 
         RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
@@ -222,6 +248,9 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
+                if(id != null) {
+                    params.put("record_id", id);
+                }
                 params.put("baby_id", loginInfo.getBabyID());
                 params.put("email", loginInfo.getEmail());
                 params.put("record_date", _date.getText().toString());
@@ -237,6 +266,41 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
 
     }
 
+    private  void delete_data(){
+        String server_url = new UrlPath().getUrlPath() + "Pc_record/delete_record";
+        Log.i(TAG, server_url);
+
+        RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
+        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i(TAG, "아기아이디는 " +loginInfo.getBabyID());
+                Log.e(TAG, error.getLocalizedMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("record_id", id);
+
+                return params;
+            }
+        };
+        postRequestQueue.add(postStringRequest);
+
+    }
+
+//    private  void  initialize(){
+//        _rice.setText("0");
+//        _milk.setText("0");
+//        _remainText.getText().clear();
+//
+//    }
 
     private void showToast(String message){
         Toast toast=Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_SHORT);

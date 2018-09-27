@@ -42,7 +42,7 @@
     <string name="message_OK">확인</string>
     <string name="message_no">아니요</string>
     <string name="message_confirm_password_count">자릿수가 최소 5자리이상만 가능합니다.</string>
-    <string name="save">저장되었습니다.</string>
+    <string name="save">처리되었습니다.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -106,5 +106,7 @@
     <string name="author">작성자ID</string>
     <string name="comments">설명</string>
     <string name="btn_cancel">취소하기</string>
+    <string name="btn_list">기록보기</string>
+    <string name="btn_delete">삭제하기</string>
 
 </resources>

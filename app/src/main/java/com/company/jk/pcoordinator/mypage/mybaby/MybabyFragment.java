@@ -61,7 +61,7 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
 
         mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView_main);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.listView_main);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
@@ -134,6 +134,13 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
 
     ;
 
+    private static Fragment newInstance(String param1){
+        MybabyDetailFragment fragment = new MybabyDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("email", param1);
+        fragment.setArguments(bundle);
+        return  fragment;
+    }
 
     @Override
     public void onClick(View view) {
@@ -146,9 +153,10 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
                 activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
                 break;
             case R.id.btn_add:
-                MybabyDetailFragment mybabyDetailFragment = new MybabyDetailFragment();
+//                MybabyDetailFragment mybabyDetailFragment = new MybabyDetailFragment();
                 //왼쪽에서 오른쪽 슬라이드
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, mybabyDetailFragment).addToBackStack(null).commit();
+//                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, mybabyDetailFragment).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail())).addToBackStack(null).commit();
 
         }
     }

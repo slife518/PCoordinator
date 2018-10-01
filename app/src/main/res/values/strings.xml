@@ -108,5 +108,8 @@
     <string name="btn_cancel">취소하기</string>
     <string name="btn_list">기록보기</string>
     <string name="btn_delete">삭제하기</string>
+    <string name="deleteAlert">삭제를 하시겠습니까?</string>
+    <string name="saveAlert">저장되었습니다. 연속으로 저장하시겠습니까?</string>
+    <string name="toList">기록보기</string>
 
 </resources>

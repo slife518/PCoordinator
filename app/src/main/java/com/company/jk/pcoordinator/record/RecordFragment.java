@@ -1,11 +1,14 @@
 package com.company.jk.pcoordinator.record;
 
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,12 +33,15 @@ import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
+import com.roughike.bottombar.BottomBar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.company.jk.pcoordinator.MainActivity.bottomBar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,26 +56,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     Context mContext; View v;
     LoginInfo loginInfo = LoginInfo.getInstance();
     RecordHistoryinfo info;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            Log.i(TAG, getArguments().toString());
-//            info = (RecordHistoryinfo)getArguments().getSerializable("RecordHistoryinfo");
-//            Log.i(TAG, info.getDate());
-//            id = info.getId();
-//            _date.setText(info.getDate());
-//            _time.setText(info.getTime());
-//            _milk.setText(info.getMilk());
-//            _rice.setText(info.getRice());
-//            _remainText.setText(info.getComments());
-//
-//        }
-
-    }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,6 +92,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _save = v.findViewById(R.id.btn_save);
         _delete = v.findViewById(R.id.btn_delete);
         _cancel = v.findViewById(R.id.btn_cancel);
+
 
         if (getArguments() != null) {
 
@@ -169,21 +156,65 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
             }
         }else if(v == _save) {
             save_data();
-//            HomeFragment hf = new HomeFragment();
-//            AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
         }else if(v == _delete){
-            delete_data();
-//            HomeFragment hf = new HomeFragment();
-//            AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
+            deleteAelrtDialog();
+
         }else if(v == _cancel){
             getActivity().onBackPressed();
-//            HomeFragment hf = new HomeFragment();
-//            AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
         }
     }
+
+
+    private void deleteAelrtDialog(){
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(v.getContext(), android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(v.getContext());
+        }
+        builder.setTitle(R.string.btn_delete)
+                .setMessage(R.string.deleteAlert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        delete_data();
+                        HomeFragment hf = new HomeFragment();
+                        AppCompatActivity activity = (AppCompatActivity)getActivity();
+                        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
+
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void saveAelrtDialog(){
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(v.getContext(), android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(v.getContext());
+        }
+        builder.setTitle(R.string.btn_save)
+                .setMessage(R.string.saveAlert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        initialize();
+                    }
+                })
+                .setNegativeButton(R.string.toList, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        bottomBar.selectTabAtPosition(0, false);
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -212,19 +243,29 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
 
     private void responseSuccess(String response){
         Log.i(TAG, "결과값은 " + response);
-        if(!response.isEmpty()){
-            AppCompatActivity activity = (AppCompatActivity)getActivity();
-            if(activity != null) {
-
-                showToast(getString(R.string.save));
-//                initialize();
-                HomeFragment hf = new HomeFragment();
-//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
-            }
+        if (getArguments() == null) {    //입력하기 전용화면이면
+            saveAelrtDialog();
         }else{
             showToast(getString(R.string.savefail));
         }
+//        if(!response.isEmpty()){
+//            AppCompatActivity activity = (AppCompatActivity)getActivity();
+//            if(activity != null) {
+//
+////                showToast(getString(R.string.save));
+////                initialize();
+//                HomeFragment hf = new HomeFragment();
+//                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
+//
+//                if (getArguments() == null) {    //입력하기 전용화면이면
+//
+//                    bottomBar.selectTabAtPosition(0, false);
+//                }
+//
+//            }
+//        }else{
+//            showToast(getString(R.string.savefail));
+//        }
     }
 
     private  void save_data(){
@@ -267,6 +308,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     }
 
     private  void delete_data(){
+
         String server_url = new UrlPath().getUrlPath() + "Pc_record/delete_record";
         Log.i(TAG, server_url);
 
@@ -295,12 +337,12 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
 
     }
 
-//    private  void  initialize(){
-//        _rice.setText("0");
-//        _milk.setText("0");
-//        _remainText.getText().clear();
-//
-//    }
+    private  void  initialize(){
+        _rice.setText("0");
+        _milk.setText("0");
+        _remainText.getText().clear();
+
+    }
 
     private void showToast(String message){
         Toast toast=Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_SHORT);

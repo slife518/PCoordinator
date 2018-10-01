@@ -12,11 +12,11 @@ public class MyValueFormatter implements IValueFormatter
     private DecimalFormat mFormat;
     
     public MyValueFormatter() {
-        mFormat = new DecimalFormat("###,###,###,##0.0");
+        mFormat = new DecimalFormat("###,###,###,##0");
     }
 
     @Override
     public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-        return mFormat.format(value) + " $";
+        return mFormat.format(value) + " ml";
     }
 }

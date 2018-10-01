@@ -2,19 +2,19 @@ package com.company.jk.pcoordinator.home;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -32,8 +32,7 @@ import com.company.jk.pcoordinator.common.MyAxisValueFormatter;
 import com.company.jk.pcoordinator.common.MyValueFormatter;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
-import com.company.jk.pcoordinator.mypage.mybaby.Mybabyinfo;
-import com.company.jk.pcoordinator.mypage.mybaby.RecyclerViewAdapter;
+import com.company.jk.pcoordinator.record.RecordFragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -55,10 +54,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 public class HomeFragment extends Fragment implements OnSeekBarChangeListener, OnChartValueSelectedListener {
 
@@ -70,11 +65,20 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
     final String TAG = "HomeFragment";
     LoginInfo loginInfo = LoginInfo.getInstance();
 
-    RecyclerView mRecyclerView;
+    ListView mListView;
     ArrayList<RecordHistoryinfo> items = new ArrayList();
     ArrayList<RecordHistoryinfo> chartData = new ArrayList();
-    LinearLayoutManager mLayoutManager;
-    MilkRiceRecyclerViewAdapter mAdapter;
+//    LinearLayoutManager mLayoutManager;
+    MilkRiceListViewAdapter mAdapter;
+
+    public static Fragment newInstance(RecordHistoryinfo info){
+        RecordFragment fragment = new RecordFragment();
+        Bundle bundle  = new Bundle();
+        bundle .putSerializable("RecordHistoryinfo", info);
+        fragment.setArguments(bundle );
+        fragment.setArguments(bundle );
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,14 +90,19 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
 
 
         //listview layout
-        mLayoutManager = new LinearLayoutManager(mContext);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView_main);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
-        mAdapter = new MilkRiceRecyclerViewAdapter(items);
-        mRecyclerView.setAdapter(mAdapter);
+        mListView = (ListView) v.findViewById(R.id.listView_main);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                HomeFragment myFragment = new HomeFragment();
+                //왼쪽에서 오른쪽 슬라이드
+//                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail(), mItems.get(position).date , mItems.get(position).time , mItems.get(position).id, mItems.get(position).milk, mItems.get(position).rice,  mItems.get(position).comments)).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(items.get(position))).addToBackStack(null).commit();
+
+            }
+        });
 
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_record/record_list";
@@ -119,13 +128,6 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
             }
         };
         postReqeustQueue.add(postStringRequest);
-        //data binding end
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         tvX = v.findViewById(R.id.tvXMax);
 
@@ -206,12 +208,11 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
             float val1 = Float.parseFloat(chartData.get(i).milk);
             float val2 = Float.parseFloat(chartData.get(i).rice);
 
-            Log.i(TAG,chartData.get(i).milk + "쌀은 " + chartData.get(i).rice );
+//            Log.i(TAG,chartData.get(i).milk + "쌀은 " + chartData.get(i).rice );
 
             yVals1.add(new BarEntry(
                     i,
-                    new float[]{val1, val2},
-                    getResources().getDrawable(R.drawable.star)));
+                    new float[]{val1, val2}));
 
         }
         BarDataSet set1;
@@ -293,13 +294,8 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
 
     private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);
-        String id = null;
-        String date = null;
-        String time = null;
-        String milk = null;
-        String rice = null;
-        String author = null;
-        String comments = null;
+        String id = null, date = null, time = null, milk = null, rice = null, author = null, comments = null;
+        items.clear();
 
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
 
@@ -314,13 +310,15 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
                 rice = rs.getString("rice");
                 author = rs.getString("author");
                 comments = rs.getString("description");
-            } catch (JSONException e) {
+            }catch (JSONException e) {
                 e.printStackTrace();
             }
+            Log.i(TAG, time);
             items.add(new RecordHistoryinfo(id, date, time, milk, rice, author, comments));
-    }
-
-        mAdapter.notifyDataSetChanged();
+        }
+        mAdapter = new MilkRiceListViewAdapter(mContext, R.layout.layout_milk_rice_card, items);
+        mListView.setAdapter(mAdapter);
+        //mAdapter.notifyDataSetChanged();
 
 
         // 차트데이터 가져오기
@@ -346,6 +344,9 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
         }else{
             changChart(7);
         }
+
+
+
     }
 
 }

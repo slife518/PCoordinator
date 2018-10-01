@@ -19,7 +19,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = "MainActivity";
-    BottomBar bottomBar;
+    public static BottomBar  bottomBar;
     private String url;
 
     @Override
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(int menuItemId) {

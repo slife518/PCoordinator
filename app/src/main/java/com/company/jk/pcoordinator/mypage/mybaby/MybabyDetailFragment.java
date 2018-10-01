@@ -88,7 +88,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
 
         findViewsById(v);
-        if(!baby_id.isEmpty()) {
+        if(baby_id != null) {
             initLoader();
         }
 
@@ -120,7 +120,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             @Override
             public void onResponse(String response) {
                 Log.i(TAG, "2");
-                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
+                responseReceiveData(response);    // 결과값 받아와서 처리하는 부분
             }
         }, new Response.ErrorListener() {
             @Override
@@ -143,7 +143,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
     }
 
-    private void responseSuccess(String response) {
+    private void responseReceiveData(String response) {
         Log.i(TAG, "결과값은 " + response);
 
         JSONObject rs = JsonParse.getJsonObjectFromString(response, "result");
@@ -190,7 +190,8 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             MybabyFragment myFragment = new MybabyFragment();
             activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
         }else if(v==_btn_save){
-            save_data();
+//            save_data();
+            modify_data();
         }else if(v==_birthday){
             Calendar c=Calendar.getInstance();
             int year=c.get(Calendar.YEAR);
@@ -236,59 +237,117 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    private  void save_data(){
 
-        String server_url = new UrlPath().getUrlPath() + "Pc_baby/update";
-        //request parameters
-        Map<String, String> params = new HashMap<>();
-        params.put("owner", email);
-        params.put("baby_id", baby_id);
-        params.put("babyname", _name.getText().toString());
-//        Log.i(TAG, _birthday.getText().toString());
-//        Log.i(TAG, _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(5, 7)+_birthday.getText().toString().substring(8, 10));
-        params.put("birthday", _birthday.getText().toString());
-        if(_boy.isChecked()){
-            params.put("sex", "1");
-        }else if(_girl.isChecked()){
-            params.put("sex", "2");
-        }
+    private  void modify_data(){
 
+        String server_url = new UrlPath().getUrlPath() + "Pc_baby/modifyBaby";
+        Log.i(TAG, server_url);
 
-        // Inflate the layout for this fragment
-        final RequestQueue queue = MyVolley.getInstance(getActivity()).getRequestQueue();
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST, server_url, new JSONObject(params), networkSuccessListener(), networkErrorListener());
-
-        queue.add(myReq);
-    }
-
-    private Response.Listener<JSONObject> networkSuccessListener() {
-        return new Response.Listener<JSONObject>() {
+        RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
+        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
-                Log.i(TAG, "결과값은 " + response);
-                Boolean result = null;
-                try {
-                    result = response.getBoolean("result");
-                    if(result){
-                        showToast( getString(R.string.save));
-                    }else {
-                        showToast( getString(R.string.savefail));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onResponse(String response) {
+                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
             }
-        };
-    }
-    private Response.ErrorListener networkErrorListener() {
-        return new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, error.getMessage());
-                showToast("Network Error");
+                Log.i(TAG, "아기아이디는 " + baby_id);
+                Log.e(TAG, error.getLocalizedMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                if(baby_id != null) {
+                    params.put("baby_id", baby_id);
+                }
+                params.put("owner", email);
+                Log.i(TAG, "owner 는  " + email);
+                params.put("babyname", _name.getText().toString());
+//        Log.i(TAG, _birthday.getText().toString());
+//        Log.i(TAG, _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(5, 7)+_birthday.getText().toString().substring(8, 10));
+                params.put("birthday", _birthday.getText().toString());
+                if(_boy.isChecked()){
+                    params.put("sex", "1");
+                }else if(_girl.isChecked()){
+                    params.put("sex", "2");
+                }
+                return params;
             }
         };
+        postRequestQueue.add(postStringRequest);
+
     }
+
+    private void responseSuccess(String response){
+        Log.i(TAG, "결과값은 " + response);
+//        if (getArguments() == null) {    //아기 신규등록이면
+            showToast( getString(R.string.save));
+            MybabyFragment mf = new MybabyFragment();
+            AppCompatActivity activity = (AppCompatActivity)getActivity();
+            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
+//        }else{
+//            showToast(getString(R.string.savefail));
+//        }
+    }
+
+//    private  void save_data(){
+//
+//        String server_url = new UrlPath().getUrlPath() + "Pc_baby/update";
+//        //request parameters
+//        Map<String, String> params = new HashMap<>();
+//        params.put("owner", email);
+//        params.put("baby_id", baby_id);
+//        params.put("babyname", _name.getText().toString());
+////        Log.i(TAG, _birthday.getText().toString());
+////        Log.i(TAG, _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(5, 7)+_birthday.getText().toString().substring(8, 10));
+//        params.put("birthday", _birthday.getText().toString());
+//        if(_boy.isChecked()){
+//            params.put("sex", "1");
+//        }else if(_girl.isChecked()){
+//            params.put("sex", "2");
+//        }
+//
+//
+//        // Inflate the layout for this fragment
+//        final RequestQueue queue = MyVolley.getInstance(getActivity()).getRequestQueue();
+//        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST, server_url, new JSONObject(params), networkSuccessListener(), networkErrorListener());
+//
+//        queue.add(myReq);
+//    }
+//
+//    private Response.Listener<JSONObject> networkSuccessListener() {
+//        return new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                Log.i(TAG, "결과값은 " + response);
+//                Boolean result = null;
+//                try {
+//                    result = response.getBoolean("result");
+//                    if(result){
+//                        showToast( getString(R.string.save));
+//                        MybabyFragment mf = new MybabyFragment();
+//                        AppCompatActivity activity = (AppCompatActivity)getActivity();
+//                        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
+//                    }else {
+//                        showToast( getString(R.string.savefail));
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+//    }
+//    private Response.ErrorListener networkErrorListener() {
+//        return new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.i(TAG, error.getMessage());
+//                showToast("Network Error");
+//            }
+//        };
+//    }
 
     // 비트맵을 원하는 폴더에 사진파일로 저장하기
 //    public static void saveBitmaptoJpeg(Bitmap bitmap,String folder, String name){

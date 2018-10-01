@@ -15,8 +15,10 @@ import android.widget.Toast;
 
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
@@ -115,12 +117,14 @@ public class LoginActivity extends AppCompatActivity {
             LoginService httpHandler = new LoginService.Builder(Controller, "signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
 
             sb = httpHandler.getData();
+
             try {
                 //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
 //                JSONObject jsonObject = httpHandler.getNeedJSONObject(sb, "result");
 
                 //결과값이 한건의 json인 경우
                 JSONObject jsonObject = new JSONObject(sb.toString());
+
                 name = jsonObject.getString("nickname");
                 babyID = jsonObject.getString("baby_id");
 

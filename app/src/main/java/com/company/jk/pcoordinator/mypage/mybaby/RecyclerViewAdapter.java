@@ -76,7 +76,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
             @Override
             public void onClick(View v) {
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                MypageFragment myFragment = new MypageFragment();
+//                MypageFragment myFragment = new MypageFragment();
                 //왼쪽에서 오른쪽 슬라이드
                 activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail(), mItems.get(position).id)).addToBackStack(null).commit();
 

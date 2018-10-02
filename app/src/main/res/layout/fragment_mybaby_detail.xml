@@ -104,14 +104,29 @@
         </LinearLayout>
 
 
-        <Button android:id="@+id/btn_save"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_save"
-            android:layout_marginTop="3dp"
-            android:background="#0011ff"
-            android:textColor="@android:color/white"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button android:id="@+id/btn_delete"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_delete"
+                android:layout_marginTop="3dp"
+                android:background="#b3b7f4"
+                android:textColor="@android:color/white"/>
 
+            <Button android:id="@+id/btn_save"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_save"
+                android:layout_marginTop="3dp"
+                android:background="#0011ff"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

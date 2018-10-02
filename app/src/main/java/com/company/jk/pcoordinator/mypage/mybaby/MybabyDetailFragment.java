@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyVolley;
+import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.squareup.picasso.MemoryPolicy;
@@ -59,7 +61,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
     static final String TAG = "MybabyDetailFragment";
     ImageView _btn_back, _profile;
-    Button _btn_save;
+    Button _btn_save, _btn_delete;
     RadioButton _boy, _girl;
 
     EditText _name, _sex, _father, _mother, _owner;
@@ -68,6 +70,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     String email, baby_id;
     UrlPath urlPath = new UrlPath();
     Upload upload = new Upload();
+    View v;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +85,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v;
+
         v = inflater.inflate(R.layout.fragment_mybaby_detail, container, false);
         mContext = v.getContext();
 
@@ -94,6 +97,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
         _btn_back.setOnClickListener(this);
         _btn_save.setOnClickListener(this);
+        _btn_delete.setOnClickListener(this);
         _birthday.setOnClickListener(this);
         _profile.setOnClickListener(this);
 
@@ -175,6 +179,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     private void findViewsById(View v) {  // 위젯 세팅
 
         _btn_save = v.findViewById(R.id.btn_save);
+        _btn_delete = v.findViewById(R.id.btn_delete);
         _profile = v.findViewById(R.id.iv_profile);
         _name = v.findViewById(R.id.et_name);
         _boy = v.findViewById(R.id.rd_boy);
@@ -207,36 +212,69 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
             datePickerDialog.show();
         }else if(v==_profile){
-            Log.i(TAG, "이미지클릭");
-
-            final AlertDialog.Builder build = new AlertDialog.Builder( // 다이얼로그
-                    getActivity());
-            build.setTitle("프로필 사진 등록")
-                    .setMessage("프로필 사진을 등록을 원하시면 \n\n'등록'을 눌러주시기 바랍니다. ")
-                    .setPositiveButton("등록",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                                    int which) {
-                                    Intent intent = new Intent();
-                                    intent.setAction(Intent.ACTION_PICK);
-                                    intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-                                    intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                    intent.setType("image/*");
-                                    Log.i(TAG, "사진선택1");
-                                    startActivityForResult(intent, 4);
-                                    Log.i(TAG, "사진선택완료2");
-
-                                }
-                            })
-                    .setNegativeButton("취소",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                                    int which) {
-                                }
-                            }).show();
+            insert_picture();
+        }else if(v==_btn_delete){
+            deleteAelrtDialog();
         }
     }
 
+
+    private void deleteAelrtDialog(){
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(v.getContext(), android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(v.getContext());
+        }
+        builder.setTitle(R.string.btn_delete)
+                .setMessage(R.string.deleteAlert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        delete_data();
+                        MybabyFragment fragment = new MybabyFragment();
+                        AppCompatActivity activity = (AppCompatActivity)getActivity();
+                        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, fragment).addToBackStack(null).commit();
+
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private  void insert_picture(){
+        Log.i(TAG, "이미지클릭");
+
+        final AlertDialog.Builder build = new AlertDialog.Builder( // 다이얼로그
+                getActivity());
+        build.setTitle("프로필 사진 등록")
+                .setMessage("프로필 사진을 등록을 원하시면 \n\n'등록'을 눌러주시기 바랍니다. ")
+                .setPositiveButton("등록",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                Intent intent = new Intent();
+                                intent.setAction(Intent.ACTION_PICK);
+                                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                intent.setType("image/*");
+                                Log.i(TAG, "사진선택1");
+                                startActivityForResult(intent, 4);
+                                Log.i(TAG, "사진선택완료2");
+
+                            }
+                        })
+                .setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                            }
+                        }).show();
+    }
 
     private  void modify_data(){
 
@@ -247,7 +285,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
+                modifyResponse(response);    // 결과값 받아와서 처리하는 부분
             }
         }, new Response.ErrorListener() {
             @Override
@@ -280,7 +318,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
     }
 
-    private void responseSuccess(String response){
+    private void modifyResponse(String response){
         Log.i(TAG, "결과값은 " + response);
 //        if (getArguments() == null) {    //아기 신규등록이면
             showToast( getString(R.string.save));
@@ -291,6 +329,48 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 //            showToast(getString(R.string.savefail));
 //        }
     }
+
+
+
+    private  void delete_data(){
+
+        String server_url = new UrlPath().getUrlPath() + "Pc_baby/deleteBaby";
+        Log.i(TAG, server_url);
+
+        RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
+        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                deleteResponse(response);    // 결과값 받아와서 처리하는 부분
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i(TAG, "아기아이디는 " + baby_id);
+                Log.e(TAG, error.getLocalizedMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("baby_id", baby_id);
+                params.put("owner", email);
+
+                return params;
+            }
+        };
+        postRequestQueue.add(postStringRequest);
+
+    }
+
+    private void deleteResponse(String response){
+        Log.i(TAG, "결과값은 " + response);
+        showToast( getString(R.string.save));
+        MybabyFragment mf = new MybabyFragment();
+        AppCompatActivity activity = (AppCompatActivity)getActivity();
+        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
+    }
+
 
 //    private  void save_data(){
 //

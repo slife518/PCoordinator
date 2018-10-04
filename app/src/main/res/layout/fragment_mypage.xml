@@ -47,10 +47,6 @@
                             android:text="@string/txPassword"
                             style="@style/Mypagebutton"/>
                         <Button
-                            android:id="@+id/btn_bodyinfo"
-                            android:text="@string/bodyinfo"
-                            style="@style/Mypagebutton"/>
-                        <Button
                             android:id="@+id/btn_Logout"
                             android:text="@string/logout"
                             style="@style/Mypagebutton"/>

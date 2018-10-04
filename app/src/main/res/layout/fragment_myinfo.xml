@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="8"
                 android:hint="@string/hint_email"
+                android:editable="false"
                 android:inputType="textEmailAddress"/>
 
         </LinearLayout>

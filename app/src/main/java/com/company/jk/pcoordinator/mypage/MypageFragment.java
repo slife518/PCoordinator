@@ -46,8 +46,8 @@ public class MypageFragment extends Fragment{
         btn_mybabyinfo.setOnClickListener(onClickListener) ;
         Button btn_password = (Button) v.findViewById(R.id.btn_password) ;
         btn_password.setOnClickListener(onClickListener) ;
-        Button btn_bodyinfo = (Button) v.findViewById(R.id.btn_bodyinfo) ;
-        btn_bodyinfo.setOnClickListener(onClickListener) ;
+//        Button btn_bodyinfo = (Button) v.findViewById(R.id.btn_bodyinfo) ;
+//        btn_bodyinfo.setOnClickListener(onClickListener) ;
         Button btn_logout = (Button) v.findViewById(R.id.btn_Logout);
         btn_logout.setOnClickListener(onClickListener);
 

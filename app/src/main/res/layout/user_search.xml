@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/transparent">
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingStart="8dp"
+        android:drawableLeft="@drawable/ic_baseline_search_24px"
+        android:drawableStart="@drawable/ic_baseline_search_24px"
+        android:background="@drawable/rounded_textedit"
+        android:hint="Search by Display Name"
+        android:textSize="18sp"
+        android:textColorHint="@color/searchHint"
+        android:textColor="@color/searchText"
+        android:fontFamily="sans-serif-light">
+    </EditText>
+
+</LinearLayout>

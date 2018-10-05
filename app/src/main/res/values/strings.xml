@@ -111,5 +111,7 @@
     <string name="deleteAlert">삭제를 하시겠습니까?</string>
     <string name="saveAlert">저장되었습니다. 연속으로 저장하시겠습니까?</string>
     <string name="toList">기록보기</string>
+    <string name="invitation">초대</string>
+    <string name="search_person">이메일 또는 연락처</string>
 
 </resources>

@@ -231,10 +231,10 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         delete_data();
-                        MybabyFragment fragment = new MybabyFragment();
-                        AppCompatActivity activity = (AppCompatActivity)getActivity();
-                        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, fragment).addToBackStack(null).commit();
-
+//                        MybabyFragment fragment = new MybabyFragment();
+//                        AppCompatActivity activity = (AppCompatActivity)getActivity();
+//                        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, fragment).addToBackStack(null).commit();
+//
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -354,7 +354,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("baby_id", baby_id);
-                params.put("owner", email);
+                params.put("email", email);
 
                 return params;
             }
@@ -364,11 +364,15 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     }
 
     private void deleteResponse(String response){
-        Log.i(TAG, "결과값은 " + response);
-        showToast( getString(R.string.save));
-        MybabyFragment mf = new MybabyFragment();
-        AppCompatActivity activity = (AppCompatActivity)getActivity();
-        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
+        Log.i(TAG, "deleteResponse 결과값은 " + response);
+        if(response.equals("true")) {
+            showToast(getString(R.string.save));
+            MybabyFragment mf = new MybabyFragment();
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
+        }else{
+            showToast(response);
+        }
     }
 
 

@@ -96,9 +96,10 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                HomeFragment myFragment = new HomeFragment();
+//                HomeFragment myFragment = new HomeFragment();
                 //왼쪽에서 오른쪽 슬라이드
 //                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail(), mItems.get(position).date , mItems.get(position).time , mItems.get(position).id, mItems.get(position).milk, mItems.get(position).rice,  mItems.get(position).comments)).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().popBackStack();
                 activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(items.get(position))).addToBackStack(null).commit();
 
             }

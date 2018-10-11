@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -51,7 +53,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     private String id;
     EditText _milk, _rice, _remainText;
     EditText _date, _time;
-    Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save, _delete, _cancel;
+    Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save, _delete;
+    ImageView _cancel;
     static final String TAG = "RecordFragment";
     Context mContext; View v;
     LoginInfo loginInfo = LoginInfo.getInstance();
@@ -91,7 +94,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _minusRice  = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
         _delete = v.findViewById(R.id.btn_delete);
-        _cancel = v.findViewById(R.id.btn_cancel);
+        _cancel = v.findViewById(R.id.btn_back);
 
 
         if (getArguments() != null) {
@@ -160,7 +163,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
             deleteAelrtDialog();
 
         }else if(v == _cancel){
-            getActivity().onBackPressed();
+//            getActivity().onBackPressed();
+            bottomBar.selectTabAtPosition(0, false);
         }
     }
 
@@ -174,16 +178,16 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         }
         builder.setTitle(R.string.btn_delete)
                 .setMessage(R.string.deleteAlert)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         delete_data();
-                        HomeFragment hf = new HomeFragment();
-                        AppCompatActivity activity = (AppCompatActivity)getActivity();
-                        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
+//                        HomeFragment hf = new HomeFragment();
+//                        AppCompatActivity activity = (AppCompatActivity)getActivity();
+//                        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
 
                     }
                 })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
                     }
@@ -195,23 +199,23 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     private void saveAelrtDialog(){
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(v.getContext(), android.R.style.Theme_Material_Dialog_Alert);
+            builder = new AlertDialog.Builder(v.getContext(), android.R.style.Theme_Material_Light_Dialog_Alert);
         } else {
             builder = new AlertDialog.Builder(v.getContext());
         }
         builder.setTitle(R.string.btn_save)
                 .setMessage(R.string.saveAlert)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        initialize();
-                    }
-                })
-                .setNegativeButton(R.string.toList, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         bottomBar.selectTabAtPosition(0, false);
                     }
                 })
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        initialize();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
     }
 
@@ -241,43 +245,33 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _time.setText(hourString + ":" + minString);
     }
 
-    private void responseSuccess(String response){
+    private void deleteSuccess(String response){
+        Log.i(TAG, "결과값은 " + response);
+        showToast(getString(R.string.save));
+        HomeFragment hf = new HomeFragment();
+        AppCompatActivity activity = (AppCompatActivity)getActivity();
+        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_left).replace(R.id.frame, hf).addToBackStack(null).commit();
+    }
+
+    private void saveSuccess(String response){
         Log.i(TAG, "결과값은 " + response);
         if (getArguments() == null) {    //입력하기 전용화면이면
             saveAelrtDialog();
         }else{
-            showToast(getString(R.string.savefail));
+            showToast(getString(R.string.save));
+            HomeFragment hf = new HomeFragment();
+            AppCompatActivity activity = (AppCompatActivity)getActivity();
+            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_left).replace(R.id.frame, hf).addToBackStack(null).commit();
         }
-//        if(!response.isEmpty()){
-//            AppCompatActivity activity = (AppCompatActivity)getActivity();
-//            if(activity != null) {
-//
-////                showToast(getString(R.string.save));
-////                initialize();
-//                HomeFragment hf = new HomeFragment();
-//                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
-//
-//                if (getArguments() == null) {    //입력하기 전용화면이면
-//
-//                    bottomBar.selectTabAtPosition(0, false);
-//                }
-//
-//            }
-//        }else{
-//            showToast(getString(R.string.savefail));
-//        }
     }
-
     private  void save_data(){
-
         String server_url = new UrlPath().getUrlPath() + "Pc_record/save_record";
         Log.i(TAG, server_url);
-
         RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
+                saveSuccess(response);    // 결과값 받아와서 처리하는 부분
             }
         }, new Response.ErrorListener() {
             @Override
@@ -308,15 +302,13 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     }
 
     private  void delete_data(){
-
         String server_url = new UrlPath().getUrlPath() + "Pc_record/delete_record";
         Log.i(TAG, server_url);
-
         RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
+                deleteSuccess(response);    // 결과값 받아와서 처리하는 부분
             }
         }, new Response.ErrorListener() {
             @Override

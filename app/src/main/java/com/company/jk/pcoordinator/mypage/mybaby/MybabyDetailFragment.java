@@ -324,7 +324,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             showToast( getString(R.string.save));
             MybabyFragment mf = new MybabyFragment();
             AppCompatActivity activity = (AppCompatActivity)getActivity();
-            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
+            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.enter_from_left).replace(R.id.frame, mf).addToBackStack(null).commit();
 //        }else{
 //            showToast(getString(R.string.savefail));
 //        }

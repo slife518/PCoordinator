@@ -62,7 +62,7 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
 
     private void get_person_info(){
         //data binding start
-        String server_url = new UrlPath().getUrlPath() + "Pc_user/find_user";
+        String server_url = new UrlPath().getUrlPath() + "Pc_Login/find_user";
         RequestQueue postRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override

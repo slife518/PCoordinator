@@ -38,21 +38,21 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"/>
 
-        <!--<Button-->
-            <!--android:id="@+id/btn_add"-->
-            <!--android:text="@string/addBaby"-->
-            <!--android:layout_margin="8dp"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
-
-        <android.support.design.button.MaterialButton
+        <Button
             android:id="@+id/btn_add"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            android:text="@string/addBaby" />
+            android:text="@string/addBaby"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!--<android.support.design.button.MaterialButton-->
+            <!--android:id="@+id/btn_add"-->
+            <!--style="@style/Widget.MaterialComponents.Button.TextButton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="12dp"-->
+            <!--android:layout_marginRight="12dp"-->
+            <!--android:text="@string/addBaby" />-->
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

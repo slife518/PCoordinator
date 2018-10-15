@@ -42,7 +42,9 @@
             android:label="@string/title_activity_signup"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".login.AddressPostActivity" />
-        <activity android:name=".mypage.mybaby.InvitationActivity"></activity>
+        <activity android:name=".InvitationActivity" />
+        <activity android:name=".mypage.mybaby.ParentsActivity" />
+        <activity android:name=".ParentsActivity"></activity>
     </application>
 
 </manifest>

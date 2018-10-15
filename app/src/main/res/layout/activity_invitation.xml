@@ -4,61 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mypage.mybaby.InvitationActivity">
+    tools:context=".InvitationActivity">
 
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        android:layout_marginTop="30dp"
-        android:text="연락처"/>
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        android:layout_marginTop="30dp"
-        android:text="이메일"/>
+        android:layout_margin="70dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:text="연락처"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:text="이메일"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </RadioGroup>
 
     <LinearLayout
         android:id="@+id/layout_person"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/transparent"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton2"
-        android:layout_marginTop="30dp"
-        android:background="@color/transparent">
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
 
         <EditText
             android:id="@+id/et_find_user"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/search_person"
-            android:singleLine="true"
-            android:textSize="25sp"
+            android:layout_weight="1"
+            android:hint="@string/letsEmail"
             android:paddingRight="60dp"
-            />
+            android:singleLine="true"
+            android:textSize="25sp" />
+
         <ImageButton
             android:id="@+id/search_person"
-            android:layout_marginLeft="-60dp"
             style="?android:buttonBarButtonStyle"
-            android:paddingBottom="5dp"
-            android:src="@drawable/ic_baseline_search_24px"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-60dp"
+            android:paddingBottom="5dp"
+            android:src="@drawable/ic_baseline_search_24px" />
 
     </LinearLayout>
 

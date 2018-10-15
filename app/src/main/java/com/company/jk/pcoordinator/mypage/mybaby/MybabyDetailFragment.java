@@ -7,11 +7,9 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,27 +28,20 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.company.jk.pcoordinator.InvitationActivity;
+import com.company.jk.pcoordinator.ParentsActivity;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
-import com.company.jk.pcoordinator.common.MyVolley;
-import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,7 +52,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
     static final String TAG = "MybabyDetailFragment";
     ImageView _btn_back, _profile;
-    Button _btn_save, _btn_delete;
+    Button _btn_save, _btn_delete, _btn_parents;
     RadioButton _boy, _girl;
 
     EditText _name, _sex, _father, _mother, _owner;
@@ -98,6 +89,8 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         _btn_back.setOnClickListener(this);
         _btn_save.setOnClickListener(this);
         _btn_delete.setOnClickListener(this);
+        _btn_parents.setOnClickListener(this);
+
         _birthday.setOnClickListener(this);
         _profile.setOnClickListener(this);
 
@@ -180,6 +173,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
         _btn_save = v.findViewById(R.id.btn_save);
         _btn_delete = v.findViewById(R.id.btn_delete);
+        _btn_parents = v.findViewById(R.id.btn_parents);
         _profile = v.findViewById(R.id.iv_profile);
         _name = v.findViewById(R.id.et_name);
         _boy = v.findViewById(R.id.rd_boy);
@@ -194,9 +188,13 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             AppCompatActivity activity = (AppCompatActivity) v.getContext();
             MybabyFragment myFragment = new MybabyFragment();
             activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
-        }else if(v==_btn_save){
+        }else if(v==_btn_save) {
 //            save_data();
             modify_data();
+        }else if(v==_btn_parents){
+            Intent intent = new Intent(getActivity(),ParentsActivity.class);
+            intent.putExtra("baby_id", baby_id);
+            startActivityForResult(intent, 1000);
         }else if(v==_birthday){
             Calendar c=Calendar.getInstance();
             int year=c.get(Calendar.YEAR);

@@ -1,5 +1,6 @@
-package com.company.jk.pcoordinator.mypage.mybaby;
+package com.company.jk.pcoordinator;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -36,10 +38,16 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
     EditText _find_user;
     TextView _name;
     final String TAG = "InvatationActivity";
+    Intent intent;
+    String baby_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
+
+
+        intent = getIntent(); //getIntent()로 받을준비
+        baby_id = intent.getStringExtra("baby_id");
 
         _btn_email = (RadioButton) findViewById(R.id.radioButton);
         _btn_phone = (RadioButton) findViewById(R.id.radioButton2);
@@ -47,9 +55,22 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
         _iv_profile = (ImageView) findViewById(R.id.iv_profile);
         _name = (TextView)findViewById(R.id.tv_name);
         _find_user = (EditText)findViewById(R.id.et_find_user);
-
-
         _btn_search_person.setOnClickListener(this);
+
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.i(TAG, String.valueOf(checkedId));
+                if(_btn_email.isChecked()){
+                    _find_user.setText(R.string.letsEmail );
+                }else {
+                    _find_user.setText(R.string.letsTel );
+                }
+
+            }
+        });
 
     }
 
@@ -79,7 +100,7 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                if(_btn_email != null){
+                if(_btn_email.isChecked()){
                     params.put("email", _find_user.getText().toString());
                 }else {
                     params.put("tel", _find_user.getText().toString());

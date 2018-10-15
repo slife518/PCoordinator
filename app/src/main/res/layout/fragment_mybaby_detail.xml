@@ -21,14 +21,19 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/tv_title"
-                android:text="@string/mybaby"
-                android:textStyle="bold"
-                android:layout_width="0dp"
-                android:textSize="30dp"
-                android:gravity="center"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"/>
+            <Button
+                android:id="@+id/btn_parents"
+                android:text="@string/parentlist"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:background="@color/primary"
+                />
         </LinearLayout>
 
         <FrameLayout style="@style/EditIcon">

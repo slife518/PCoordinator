@@ -64,9 +64,9 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.i(TAG, String.valueOf(checkedId));
                 if(_btn_email.isChecked()){
-                    _find_user.setText(R.string.letsEmail );
+                    _find_user.setHint(R.string.letsEmail );
                 }else {
-                    _find_user.setText(R.string.letsTel );
+                    _find_user.setHint(R.string.letsTel );
                 }
 
             }

@@ -1,7 +1,6 @@
 package com.company.jk.pcoordinator;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,11 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,12 +44,11 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
 
-
         intent = getIntent(); //getIntent()로 받을준비
         baby_id = intent.getStringExtra("baby_id");
 
-        _btn_email = (RadioButton) findViewById(R.id.radioButton);
-        _btn_phone = (RadioButton) findViewById(R.id.radioButton2);
+        _btn_email = (RadioButton) findViewById(R.id.btn_email);
+        _btn_phone = (RadioButton) findViewById(R.id.btn_tel);
         _btn_search_person = (ImageButton) findViewById(R.id.search_person);
         _iv_profile = (ImageView) findViewById(R.id.iv_profile);
         _name = (TextView)findViewById(R.id.tv_name);
@@ -71,7 +69,6 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
-
     }
 
     @Override
@@ -88,7 +85,6 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i(TAG, "2");
                 responseReceiveData(response);    // 결과값 받아와서 처리하는 부분
             }
         }, new Response.ErrorListener() {
@@ -102,11 +98,11 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
                 Map<String, String> params = new HashMap<>();
                 if(_btn_email.isChecked()){
                     params.put("email", _find_user.getText().toString());
+                    Log.i(TAG,  "email은 "+_find_user.getText().toString());
                 }else {
                     params.put("tel", _find_user.getText().toString());
+                    Log.i(TAG,  "연락처는 "+_find_user.getText().toString());
                 }
-
-
                 return params;
             }
         };
@@ -120,28 +116,19 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
     private void responseReceiveData(String response) {
         Log.i(TAG, "결과값은 " + response);
 
-        JSONObject rs = JsonParse.getJsonObjectFromString(response, "result");
-
         try {
-            String name = rs.getString("babyname");
-            String id = rs.getString("email");
-         //   String birthday = rs.getString("birthday");
-//            _birthday.setText(birthday.substring(0, 4)+"년"+birthday.substring(4, 6)+"월"+birthday.substring(6, 8)+"일");
-          //  _birthday.setText(birthday);
+            JSONObject rs = JsonParse.getJsonObjectFromString(response, "result");
 
-          //  String sex = rs.getString("sex");
-
-            String imgUrl = new UrlPath().getUrlBabyImg() + id + ".jpg";  //확장자 대소문자 구별함.
+            String email = rs.getString("email");
+            String name = rs.getString("nickname");
+            String imgUrl = new UrlPath().getUrlBabyImg() + email + ".jpg";  //확장자 대소문자 구별함.
             Log.i(TAG, imgUrl);
             Picasso.with(getApplicationContext()).load(imgUrl).into(_iv_profile);
             _name.setText(name);
-           // _birthday.setText(birthday);
-          //  if (sex.equals("1")) {
-//                _boy.setChecked(true);
-//            } else {
-//                _girl.setChecked(true);
-//            }
         } catch (JSONException e) {
+//            _name.setVisibility(View.VISIBLE);
+            _name.setText("해당회원을 찾을 수 없습니다.");
+
             e.printStackTrace();
         }
     }

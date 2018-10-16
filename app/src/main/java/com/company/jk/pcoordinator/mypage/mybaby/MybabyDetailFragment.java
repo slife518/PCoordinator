@@ -143,9 +143,8 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
     private void responseReceiveData(String response) {
         Log.i(TAG, "결과값은 " + response);
 
-        JSONObject rs = JsonParse.getJsonObjectFromString(response, "result");
-
         try {
+            JSONObject rs = JsonParse.getJsonObjectFromString(response, "result");
             String name = rs.getString("babyname");
             String id = rs.getString("baby_id");
             String birthday = rs.getString("birthday");
@@ -165,6 +164,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
                 _girl.setChecked(true);
             }
         } catch (JSONException e) {
+            showToast("등록된 아기가 없습니다.");
             e.printStackTrace();
         }
     }

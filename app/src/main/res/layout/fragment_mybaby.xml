@@ -41,7 +41,8 @@
         <Button
             android:id="@+id/btn_add"
             android:text="@string/addBaby"
-            android:layout_margin="8dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

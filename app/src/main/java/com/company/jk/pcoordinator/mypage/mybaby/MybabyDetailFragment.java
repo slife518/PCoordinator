@@ -84,6 +84,8 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         findViewsById(v);
         if(baby_id != null) {
             initLoader();
+        }else{
+            _btn_parents.setVisibility(View.GONE);
         }
 
         _btn_back.setOnClickListener(this);

@@ -180,8 +180,10 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
 
     private void  response_invite_person(String response){
         Log.i(TAG, "결과값은 " + response);
-        if(response.equals("true")){
+        if(response.equals("1")){
             onBackPressed();
+        }else{
+            _name.setText(R.string.message_duplicate_user);
         }
     }
     private  void  closeKeyboard(){

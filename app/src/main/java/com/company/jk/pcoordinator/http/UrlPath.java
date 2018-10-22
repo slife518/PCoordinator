@@ -5,11 +5,11 @@ package com.company.jk.pcoordinator.http;
  */
 public class UrlPath {
 
-    private final static String urlPath = "http://192.168.0.6:8080/dev.php/giantbaby/";  //래미안
-    private final static String urlImg = "http://192.168.0.6:8080/etc/img/";
+//    private final static String urlPath = "http://192.168.0.6:8080/dev.php/giantbaby/";  //래미안
+//    private final static String urlImg = "http://192.168.0.6:8080/etc/img/";
 
-//    private final static String urlPath = "http://172.21.18.187:80/dev.php/giantbaby/";  //company
-//    private final static String urlImg = "http://172.21.18.187:80/etc/img/";  //company
+    private final static String urlPath = "http://172.21.18.187:80/dev.php/giantbaby/";  //company
+    private final static String urlImg = "http://172.21.18.187:80/etc/img/";  //company
 
 //    private final static String urlPath = "http://slife705.cafe24.com/index.php/giantbaby/";  //cafe24
 //    private final static String urlImg = "http://slife705.cafe24.com/etc/img/";  //\Bitnami\wampstack-7.1.11-0\apache2\htdocs

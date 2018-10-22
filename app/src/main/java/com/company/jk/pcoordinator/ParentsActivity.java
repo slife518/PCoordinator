@@ -128,7 +128,7 @@ public class ParentsActivity extends AppCompatActivity implements View.OnClickLi
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            items.add(new ParentsInfo(id, name, birthday, relationship));
+            items.add(new ParentsInfo(id, name, birthday, relationship, baby_id));
         }
 
         mAdapter.notifyDataSetChanged();

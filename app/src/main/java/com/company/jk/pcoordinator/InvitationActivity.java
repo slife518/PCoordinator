@@ -181,7 +181,10 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
     private void  response_invite_person(String response){
         Log.i(TAG, "결과값은 " + response);
         if(response.equals("1")){
-            onBackPressed();
+//            onBackPressed();
+            Intent intent = new Intent(getApplicationContext() ,ParentsActivity.class);
+            intent.putExtra("baby_id", _baby_id);
+            startActivityForResult(intent, 1000);
         }else{
             _name.setText(R.string.message_duplicate_user);
         }

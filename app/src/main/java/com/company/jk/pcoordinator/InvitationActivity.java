@@ -1,5 +1,6 @@
 package com.company.jk.pcoordinator;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,7 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
     RadioGroup _radioGroup;
     RadioButton _btn_email, _btn_phone;
     Button _btn_invite;
-    ImageButton _btn_search_person;
+    ImageButton _btn_search_person, _btn_exit;
     ImageView _iv_profile;
     EditText _find_user;
     TextView _name;
@@ -58,6 +59,7 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
         _btn_phone = (RadioButton) findViewById(R.id.btn_tel);
 
         _btn_search_person = (ImageButton) findViewById(R.id.search_person);
+        _btn_exit = (ImageButton) findViewById(R.id.btn_exit);
 
         _btn_invite = (Button) findViewById(R.id.btn_invite);
         _iv_profile = (ImageView) findViewById(R.id.iv_profile);
@@ -65,6 +67,7 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
         _find_user = (EditText)findViewById(R.id.et_find_user);
 
         _btn_search_person.setOnClickListener(this);
+        _btn_exit.setOnClickListener(this);
         _btn_invite.setOnClickListener(this);
         _radioGroup.setOnCheckedChangeListener(this);
 
@@ -82,9 +85,11 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        if(view ==_btn_search_person){
+        if(view ==_btn_search_person) {
             get_person_info();
             closeKeyboard();
+        }else if (view == _btn_exit){
+            finish();
         }else if(view == _btn_invite){
             invite_person();
         }
@@ -92,7 +97,7 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
 
     private void get_person_info(){
         //data binding start
-        String server_url = new UrlPath().getUrlPath() + "Pc_Login/find_user";
+        String server_url = new UrlPath().getUrlPath() + "Pc_login/find_user";
         RequestQueue postRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
@@ -150,7 +155,7 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void invite_person(){
-        String server_url = new UrlPath().getUrlPath() + "Pc_Baby/invite_user";
+        String server_url = new UrlPath().getUrlPath() + "Pc_baby/invite_user";
         RequestQueue postRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>(){
             @Override
@@ -182,9 +187,16 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
         Log.i(TAG, "결과값은 " + response);
         if(response.equals("1")){
 //            onBackPressed();
-            Intent intent = new Intent(getApplicationContext() ,ParentsActivity.class);
-            intent.putExtra("baby_id", _baby_id);
-            startActivityForResult(intent, 1000);
+//            finish();
+//            Intent intent = new Intent(getApplicationContext() ,ParentsActivity.class);
+//            intent.putExtra("baby_id", _baby_id);
+//            startActivityForResult(intent, 1000);
+
+            Intent returnIntent =  new Intent();
+            returnIntent.putExtra("email",_email);
+            setResult(Activity.RESULT_OK,returnIntent);
+            finish();
+
         }else{
             _name.setText(R.string.message_duplicate_user);
         }
@@ -195,5 +207,10 @@ public class InvitationActivity extends AppCompatActivity implements View.OnClic
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

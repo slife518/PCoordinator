@@ -45,7 +45,14 @@
         <item name="android:layout_width">40dp</item>sss
         <item name="android:layout_height">40dp</item>
     </style>
-
+    <style name="IconExit40x40">
+        <item name="android:src">@drawable/ic_baseline_clear_24px</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+    </style>
     <style name="IconForward40x40">
         <item name="android:src">@drawable/ic_baseline_keyboard_arrow_right_24px</item>
         <!--<item name="app:layout_constraintRight_toRightOf">parent</item>-->

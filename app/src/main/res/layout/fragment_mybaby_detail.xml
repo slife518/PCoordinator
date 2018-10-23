@@ -15,7 +15,7 @@
 
         <LinearLayout style="@style/EditIcon">
             <ImageView
-                android:id="@+id/btback"
+                android:id="@+id/btn_exit"
                 style="@style/IconBack40x40"
                 android:layout_gravity="center"
                 android:layout_width="0dp"

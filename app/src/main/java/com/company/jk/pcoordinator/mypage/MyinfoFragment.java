@@ -42,7 +42,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
     private static String tcode;
 
     private StringBuffer sb = new StringBuffer();
-    private static final String Controller = "Pc_Login";
+    private static final String Controller = "Pc_login";
     private String toastMessage = " ";
 
 
@@ -85,7 +85,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
         _address1              = (TextView) v.findViewById(R.id.tv_address);
         _address2      = (EditText) v.findViewById(R.id.et_address_detail) ;
 //        _layout_address_detail = (View) v.findViewById(R.id.layout_address_detail);
-        _back                  = (ImageView) v.findViewById(R.id.btback);
+        _back                  = (ImageView) v.findViewById(R.id.btn_exit);
         _btn_findaddress = (AppCompatImageButton) v.findViewById(R.id.btn_findAddress);
         _btn_save = (Button) v.findViewById(R.id.btn_save);
         _cb_auto = (CheckBox)v.findViewById(R.id.cb_Auto);
@@ -138,7 +138,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btback:
+            case R.id.btn_exit:
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 MypageFragment myFragment = new MypageFragment();
                 //왼쪽에서 오른쪽 슬라이드

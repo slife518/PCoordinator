@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     final static String TAG = "Login";
-    final static String Controller = "Pc_Login";
+    final static String Controller = "Pc_login";
     StringBuffer sb = new StringBuffer();
     SharedPreferences mPreference;
     Button btn;

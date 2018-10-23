@@ -1,7 +1,6 @@
 package com.company.jk.pcoordinator.mypage;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +37,7 @@ public class BodyFragment extends Fragment implements AdapterView.OnItemSelected
         // Spinner element
         Spinner spinner_sizetop = (Spinner) v.findViewById(R.id.spinner_size_top);
         Spinner spinner_sex = (Spinner) v.findViewById(R.id.spinner_sex);
-        ImageView iv_back = (ImageView) v.findViewById(R.id.btback);
+        ImageView iv_back = (ImageView) v.findViewById(R.id.btn_exit);
 
         // Spinner click listener
         spinner_sizetop.setOnItemSelectedListener(this);
@@ -78,7 +77,7 @@ public class BodyFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btback:
+            case R.id.btn_exit:
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 MypageFragment myFragment = new MypageFragment();
                 //왼쪽에서 오른쪽 슬라이드

@@ -32,7 +32,7 @@ public class PasswordFragment extends Fragment implements View.OnClickListener {
     private static String tcode;
     private JSONObject jObject = null; //group들로 구성된 json
     private StringBuffer sb = new StringBuffer();
-    private static final String Controller = "Pc_Login";
+    private static final String Controller = "Pc_login";
     private String toastMessage = " ";
     EditText  _old_password, _password, _repassword;
     ImageView _back;
@@ -61,7 +61,7 @@ public class PasswordFragment extends Fragment implements View.OnClickListener {
         _old_password = (EditText) v.findViewById(R.id.et_old_password);
         _password = (EditText) v.findViewById(R.id.et_new_password);
         _repassword = (EditText) v.findViewById(R.id.et_new_password2);
-        _back                  = (ImageView) v.findViewById(R.id.btback);
+        _back                  = (ImageView) v.findViewById(R.id.btn_exit);
         _btn_save_pw = (Button) v.findViewById(R.id.btn_password_save);
 
         _back.setOnClickListener(this);
@@ -72,7 +72,7 @@ public class PasswordFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btback:
+            case R.id.btn_exit:
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 MypageFragment myFragment = new MypageFragment();
                 //왼쪽에서 오른쪽 슬라이드

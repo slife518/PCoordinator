@@ -6,32 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".InvitationActivity">
 
+
+    <ImageButton
+            android:id="@+id/btn_exit"
+            style="@style/IconExit40x40"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="70dp"
-        android:orientation="horizontal">
+        android:layout_margin="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/btn_exit">
+
         <RadioButton
             android:id="@+id/btn_email"
-            android:text="@string/email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:checked="true"/>
+            android:checked="true"
+            android:text="@string/email" />
+
         <RadioButton
             android:id="@+id/btn_tel"
-            android:text="@string/tel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/tel" />
     </RadioGroup>
 
     <LinearLayout
         android:id="@+id/layout_person"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@color/transparent"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"

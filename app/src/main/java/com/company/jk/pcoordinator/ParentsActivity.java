@@ -1,6 +1,8 @@
 package com.company.jk.pcoordinator;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -27,7 +28,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InvalidPropertiesFormatException;
 import java.util.Map;
 
 public class ParentsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,7 +49,7 @@ public class ParentsActivity extends AppCompatActivity implements View.OnClickLi
         intent = getIntent(); //getIntent()로 받을준비
         baby_id = intent.getStringExtra("baby_id");
 
-        _back = (ImageView) findViewById(R.id.btback);
+        _back = (ImageView) findViewById(R.id.btn_exit);
         _btn_addParents = findViewById(R.id.btn_addParents);
         _back.setOnClickListener(this);
         _btn_addParents.setOnClickListener(this);
@@ -107,7 +107,7 @@ public class ParentsActivity extends AppCompatActivity implements View.OnClickLi
                 id = rs.getString("email");
                 name = rs.getString("nickname");
                 birthday = rs.getString("birthday");
-                relationship = rs.getString("relationship");
+                relationship = rs.getString("relation");
                 if (relationship.equals("1")) {
                     relationship = "엄마";
                 }else if(relationship.equals("2")) {
@@ -124,7 +124,9 @@ public class ParentsActivity extends AppCompatActivity implements View.OnClickLi
                     relationship = "이모";
                 }else if(relationship.equals("8")) {
                     relationship = "고모";
-                };
+                }else if(relationship.equals("")) {
+                relationship = "미상";
+            };
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -139,13 +141,29 @@ public class ParentsActivity extends AppCompatActivity implements View.OnClickLi
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
         switch (view.getId()) {
-            case R.id.btback:
+            case R.id.btn_exit:
                 onBackPressed();
                 break;
             case R.id.btn_addParents:
                 Intent intent = new Intent(getApplicationContext(), InvitationActivity.class);
                 intent.putExtra("baby_id", baby_id);
                 startActivityForResult(intent, 2000);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.i(TAG, "재시작합니다."+ requestCode);
+        if (requestCode == 2000) {
+            if(resultCode == Activity.RESULT_OK){
+//                String result=data.getStringExtra("email");
+                Log.i(TAG, "재시작합니다." + requestCode);
+               recreate();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //만약 반환값이 없을 경우의 코드를 여기에 작성하세요.
+                Log.i(TAG, "취소되었습니다.");
+            }
         }
     }
 

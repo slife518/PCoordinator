@@ -53,7 +53,7 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
         v = inflater.inflate(R.layout.fragment_mybaby, container, false);
         mContext = v.getContext();
 
-        _back = (ImageView) v.findViewById(R.id.btback);
+        _back = (ImageView) v.findViewById(R.id.btn_exit);
         _btn_add = v.findViewById(R.id.btn_add);
         _back.setOnClickListener(this);
         _btn_add.setOnClickListener(this);
@@ -147,7 +147,7 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
         switch (view.getId()) {
-            case R.id.btback:
+            case R.id.btn_exit:
                 MypageFragment myFragment = new MypageFragment();
                 //왼쪽에서 오른쪽 슬라이드
                 activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();

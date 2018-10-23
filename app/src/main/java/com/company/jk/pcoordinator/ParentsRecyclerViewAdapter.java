@@ -67,9 +67,12 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
         holder.mNickName.setText(mItems.get(position).nickname);
         holder.mRelationship.setText(mItems.get(position).relationship);
         holder.mBirthday.setText(mItems.get(position).birthday);
+        holder.mEmail.setText(mItems.get(position).email);
 //        holder.mFather.setText(mItems.get(position).father);
 //        holder.mMother.setText(mItems.get(position).mother);
-//        holder.mDelete.setVisibility(View.GONE);
+        if (loginInfo.getEmail().equals(mItems.get(position).email)){
+            holder.mDelete.setVisibility(View.GONE);
+        }
 //
 
         String imgUrl = urlPath.getUrlBabyImg() + mItems.get(position).email + ".jpg";  //확장자 대소문자 구별함.
@@ -155,4 +158,6 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
         postRequestQueue.add(postStringRequest);
 
     }
+
+
 }

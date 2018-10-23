@@ -30,7 +30,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.company.jk.pcoordinator.InvitationActivity;
 import com.company.jk.pcoordinator.ParentsActivity;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
@@ -181,7 +180,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         _boy = v.findViewById(R.id.rd_boy);
         _girl = v.findViewById(R.id.rd_girl);
         _birthday = v.findViewById(R.id.tv_birthday);
-        _btn_back = v.findViewById(R.id.btback);
+        _btn_back = v.findViewById(R.id.btn_exit);
     }
 
         @Override

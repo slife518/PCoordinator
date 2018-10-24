@@ -18,23 +18,23 @@
     </style>
 
     <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
-        <item name="colorAccent">@color/white</item>
-        <item name="android:textColorPrimary">@color/iron</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:background">@color/primary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
-        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
 
     <style name="AppTheme.NoActionBar.White" parent="AppTheme.NoActionBar" >
-        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
     <style name="AppTheme.NoActionBar.Purple" parent="AppTheme.NoActionBar" >
-        <item name="colorPrimaryDark">@color/primaryColorDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

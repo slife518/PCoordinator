@@ -127,7 +127,7 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
 
 
     private  void  delete_parents(final String email, final String baby_id, final int position){
-        String server_url = new UrlPath().getUrlPath() + "Pc_Baby/delete_relation";
+        String server_url = new UrlPath().getUrlPath() + "Pc_baby/delete_relation";
         Log.i(TAG, server_url);
         RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {

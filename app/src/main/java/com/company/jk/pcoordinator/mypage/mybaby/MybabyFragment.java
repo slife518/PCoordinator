@@ -11,8 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Space;
+import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,20 +36,25 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
-public class MybabyFragment extends Fragment implements View.OnClickListener {
+public class MybabyFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     RecyclerView mRecyclerView;
     ArrayList<Mybabyinfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
     RecyclerViewAdapter mAdapter;
+    Spinner mSpinner;
     ImageView _back;
     Button _btn_add;
     View v;
     Context mContext;
     LoginInfo loginInfo = LoginInfo.getInstance();
     String TAG = "MybabyFragment";
+
+    List<String> target_baby_list_text = new ArrayList<String>();
+    List<String> target_baby_list_value = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,10 +63,31 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
         mContext = v.getContext();
 
         _back = (ImageView) v.findViewById(R.id.btn_exit);
-        _btn_add = v.findViewById(R.id.btn_add);
         _back.setOnClickListener(this);
+
+        _btn_add = v.findViewById(R.id.btn_add);
         _btn_add.setOnClickListener(this);
 
+
+
+//        Spinner spinner=(Spinner)findViewById(R.id.spinner);
+//        String[] datas=getResources().getStringArray(R.array.spinner_array);
+//        ArrayAdapter<String> aa=new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, datas);
+//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(aa);
+
+
+//        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            public void onItemSelected(AdapterView<?> parent, View view,
+//                                       int position, long id) {
+//                Log.i(TAG, "선택된 아기의 아이디는~ " + position);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -93,9 +123,36 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
         //data binding end
 
 
+
+
+        //스피너 설정 시작
+        mSpinner = (Spinner)v.findViewById(R.id.spinner_main_target);
+        String[] datas=getResources().getStringArray(R.array.spinner_array);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line, target_baby_list_text);
+
+//        ArrayAdapter<String> arrayAdapter =new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, datas);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(arrayAdapter);
+        mSpinner.setOnItemSelectedListener(this);
+
+
+
+
         return v;
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//        String item = mSpinner.getSelectedItem().toString();
+//        String selectedVal = target_baby_list_value.get(mSpinner.getSelectedItemPosition());
+
+        Log.i(TAG, "선택된 아기의 아이디는 ");
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        Log.i(TAG, "선택된 아기의 아이디는 없습니다. ");
+    }
 
     private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);
@@ -114,6 +171,9 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
                 JSONObject rs = (JSONObject) jsonArray.get(i);
                 id = rs.getString("baby_id");
                 name = rs.getString("babyname");
+                target_baby_list_text.add(name);   // 타겟 아기 리스트
+                target_baby_list_value.add(id);   // 타겟 아기 리스트
+
                 birthday = rs.getString("birthday");
                 if (rs.getString("sex").equals("1")) {
                     sex = "남자";
@@ -130,6 +190,9 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
         }
 
         mAdapter.notifyDataSetChanged();
+
+
+
     }
 
     ;
@@ -159,5 +222,10 @@ public class MybabyFragment extends Fragment implements View.OnClickListener {
                 activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail())).addToBackStack(null).commit();
 
         }
+    }
+
+
+    private  void getBabyList(){
+
     }
 }

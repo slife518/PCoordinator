@@ -85,6 +85,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
             initLoader();
         }else{
             _btn_parents.setVisibility(View.GONE);
+            _btn_delete.setVisibility(View.GONE);
         }
 
         _btn_back.setOnClickListener(this);

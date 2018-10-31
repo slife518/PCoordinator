@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (menuItemId == R.id.bottomBarItemPerson) {     //내정보
                     MypageFragment mf = new MypageFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, mf).commit();
-                } else if (menuItemId == R.id.bottomBarItemChart) {        //기타공지사항 등.
+                } else if (menuItemId == R.id.bottomBarItemChart) {       //레포트
                     WebviewFragment bf = new WebviewFragment();
                     UrlPath urlPath = new UrlPath();
                     LoginInfo loginInfo = LoginInfo.getInstance();

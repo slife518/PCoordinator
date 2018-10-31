@@ -23,37 +23,40 @@
                     android:text="@string/mybaby"
                     android:textStyle="bold"
                     android:layout_width="0dp"
-                    android:textSize="30dp"
+                    android:textSize="@dimen/app_fragment_title"
                     android:gravity="center"
                     android:layout_height="40dp"
                     android:layout_weight="10"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+                <TextView
+                    android:text="@string/mainTarget"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/spinner_main_target"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/listView_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"/>
-
-        <Button
-            android:id="@+id/btn_add"
-            android:text="@string/addBaby"
-            android:layout_margin="16dp"
-            android:background="@drawable/button_bg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <!--<android.support.design.button.MaterialButton-->
-            <!--android:id="@+id/btn_add"-->
-            <!--style="@style/Widget.MaterialComponents.Button.TextButton"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginEnd="12dp"-->
-            <!--android:layout_marginRight="12dp"-->
-            <!--android:text="@string/addBaby" />-->
+                android:layout_margin="16dp"/>
+            <Button
+                android:id="@+id/btn_add"
+                android:text="@string/addBaby"
+                android:layout_margin="16dp"
+                android:background="@drawable/button_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

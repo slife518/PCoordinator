@@ -20,7 +20,7 @@
     <string name="hint_birthday">생년월일</string>
     <string name="tel">휴대폰번호</string>
     <string name="hint_tel">연락처</string>
-    <string name="myinfo">내정보관리</string>
+    <string name="myinfo">← 내정보관리</string>
     <string name="memberinfo">회원정보</string>
     <string name="sex">성별</string>
     <string name="txCustomerinfo">고객정보</string>

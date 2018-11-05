@@ -51,9 +51,9 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
     View v;
     Context mContext;
     LoginInfo loginInfo = LoginInfo.getInstance();
+
     String TAG = "MybabyFragment";
 
-    List<String> target_baby_list_text = new ArrayList<String>();
     List<String> target_baby_list_value = new ArrayList<String>();
 
     @Override
@@ -67,27 +67,6 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
 
         _btn_add = v.findViewById(R.id.btn_add);
         _btn_add.setOnClickListener(this);
-
-
-
-//        Spinner spinner=(Spinner)findViewById(R.id.spinner);
-//        String[] datas=getResources().getStringArray(R.array.spinner_array);
-//        ArrayAdapter<String> aa=new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, datas);
-//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(aa);
-
-
-//        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            public void onItemSelected(AdapterView<?> parent, View view,
-//                                       int position, long id) {
-//                Log.i(TAG, "선택된 아기의 아이디는~ " + position);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
 
         mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -123,30 +102,43 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
         //data binding end
 
 
-
-
         //스피너 설정 시작
         mSpinner = (Spinner)v.findViewById(R.id.spinner_main_target);
-        String[] datas=getResources().getStringArray(R.array.spinner_array);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line, target_baby_list_text);
-
-//        ArrayAdapter<String> arrayAdapter =new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, datas);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(arrayAdapter);
-        mSpinner.setOnItemSelectedListener(this);
-
-
-
 
         return v;
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//        String item = mSpinner.getSelectedItem().toString();
-//        String selectedVal = target_baby_list_value.get(mSpinner.getSelectedItemPosition());
+        String item = mSpinner.getSelectedItem().toString();
+        final String selectedVal = target_baby_list_value.get(mSpinner.getSelectedItemPosition());
 
-        Log.i(TAG, "선택된 아기의 아이디는 ");
+        Log.i(TAG, "선택된 아기의 아이디는 " + selectedVal);
+        //data binding start
+        String server_url = new UrlPath().getUrlPath() + "Pc_baby/set_main_baby";
+        RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);
+        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+               // responseSuccess(response);    // 결과값 받아와서 처리하는 부분
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", loginInfo.getEmail());
+                params.put("baby_id", selectedVal);
+                return params;
+            }
+        };
+        postReqeustQueue.add(postStringRequest);
+        //data binding end
+
+
     }
 
     @Override
@@ -163,6 +155,11 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
         String father = null;
         String mother = null;
 
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(arrayAdapter);
+        mSpinner.setOnItemSelectedListener(this);
+
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -171,7 +168,7 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
                 JSONObject rs = (JSONObject) jsonArray.get(i);
                 id = rs.getString("baby_id");
                 name = rs.getString("babyname");
-                target_baby_list_text.add(name);   // 타겟 아기 리스트
+                arrayAdapter.add(name);   // 타겟 아기 리스트
                 target_baby_list_value.add(id);   // 타겟 아기 리스트
 
                 birthday = rs.getString("birthday");
@@ -189,6 +186,16 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
             items.add(new Mybabyinfo(id, name, birthday, sex, father, mother));
         }
 
+//        JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
+        JSONObject rs = JsonParse.getJsonObjectFromString(response, "main_baby");
+        try {
+            String baby_id = rs.getString("baby_id");
+            mSpinner.setSelection(target_baby_list_value.indexOf(baby_id));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        arrayAdapter.notifyDataSetChanged();
         mAdapter.notifyDataSetChanged();
 
 

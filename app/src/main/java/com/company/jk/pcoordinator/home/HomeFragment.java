@@ -117,23 +117,21 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
             @Override
             public void onErrorResponse(VolleyError error) {
             }
-        }) {
-            @Override
+        }) {@Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                Log.i(TAG, "이메일은 "+loginInfo.getEmail());
                 params.put("email", loginInfo.getEmail());
-//                params.put("baby_id", loginInfo.getBabyID());
-
                 return params;
             }
         };
         postReqeustQueue.add(postStringRequest);
+        //data binding end
 
         tvX = v.findViewById(R.id.tvXMax);
 
         mSeekBarX = v.findViewById(R.id.seekBar1);
         mSeekBarX.setOnSeekBarChangeListener(this);
+
         mChart = v.findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
         mChart.getDescription().setEnabled(false);
@@ -176,10 +174,7 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
         l.setFormToTextSpace(4f);
         l.setXEntrySpace(6f);
 
-
-
         return v;
-
     }
 
     @Override

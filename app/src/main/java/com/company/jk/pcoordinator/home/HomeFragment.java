@@ -1,9 +1,11 @@
 package com.company.jk.pcoordinator.home;
 
 import android.content.Context;
+import android.drm.DrmStore;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -71,22 +73,18 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
 //    LinearLayoutManager mLayoutManager;
     MilkRiceListViewAdapter mAdapter;
 
-    public static Fragment newInstance(RecordHistoryinfo info){
-        RecordFragment fragment = new RecordFragment();
-        Bundle bundle  = new Bundle();
-        bundle .putSerializable("RecordHistoryinfo", info);
-        fragment.setArguments(bundle );
-        fragment.setArguments(bundle );
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
         v = inflater.inflate(R.layout.fragment_home, container, false);
         mContext = v.getContext();
+
+        ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
         //listview layout
@@ -96,6 +94,7 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
 //                HomeFragment myFragment = new HomeFragment();
                 //왼쪽에서 오른쪽 슬라이드
 //                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail(), mItems.get(position).date , mItems.get(position).time , mItems.get(position).id, mItems.get(position).milk, mItems.get(position).rice,  mItems.get(position).comments)).addToBackStack(null).commit();
@@ -343,6 +342,16 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
 
 
 
+    }
+
+
+    public static Fragment newInstance(RecordHistoryinfo info){
+        RecordFragment fragment = new RecordFragment();
+        Bundle bundle  = new Bundle();
+        bundle .putSerializable("RecordHistoryinfo", info);
+        fragment.setArguments(bundle );
+        fragment.setArguments(bundle );
+        return fragment;
     }
 
 }

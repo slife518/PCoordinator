@@ -1,5 +1,6 @@
 package com.company.jk.pcoordinator.record;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -8,11 +9,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -60,13 +63,26 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     LoginInfo loginInfo = LoginInfo.getInstance();
     RecordHistoryinfo info;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         v = inflater.inflate(R.layout.fragment_record, container, false);
         mContext = v.getContext();
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+        android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
+
+//        actionBar.setDisplayShowHomeEnabled(true);
+        if (getArguments() != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }else {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowHomeEnabled(false);
+        }
+
+
         findViewById(v);
         _plusRice.setOnClickListener(this);
         _plusMilk.setOnClickListener(this);
@@ -76,7 +92,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
         _delete.setOnClickListener(this);
-        _cancel.setOnClickListener(this);
+//        _cancel.setOnClickListener(this);
 
 
         return v;
@@ -94,7 +110,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _minusRice  = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
         _delete = v.findViewById(R.id.btn_delete);
-        _cancel = v.findViewById(R.id.btn_back);
+//        _cancel = v.findViewById(R.id.btn_back);
 
 
         if (getArguments() != null) {
@@ -339,5 +355,15 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     private void showToast(String message){
         Toast toast=Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Log.i(TAG, "클릭" + item.getItemId());
+        if(item.getItemId()==android.R.id.home){
+            bottomBar.selectTabAtPosition(0, false);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

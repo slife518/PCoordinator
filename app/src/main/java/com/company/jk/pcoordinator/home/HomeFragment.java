@@ -78,14 +78,13 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//        AppCompatActivity activity = (AppCompatActivity) v.getContext();
         v = inflater.inflate(R.layout.fragment_home, container, false);
         mContext = v.getContext();
 
-        ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+        android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
         //listview layout
         mListView = (ListView) v.findViewById(R.id.listView_main);

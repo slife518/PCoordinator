@@ -2,6 +2,8 @@ package com.company.jk.pcoordinator;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -16,57 +18,71 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
 
-    private final static String TAG = "MainActivity";
-    public static BottomBar  bottomBar;
+
     private String url;
+    private String TAG = "MainActivity";
+
+    public static BottomBar  bottomBar;
+    FragmentManager manager;
+    HomeFragment homeFragment;
+    RecordFragment recordFragment;
+    MypageFragment mypageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        manager= getSupportFragmentManager();
+        homeFragment = new HomeFragment();
+        recordFragment = new RecordFragment();
+        mypageFragment = new MypageFragment();
+
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.addToBackStack(null);
+        ft.add(R.id.frame, homeFragment);
+        ft.commit();
+
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(int menuItemId) {
-                Log.i(TAG, "이번클릭한 메뉴id 는 " + menuItemId);
-                if (menuItemId == R.id.bottomBarItemHome) {
-                    HomeFragment hf = new HomeFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, hf).commit();
-                } else if (menuItemId == R.id.bottomBarItemRecord) {        //기록하기
-//                    WebviewFragment bf = new WebviewFragment();
-//                    UrlPath urlPath = new UrlPath();
-//                    LoginInfo loginInfo = LoginInfo.getInstance();
-//                    url = urlPath.getUrlPath() + "native/record/newRecord";
-//                    bf.setUrl(url);
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
-                    RecordFragment rf = new RecordFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, rf).commit();
-                } else if (menuItemId == R.id.bottomBarItemPerson) {     //내정보
-                    MypageFragment mf = new MypageFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, mf).commit();
-                } else if (menuItemId == R.id.bottomBarItemChart) {       //레포트
-                    WebviewFragment bf = new WebviewFragment();
-                    UrlPath urlPath = new UrlPath();
-                    LoginInfo loginInfo = LoginInfo.getInstance();
-                    url = urlPath.getUrlPath() + "native/auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
-                    bf.setUrl(url);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, bf).commit();
+        bottomBar.setOnTabSelectListener(this);
+    }
+
+
+    @Override
+    public void onTabSelected(int tabId) {
+
+        Log.i(TAG, "이번클릭한 메뉴id 는 " + tabId);
+        if (tabId == R.id.bottomBarItemHome) {
+            if (!homeFragment.isVisible()){
+                FragmentTransaction ft = manager.beginTransaction();
+                ft.addToBackStack(null);
+                ft.replace(R.id.frame, homeFragment);
+                ft.commit();
+            }
+
+        } else if (tabId == R.id.bottomBarItemRecord) {        //기록하기
+            if (!recordFragment.isVisible()){
+                manager.beginTransaction().addToBackStack(null).replace(R.id.frame, recordFragment).commit();
+            }
+        } else if (tabId == R.id.bottomBarItemPerson) {     //내정보
+            if (!mypageFragment.isVisible()){
+                manager.beginTransaction().addToBackStack(null).replace(R.id.frame, mypageFragment).commit();
+            }
+        } else if (tabId == R.id.bottomBarItemChart) {       //레포트
+            WebviewFragment webviewFragment = new WebviewFragment();
+            UrlPath urlPath = new UrlPath();
+            LoginInfo loginInfo = LoginInfo.getInstance();
+            url = urlPath.getUrlPath() + "native/auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
+            webviewFragment.setUrl(url);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame, webviewFragment).commit();
 //                }else if(menuItemId==R.id.bottomBarItemHome){       //보스베이비;
 //                    CartFragment cf = new CartFragment();
 //                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, cf).commit();
-                }
-            }
-
-        });
-
-        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
-            @Override
-            public void onTabReSelected(@IdRes int tabId) {
-            }
-        });
+        }
     }
-}
+
+    }
+
 

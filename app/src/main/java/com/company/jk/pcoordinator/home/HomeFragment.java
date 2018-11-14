@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -73,7 +76,6 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
 //    LinearLayoutManager mLayoutManager;
     MilkRiceListViewAdapter mAdapter;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,8 +85,9 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener, O
         mContext = v.getContext();
 
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
-        android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        Toolbar toolbar = (Toolbar)v.findViewById(R.id.lab3_toolbar);
+        activity.setSupportActionBar(toolbar);
+
 
         //listview layout
         mListView = (ListView) v.findViewById(R.id.listView_main);

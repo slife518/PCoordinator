@@ -70,18 +70,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
 
         v = inflater.inflate(R.layout.fragment_record, container, false);
         mContext = v.getContext();
-        AppCompatActivity activity = (AppCompatActivity) v.getContext();
-        android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
-
-//        actionBar.setDisplayShowHomeEnabled(true);
-        if (getArguments() != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
-        }else {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowHomeEnabled(false);
-        }
-
 
         findViewById(v);
         _plusRice.setOnClickListener(this);
@@ -92,7 +80,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
         _delete.setOnClickListener(this);
-//        _cancel.setOnClickListener(this);
+        _cancel.setOnClickListener(this);
 
 
         return v;
@@ -110,7 +98,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _minusRice  = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
         _delete = v.findViewById(R.id.btn_delete);
-//        _cancel = v.findViewById(R.id.btn_back);
+        _cancel = v.findViewById(R.id.btn_back);
 
 
         if (getArguments() != null) {

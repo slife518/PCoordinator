@@ -8,6 +8,20 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomBar"/>
 
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/lab3_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_floating"
+        app:fabSize="normal"
+        app:layout_anchor="@id/bottomBar"
+        app:layout_anchorGravity="top|right|end"
+        app:rippleColor="#FFFFFF"
+        />
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"

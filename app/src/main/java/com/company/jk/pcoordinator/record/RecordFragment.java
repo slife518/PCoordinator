@@ -125,7 +125,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
             SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
             _date.setText(sdf.format(date));
             _time.setText(stf.format(date));
-            _cancel.setVisibility(v.GONE);
+//            _cancel.setVisibility(v.GONE);
             _delete.setVisibility(v.GONE);
 
         }

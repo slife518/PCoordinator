@@ -57,7 +57,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     EditText _milk, _rice, _remainText;
     EditText _date, _time;
     Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save, _delete;
-    ImageView _cancel;
+    ImageView _back;
     static final String TAG = "RecordFragment";
     Context mContext; View v;
     LoginInfo loginInfo = LoginInfo.getInstance();
@@ -80,7 +80,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
         _delete.setOnClickListener(this);
-        _cancel.setOnClickListener(this);
+        _back.setOnClickListener(this);
 
 
         return v;
@@ -98,7 +98,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _minusRice  = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
         _delete = v.findViewById(R.id.btn_delete);
-        _cancel = v.findViewById(R.id.btn_back);
+        _back = v.findViewById(R.id.btn_back);
 
 
         if (getArguments() != null) {
@@ -125,7 +125,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
             SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
             _date.setText(sdf.format(date));
             _time.setText(stf.format(date));
-//            _cancel.setVisibility(v.GONE);
+            _back.setVisibility(v.GONE);
             _delete.setVisibility(v.GONE);
 
         }
@@ -166,9 +166,12 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         }else if(v == _delete){
             deleteAelrtDialog();
 
-        }else if(v == _cancel){
+        }else if(v == _back){
 //            getActivity().onBackPressed();
-            bottomBar.selectTabAtPosition(0, false);
+//            bottomBar.selectTabAtPosition(0, false);
+            HomeFragment hf = new HomeFragment();
+            AppCompatActivity activity = (AppCompatActivity)getActivity();
+            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, hf).addToBackStack(null).commit();
         }
     }
 

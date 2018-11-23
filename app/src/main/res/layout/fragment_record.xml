@@ -5,14 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".record.RecordFragment">
-
-    <LinearLayout
-        android:layout_margin="20dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
 
         <ImageView
             android:id="@+id/btn_back"
@@ -165,6 +159,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+
 
 </LinearLayout>

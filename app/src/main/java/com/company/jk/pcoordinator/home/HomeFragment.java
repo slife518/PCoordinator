@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -316,6 +317,8 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener{
         }
         mAdapter = new MilkRiceListViewAdapter(mContext, R.layout.layout_milk_rice_card, items);
         mListView.setAdapter(mAdapter);
+        setListViewHeightBasedOnChildren(mListView);
+
         //mAdapter.notifyDataSetChanged();
 
 
@@ -346,6 +349,31 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener{
 
 
     }
+
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
+
 
 
     public static Fragment newInstance(RecordHistoryinfo info){

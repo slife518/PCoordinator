@@ -25,15 +25,19 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 public class MilkRiceListViewAdapter extends BaseAdapter {
-    private LayoutInflater inflater;
+
     private ArrayList<RecordHistoryinfo> data;
     private int layout;
     private String TAG = "MilkRiceListViewAdapter";
+    Context context;
+    DriveHolder holder;
 
-    public MilkRiceListViewAdapter(Context context, int layout, ArrayList<RecordHistoryinfo> data){
-        this.inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+    public MilkRiceListViewAdapter(Context mContext, int layout, ArrayList<RecordHistoryinfo> data){
+
         this.data=data;
         this.layout=layout;
+        context = mContext;
     }
     @Override
     public int getCount(){
@@ -50,27 +54,29 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View itemView, ViewGroup parent){
 
-        if(itemView==null){
-            itemView=inflater.inflate(layout,parent,false);
-        }
 
+        //항목 데이터 획득
         RecordHistoryinfo listviewitem=data.get(position);
+
+
+        if(itemView==null){
+            // 항목 layout 초기화
+            LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            itemView=inflater.inflate(layout,parent,false);
+            holder = new DriveHolder(itemView);
+            itemView.setTag(holder);
+        }
 
         Log.i("Adapter", listviewitem.getTime());
 
-        TextView mDate = (TextView) itemView.findViewById(R.id.tv_date);
-        TextView mTime = (TextView) itemView.findViewById(R.id.tv_time);
-        TextView mRice = (TextView) itemView.findViewById(R.id.tv_rice);
-        TextView mMilk = (TextView) itemView.findViewById(R.id.tv_milk);
-        TextView mComments = (TextView) itemView.findViewById(R.id.tv_comments);
-        TextView mAuthor = (TextView) itemView.findViewById(R.id.tv_author);
 
-        mDate.setText(listviewitem.getDate());
-        mTime.setText(listviewitem.getTime());
-        mRice.setText(listviewitem.getRice());
-        mMilk.setText(listviewitem.getMilk());
-        mComments.setText(listviewitem.getComments());
-        mAuthor.setText(listviewitem.getAuthor());
+        //view에 데이터 바인딩
+        holder.mDate.setText(listviewitem.getDate());
+        holder.mTime.setText(listviewitem.getTime());
+        holder.mRice.setText(listviewitem.getRice());
+        holder.mMilk.setText(listviewitem.getMilk());
+        holder.mComments.setText(listviewitem.getComments());
+        holder.mAuthor.setText(listviewitem.getAuthor());
 
         return itemView;
     }

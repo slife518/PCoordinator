@@ -93,7 +93,6 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener{
 
         //listview layout
         mListView = (ListView) v.findViewById(R.id.listView_main);
-
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -107,6 +106,8 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener{
 
             }
         });
+
+
 
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_record/record_list";

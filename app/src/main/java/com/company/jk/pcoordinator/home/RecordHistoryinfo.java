@@ -17,7 +17,7 @@ public class RecordHistoryinfo implements Serializable {
     public RecordHistoryinfo(String id, String date, String time, String milk, String rice,  String author, String comments){
         this.id = id;
         this.yearDate = date;
-        this.date = date.substring(5,10 );
+        this.date = date.substring(5,10);
         this.milk = milk;
         this.rice = rice;
         this.time = time.substring(0,5);

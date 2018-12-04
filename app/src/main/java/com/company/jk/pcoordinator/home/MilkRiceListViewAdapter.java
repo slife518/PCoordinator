@@ -1,6 +1,7 @@
 package com.company.jk.pcoordinator.home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.TestLooperManager;
 import android.support.annotation.NonNull;
@@ -31,6 +32,9 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     private String TAG = "MilkRiceListViewAdapter";
     Context context;
     DriveHolder holder;
+    int COLOR[] = { Color.rgb(153,255,153), Color.rgb(255,000,255), Color.rgb(255,255,153), Color.rgb(204,153,255) };
+
+
 
 
     public MilkRiceListViewAdapter(Context mContext, int layout, ArrayList<RecordHistoryinfo> data){
@@ -77,6 +81,11 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
         holder.mMilk.setText(listviewitem.getMilk());
         holder.mComments.setText(listviewitem.getComments());
         holder.mAuthor.setText(listviewitem.getAuthor());
+
+        String day = listviewitem.getDate().substring(3,5);
+
+        Log.i(TAG, day);
+        itemView.setBackgroundColor(COLOR[Integer.parseInt(day) % 3]);
 
         return itemView;
     }

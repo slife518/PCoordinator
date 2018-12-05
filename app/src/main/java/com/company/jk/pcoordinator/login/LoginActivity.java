@@ -15,10 +15,8 @@ import android.widget.Toast;
 
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
@@ -26,10 +24,13 @@ public class LoginActivity extends AppCompatActivity {
     final static String Controller = "Pc_login";
     StringBuffer sb = new StringBuffer();
     SharedPreferences mPreference;
-    Button btn;
+    Button btn_login;
+    Button btn_signup;
+    TextView txt_find_id;
+    TextView txt_find_pw;
     EditText et_email;
     EditText et_pw;
-    TextView tv_signupLink;
+
     CheckBox cb_auto;
     Intent intent;
     LoginInfo loginInfo = LoginInfo.getInstance();
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         if (NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())) {
 
             if (cb_auto.isChecked()) {   //자동로그인일 경우
-                btn.callOnClick();
+                btn_login.callOnClick();
             }
         }
 
@@ -78,20 +79,29 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.link_signup:
+            case R.id.btn_signup:
                 intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1000);
                 finish();
+                break;
+
+            case R.id.find_password:
+                Log.i(TAG, "버튼클릭 find_password" + v.getId());
+                intent = new Intent(LoginActivity.this, FindPwActivity.class);
+                startActivityForResult(intent, 1001);
                 break;
         }
     }
 
     private void findViewsById() {  // 위젯 세팅
 
-        btn = findViewById(R.id.btn_login);
+        btn_login = findViewById(R.id.btn_login);
+        btn_signup = findViewById(R.id.btn_signup);
+        txt_find_id = findViewById(R.id.find_id);
+        txt_find_pw = findViewById(R.id.find_password);
         et_email = findViewById(R.id.input_email);
         et_pw = findViewById(R.id.input_password);
-        tv_signupLink = findViewById(R.id.link_signup);
+
         cb_auto = findViewById(R.id.cb_Auto);
     }
 

@@ -70,22 +70,59 @@
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="24dp"
             android:padding="12dp"
-            android:background="@drawable/button_bg"
+            android:background="@drawable/button_bg_accent"
             android:onClick="OnClickMethod"
-            android:text="Login" />
+            android:text="@string/login" />
 
-        <TextView
-            android:id="@+id/link_signup"
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:gravity="center"
+            android:padding="12dp"
+            android:background="@drawable/button_bg"
             android:onClick="OnClickMethod"
-            android:text="No account yet? Create one"
-            android:textSize="16dip" />
+            android:text="@string/signin" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+            <TextView
+                android:id="@+id/find_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="24dp"
+                android:onClick="OnClickMethod"
+                android:text="@string/find_id"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/find_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="5dp"
+                android:onClick="OnClickMethod"
+                android:text="@string/find_password"
+                android:textSize="12dp" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

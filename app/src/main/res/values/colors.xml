@@ -29,5 +29,6 @@
     <color name="searchBackground">#e0e0e0</color>
     <color name="searchHint">#616161</color>
     <color name="searchText">#212121</color>
-    <color name="buttonColor1">#e2dfdf</color>
+    <color name="buttonColorAccent">#5574f1</color>
+    <color name="buttonColor1">#e0e0e0</color>
 </resources>

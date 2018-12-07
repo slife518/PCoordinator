@@ -67,7 +67,9 @@ public class FindPwActivity extends AppCompatActivity implements View.OnClickLis
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                sendPWSuccess(response);    // 결과값 받아와서 처리하는 부분
+//                sendPWSuccess(response);    // 결과값 받아와서 처리하는 부분
+                Toast.makeText(getApplicationContext(), "초기화된 비밀번호가 메일로 전송되었습니다.", Toast.LENGTH_LONG).show();
+                finish();
             }
         }, new Response.ErrorListener() {
             @Override

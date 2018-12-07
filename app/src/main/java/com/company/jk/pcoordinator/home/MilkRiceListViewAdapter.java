@@ -31,7 +31,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     private int layout;
     private String TAG = "MilkRiceListViewAdapter";
     Context context;
-    DriveHolder holder;
+
     int COLOR[] = { Color.rgb(153,255,153), Color.rgb(255,000,255), Color.rgb(255,255,153), Color.rgb(204,153,255) };
 
 
@@ -67,12 +67,13 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
             // 항목 layout 초기화
             LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             itemView=inflater.inflate(layout,parent,false);
-            holder = new DriveHolder(itemView);
+            DriveHolder holder = new DriveHolder(itemView);
             itemView.setTag(holder);
         }
 
         Log.i("Adapter", listviewitem.getTime());
 
+        DriveHolder holder = (DriveHolder)itemView.getTag();
 
         //view에 데이터 바인딩
         holder.mDate.setText(listviewitem.getDate());

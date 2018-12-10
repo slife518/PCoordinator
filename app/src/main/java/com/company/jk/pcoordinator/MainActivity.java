@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.company.jk.pcoordinator.bossbaby.WebviewFragment;
+import com.company.jk.pcoordinator.chart.ChartFragment;
 import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     HomeFragment homeFragment;
     RecordFragment recordFragment;
     MypageFragment mypageFragment;
+    ChartFragment chartFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         manager= getSupportFragmentManager();
         homeFragment = new HomeFragment();
         recordFragment = new RecordFragment();
+        chartFragment = new ChartFragment();
         mypageFragment = new MypageFragment();
 
         FragmentTransaction ft = manager.beginTransaction();
@@ -66,17 +69,21 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
             if (!recordFragment.isVisible()){
                 manager.beginTransaction().addToBackStack(null).replace(R.id.frame, recordFragment).commit();
             }
+        } else if (tabId == R.id.bottomBarItemChart) {       //레포트
+            if (!chartFragment.isVisible()){
+                manager.beginTransaction().addToBackStack(null).replace(R.id.frame, chartFragment).commit();
+            }
         } else if (tabId == R.id.bottomBarItemPerson) {     //내정보
             if (!mypageFragment.isVisible()){
                 manager.beginTransaction().addToBackStack(null).replace(R.id.frame, mypageFragment).commit();
             }
-        } else if (tabId == R.id.bottomBarItemChart) {       //레포트
-            WebviewFragment webviewFragment = new WebviewFragment();
-            UrlPath urlPath = new UrlPath();
-            LoginInfo loginInfo = LoginInfo.getInstance();
-            url = urlPath.getUrlPath() + "native/auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
-            webviewFragment.setUrl(url);
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame, webviewFragment).commit();
+
+//            WebviewFragment webviewFragment = new WebviewFragment();
+//            UrlPath urlPath = new UrlPath();
+//            LoginInfo loginInfo = LoginInfo.getInstance();
+//            url = urlPath.getUrlPath() + "native/auth/directLogin/" + loginInfo.getEmail() + "/" + loginInfo.getPassword();
+//            webviewFragment.setUrl(url);
+//            getSupportFragmentManager().beginTransaction().replace(R.id.frame, webviewFragment).commit();
 //                }else if(menuItemId==R.id.bottomBarItemHome){       //보스베이비;
 //                    CartFragment cf = new CartFragment();
 //                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, cf).commit();

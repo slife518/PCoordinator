@@ -53,8 +53,6 @@ public class ChartFragment extends Fragment implements View.OnClickListener{
         return inflater.inflate(R.layout.fragment_chart, container, false);
     }
 
-
-
     class JavascriptTest {
         @JavascriptInterface
         public String getChartData(){

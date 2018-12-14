@@ -14,6 +14,14 @@
         <!--<item name="windowActionBarOverlay">true</item>-->
     </style>
 
+    <style name="Theme.MyAppTheme" parent="@android:style/Theme.Holo">
+        <item name="android:actionBarStyle">@style/Theme.MyAppTheme.ActionBar</item>
+    </style>
+
+    <style name="Theme.MyAppTheme.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@drawable/appbar_image</item>
+    </style>
+
     <!--<style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">-->
         <!--<item name="colorPrimary">@color/primary</item>-->
         <!--<item name="colorPrimaryDark">@color/primary_dark</item>-->

@@ -86,9 +86,9 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener{
         v = inflater.inflate(R.layout.fragment_home, container, false);
         mContext = v.getContext();
 
-        AppCompatActivity activity = (AppCompatActivity) v.getContext();
-        Toolbar toolbar = (Toolbar)v.findViewById(R.id.lab3_toolbar);
-        activity.setSupportActionBar(toolbar);
+//        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//        Toolbar toolbar = (Toolbar)v.findViewById(R.id.lab3_toolbar);
+//        activity.setSupportActionBar(toolbar);
 
 
         //listview layout

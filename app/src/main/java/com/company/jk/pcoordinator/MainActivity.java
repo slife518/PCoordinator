@@ -1,5 +1,6 @@
 package com.company.jk.pcoordinator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.company.jk.pcoordinator.bossbaby.WebviewFragment;
+import com.company.jk.pcoordinator.chart.ChartActivity;
 import com.company.jk.pcoordinator.chart.ChartFragment;
 import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.http.UrlPath;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     RecordFragment recordFragment;
     MypageFragment mypageFragment;
     ChartFragment chartFragment;
+    ChartActivity chartActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +73,11 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
                 manager.beginTransaction().addToBackStack(null).replace(R.id.frame, recordFragment).commit();
             }
         } else if (tabId == R.id.bottomBarItemChart) {       //레포트
-            if (!chartFragment.isVisible()){
-                manager.beginTransaction().addToBackStack(null).replace(R.id.frame, chartFragment).commit();
-            }
+//            if (!chartFragment.isVisible()){
+//                manager.beginTransaction().addToBackStack(null).replace(R.id.frame, chartFragment).commit();
+//            }
+            Intent intent = new Intent(MainActivity.this, ChartActivity.class);
+            startActivityForResult(intent, 200);
         } else if (tabId == R.id.bottomBarItemPerson) {     //내정보
             if (!mypageFragment.isVisible()){
                 manager.beginTransaction().addToBackStack(null).replace(R.id.frame, mypageFragment).commit();
@@ -90,6 +95,11 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
+}
 
 

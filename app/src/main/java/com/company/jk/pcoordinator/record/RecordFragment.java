@@ -357,4 +357,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

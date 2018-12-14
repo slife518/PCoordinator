@@ -12,6 +12,7 @@
     <script type="text/javascript">
 
             function lineChart(){
+              alert('lineChart call');
                 var horizontal = (horizontal ? true : false);
                 var
                     d1 = [],
@@ -101,8 +102,10 @@
             }
 
             window.onload=function(){
-                alert('local html이 잘 떴지요?');
+                alert('local html이 잘 떴지?');
+                alert('local html');
                 lineChart();
+
             }
         </script>
 </head>

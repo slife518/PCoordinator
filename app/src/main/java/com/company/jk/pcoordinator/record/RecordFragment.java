@@ -257,19 +257,23 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         showToast(getString(R.string.save));
         HomeFragment hf = new HomeFragment();
         AppCompatActivity activity = (AppCompatActivity)getActivity();
-        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_left).replace(R.id.frame, hf).addToBackStack(null).commit();
+        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, hf).addToBackStack(null).commit();
     }
 
     private void saveSuccess(String response){
         Log.i(TAG, "결과값은 " + response);
         if (getArguments() == null) {    //입력하기 전용화면이면
-            saveAelrtDialog();
+            showToast(getString(R.string.save));
+            bottomBar.selectTabAtPosition(0, false);
+//            saveAelrtDialog();
         }else{
             showToast(getString(R.string.save));
             HomeFragment hf = new HomeFragment();
             AppCompatActivity activity = (AppCompatActivity)getActivity();
-            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_left).replace(R.id.frame, hf).addToBackStack(null).commit();
+            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, hf).addToBackStack(null).commit();
         }
+
+
     }
     private  void save_data(){
         String server_url = new UrlPath().getUrlPath() + "Pc_record/save_record";

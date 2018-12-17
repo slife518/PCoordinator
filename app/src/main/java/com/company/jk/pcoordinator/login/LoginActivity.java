@@ -82,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.btn_signup:
                 intent = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivityForResult(intent, 1000);
-                finish();
                 break;
 
             case R.id.find_password:

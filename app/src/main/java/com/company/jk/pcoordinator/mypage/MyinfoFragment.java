@@ -220,6 +220,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                         _tel.setText(jObject.getString("tel"));
                         _address1.setText(jObject.getString("address1"));
                         _address2.setText(jObject.getString("address2"));
+                        toastMessage = "";
                         break;
                 }
 

@@ -13,8 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyAppTheme"
-        android:actionBarStyl="@style/Theme.MyAppTheme.ActionBar">
+        android:theme="@style/Theme.Myapptheme">
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity" />
         <receiver

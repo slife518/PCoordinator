@@ -36,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
+import com.company.jk.pcoordinator.http.NetworkUtil;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.roughike.bottombar.BottomBar;
@@ -82,6 +83,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _delete.setOnClickListener(this);
         _back.setOnClickListener(this);
 
+        NetworkUtil.getConnectivityStatusBoolean(mContext);
 
         return v;
     }

@@ -36,6 +36,7 @@ import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyAxisValueFormatter;
 import com.company.jk.pcoordinator.common.MyValueFormatter;
+import com.company.jk.pcoordinator.http.NetworkUtil;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.record.RecordFragment;
@@ -107,7 +108,7 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener{
             }
         });
 
-
+        NetworkUtil.getConnectivityStatusBoolean(mContext);
 
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_record/record_list";

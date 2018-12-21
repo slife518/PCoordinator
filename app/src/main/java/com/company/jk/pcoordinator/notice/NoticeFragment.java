@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.login.LoginService;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class NoticeFragment extends Fragment{
+public class NoticeFragment extends MyFragment {
     //DATA parsing 관련
 
     private static final String Controller = "Pc_BuyTransation";

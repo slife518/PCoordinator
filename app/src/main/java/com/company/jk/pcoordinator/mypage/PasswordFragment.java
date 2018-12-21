@@ -19,12 +19,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.login.LoginService;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
 import org.json.JSONObject;
 
-public class PasswordFragment extends Fragment implements View.OnClickListener {
+public class PasswordFragment extends MyFragment implements View.OnClickListener {
 
     private static final String TAG = "PasswordFragment";
     Context mContext;

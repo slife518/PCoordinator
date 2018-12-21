@@ -34,6 +34,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.NetworkUtil;
@@ -52,7 +53,7 @@ import static com.company.jk.pcoordinator.MainActivity.bottomBar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecordFragment extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class RecordFragment extends MyFragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private String id;
     EditText _milk, _rice, _remainText;
@@ -64,11 +65,16 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     LoginInfo loginInfo = LoginInfo.getInstance();
     RecordHistoryinfo info;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Log.i(TAG, "onCreateView 시작");
         v = inflater.inflate(R.layout.fragment_record, container, false);
         mContext = v.getContext();
 
@@ -77,15 +83,21 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _plusMilk.setOnClickListener(this);
         _minusRice.setOnClickListener(this);
         _minusMilk.setOnClickListener(this);
+        _milk.setOnClickListener(this);
+        _rice.setOnClickListener(this);
         _date.setOnClickListener(this);
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
         _delete.setOnClickListener(this);
         _back.setOnClickListener(this);
 
-        NetworkUtil.getConnectivityStatusBoolean(mContext);
-
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initialize();
     }
 
     private  void findViewById(View v){
@@ -102,7 +114,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
         _delete = v.findViewById(R.id.btn_delete);
         _back = v.findViewById(R.id.btn_back);
 
-
         if (getArguments() != null) {
 
             info = (RecordHistoryinfo)getArguments().getSerializable("RecordHistoryinfo");
@@ -116,23 +127,25 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
 
             _save.setText("수정하기");
 
-
-
         }else{
-
-            long now = System.currentTimeMillis();
-
-            Date date = new Date(now);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
-            _date.setText(sdf.format(date));
-            _time.setText(stf.format(date));
+            set_time();
             _back.setVisibility(v.GONE);
             _delete.setVisibility(v.GONE);
 
         }
     }
 
+    public void set_time(){   //화면 초기화
+
+        long now = System.currentTimeMillis();
+
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
+        _date.setText(sdf.format(date));
+        _time.setText(stf.format(date));
+
+    }
     @Override
     public void onClick(View v) {
         if(v == _date) {
@@ -174,7 +187,12 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
             HomeFragment hf = new HomeFragment();
             AppCompatActivity activity = (AppCompatActivity)getActivity();
             activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, hf).addToBackStack(null).commit();
+        }else if(v == _rice){
+            _rice.setText("0");
+        }else if(v == _milk) {
+            _milk.setText("0");
         }
+
     }
 
 
@@ -343,6 +361,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener, Da
     }
 
     private  void  initialize(){
+        set_time();   //화면 초기화
         _rice.setText("0");
         _milk.setText("0");
         _remainText.getText().clear();

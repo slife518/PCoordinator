@@ -14,13 +14,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyFragment;
+import com.company.jk.pcoordinator.http.NetworkUtil;
 import com.company.jk.pcoordinator.login.LoginActivity;
+import com.company.jk.pcoordinator.mypage.mybaby.MybabyActivity;
 import com.company.jk.pcoordinator.mypage.mybaby.MybabyFragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class MypageFragment extends Fragment{
+public class MypageFragment extends MyFragment {
 
     TextView txCustomerinfo;
     View v;
@@ -56,14 +60,18 @@ public class MypageFragment extends Fragment{
 
 
     class BtnOnClickListener implements Button.OnClickListener {
+
+        Intent intent;
         @Override
         public void onClick(View view) {
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             switch (view.getId()) {
                 case R.id.btn_myinfo :
-                    MyinfoFragment myFragment = new MyinfoFragment();
-                    //왼쪽에서 오른쪽 슬라이드
-                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment).addToBackStack(null).commit();
+                    intent = new Intent(getActivity(), MyinfoActivity.class);
+                    startActivityForResult(intent, 300);
+//                    MyinfoFragment myFragment = new MyinfoFragment();
+//                    //왼쪽에서 오른쪽 슬라이드
+//                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment).addToBackStack(null).commit();
                     break;
                 case R.id.btn_password :    //비밀번호관리
                     PasswordFragment myFragment2 = new PasswordFragment();
@@ -71,8 +79,10 @@ public class MypageFragment extends Fragment{
                     activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, myFragment2).addToBackStack(null).commit();
                     break;
                 case R.id.btn_mybabyinfo:   //아기정보관리
-                    MybabyFragment mybabyFragment = new MybabyFragment();
-                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, mybabyFragment).addToBackStack(null).commit();
+                    intent = new Intent(getActivity(), MybabyActivity.class);
+                    startActivityForResult(intent, 300);
+//                    MybabyFragment mybabyFragment = new MybabyFragment();
+//                    activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, mybabyFragment).addToBackStack(null).commit();
                     break;
                 case R.id.btn_bodyinfo :
                     BodyFragment myFragment3 = new BodyFragment();

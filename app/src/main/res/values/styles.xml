@@ -5,10 +5,12 @@
         <item name="dropDownListViewStyle">@style/DropDownListView.Myapptheme</item>
         <item name="actionBarTabStyle">@style/ActionBarTabStyle.Myapptheme</item>
         <item name="actionDropDownStyle">@style/DropDownNav.Myapptheme</item>
-        <item name="actionBarStyle">@style/ActionBar.Transparent.Myapptheme</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Myapptheme</item>
         <item name="actionModeBackground">@drawable/cab_background_top_myapptheme</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_myapptheme</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Myapptheme</item>
+
+
     </style>
 
     <style name="ActionBar.Solid.Myapptheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
@@ -59,6 +61,7 @@
 
 
 
+
     <!--<style name="AppTheme.NoActionBar.White" parent="AppTheme.NoActionBar" >-->
         <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
     <!--</style>-->
@@ -70,7 +73,7 @@
     <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
     <style name="IconBack40x40">
         <item name="android:src">@drawable/ic_baseline_keyboard_arrow_left_24px</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">left</item>
         <item name="android:layout_width">40dp</item>sss
         <item name="android:layout_height">40dp</item>
     </style>

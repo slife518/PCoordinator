@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.mypage.MyinfoFragment;
 
 public class AddressPostActivity extends AppCompatActivity {
 

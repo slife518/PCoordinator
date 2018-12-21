@@ -18,8 +18,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyFragment;
 
-public class ChartFragment extends Fragment implements View.OnClickListener{
+public class ChartFragment extends MyFragment implements View.OnClickListener{
 
     View v;
     Context mContext;

@@ -35,6 +35,7 @@ import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyAxisValueFormatter;
+import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.common.MyValueFormatter;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 import com.company.jk.pcoordinator.http.UrlPath;
@@ -62,7 +63,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements OnSeekBarChangeListener{
+public class HomeFragment extends MyFragment implements OnSeekBarChangeListener{
 //        , OnChartValueSelectedListener {
 
     View v;
@@ -107,9 +108,6 @@ public class HomeFragment extends Fragment implements OnSeekBarChangeListener{
 
             }
         });
-
-        NetworkUtil.getConnectivityStatusBoolean(mContext);
-
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_record/record_list";
         RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);

@@ -1,21 +1,19 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Space;
 import android.widget.Spinner;
 
 import com.android.volley.Request;
@@ -39,17 +37,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+public class MybabyActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-public class MybabyFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     RecyclerView mRecyclerView;
     ArrayList<Mybabyinfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
     RecyclerViewAdapter mAdapter;
     Spinner mSpinner;
-    ImageView _back;
     Button _btn_add;
-    View v;
-    Context mContext;
+
     LoginInfo loginInfo = LoginInfo.getInstance();
 
     String TAG = "MybabyFragment";
@@ -57,20 +53,18 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
     List<String> target_baby_list_value = new ArrayList<String>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_mybaby, container, false);
-        mContext = v.getContext();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mybaby);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _back = (ImageView) v.findViewById(R.id.btn_exit);
-        _back.setOnClickListener(this);
 
-        _btn_add = v.findViewById(R.id.btn_add);
+        _btn_add = findViewById(R.id.btn_add);
         _btn_add.setOnClickListener(this);
 
-        mLayoutManager = new LinearLayoutManager(mContext);
+        mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.listView_main);
+        mRecyclerView = (RecyclerView) findViewById(R.id.listView_main);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
@@ -80,7 +74,7 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
 
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/get_baby_info";
-        RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);
+        RequestQueue postReqeustQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -103,9 +97,14 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
 
 
         //스피너 설정 시작
-        mSpinner = (Spinner)v.findViewById(R.id.spinner_main_target);
+        mSpinner = (Spinner)findViewById(R.id.spinner_main_target);
+    }
 
-        return v;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onBackPressed();
+        return true;
     }
 
     @Override
@@ -116,11 +115,13 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
         Log.i(TAG, "선택된 아기의 아이디는 " + selectedVal);
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/set_main_baby";
-        RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);
+        RequestQueue postReqeustQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-               // responseSuccess(response);    // 결과값 받아와서 처리하는 부분
+//               responseSuccess(response);    // 결과값 받아와서 처리하는 부분
+                LoginInfo loginInfo = LoginInfo.getInstance();
+                loginInfo.setBabyID(selectedVal);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -155,7 +156,7 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
         String father = null;
         String mother = null;
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_dropdown_item_1line);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(arrayAdapter);
         mSpinner.setOnItemSelectedListener(this);
@@ -231,8 +232,4 @@ public class MybabyFragment extends Fragment implements View.OnClickListener, Ad
         }
     }
 
-
-    private  void getBabyList(){
-
-    }
 }

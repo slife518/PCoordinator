@@ -186,11 +186,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
 
         @Override
     public void onClick(View v) {
-        if(v==_btn_back){
-            AppCompatActivity activity = (AppCompatActivity) v.getContext();
-            MybabyFragment myFragment = new MybabyFragment();
-            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
-        }else if(v==_btn_save) {
+        if(v==_btn_save) {
 //            save_data();
             modify_data();
         }else if(v==_btn_parents){
@@ -322,9 +318,7 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         Log.i(TAG, "결과값은 " + response);
 //        if (getArguments() == null) {    //아기 신규등록이면
             showToast( getString(R.string.save));
-            MybabyFragment mf = new MybabyFragment();
-            AppCompatActivity activity = (AppCompatActivity)getActivity();
-            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.enter_from_left).replace(R.id.frame, mf).addToBackStack(null).commit();
+        MybabyActivity mf = new MybabyActivity();
 //        }else{
 //            showToast(getString(R.string.savefail));
 //        }
@@ -367,9 +361,9 @@ public class MybabyDetailFragment extends Fragment implements View.OnClickListen
         Log.i(TAG, "deleteResponse 결과값은 " + response);
         if(response.equals("true")) {
             showToast(getString(R.string.save));
-            MybabyFragment mf = new MybabyFragment();
-            AppCompatActivity activity = (AppCompatActivity) getActivity();
-            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
+//            MybabyActivity mf = new MybabyActivity();
+//            AppCompatActivity activity = (AppCompatActivity) getActivity();
+//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
         }else{
             showToast(response);
         }

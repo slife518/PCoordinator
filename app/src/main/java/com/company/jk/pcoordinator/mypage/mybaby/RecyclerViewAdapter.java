@@ -1,6 +1,7 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -32,15 +33,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         mItems = itemList;
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static Fragment newInstance(String param1, String param2) {
-        MybabyDetailFragment fragment = new MybabyDetailFragment();
-        Bundle args = new Bundle();
-        args.putString("email", param1);
-        args.putString("baby_id", param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    // TODO: Rename and change types and number of parameters
+//    public static Fragment newInstance(String param1, String param2) {
+//        MybabyDetailActivity fragment = new MybabyDetailActivity();
+//        Bundle args = new Bundle();
+//        args.putString("email", param1);
+//        args.putString("baby_id", param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     // 필수 오버라이드 : view 생성, viewholder 호출
     @NonNull
@@ -75,10 +76,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                MypageFragment myFragment = new MypageFragment();
-                //왼쪽에서 오른쪽 슬라이드
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail(), mItems.get(position).id)).addToBackStack(null).commit();
+
+                Intent intent = new Intent(mContext, MybabyDetailActivity.class);
+                intent.putExtra("email", loginInfo.getEmail());
+                intent.putExtra("baby_id", mItems.get(position).id);
+                mContext.startActivity(intent);
+//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+////                MypageFragment myFragment = new MypageFragment();
+//                //왼쪽에서 오른쪽 슬라이드
+//                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail(), mItems.get(position).id)).addToBackStack(null).commit();
 
             }
         });

@@ -2,27 +2,12 @@ package com.company.jk.pcoordinator.home;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.os.TestLooperManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
-import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.http.UrlPath;
-import com.company.jk.pcoordinator.login.LoginInfo;
-import com.company.jk.pcoordinator.mypage.mybaby.MybabyDetailFragment;
-import com.company.jk.pcoordinator.record.RecordFragment;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 public class MilkRiceListViewAdapter extends BaseAdapter {

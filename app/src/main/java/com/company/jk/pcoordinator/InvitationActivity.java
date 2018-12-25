@@ -3,7 +3,6 @@ package com.company.jk.pcoordinator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,17 +22,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.common.JsonParse;
+import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class InvitationActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener{
+public class InvitationActivity extends MyActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener{
 
     RadioGroup _radioGroup;
     RadioButton _btn_email, _btn_phone;

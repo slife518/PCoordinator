@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.common.JsonParse;
+import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.UrlPath;
 
 import org.json.JSONArray;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParentsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ParentsActivity extends MyActivity implements View.OnClickListener {
 
     RecyclerView mRecyclerView;
     ArrayList<ParentsInfo> items = new ArrayList();

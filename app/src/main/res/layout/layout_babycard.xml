@@ -100,7 +100,7 @@
                         android:layout_marginTop="8dp"
                         android:text="2017.08.01"
                         android:textSize="12dp"
-                        app:layout_constraintStart_toEndOf="@+id/baby_name"
+                        app:layout_constraintStart_toEndOf="@+id/birthday_title"
                         app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
 
                 </android.support.constraint.ConstraintLayout>

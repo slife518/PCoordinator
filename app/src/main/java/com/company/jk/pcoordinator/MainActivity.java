@@ -1,28 +1,19 @@
 package com.company.jk.pcoordinator;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.company.jk.pcoordinator.bossbaby.WebviewFragment;
-import com.company.jk.pcoordinator.chart.ChartActivity;
 import com.company.jk.pcoordinator.chart.ChartFragment;
 import com.company.jk.pcoordinator.home.HomeFragment;
-import com.company.jk.pcoordinator.http.UrlPath;
-import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
-import com.company.jk.pcoordinator.notice.NoticeFragment;
 import com.company.jk.pcoordinator.record.RecordFragment;
 import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
@@ -37,13 +28,14 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     RecordFragment recordFragment;
     MypageFragment mypageFragment;
     ChartFragment chartFragment;
-    ChartActivity chartActivity;
+    boolean doubleBackToExitPressedOnce = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         homeFragment = new HomeFragment();
         recordFragment = new RecordFragment();
@@ -76,10 +68,6 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
                     replaceFragment(recordFragment);
                 }
                 break;
-            case R.id.bottomBarItemChart:
-                Intent intent = new Intent(MainActivity.this, ChartActivity.class);
-                startActivityForResult(intent, 200);
-                break;
             case R.id.bottomBarItemPerson:
                 if (!mypageFragment.isVisible()){
                     replaceFragment(mypageFragment);
@@ -95,11 +83,27 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame, fragment).commit();
     }
-
+//
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        Log.i("백버튼", String.valueOf(doubleBackToExitPressedOnce));
+        if (doubleBackToExitPressedOnce) {
+            Log.i("백버튼실행 나가라 ", String.valueOf(doubleBackToExitPressedOnce));
+            finish();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, R.string.warning_back, Toast.LENGTH_SHORT).show();
+
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }
 

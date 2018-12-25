@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,12 +14,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.login.AddressPostActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.login.LoginService;
@@ -28,7 +26,7 @@ import org.json.JSONObject;
 
 
 //고객정보는 fragment 도 사용 가능하고 actvity 로도 사용 가능하여 둘 다 만들어 놓음.
-public class MyinfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
 
     private static final int ADDRESS_REQUEST = 1888;
@@ -44,29 +42,36 @@ public class MyinfoActivity extends AppCompatActivity implements View.OnClickLis
     private String toastMessage = " ";
 
 
-    TextView _address1, _email;
+    TextView _address1;
     EditText _address2, _name, _tel, _birthday;
     View _layout_address_detail;
     AppCompatImageButton _btn_findaddress;
     Button _btn_save;
     Intent intent;
     CheckBox _cb_auto;
+    Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myinfo);
 
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tcode = "select_customer_info";
         new HttpTaskSignIn().execute(loginInfo.getEmail());
 
-        
+
+        // Toolbar를 생성한다.
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(loginInfo.getEmail());
+
+
         mContext = getApplicationContext();
         mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
 
-        _email = (TextView) findViewById(R.id.et_email);
         _birthday = (EditText) findViewById(R.id.tv_birthday);
         _name = (EditText) findViewById(R.id.et_name);
         _tel = (EditText) findViewById(R.id.et_tel);
@@ -117,7 +122,7 @@ public class MyinfoActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btn_save:  //고객정보 저장
                 if(check_validation_info()){
                     tcode = "save_customer_info";
-                    new HttpTaskSignIn().execute(_email.getText().toString(), _name.getText().toString(),_birthday.getText().toString(), _tel.getText().toString(), _address1.getText().toString(), _address2.getText().toString());
+                    new HttpTaskSignIn().execute(loginInfo.getEmail(), _name.getText().toString(),_birthday.getText().toString(), _tel.getText().toString(), _address1.getText().toString(), _address2.getText().toString());
                 }
                 break;
         }
@@ -175,10 +180,12 @@ public class MyinfoActivity extends AppCompatActivity implements View.OnClickLis
             try {
                 jObject = new JSONObject(sb);
                 switch (tcode) {
-                    case("save_customer_info"): case "save_customer_pw":
+                    case("save_customer_info"):
                         String result = jObject.getString("result");
                         if (result.equals("true")){
                             toastMessage = "저장되었습니다.";
+
+
                             break;
                         }else{
                             toastMessage = result;
@@ -186,7 +193,6 @@ public class MyinfoActivity extends AppCompatActivity implements View.OnClickLis
                         }
 
                     case("select_customer_info"):
-                        _email.setText(jObject.getString("email"));
                         _name.setText(jObject.getString("nickname"));
                         _birthday.setText(jObject.getString("birthday"));
                         _tel.setText(jObject.getString("tel"));

@@ -15,11 +15,12 @@ import android.widget.Toast;
 
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends MyActivity {
     final static String TAG = "Login";
     final static String Controller = "Pc_login";
     StringBuffer sb = new StringBuffer();

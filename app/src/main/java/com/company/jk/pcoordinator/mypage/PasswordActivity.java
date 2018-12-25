@@ -4,28 +4,26 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.common.MyFragment;
-import com.company.jk.pcoordinator.login.LoginService;
+import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
+import com.company.jk.pcoordinator.login.LoginService;
 
 import org.json.JSONObject;
 
-public class PasswordFragment extends MyFragment implements View.OnClickListener {
+public class PasswordActivity extends MyActivity implements View.OnClickListener {
 
     private static final String TAG = "PasswordFragment";
     Context mContext;
@@ -35,40 +33,32 @@ public class PasswordFragment extends MyFragment implements View.OnClickListener
     private StringBuffer sb = new StringBuffer();
     private static final String Controller = "Pc_login";
     private String toastMessage = " ";
-    EditText  _old_password, _password, _repassword;
-    ImageView _back;
+    EditText _old_password, _password, _repassword;
+    Toolbar myToolbar;
 
     Button _btn_save_pw;
-    View v;
+
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_password);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+// Toolbar를 생성한다.
+        myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.passwordmng);
 
-        v = inflater.inflate(R.layout.fragment_password, container, false);
-//        mContext = getActivity();
-        mContext = v.getContext();
 
-        _old_password = (EditText) v.findViewById(R.id.et_old_password);
-        _password = (EditText) v.findViewById(R.id.et_new_password);
-        _repassword = (EditText) v.findViewById(R.id.et_new_password2);
-        _back                  = (ImageView) v.findViewById(R.id.btn_exit);
-        _btn_save_pw = (Button) v.findViewById(R.id.btn_password_save);
-
-        _back.setOnClickListener(this);
+        _old_password = (EditText) findViewById(R.id.et_old_password);
+        _password = (EditText) findViewById(R.id.et_new_password);
+        _repassword = (EditText) findViewById(R.id.et_new_password2);
+        _btn_save_pw = (Button) findViewById(R.id.btn_password_save);
         _btn_save_pw.setOnClickListener(this);
-        return  v;
+
     }
+
 
     @Override
     public void onClick(View view) {
@@ -90,7 +80,7 @@ public class PasswordFragment extends MyFragment implements View.OnClickListener
 
     public boolean check_validation_pw(){
         if(_password.getText().toString().length() < 5){
-            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.message_confirm_password_count)
                     .setPositiveButton(R.string.message_OK, new DialogInterface.OnClickListener() {
                         @Override
@@ -104,9 +94,9 @@ public class PasswordFragment extends MyFragment implements View.OnClickListener
             return  false;
         }
         if(!_password.getText().toString().equals(_repassword.getText().toString())){
-            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.message_confirm_password)
-                   .setPositiveButton(R.string.message_OK, new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.message_OK, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                         }
@@ -120,16 +110,6 @@ public class PasswordFragment extends MyFragment implements View.OnClickListener
         return  true;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
 
     /////// 여기서 부터 DB 쓰레드 작업
     //  DB 쓰레드 작업
@@ -179,7 +159,7 @@ public class PasswordFragment extends MyFragment implements View.OnClickListener
             }catch (Exception e) {
                 e.printStackTrace();
             }
-            Toast.makeText(v.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
             tcode = "";   //초기화
         }
     }

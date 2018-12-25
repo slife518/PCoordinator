@@ -1,12 +1,14 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
+import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
@@ -37,7 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MybabyActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class MybabyActivity extends MyActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     RecyclerView mRecyclerView;
     ArrayList<Mybabyinfo> items = new ArrayList();
@@ -45,19 +48,23 @@ public class MybabyActivity extends AppCompatActivity implements View.OnClickLis
     RecyclerViewAdapter mAdapter;
     Spinner mSpinner;
     Button _btn_add;
+    Toolbar myToolbar;
 
     LoginInfo loginInfo = LoginInfo.getInstance();
 
     String TAG = "MybabyFragment";
 
-    List<String> target_baby_list_value = new ArrayList<String>();
+    List<String> target_baby_list_value = new ArrayList<String>() ;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybaby);
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+// Toolbar를 생성한다.
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         _btn_add = findViewById(R.id.btn_add);
         _btn_add.setOnClickListener(this);
@@ -70,7 +77,8 @@ public class MybabyActivity extends AppCompatActivity implements View.OnClickLis
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
         mAdapter = new RecyclerViewAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
-
+}
+    public void get_baby_data(){
 
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/get_baby_info";
@@ -96,15 +104,17 @@ public class MybabyActivity extends AppCompatActivity implements View.OnClickLis
         //data binding end
 
 
-        //스피너 설정 시작
-        mSpinner = (Spinner)findViewById(R.id.spinner_main_target);
     }
 
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onBackPressed();
-        return true;
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "재시작 onResume");
+        get_baby_data();
+
+        //스피너 설정 시작
+        mSpinner = (Spinner)findViewById(R.id.spinner_main_target);
+
     }
 
     @Override
@@ -155,6 +165,8 @@ public class MybabyActivity extends AppCompatActivity implements View.OnClickLis
         String sex = null;
         String father = null;
         String mother = null;
+        target_baby_list_value.clear();
+        items.clear();
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_dropdown_item_1line);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -204,30 +216,35 @@ public class MybabyActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     ;
-
-    private static Fragment newInstance(String param1){
-        MybabyDetailFragment fragment = new MybabyDetailFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("email", param1);
-        fragment.setArguments(bundle);
-        return  fragment;
-    }
+//
+//    private static Fragment newInstance(String param1){
+//        MybabyDetailFragment fragment = new MybabyDetailFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("email", param1);
+//        fragment.setArguments(bundle);
+//        return  fragment;
+//    }
 
     @Override
     public void onClick(View view) {
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
         switch (view.getId()) {
-            case R.id.btn_exit:
-                MypageFragment myFragment = new MypageFragment();
-                //왼쪽에서 오른쪽 슬라이드
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
-                break;
+//            case R.id.btn_exit:
+//                MypageFragment myFragment = new MypageFragment();
+//                //왼쪽에서 오른쪽 슬라이드
+//                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
+//                break;
             case R.id.btn_add:
 //                MybabyDetailFragment mybabyDetailFragment = new MybabyDetailFragment();
                 //왼쪽에서 오른쪽 슬라이드
+                Intent intent = new Intent(getApplicationContext(), MybabyDetailActivity.class);
+                intent.putExtra("email",loginInfo.getEmail() );
+                startActivityForResult(intent, 300);
+
+
 //                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, mybabyDetailFragment).addToBackStack(null).commit();
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail())).addToBackStack(null).commit();
+//                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail())).addToBackStack(null).commit();
 
         }
     }

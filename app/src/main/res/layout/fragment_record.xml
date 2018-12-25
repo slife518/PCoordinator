@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -144,19 +144,17 @@
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/btn_delete"
+                style="@style/MyWideButton"
                 android:text="@string/btn_delete"
-                android:layout_weight="1"
                 android:background="@drawable/button_bg"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:textColor="@color/black"
+                 />
 
             <Button
                 android:id="@+id/btn_save"
-                android:text="@string/btn_save"
-                android:layout_weight="1"
-                android:background="@drawable/button_bg_accent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:drawableStart="@drawable/ic_outline_save_24px"
+                style="@style/MyWideButton"
+                android:text="@string/btn_save" />
 
 
         </LinearLayout>

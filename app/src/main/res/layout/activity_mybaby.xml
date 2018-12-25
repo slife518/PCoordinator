@@ -3,12 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".mypage.mybaby.MybabyFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!-- 툴바 -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="?attr/actionBarSize"
         android:orientation="vertical">
         <LinearLayout
             android:orientation="horizontal"
@@ -33,11 +44,11 @@
             android:layout_margin="16dp"/>
         <Button
             android:id="@+id/btn_add"
+            style="@style/MyWideButton"
             android:text="@string/addBaby"
-            android:layout_margin="16dp"
-            android:background="@drawable/button_bg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:drawableStart="@drawable/ic_baseline_add_24px"
+            />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

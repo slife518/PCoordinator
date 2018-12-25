@@ -14,8 +14,4 @@
         android:id="@+id/bottomBarItemPerson"
         android:orderInCategory="100"
         android:title="@string/account"/>
-    <item
-        android:id="@+id/bottomBarItemChart"
-        android:orderInCategory="100"
-        android:title="@string/chart"/>
 </menu>

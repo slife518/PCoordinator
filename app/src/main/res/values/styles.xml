@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.Myapptheme" parent="@style/Theme.AppCompat.Light">
+    <style name="Theme.Myapptheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="actionBarItemBackground">@drawable/selectable_background_myapptheme</item>
         <item name="popupMenuStyle">@style/PopupMenu.Myapptheme</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Myapptheme</item>
@@ -127,13 +127,22 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
-        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
     </style>
 
     <style name="MyRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">
         <item name="android:button">@drawable/custom_btn_radio</item>
+    </style>
+    <style name="MyWideButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:background">@color/buttonColorAccent</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

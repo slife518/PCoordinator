@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -40,7 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HomeFragment extends MyFragment{
+public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
     View v;
@@ -51,7 +52,7 @@ public class HomeFragment extends MyFragment{
     ListView mListView;
     ArrayList<RecordHistoryinfo> items = new ArrayList();
     MilkRiceListViewAdapter mAdapter;
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +83,25 @@ public class HomeFragment extends MyFragment{
 
             }
         });
+
+
+        //리스트 새로고침
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
+
         //data binding start
+        get_data();
+        return v;
+    }
+
+    private  void get_data(){
         String server_url = new UrlPath().getUrlPath() + "Pc_record/record_list";
         RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
@@ -95,16 +114,14 @@ public class HomeFragment extends MyFragment{
             public void onErrorResponse(VolleyError error) {
             }
         }) {@Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", loginInfo.getEmail());
-                return params;
-            }
+        protected Map<String, String> getParams() {
+            Map<String, String> params = new HashMap<>();
+            params.put("email", loginInfo.getEmail());
+            return params;
+        }
         };
         postReqeustQueue.add(postStringRequest);
-        return v;
     }
-
 
     private int[] getColors() {
 
@@ -216,4 +233,16 @@ public class HomeFragment extends MyFragment{
 
         }
     }
+
+
+    @Override
+    public void onRefresh() {
+        get_data();
+        // 새로고침 완료
+
+
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+
 }

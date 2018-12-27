@@ -48,7 +48,7 @@ public class LoginActivity extends MyActivity {
         String id = mPreference.getString("Email", "");
         String pass = mPreference.getString("Password", "");
         //cb_auto.setChecked(true);
-        cb_auto.setChecked(mPreference.getBoolean("AutoChecked", true));
+        cb_auto.setChecked(mPreference.getBoolean("AutoChecked", false));
 
         Log.i(TAG, "아이디는 " + id);
         et_email.setText(id);
@@ -61,6 +61,8 @@ public class LoginActivity extends MyActivity {
 
             if (cb_auto.isChecked()) {   //자동로그인일 경우
                 btn_login.callOnClick();
+            }else{
+                cb_auto.setChecked(true);
             }
         }
 

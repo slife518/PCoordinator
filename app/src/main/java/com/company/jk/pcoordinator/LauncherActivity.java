@@ -121,6 +121,9 @@ public class LauncherActivity extends AppCompatActivity {
                 finish();
             } else {
                 toastMessage = getString(R.string.Warnning);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
             Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
         }

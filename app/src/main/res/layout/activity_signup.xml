@@ -17,7 +17,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="12dp"
-            android:src="@drawable/kotlindroider" />
+            android:src="@drawable/baby" />
 
 
         <TextView
@@ -25,22 +25,21 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:text="KotlinDroider"
+            android:text="@string/app_name"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold" />
         <!-- Name Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_margin="8dp">
 
             <EditText
                 android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:hint="@string/name"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
@@ -54,8 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_margin="8dp">
                 <TextView
                     android:id="@+id/tv_address"
                     android:layout_width="match_parent"
@@ -70,9 +68,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:onClick="OnClickMethod"
-
-                 />
+                android:text="@string/findpost"
+                android:onClick="OnClickMethod"/>
 
         </LinearLayout>
 
@@ -80,9 +77,8 @@
             android:id="@+id/input_address_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:visibility="gone"
-            android:layout_marginTop="8dp">
+            android:layout_margin="8dp">
 
             <EditText
                 android:id="@+id/et_address_detail"
@@ -95,14 +91,13 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_margin="8dp">
 
             <EditText
                 android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
@@ -111,14 +106,13 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_margin="8dp">
 
             <EditText
                 android:id="@+id/input_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mobile Number"
+                android:hint="@string/tel"
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
 
@@ -126,14 +120,13 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_margin="8dp">
 
             <EditText
                 android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -141,26 +134,21 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_margin="8dp">
 
             <EditText
                 android:id="@+id/input_reEnterPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Re-enter Password"
+                android:hint="@string/repassword"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/button_bg_accent"
-            android:padding="12dp"
+            style="@style/MyWideButton"
+            android:layout_width="match_parent"
             android:onClick="OnClickMethod"
             android:text="@string/create_Account"  />
 

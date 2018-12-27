@@ -100,8 +100,7 @@ public class SignupActivity extends AppCompatActivity {
                 break;
 
             case R.id.link_login:
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                getApplicationContext().startActivity(intent);
+                onBackPressed();
                 break;
         }
 

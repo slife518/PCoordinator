@@ -2,7 +2,8 @@
     <string name="title_activity_signup">SignupActivity</string>
     <string name="Welcome">환영합니다.</string>
     <string name="Warnning">이메일 또는 비밀번호를 확인하세요</string>
-    <string name="CheckRepass">패스워드를 다시 입력바랍니다.</string>
+    <string name="CheckRepass">비밀번호를 다시 입력바랍니다.</string>
+    <string name="repassword">비밀번호 확인</string>
     <string name="CheckUnit">필수항목을 입력바랍니다.</string>
     <string name="NewPossible">사용가능합니다.</string>
     <string name="NewImpossible">이미 존재하는 이메일입니다.</string>
@@ -25,7 +26,8 @@
     <string name="sex">성별</string>
     <string name="txCustomerinfo">고객정보</string>
     <string name="btn_save">저장하기</string>
-    <string name="address">우번번호로 주소찾기</string>
+    <string name="address">주소</string>
+    <string name="findpost">우번번호로 주소찾기</string>
     <string name="hint_address">주소</string>
     <string name="linear_layout_10_from">From:</string>
     <string name="linear_layout_10_to">To:</string>
@@ -124,7 +126,8 @@
     <string name="signin">회원가입</string>
     <string name="login">로그인</string>
     <string name="create_Account">가입하기</string>
-    <string name="Already_a_member">Already a member? Login</string>
+    <string name="Already_a_member">이미 회원이신가요? 로그인하기</string>
     <string name="warning_back">한번 더 누르시면 종료됩니다</string>
+    <string name="password">비밀번호</string>
 
 </resources>

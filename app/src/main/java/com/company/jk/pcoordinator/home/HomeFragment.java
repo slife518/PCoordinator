@@ -1,6 +1,7 @@
 package com.company.jk.pcoordinator.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
+import com.company.jk.pcoordinator.record.RecordActivity;
 import com.company.jk.pcoordinator.record.RecordFragment;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
@@ -70,20 +72,18 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         Toolbar myToolbar = (Toolbar)v.findViewById(R.id.my_toolbar);
         activity.setSupportActionBar(myToolbar);
 
-
-
         //listview layout
         mListView = (ListView) v.findViewById(R.id.listView_main);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().popBackStack();
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(items.get(position))).addToBackStack(null).commit();
-
+                Intent intent = new Intent(getActivity(), RecordActivity.class);
+                Bundle loadInfo = new Bundle();
+                loadInfo.putSerializable("RecordHistoryinfo", items.get(position));
+                intent.putExtras(loadInfo);
+                startActivityForResult(intent, 2300);
             }
         });
-
 
         //리스트 새로고침
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_layout);
@@ -97,8 +97,14 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
 
         //data binding start
-        get_data();
+
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        get_data();
     }
 
     private  void get_data(){
@@ -234,13 +240,10 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         }
     }
 
-
     @Override
     public void onRefresh() {
         get_data();
         // 새로고침 완료
-
-
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

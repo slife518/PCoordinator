@@ -130,5 +130,7 @@
     <string name="Already_a_member">Already a member? Login</string>
     <string name="confirm">이메일로 비밀번호 보내기</string>
     <string name="warning_back">Please click BACK again to exit</string>
+    <string name="password">비밀번호</string>
+    <string name="launchtext">소중한 우리 아기</string>
 
 </resources>

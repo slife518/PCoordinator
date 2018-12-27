@@ -63,7 +63,7 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
     public void onBindViewHolder(@NonNull ParentsRecyclerViewHolder holder, final int position) {
         // 이벤트처리 : 생성된 List 중 선택된 목록번호를 Toast로 출력
         holder.mNickName.setText(mItems.get(position).nickname);
-        holder.mRelationship.setText(mItems.get(position).relationship);
+//        holder.mRelationship.setText(mItems.get(position).relationship);
         holder.mBirthday.setText(mItems.get(position).birthday);
         holder.mEmail.setText(mItems.get(position).email);
 //        holder.mFather.setText(mItems.get(position).father);

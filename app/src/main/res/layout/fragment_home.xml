@@ -15,11 +15,6 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/swipe_layout">
-
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,28 +72,32 @@
                     android:layout_weight="3"/>
             </TableRow>
 
-            <ScrollView
-                android:id="@+id/scrollView"
+            <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:id="@+id/swipe_layout">
 
-                <LinearLayout
+                <ScrollView
+                    android:id="@+id/scrollView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ListView
-                        android:id="@+id/listView_main"
-                        android:divider="#dcdcda"
-                        android:dividerHeight="1dp"
+                    android:layout_height="match_parent">
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                </LinearLayout>
-            </ScrollView>
+                        <ListView
+                            android:id="@+id/listView_main"
+                            android:divider="#dcdcda"
+                            android:dividerHeight="1dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
 
+                    </LinearLayout>
+                </ScrollView>
+            </android.support.v4.widget.SwipeRefreshLayout>
         </TableLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     </android.support.design.widget.CoordinatorLayout>
 

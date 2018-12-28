@@ -493,11 +493,6 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         }
     }
 
-    private void showToast(String message){
-        Toast toast=Toast.makeText(this, message, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
     //추가된 소스, ToolBar에 menu.xml을 인플레이트함
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

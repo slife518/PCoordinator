@@ -273,11 +273,6 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
 
     }
 
-    private void showToast(String message){
-        Toast toast=Toast.makeText(this, message, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

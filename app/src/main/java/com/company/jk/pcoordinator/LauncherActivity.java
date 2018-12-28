@@ -39,7 +39,7 @@ public class LauncherActivity extends AppCompatActivity {
         String id = mPreference.getString("Email", "");
         String pass = mPreference.getString("Password", "");
 
-        auto_boolean = mPreference.getBoolean("AutoChecked", true);
+        auto_boolean = mPreference.getBoolean("AutoChecked", false);
 
         if (NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())) {
 

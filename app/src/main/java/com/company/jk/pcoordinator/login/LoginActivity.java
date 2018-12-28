@@ -168,7 +168,8 @@ public class LoginActivity extends MyActivity {
             } else {
                 toastMessage = getString(R.string.Warnning);
             }
-            Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+            showToast(toastMessage);
         }
 
 

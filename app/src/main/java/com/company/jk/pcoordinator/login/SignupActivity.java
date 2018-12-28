@@ -14,22 +14,31 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyActivity;
+import com.company.jk.pcoordinator.http.UrlPath;
 
 import org.json.JSONObject;
 
-public class SignupActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class SignupActivity extends MyActivity {
     final static String TAG = "Regist";
     final static String Controller = "Pc_Login";
     private static final int ADDRESS_REQUEST = 1777;
     private static String tcode;
     Intent intent;                    //Activity
-    //    EditText id, pass, rePass, nickname;
     EditText _nameText, _emailText, _mobileText, _passwordText, _reEnterPasswordText, _addressDetailText;
     TextInputLayout _address_detail;
     Button _signupButton;                    //activity handler
     TextView _loginLink, _addressText;
-    String sitecd;
     private JSONObject jObject = null; //group들로 구성된 json
     private JSONObject jsonObject1;
     private StringBuffer sb = new StringBuffer();
@@ -79,32 +88,63 @@ public class SignupActivity extends AppCompatActivity {
                 break;
 
             case R.id.btn_signup:
-                if (_emailText.getText().toString() == ""
-                        || _nameText.getText().toString().equals("")
-                        || _passwordText.getText().toString().equals("")
-                        || _reEnterPasswordText.getText().toString().equals("")) {
-                    Toast.makeText(SignupActivity.this, getString(R.string.CheckUnit),
-                            Toast.LENGTH_LONG).show();
-                } else if (!(_passwordText.getText().toString().equals(_reEnterPasswordText
-                        .getText().toString()))) {
-                    Toast.makeText(SignupActivity.this,
-                            getString(R.string.CheckRepass), Toast.LENGTH_LONG)
-                            .show();
-                    //이상없으면
-                } else {
-                    tcode = "newMember";
-                    Log.i(TAG, "OnClickMethod: id.getText().toString  " + _emailText.getText().toString());
-                    new HttpTaskSignIn().execute(_emailText.getText().toString(), _nameText.getText().toString(), _passwordText.getText().toString(), _reEnterPasswordText.getText().toString(), _mobileText.getText().toString(), _addressText.getText().toString());
+                if (check_validation()) {
+                    register_member();
                 }
-
                 break;
-
             case R.id.link_login:
                 onBackPressed();
                 break;
         }
+    }
 
 
+    private boolean check_validation(){
+
+        if (_emailText.getText().toString() == ""
+                || _nameText.getText().toString().equals("")
+                || _passwordText.getText().toString().equals("")
+                || _reEnterPasswordText.getText().toString().equals("")) {
+                showToast(getString(R.string.CheckUnit));
+
+            return false;
+        } else if (!(_passwordText.getText().toString().equals(_reEnterPasswordText
+                .getText().toString()))) {
+            showToast(getString(R.string.CheckRepass));
+            return false;
+        }
+        return true;
+    }
+
+    private void register_member(){
+
+        String server_url = new UrlPath().getUrlPath() + "Pc_Login/register_Member";
+        Log.i(TAG, server_url);
+        RequestQueue postRequestQueue = Volley.newRequestQueue(this);
+        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                saveSuccess(response);    // 결과값 받아와서 처리하는 부분
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, error.getLocalizedMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", _emailText.getText().toString());
+                params.put("name", _nameText.getText().toString());
+                params.put("password",  _passwordText.getText().toString());
+                params.put("repassword",  _reEnterPasswordText.getText().toString());
+                params.put("mobile", _mobileText.getText().toString());
+                params.put("address", _addressText.getText().toString());
+                return params;
+            }
+        };
+        postRequestQueue.add(postStringRequest);
     }
 
     @Override
@@ -123,69 +163,85 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    /////// 여기서 부터 DB 쓰레드 작업
-    //  DB 쓰레드 작업
-    class HttpTaskSignIn extends AsyncTask<String, String, String> {
-        @Override
-        protected String doInBackground(String... args) {
-            String result = "";
-
-            LoginService loginservice = null;
-            switch (tcode) {
-                case "newMember":
-                    loginservice = new LoginService.Builder(Controller, tcode).email(args[0]).name(args[1]).password(args[2]).repassword(args[3]).tel(args[4]).address1(args[5]).build();
-//					httpHandler.setValue(tcode, args[0],args[1], args[2], args[3]);
-                    break;
-                case "chkId":
-                    loginservice = new LoginService.Builder(Controller, tcode).email(args[0]).build();
-//					httpHandler.setValue(tcode, args[0]);
-                    break;
-            }
-            sb = loginservice.getData();
-            try {
-                //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
-//				JSONObject jsonObject = httpHandler.getNeedJSONObject(sb, "result");
-//				result = jsonObject.getString("name");
-                jObject = new JSONObject(sb.toString());
-                result = jObject.getString("result");
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String value) {
-            Log.i(TAG, "onPostExecute: tcode) " + tcode);
-            Log.i(TAG, "onPostExecute: value " + value);
-            super.onPostExecute(value);
-            try {
-                switch (tcode) {
-                    case ("newMember"): //최초
-                        if (value.equals("true")) {
-                            toastMessage = getString(R.string.RegisterNewMember);
-                            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-                            finish();
-                            break;
-                        }
-
-                    case ("chkId"):
-                        if (value.equals("true")) {  //가입가능한 id
-                            toastMessage = getString(R.string.NewPossible);
-                        } else {  //동일한 id 존재
-                            toastMessage = getString(R.string.NewImpossible);
-                        }
-                        break;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
-            tcode = "";   //초기화
+    private void saveSuccess(String response){
+        Log.i(TAG, "결과값은 " + response);
+        if("1".equals(response)){
+            toastMessage = getString(R.string.RegisterNewMember);
+            showToast(toastMessage);
+            onBackPressed();
+        }else {
+            showToast(response);
         }
     }
+
+
+
+
+
+
+    /////// 여기서 부터 DB 쓰레드 작업
+//    //  DB 쓰레드 작업
+//    class HttpTaskSignIn extends AsyncTask<String, String, String> {
+//        @Override
+//        protected String doInBackground(String... args) {
+//            String result = "";
+//
+//            LoginService loginservice = null;
+//            switch (tcode) {
+//                case "newMember":
+//                    loginservice = new LoginService.Builder(Controller, tcode).email(args[0]).name(args[1]).password(args[2]).repassword(args[3]).tel(args[4]).address1(args[5]).build();
+////					httpHandler.setValue(tcode, args[0],args[1], args[2], args[3]);
+//                    break;
+//                case "chkId":
+//                    loginservice = new LoginService.Builder(Controller, tcode).email(args[0]).build();
+////					httpHandler.setValue(tcode, args[0]);
+//                    break;
+//            }
+//            sb = loginservice.getData();
+//            try {
+//                //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
+////				JSONObject jsonObject = httpHandler.getNeedJSONObject(sb, "result");
+////				result = jsonObject.getString("name");
+//                jObject = new JSONObject(sb.toString());
+//                result = jObject.getString("result");
+//
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return result;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String value) {
+//            Log.i(TAG, "onPostExecute: tcode) " + tcode);
+//            Log.i(TAG, "onPostExecute: value " + value);
+//            super.onPostExecute(value);
+//            try {
+//                switch (tcode) {
+//                    case ("newMember"): //최초
+//                        if (value.equals("true")) {
+//                            toastMessage = getString(R.string.RegisterNewMember);
+//                            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+//                            finish();
+//                            break;
+//                        }
+//
+//                    case ("chkId"):
+//                        if (value.equals("true")) {  //가입가능한 id
+//                            toastMessage = getString(R.string.NewPossible);
+//                        } else {  //동일한 id 존재
+//                            toastMessage = getString(R.string.NewImpossible);
+//                        }
+//                        break;
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//            Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+//            tcode = "";   //초기화
+//        }
+//    }
 }
 

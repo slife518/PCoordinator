@@ -65,6 +65,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
         holder.mTime.setText(listviewitem.getTime());
         holder.mRice.setText(listviewitem.getRice());
         holder.mMilk.setText(listviewitem.getMilk());
+        holder.mMotherMilk.setText(listviewitem.getMothermilk());
         holder.mComments.setText(listviewitem.getComments());
         holder.mAuthor.setText(listviewitem.getAuthor());
 

@@ -12,6 +12,7 @@ public class DriveHolder {
     public TextView mTime;
     public TextView mRice;
     public TextView mMilk;
+    public TextView mMotherMilk;
     public TextView mComments;
     public TextView mAuthor;
 
@@ -22,6 +23,7 @@ public class DriveHolder {
         mTime = (TextView) root.findViewById(R.id.tv_time);
         mRice = (TextView) root.findViewById(R.id.tv_rice);
         mMilk = (TextView) root.findViewById(R.id.tv_milk);
+        mMotherMilk = (TextView) root.findViewById(R.id.tv_mothermilk);
         mComments = (TextView) root.findViewById(R.id.tv_comments);
         mAuthor = (TextView) root.findViewById(R.id.tv_author);
 

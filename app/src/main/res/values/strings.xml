@@ -105,7 +105,7 @@
     <string name="addBaby">우리아가추가</string>
     <string name="baby_picture">아기사진을 올려주세요</string>
     <string name="Home">Home</string>
-    <string name="author">작성자ID</string>
+    <string name="author">작성자</string>
     <string name="comments">설명</string>
     <string name="btn_cancel">취소하기</string>
     <string name="btn_list">기록보기</string>
@@ -132,5 +132,9 @@
     <string name="warning_back">Please click BACK again to exit</string>
     <string name="password">비밀번호</string>
     <string name="launchtext">소중한 우리 아기</string>
-
+    <string name="mothermilk">모유수유(분)</string>
+    <string name="btn_update">수정하기</string>
+    <string name="milk_list">분유</string>
+    <string name="rice_list">이유식</string>
+    <string name="mothermilk_list">모유수유</string>
 </resources>

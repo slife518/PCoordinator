@@ -27,7 +27,7 @@ public class LoginActivity extends MyActivity {
     SharedPreferences mPreference;
     Button btn_login;
     Button btn_signup;
-    TextView txt_find_id;
+//    TextView txt_find_id;
     TextView txt_find_pw;
     EditText et_email;
     EditText et_pw;
@@ -99,7 +99,7 @@ public class LoginActivity extends MyActivity {
 
         btn_login = findViewById(R.id.btn_login);
         btn_signup = findViewById(R.id.btn_signup);
-        txt_find_id = findViewById(R.id.find_id);
+//        txt_find_id = findViewById(R.id.find_id);
         txt_find_pw = findViewById(R.id.find_password);
         et_email = findViewById(R.id.input_email);
         et_pw = findViewById(R.id.input_password);

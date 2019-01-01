@@ -129,7 +129,7 @@ public class SignupActivity extends MyActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, error.getLocalizedMessage());
+                Log.e(TAG, " "+ error.getLocalizedMessage());
             }
         }){
             @Override

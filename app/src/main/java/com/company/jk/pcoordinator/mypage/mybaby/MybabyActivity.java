@@ -238,7 +238,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
             case R.id.btn_add:
 //                MybabyDetailFragment mybabyDetailFragment = new MybabyDetailFragment();
                 //왼쪽에서 오른쪽 슬라이드
-                Intent intent = new Intent(getApplicationContext(), MybabyDetailActivity.class);
+                Intent intent = new Intent(this, MybabyDetailActivity.class);
                 intent.putExtra("email",loginInfo.getEmail() );
                 startActivityForResult(intent, 300);
 

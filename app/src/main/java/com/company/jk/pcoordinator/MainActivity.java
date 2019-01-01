@@ -1,5 +1,6 @@
 package com.company.jk.pcoordinator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -10,13 +11,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.chart.ChartFragment;
+import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.home.HomeFragment;
+import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
+import com.company.jk.pcoordinator.mypage.mybaby.MybabyActivity;
+import com.company.jk.pcoordinator.mypage.mybaby.Mybabyinfo;
 import com.company.jk.pcoordinator.record.RecordFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
-public class MainActivity extends AppCompatActivity implements OnTabSelectListener {
+public class MainActivity extends MyActivity implements OnTabSelectListener {
 
 
     private String url;
@@ -29,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     MypageFragment mypageFragment;
     ChartFragment chartFragment;
     boolean doubleBackToExitPressedOnce = false;
-
+    LoginInfo loginInfo = LoginInfo.getInstance();
 
 
     @Override
@@ -50,6 +55,14 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
 
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(this);
+
+        Log.i(TAG, "아기정보는 " + loginInfo.getBabyID() );
+        if(loginInfo.getBabyID()  == "null" || loginInfo.getBabyID()  == null){
+
+            Log.i(TAG, "아기정보가 없습니다");
+            Intent intent = new Intent(this, MybabyActivity.class);
+            startActivityForResult(intent, 12);
+        }
     }
 
 
@@ -84,27 +97,27 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         fragmentTransaction.replace(R.id.frame, fragment).commit();
     }
 //
-    @Override
-    public void onBackPressed() {
-        Log.i("백버튼", String.valueOf(doubleBackToExitPressedOnce));
-        if (doubleBackToExitPressedOnce) {
-            Log.i("백버튼실행 나가라 ", String.valueOf(doubleBackToExitPressedOnce));
-            finish();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, R.string.warning_back, Toast.LENGTH_SHORT).show();
-
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
-    }
+//    @Override
+//    public void onBackPressed() {
+//        Log.i("백버튼", String.valueOf(doubleBackToExitPressedOnce));
+//        if (doubleBackToExitPressedOnce) {
+//            Log.i("백버튼실행 나가라 ", String.valueOf(doubleBackToExitPressedOnce));
+//            finish();
+//            return;
+//        }
+//
+//        this.doubleBackToExitPressedOnce = true;
+//        Toast.makeText(this, R.string.warning_back, Toast.LENGTH_SHORT).show();
+//
+//
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                doubleBackToExitPressedOnce=false;
+//            }
+//        }, 2000);
+//    }
 }
 
 

@@ -3,10 +3,8 @@ package com.company.jk.pcoordinator.record;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,9 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,14 +23,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.MyActivity;
-import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,13 +36,16 @@ import static com.company.jk.pcoordinator.MainActivity.bottomBar;
 public class RecordActivity extends MyActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private String id;
-    EditText _milk, _rice, _remainText;
+    EditText _milk,_mothermilk, _rice, _remainText;
     EditText _date, _time;
-    Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save, _delete;
+    Button _btn_plusMilk, _btn_minusMilk, _btn_plusMotherMilk, _btn_minusMotherMilk, _btn_plusRice, _btn_minusRice, _save, _delete;
     static final String TAG = "RecordFragment";
     LoginInfo loginInfo = LoginInfo.getInstance();
     RecordHistoryinfo info;
     Toolbar myToolbar;
+    final static int mothermilk_num = 5;
+    final static int milk_num = 10;
+    final static int rice_num = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +59,14 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         findViewById();
-        _plusRice.setOnClickListener(this);
-        _plusMilk.setOnClickListener(this);
-        _minusRice.setOnClickListener(this);
-        _minusMilk.setOnClickListener(this);
+        _btn_plusRice.setOnClickListener(this);
+        _btn_plusMilk.setOnClickListener(this);
+        _btn_plusMotherMilk.setOnClickListener(this);
+        _btn_minusRice.setOnClickListener(this);
+        _btn_minusMilk.setOnClickListener(this);
+        _btn_minusMotherMilk.setOnClickListener(this);
         _milk.setOnClickListener(this);
+        _mothermilk.setOnClickListener(this);
         _rice.setOnClickListener(this);
         _date.setOnClickListener(this);
         _time.setOnClickListener(this);
@@ -81,12 +80,15 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
         _date = findViewById(R.id.tv_date);
         _time = findViewById(R.id.tv_time);
         _milk = findViewById(R.id.et_milk);
+        _mothermilk = findViewById(R.id.et_mothermilk);
         _rice = findViewById(R.id.et_rice);
         _remainText = findViewById(R.id.et_remain_contents);
-        _plusMilk = findViewById(R.id.btn_milk_plus);
-        _minusMilk = findViewById(R.id.btn_milk_minus);
-        _plusRice   = findViewById(R.id.btn_rice_plus);
-        _minusRice  = findViewById(R.id.btn_rice_minus);
+        _btn_plusMilk = findViewById(R.id.btn_milk_plus);
+        _btn_plusMotherMilk = findViewById(R.id.btn_mothermilk_plus);
+        _btn_minusMilk = findViewById(R.id.btn_milk_minus);
+        _btn_minusMotherMilk = findViewById(R.id.btn_mothermilk_minus);
+        _btn_plusRice = findViewById(R.id.btn_rice_plus);
+        _btn_minusRice = findViewById(R.id.btn_rice_minus);
         _save = findViewById(R.id.btn_save);
         _delete = findViewById(R.id.btn_delete);
 
@@ -97,11 +99,9 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
             _date.setText(info.getYearDate());
             _time.setText(info.getTime());
             _milk.setText(info.getMilk());
+            _mothermilk.setText(info.getMothermilk());
             _rice.setText(info.getRice());
             _remainText.setText(info.getComments());
-
-            _save.setText("수정하기");
-
     }
     @Override
     public void onClick(View v) {
@@ -120,18 +120,24 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
             TimePickerDialog timeDialog = new TimePickerDialog(this, this, mHH, mMM, false);
             timeDialog.show();
 
-        }else if(v == _plusMilk){
-            _milk.setText(String.valueOf(Integer.parseInt(_milk.getText().toString()) + 10 ));
-        }else if(v == _minusMilk){
+        }else if(v == _btn_plusMilk){
+            _milk.setText(calNumber(_milk.getText().toString(),+ milk_num ));
+        }else if(v == _btn_minusMilk){
             if(Integer.parseInt(_milk.getText().toString()) > 0){
-                _milk.setText(String.valueOf(Integer.parseInt(_milk.getText().toString()) - 10 ));
+                _milk.setText(calNumber(_milk.getText().toString(), - milk_num ));
             }
-        }else if(v == _plusRice){
-            _rice.setText(String.valueOf(Integer.parseInt(_rice.getText().toString()) + 10));
+        }else if(v == _btn_plusMotherMilk){
+            _mothermilk.setText(calNumber(_mothermilk.getText().toString(), + mothermilk_num ));
+        }else if(v == _btn_minusMotherMilk){
+            if(Integer.parseInt(_mothermilk.getText().toString()) > 0){
+                _mothermilk.setText(calNumber(_mothermilk.getText().toString(), - mothermilk_num ));
+            }
+        }else if(v == _btn_plusRice){
+            _rice.setText(calNumber(_rice.getText().toString(), + rice_num));
 
-        }else if(v == _minusRice){
+        }else if(v == _btn_minusRice){
             if(Integer.parseInt(_rice.getText().toString()) > 0) {
-                _rice.setText(String.valueOf(Integer.parseInt(_rice.getText().toString()) - 10));
+                _rice.setText(calNumber(_rice.getText().toString(), - rice_num));
             }
         }else if(v == _save) {
             save_data();
@@ -142,11 +148,21 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
             _rice.setText("0");
         }else if(v == _milk) {
             _milk.setText("0");
+        }else if(v == _mothermilk) {
+            _mothermilk.setText("0");
         }
 
     }
 
 
+    private String calNumber(String n, int i){
+        Log.i("n은" , n);
+        if(n == null || n == " " ){
+            n = "0";
+        }
+        Log.i("n은~" , n);
+        return String.valueOf(Integer.parseInt(n) + i );
+    }
     private void deleteAelrtDialog(){
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -235,6 +251,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
                 params.put("record_date", _date.getText().toString());
                 params.put("record_time", _time.getText().toString());
                 params.put("milk", _milk.getText().toString());
+                params.put("mothermilk", _mothermilk.getText().toString());
                 params.put("rice", _rice.getText().toString());
                 params.put("description", _remainText.getText().toString());
 

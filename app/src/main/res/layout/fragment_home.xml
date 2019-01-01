@@ -40,7 +40,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
-                    android:text="@string/milk"
+                    android:text="@string/mothermilk_list"
                     android:textColor="@color/white"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -48,7 +48,15 @@
                     android:layout_weight="1"/>
 
                 <TextView
-                    android:text="@string/rice"
+                    android:text="@string/milk_list"
+                    android:textColor="@color/white"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:text="@string/rice_list"
                     android:textColor="@color/white"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -61,7 +69,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:layout_weight="2"/>
+                    android:layout_weight="1"/>
 
                 <TextView
                     android:text="@string/comments"
@@ -69,7 +77,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:layout_weight="3"/>
+                    android:layout_weight="1"/>
             </TableRow>
 
             <android.support.v4.widget.SwipeRefreshLayout

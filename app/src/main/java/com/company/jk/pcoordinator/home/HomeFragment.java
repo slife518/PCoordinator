@@ -88,6 +88,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         //리스트 새로고침
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_layout);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+
         mSwipeRefreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -150,7 +151,6 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
     private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);
-        String id = null, date = null, time = null, milk = null, rice = null, author = null, comments = null;
         items.clear();
 
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
@@ -159,18 +159,19 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(i);
-                id = rs.getString("id");
-                date = rs.getString("record_date");
-                time = rs.getString("record_time");
-                milk = rs.getString("milk");
-                rice = rs.getString("rice");
-                author = rs.getString("author");
-                comments = rs.getString("description");
+                items.add(new RecordHistoryinfo(
+                                                rs.getString("id"),
+                                                rs.getString("record_date"),
+                                                rs.getString("record_time"),
+                                                rs.getString("milk"),
+                                                rs.getString("mothermilk"),
+                                                rs.getString("rice"),
+                                                rs.getString("author"),
+                                                rs.getString("description")));
+
             }catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.i(TAG, time);
-            items.add(new RecordHistoryinfo(id, date, time, milk, rice, author, comments));
         }
         mAdapter = new MilkRiceListViewAdapter(mContext, R.layout.layout_milk_rice_card, items);
         mListView.setAdapter(mAdapter);
@@ -215,6 +216,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_home, menu);
     }
+
     //ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -228,12 +230,12 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         switch (item.getItemId()) {
             case R.id.action_chart:
                 // User chose the "Settings" item, show the app settings UI...
-
-                Toast.makeText(getContext().getApplicationContext(),"통계기능이 업데이트 될 예정입니다.",Toast.LENGTH_LONG).show();
+                showToast("통계기능이 업데이트 될 예정입니다.");
+//                Toast.makeText(mContext.getApplicationContext(),"통계기능이 업데이트 될 예정입니다.",Toast.LENGTH_LONG).show();
                 return true;
 
             default:
-                Toast.makeText(mContext.getApplicationContext(), "나머지 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                showToast("나머지 버튼 클릭됨");
                 return super.onOptionsItemSelected(item);
 
 

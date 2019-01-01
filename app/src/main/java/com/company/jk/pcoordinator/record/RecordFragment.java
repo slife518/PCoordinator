@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -34,6 +34,7 @@ import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
+import com.company.jk.pcoordinator.mypage.mybaby.Mybabyinfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -49,18 +50,28 @@ import static com.company.jk.pcoordinator.MainActivity.bottomBar;
 public class RecordFragment extends MyFragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private String id;
-    EditText _milk, _rice, _remainText;
+    EditText _milk,_mothermilk, _rice, _remainText;
     EditText _date, _time;
-    Button _plusMilk, _minusMilk, _plusRice, _minusRice, _save, _delete;
-    ImageView _back;
+    Button _btn_plusMilk, _btn_minusMilk, _btn_plusRice, _btn_minusRice, _save, _btn_plusMotherMilk, _btn_minusMotherMilk;
+//    ImageView _back;
     static final String TAG = "RecordFragment";
     Context mContext; View v;
     LoginInfo loginInfo = LoginInfo.getInstance();
     RecordHistoryinfo info;
 
+    // 간격
+    final static int mothermilk_num = 5;
+    final static int milk_num = 10;
+    final static int rice_num = 10;
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(loginInfo.getBabyID() == null || loginInfo.getBabyID()==""){
+            Intent intent = new Intent(mContext, Mybabyinfo.class);
+            startActivityForResult(intent, 12);
+        }
     }
 
     @Override
@@ -72,17 +83,22 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
         mContext = v.getContext();
 
         findViewById(v);
-        _plusRice.setOnClickListener(this);
-        _plusMilk.setOnClickListener(this);
-        _minusRice.setOnClickListener(this);
-        _minusMilk.setOnClickListener(this);
+        _btn_plusRice.setOnClickListener(this);
+        _btn_plusMilk.setOnClickListener(this);
+        _btn_plusMotherMilk.setOnClickListener(this);
+        _btn_minusRice.setOnClickListener(this);
+        _btn_minusMilk.setOnClickListener(this);
+        _btn_minusMotherMilk.setOnClickListener(this);
         _milk.setOnClickListener(this);
+        _mothermilk.setOnClickListener(this);
         _rice.setOnClickListener(this);
         _date.setOnClickListener(this);
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
-        _delete.setOnClickListener(this);
-        _back.setOnClickListener(this);
+//        _delete.setOnClickListener(this);
+//        _back.setOnClickListener(this);
+
+        Log.i("loginInfo.getBabyID()" , loginInfo.getBabyID());
 
         return v;
     }
@@ -91,41 +107,47 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
     public void onResume() {
         super.onResume();
         initialize();
+
     }
 
     private  void findViewById(View v){
         _date = v.findViewById(R.id.tv_date);
         _time = v.findViewById(R.id.tv_time);
         _milk = v.findViewById(R.id.et_milk);
+        _mothermilk = v.findViewById(R.id.et_mothermilk);
         _rice = v.findViewById(R.id.et_rice);
         _remainText = v.findViewById(R.id.et_remain_contents);
-        _plusMilk = v.findViewById(R.id.btn_milk_plus);
-        _minusMilk = v.findViewById(R.id.btn_milk_minus);
-        _plusRice   = v.findViewById(R.id.btn_rice_plus);
-        _minusRice  = v.findViewById(R.id.btn_rice_minus);
+        _btn_plusMilk = v.findViewById(R.id.btn_milk_plus);
+        _btn_plusMotherMilk = v.findViewById(R.id.btn_mothermilk_plus);
+        _btn_minusMilk = v.findViewById(R.id.btn_milk_minus);
+        _btn_minusMotherMilk = v.findViewById(R.id.btn_mothermilk_minus);
+        _btn_plusRice = v.findViewById(R.id.btn_rice_plus);
+        _btn_minusRice = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
-        _delete = v.findViewById(R.id.btn_delete);
-        _back = v.findViewById(R.id.btn_back);
+        set_time();
+//        _delete = v.findViewById(R.id.btn_delete);
+//        _back = v.findViewById(R.id.btn_back);
 
-        if (getArguments() != null) {
+//        if (getArguments() != null) {
+//
+//            info = (RecordHistoryinfo)getArguments().getSerializable("RecordHistoryinfo");
+//            Log.i(TAG, info.getDate());
+//            id = info.getId();
+//            _date.setText(info.getYearDate());
+//            _time.setText(info.getTime());
+//            _milk.setText(info.getMilk());
+//            _mothermilk.setText(info.getMothermilk());
+//            _rice.setText(info.getRice());
+//            _remainText.setText(info.getComments());
+//
+//            _save.setText("수정하기");
+//
+//        }else{
 
-            info = (RecordHistoryinfo)getArguments().getSerializable("RecordHistoryinfo");
-            Log.i(TAG, info.getDate());
-            id = info.getId();
-            _date.setText(info.getYearDate());
-            _time.setText(info.getTime());
-            _milk.setText(info.getMilk());
-            _rice.setText(info.getRice());
-            _remainText.setText(info.getComments());
+//            _back.setVisibility(v.GONE);
+//            _delete.setVisibility(v.GONE);
 
-            _save.setText("수정하기");
-
-        }else{
-            set_time();
-            _back.setVisibility(v.GONE);
-            _delete.setVisibility(v.GONE);
-
-        }
+//        }
     }
 
     public void set_time(){   //화면 초기화
@@ -156,64 +178,56 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
             TimePickerDialog timeDialog = new TimePickerDialog(mContext, this, mHH, mMM, false);
             timeDialog.show();
 
-        }else if(v == _plusMilk){
-            _milk.setText(String.valueOf(Integer.parseInt(_milk.getText().toString()) + 10 ));
-        }else if(v == _minusMilk){
+        }else if(v == _btn_plusMilk){
+            _milk.setText(calNumber(_milk.getText().toString(),+ milk_num ));
+        }else if(v == _btn_minusMilk){
             if(Integer.parseInt(_milk.getText().toString()) > 0){
-                _milk.setText(String.valueOf(Integer.parseInt(_milk.getText().toString()) - 10 ));
+                _milk.setText(calNumber(_milk.getText().toString(), - milk_num ));
             }
-        }else if(v == _plusRice){
-            _rice.setText(String.valueOf(Integer.parseInt(_rice.getText().toString()) + 10));
+        }else if(v == _btn_plusMotherMilk){
+            _mothermilk.setText(calNumber(_mothermilk.getText().toString(), + mothermilk_num ));
+        }else if(v == _btn_minusMotherMilk){
+            if(Integer.parseInt(_mothermilk.getText().toString()) > 0){
+                _mothermilk.setText(calNumber(_mothermilk.getText().toString(), - mothermilk_num ));
+            }
+        }else if(v == _btn_plusRice){
+            _rice.setText(calNumber(_rice.getText().toString(), + rice_num));
 
-        }else if(v == _minusRice){
+        }else if(v == _btn_minusRice){
             if(Integer.parseInt(_rice.getText().toString()) > 0) {
-                _rice.setText(String.valueOf(Integer.parseInt(_rice.getText().toString()) - 10));
+                _rice.setText(calNumber(_rice.getText().toString(), - rice_num));
             }
+
         }else if(v == _save) {
             save_data();
-        }else if(v == _delete){
-            deleteAelrtDialog();
+//        }else if(v == _delete){
+//            deleteAelrtDialog();
 
-        }else if(v == _back){
-//            getActivity().onBackPressed();
-//            bottomBar.selectTabAtPosition(0, false);
-            HomeFragment hf = new HomeFragment();
-            AppCompatActivity activity = (AppCompatActivity)getActivity();
-            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, hf).addToBackStack(null).commit();
+//        }else if(v == _back){
+////            getActivity().onBackPressed();
+////            bottomBar.selectTabAtPosition(0, false);
+//            HomeFragment hf = new HomeFragment();
+//            AppCompatActivity activity = (AppCompatActivity)getActivity();
+//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, hf).addToBackStack(null).commit();
         }else if(v == _rice){
             _rice.setText("0");
         }else if(v == _milk) {
             _milk.setText("0");
+        }else if(v == _mothermilk) {
+            _mothermilk.setText("0");
+        }else if(v == _mothermilk) {
+            _mothermilk.setText("0");
         }
 
     }
 
 
-    private void deleteAelrtDialog(){
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(v.getContext(), android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(v.getContext());
+    private String calNumber(String n, int i){
+        if(n == null || n == ""){
+            n = "0";
         }
-        builder.setTitle(R.string.btn_delete)
-                .setMessage(R.string.deleteAlert)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        delete_data();
-//                        HomeFragment hf = new HomeFragment();
-//                        AppCompatActivity activity = (AppCompatActivity)getActivity();
-//                        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, hf).addToBackStack(null).commit();
-
-                    }
-                })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        Log.i("n은" , n);
+        return String.valueOf(Integer.parseInt(n) + i );
     }
 
     private void saveAelrtDialog(){
@@ -275,16 +289,9 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
 
     private void saveSuccess(String response){
         Log.i(TAG, "결과값은 " + response);
-        if (getArguments() == null) {    //입력하기 전용화면이면
-            showToast(getString(R.string.save));
-            bottomBar.selectTabAtPosition(0, false);
-//            saveAelrtDialog();
-        }else{
-            showToast(getString(R.string.save));
-            HomeFragment hf = new HomeFragment();
-            AppCompatActivity activity = (AppCompatActivity)getActivity();
-            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, hf).addToBackStack(null).commit();
-        }
+
+        showToast(getString(R.string.save));
+        bottomBar.selectTabAtPosition(0, false);
 
 
     }
@@ -301,7 +308,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(TAG, "아기아이디는 " +loginInfo.getBabyID());
-                Log.e(TAG, error.getLocalizedMessage());
+                Log.e(TAG, " " + error.getLocalizedMessage());
             }
         }){
             @Override
@@ -315,36 +322,9 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
                 params.put("record_date", _date.getText().toString());
                 params.put("record_time", _time.getText().toString());
                 params.put("milk", _milk.getText().toString());
+                params.put("mothermilk", _mothermilk.getText().toString());
                 params.put("rice", _rice.getText().toString());
                 params.put("description", _remainText.getText().toString());
-
-                return params;
-            }
-        };
-        postRequestQueue.add(postStringRequest);
-
-    }
-
-    private  void delete_data(){
-        String server_url = new UrlPath().getUrlPath() + "Pc_record/delete_record";
-        Log.i(TAG, server_url);
-        RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
-        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                deleteSuccess(response);    // 결과값 받아와서 처리하는 부분
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "아기아이디는 " +loginInfo.getBabyID());
-                Log.e(TAG, error.getLocalizedMessage());
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("record_id", id);
 
                 return params;
             }
@@ -357,6 +337,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
         set_time();   //화면 초기화
         _rice.setText("0");
         _milk.setText("0");
+        _mothermilk.setText("0");
         _remainText.getText().clear();
 
     }

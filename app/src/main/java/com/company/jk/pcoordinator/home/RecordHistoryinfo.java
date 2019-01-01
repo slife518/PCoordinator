@@ -9,16 +9,18 @@ public class RecordHistoryinfo implements Serializable {
     String yearDate;
     String time;
     String milk;
+    String mothermilk;
     String rice;
     String author;
     String comments;
 
 
-    public RecordHistoryinfo(String id, String date, String time, String milk, String rice,  String author, String comments){
+    public RecordHistoryinfo(String id, String date, String time, String milk,String mothermilk, String rice,  String author, String comments){
         this.id = id;
         this.yearDate = date;
         this.date = date.substring(5,10);
         this.milk = milk;
+        this.mothermilk = mothermilk;
         this.rice = rice;
         this.time = time.substring(0,5);
         this.author = author;
@@ -33,6 +35,7 @@ public class RecordHistoryinfo implements Serializable {
     public String getYearDate() {
         return yearDate;
     }
+
     public String getDate() {
         return date;
     }
@@ -43,6 +46,10 @@ public class RecordHistoryinfo implements Serializable {
 
     public String getMilk() {
         return milk;
+    }
+
+    public String getMothermilk() {
+        return mothermilk;
     }
 
     public String getRice() {

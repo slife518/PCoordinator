@@ -74,7 +74,7 @@ public class FindPwActivity extends AppCompatActivity implements View.OnClickLis
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, error.getLocalizedMessage());
+                Log.d(TAG + "메일전송시 에러발생.. 원인은 ", " " + error.getLocalizedMessage());
             }
         }){
             @Override

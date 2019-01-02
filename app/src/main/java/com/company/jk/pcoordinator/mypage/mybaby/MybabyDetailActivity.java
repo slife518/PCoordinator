@@ -6,6 +6,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +37,7 @@ import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
+import com.company.jk.pcoordinator.mypage.MyinfoActivity;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.Picasso;
 
@@ -56,11 +59,11 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     RadioButton _boy, _girl;
     Toolbar myToolbar;
     EditText _name, _sex, _father, _mother, _owner;
-    TextView _birthday;
+    EditText _birthday;
     String email, baby_id;
     UrlPath urlPath = new UrlPath();
     Upload upload = new Upload();
-
+    private DatePickerDialog.OnDateSetListener mDateSetListener ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,10 +90,33 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
         _btn_save.setOnClickListener(this);
         _btn_delete.setOnClickListener(this);
-
-        _birthday.setOnClickListener(this);
         _profile.setOnClickListener(this);
 
+
+        _birthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        MybabyDetailActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "on Date set " + year + "/" + month + 1 + "/" + day);
+
+                _birthday.setText(year + "/" + month + "/" + day);
+            }
+        };
 
         Log.i(TAG, "이메일은 " + email + " id는 " + baby_id);
 
@@ -166,7 +192,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         _name = findViewById(R.id.et_name);
         _boy = findViewById(R.id.rd_boy);
         _girl = findViewById(R.id.rd_girl);
-        _birthday = findViewById(R.id.tv_birthday);
+        _birthday = findViewById(R.id.et_birthday);
     }
 
     @Override
@@ -174,20 +200,20 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         if(v==_btn_save) {
 //            save_data();
             modify_data();
-        }else if(v==_birthday){
-            Calendar c=Calendar.getInstance();
-            int year=c.get(Calendar.YEAR);
-            int month=c.get(Calendar.MONTH);
-            int day=c.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog=new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    _birthday.setText(year+"-"+(month+1)+"-"+dayOfMonth);
-                }
-            },year, month, day);
-
-            datePickerDialog.show();
+//        }else if(v==_birthday){
+//            Calendar c=Calendar.getInstance();
+//            int year=c.get(Calendar.YEAR);
+//            int month=c.get(Calendar.MONTH);
+//            int day=c.get(Calendar.DAY_OF_MONTH);
+//
+//            DatePickerDialog datePickerDialog=new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+//                @Override
+//                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                    _birthday.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+//                }
+//            },year, month, day);
+//
+//            datePickerDialog.show();
         }else if(v==_profile){
             insert_picture();
         }else if(v==_btn_delete){

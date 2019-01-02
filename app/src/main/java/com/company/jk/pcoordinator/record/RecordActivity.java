@@ -33,7 +33,10 @@ import java.util.Map;
 
 import static com.company.jk.pcoordinator.MainActivity.bottomBar;
 
-public class RecordActivity extends MyActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class RecordActivity extends MyActivity implements View.OnClickListener,
+                                                                DatePickerDialog.OnDateSetListener,
+                                                                TimePickerDialog.OnTimeSetListener,
+                                                                View.OnFocusChangeListener {
 
     private String id;
     EditText _milk,_mothermilk, _rice, _remainText;
@@ -72,6 +75,10 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
         _delete.setOnClickListener(this);
+
+        _milk.setOnFocusChangeListener(this);
+        _mothermilk.setOnFocusChangeListener(this);
+        _rice.setOnFocusChangeListener(this);
 
     }
 
@@ -143,21 +150,36 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
             save_data();
         }else if(v == _delete){
             deleteAelrtDialog();
-
-        }else if(v == _rice){
-            _rice.setText("0");
-        }else if(v == _milk) {
-            _milk.setText("0");
-        }else if(v == _mothermilk) {
-            _mothermilk.setText("0");
         }
 
     }
 
 
+    @Override
+    public void onFocusChange(View v, boolean b) {
+        Log.i("포커스가 변경 되었습니다.", String.valueOf(b) + _mothermilk.getText().toString());
+        if(!b){   //포커스아웃이면
+            if(v ==  _mothermilk &&  _mothermilk.getText().toString().isEmpty()){
+                _mothermilk.setText("0" );
+            }else  if(v ==  _milk &&  _milk.getText().toString().isEmpty()) {
+                _milk.setText("0");
+            }else if(v ==  _rice &&  _rice.getText().toString().isEmpty()) {
+                _rice.setText("0");
+            }
+        }else{  //포커스인이면
+            if(v == _rice){
+                _rice.setText("");
+            }else if(v == _milk) {
+                _milk.setText("");
+            }else if(v == _mothermilk) {
+                _mothermilk.setText("");
+            }
+        }
+    }
+
     private String calNumber(String n, int i){
         Log.i("n은" , n);
-        if(n == null || n == " " ){
+        if(n.isEmpty()){
             n = "0";
         }
         Log.i("n은~" , n);

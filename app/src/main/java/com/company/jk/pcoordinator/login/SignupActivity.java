@@ -35,7 +35,7 @@ public class SignupActivity extends MyActivity {
     private static final int ADDRESS_REQUEST = 1777;
     private static String tcode;
     Intent intent;                    //Activity
-    EditText _nameText, _emailText, _mobileText, _passwordText, _reEnterPasswordText, _addressDetailText;
+    EditText _nameText, _emailText, _mobileText, _passwordText, _addressDetailText; //_reEnterPasswordText
     TextInputLayout _address_detail;
     Button _signupButton;                    //activity handler
     TextView _loginLink, _addressText;
@@ -56,7 +56,7 @@ public class SignupActivity extends MyActivity {
         _emailText = (EditText) findViewById(R.id.input_email);
         _mobileText = (EditText) findViewById(R.id.input_mobile);
         _passwordText = (EditText) findViewById(R.id.input_password);
-        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
+//        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _loginLink = (TextView) findViewById(R.id.link_login);
 
@@ -103,15 +103,14 @@ public class SignupActivity extends MyActivity {
 
         if (_emailText.getText().toString() == ""
                 || _nameText.getText().toString().equals("")
-                || _passwordText.getText().toString().equals("")
-                || _reEnterPasswordText.getText().toString().equals("")) {
+                || _passwordText.getText().toString().equals("")) {
                 showToast(getString(R.string.CheckUnit));
 
             return false;
-        } else if (!(_passwordText.getText().toString().equals(_reEnterPasswordText
-                .getText().toString()))) {
-            showToast(getString(R.string.CheckRepass));
-            return false;
+//        } else if (!(_passwordText.getText().toString().equals(_reEnterPasswordText
+//                .getText().toString()))) {
+//            showToast(getString(R.string.CheckRepass));
+//            return false;
         }
         return true;
     }
@@ -138,7 +137,7 @@ public class SignupActivity extends MyActivity {
                 params.put("email", _emailText.getText().toString());
                 params.put("name", _nameText.getText().toString());
                 params.put("password",  _passwordText.getText().toString());
-                params.put("repassword",  _reEnterPasswordText.getText().toString());
+//                params.put("repassword",  _reEnterPasswordText.getText().toString());
                 params.put("mobile", _mobileText.getText().toString());
                 params.put("address", _addressText.getText().toString());
                 return params;

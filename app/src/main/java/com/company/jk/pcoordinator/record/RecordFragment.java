@@ -47,7 +47,10 @@ import static com.company.jk.pcoordinator.MainActivity.bottomBar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecordFragment extends MyFragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class RecordFragment extends MyFragment implements View.OnClickListener,
+                                                                DatePickerDialog.OnDateSetListener,
+                                                                TimePickerDialog.OnTimeSetListener,
+                                                                View.OnFocusChangeListener {
 
     private String id;
     EditText _milk,_mothermilk, _rice, _remainText;
@@ -68,10 +71,10 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(loginInfo.getBabyID() == null || loginInfo.getBabyID()==""){
-            Intent intent = new Intent(mContext, Mybabyinfo.class);
-            startActivityForResult(intent, 12);
-        }
+//        if(loginInfo.getBabyID().isEmpty()){
+//            Intent intent = new Intent(mContext, Mybabyinfo.class);
+//            startActivityForResult(intent, 12);
+//        }
     }
 
     @Override
@@ -95,8 +98,10 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
         _date.setOnClickListener(this);
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
-//        _delete.setOnClickListener(this);
-//        _back.setOnClickListener(this);
+
+        _milk.setOnFocusChangeListener(this);
+        _mothermilk.setOnFocusChangeListener(this);
+        _rice.setOnFocusChangeListener(this);
 
         Log.i("loginInfo.getBabyID()" , loginInfo.getBabyID());
 
@@ -109,6 +114,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
         initialize();
 
     }
+
 
     private  void findViewById(View v){
         _date = v.findViewById(R.id.tv_date);
@@ -125,29 +131,6 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
         _btn_minusRice = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
         set_time();
-//        _delete = v.findViewById(R.id.btn_delete);
-//        _back = v.findViewById(R.id.btn_back);
-
-//        if (getArguments() != null) {
-//
-//            info = (RecordHistoryinfo)getArguments().getSerializable("RecordHistoryinfo");
-//            Log.i(TAG, info.getDate());
-//            id = info.getId();
-//            _date.setText(info.getYearDate());
-//            _time.setText(info.getTime());
-//            _milk.setText(info.getMilk());
-//            _mothermilk.setText(info.getMothermilk());
-//            _rice.setText(info.getRice());
-//            _remainText.setText(info.getComments());
-//
-//            _save.setText("수정하기");
-//
-//        }else{
-
-//            _back.setVisibility(v.GONE);
-//            _delete.setVisibility(v.GONE);
-
-//        }
     }
 
     public void set_time(){   //화면 초기화
@@ -197,33 +180,35 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
             if(Integer.parseInt(_rice.getText().toString()) > 0) {
                 _rice.setText(calNumber(_rice.getText().toString(), - rice_num));
             }
-
         }else if(v == _save) {
             save_data();
-//        }else if(v == _delete){
-//            deleteAelrtDialog();
-
-//        }else if(v == _back){
-////            getActivity().onBackPressed();
-////            bottomBar.selectTabAtPosition(0, false);
-//            HomeFragment hf = new HomeFragment();
-//            AppCompatActivity activity = (AppCompatActivity)getActivity();
-//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, hf).addToBackStack(null).commit();
-        }else if(v == _rice){
-            _rice.setText("0");
-        }else if(v == _milk) {
-            _milk.setText("0");
-        }else if(v == _mothermilk) {
-            _mothermilk.setText("0");
-        }else if(v == _mothermilk) {
-            _mothermilk.setText("0");
         }
-
     }
 
+    @Override
+    public void onFocusChange(View v, boolean b) {
+        Log.i("포커스가 변경 되었습니다.", String.valueOf(b) + _mothermilk.getText().toString());
+        if(!b){   //포커스아웃이면
+                if(v ==  _mothermilk &&  _mothermilk.getText().toString().isEmpty()){
+                    _mothermilk.setText("0" );
+                }else  if(v ==  _milk &&  _milk.getText().toString().isEmpty()) {
+                    _milk.setText("0");
+                }else if(v ==  _rice &&  _rice.getText().toString().isEmpty()) {
+                    _rice.setText("0");
+                }
+        }else{  //포커스인이면
+            if(v == _rice){
+                _rice.setText("");
+            }else if(v == _milk) {
+                _milk.setText("");
+            }else if(v == _mothermilk) {
+                _mothermilk.setText("");
+            }
+        }
+    }
 
     private String calNumber(String n, int i){
-        if(n == null || n == ""){
+        if(n.isEmpty()){
             n = "0";
         }
         Log.i("n은" , n);
@@ -277,14 +262,6 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
             minString = "0" + minString;
         }
         _time.setText(hourString + ":" + minString);
-    }
-
-    private void deleteSuccess(String response){
-        Log.i(TAG, "결과값은 " + response);
-        showToast(getString(R.string.save));
-        HomeFragment hf = new HomeFragment();
-        AppCompatActivity activity = (AppCompatActivity)getActivity();
-        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, hf).addToBackStack(null).commit();
     }
 
     private void saveSuccess(String response){
@@ -342,10 +319,6 @@ public class RecordFragment extends MyFragment implements View.OnClickListener, 
 
     }
 
-    private void showToast(String message){
-        Toast toast=Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_SHORT);
-        toast.show();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

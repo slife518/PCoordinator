@@ -57,12 +57,6 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
         bottomBar.setOnTabSelectListener(this);
 
         Log.i(TAG, "아기정보는 " + loginInfo.getBabyID() );
-        if(loginInfo.getBabyID()  == "null" || loginInfo.getBabyID()  == null){
-
-            Log.i(TAG, "아기정보가 없습니다");
-            Intent intent = new Intent(this, MybabyActivity.class);
-            startActivityForResult(intent, 12);
-        }
     }
 
 
@@ -77,7 +71,13 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
                 }
                 break;
             case R.id.bottomBarItemRecord:
-                if (!recordFragment.isVisible()){
+
+                Log.i("베이비아이디는 ", loginInfo.getBabyID());
+                if(loginInfo.getBabyID() == "null"){
+                    bottomBar.selectTabAtPosition(0, false);
+                    Intent intent = new Intent(this, MybabyActivity.class);
+                    startActivityForResult(intent, 12);
+                }else if (!recordFragment.isVisible()){
                     replaceFragment(recordFragment);
                 }
                 break;

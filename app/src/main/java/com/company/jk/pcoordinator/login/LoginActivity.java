@@ -140,7 +140,6 @@ public class LoginActivity extends MyActivity {
                 name = jsonObject.getString("nickname");
                 babyID = jsonObject.getString("baby_id");
 
-                Log.i(TAG, name);
                 //  String level = jsonObject.getString("level");
                 //  String birthday = jsonObject.getString("birthday");
                 if (name != "") {

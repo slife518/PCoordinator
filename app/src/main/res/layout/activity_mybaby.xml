@@ -49,6 +49,19 @@
             android:layout_width="match_parent"
             android:drawableStart="@drawable/ic_baseline_add_24px"
             />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="이미 등록된 아이가 있다면?"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginTop="8dp"
+            android:text="최초등록자가 나를 아이의 보호자로 추가해 주어야 합니다. "
+            />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -144,11 +144,6 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         return colors;
     }
 
-    private void showToast(String message) {
-        Toast toast = Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
     private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);
         items.clear();

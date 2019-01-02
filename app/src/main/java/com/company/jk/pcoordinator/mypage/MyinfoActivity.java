@@ -1,8 +1,11 @@
 package com.company.jk.pcoordinator.mypage;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageButton;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +27,8 @@ import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.login.LoginService;
 
 import org.json.JSONObject;
+
+import java.util.Calendar;
 
 
 //고객정보는 fragment 도 사용 가능하고 actvity 로도 사용 가능하여 둘 다 만들어 놓음.
@@ -40,10 +46,10 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
     private StringBuffer sb = new StringBuffer();
     private static final String Controller = "Pc_login";
     private String toastMessage = " ";
+    private DatePickerDialog.OnDateSetListener mDateSetListener ;
 
-
-    TextView _address1;
-    EditText _address2, _name, _tel, _birthday;
+    TextView _address1, _birthday;
+    EditText _address2, _name, _tel;
     View _layout_address_detail;
     AppCompatImageButton _btn_findaddress;
     Button _btn_save;
@@ -72,15 +78,15 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         mContext = getApplicationContext();
         mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
 
-        _birthday = (EditText) findViewById(R.id.tv_birthday);
+        _birthday = (TextView) findViewById(R.id.et_birthday);
         _name = (EditText) findViewById(R.id.et_name);
         _tel = (EditText) findViewById(R.id.et_tel);
-        _address1              = (TextView) findViewById(R.id.tv_address);
-        _address2      = (EditText) findViewById(R.id.et_address_detail) ;
+        _address1 = (TextView) findViewById(R.id.tv_address);
+        _address2 = (EditText) findViewById(R.id.et_address_detail);
 //        _layout_address_detail = (View) findViewById(R.id.layout_address_detail);
         _btn_findaddress = (AppCompatImageButton) findViewById(R.id.btn_findAddress);
         _btn_save = (Button) findViewById(R.id.btn_save);
-        _cb_auto = (CheckBox)findViewById(R.id.cb_Auto);
+        _cb_auto = (CheckBox) findViewById(R.id.cb_Auto);
         _btn_save.setOnClickListener(this);
         _btn_findaddress.setOnClickListener(this);
         _address1.setOnClickListener(this);
@@ -96,7 +102,31 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                     }
                 }
         );
-        
+
+        _birthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = 1985;
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        MyinfoActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+                }
+        });
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "on Date set " + year + "/" + month + 1 + "/" + day);
+
+                _birthday.setText(year + "/" + month + "/" + day);
+            }
+        };
     }
 
     @Override

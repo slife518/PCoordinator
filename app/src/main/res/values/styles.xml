@@ -129,7 +129,7 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
-        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginTop">16dp</item>
     </style>
 
     <style name="MyRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">
@@ -144,5 +144,7 @@
         <item name="android:background">@color/buttonColorAccent</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
+    <style name="DatePicker" parent="@android:style/Theme.Holo.Light"/>
 
 </resources>

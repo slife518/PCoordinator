@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.TestLooperManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -59,7 +60,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     RadioButton _boy, _girl;
     Toolbar myToolbar;
     EditText _name, _sex, _father, _mother, _owner;
-    EditText _birthday;
+    TextView _birthday;
     String email, baby_id;
     UrlPath urlPath = new UrlPath();
     Upload upload = new Upload();
@@ -77,46 +78,21 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
-
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         findViewsById();
-        if(baby_id != null) {
-            initLoader();
-        }else{
-            _btn_delete.setVisibility(View.GONE);
-        }
 
         _btn_save.setOnClickListener(this);
         _btn_delete.setOnClickListener(this);
         _profile.setOnClickListener(this);
+        _birthday.setOnClickListener(this);
 
 
-        _birthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        MybabyDetailActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
-
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                Log.d(TAG, "on Date set " + year + "/" + month + 1 + "/" + day);
-
-                _birthday.setText(year + "/" + month + "/" + day);
-            }
-        };
+        if(baby_id != null) {
+            initLoader();   //기존아기 세부정보 db에서 가져오기
+        }else{
+            _btn_delete.setVisibility(View.GONE);
+        }
 
         Log.i(TAG, "이메일은 " + email + " id는 " + baby_id);
 
@@ -172,7 +148,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             Log.i(TAG, imgUrl);
             Picasso.with(this).load(imgUrl).into(_profile);
             _name.setText(name);
-            _birthday.setText(birthday);
+//            _birthday.setText(birthday);
             if (sex.equals("1")) {
                 _boy.setChecked(true);
             } else {
@@ -192,28 +168,39 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         _name = findViewById(R.id.et_name);
         _boy = findViewById(R.id.rd_boy);
         _girl = findViewById(R.id.rd_girl);
-        _birthday = findViewById(R.id.et_birthday);
+        _birthday = (TextView)findViewById(R.id.tv_birthday);
     }
 
     @Override
     public void onClick(View v) {
+        Log.i("onClick", v.toString() + _birthday.toString());
         if(v==_btn_save) {
 //            save_data();
             modify_data();
-//        }else if(v==_birthday){
-//            Calendar c=Calendar.getInstance();
-//            int year=c.get(Calendar.YEAR);
-//            int month=c.get(Calendar.MONTH);
-//            int day=c.get(Calendar.DAY_OF_MONTH);
-//
-//            DatePickerDialog datePickerDialog=new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-//                @Override
-//                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                    _birthday.setText(year+"-"+(month+1)+"-"+dayOfMonth);
-//                }
-//            },year, month, day);
-//
-//            datePickerDialog.show();
+        }else if(v==_birthday){
+
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dialog = new DatePickerDialog(
+                    MybabyDetailActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+
+            mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    month = month + 1;
+                    Log.d(TAG, "on Date set " + year + "/" + month + 1 + "/" + day);
+
+                    _birthday.setText(year + "/" + month + "/" + day);
+                }
+            };
+
+
         }else if(v==_profile){
             insert_picture();
         }else if(v==_btn_delete){
@@ -331,6 +318,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 //            showToast(getString(R.string.savefail));
 //        }
     }
+
 
 
 

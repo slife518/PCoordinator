@@ -77,14 +77,14 @@
                     android:maxWidth="20dp"
                     android:src="@drawable/birthday"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/et_birthday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:textSize="20dp"
                     android:hint="@string/hint_birthday"
-                    android:inputType="phone"/>
+                    android:clickable="true"
+                    android:editable="false"/>
 
             </LinearLayout>
 
@@ -99,9 +99,10 @@
                     android:maxWidth="20dp"
                     android:src="@drawable/icon_email"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_address"
-                    android:onClick="onClick"
+                    android:clickable="true"
+                    android:editable="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"

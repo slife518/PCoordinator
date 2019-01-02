@@ -81,7 +81,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         _birthday = (TextView) findViewById(R.id.et_birthday);
         _name = (EditText) findViewById(R.id.et_name);
         _tel = (EditText) findViewById(R.id.et_tel);
-        _address1 = (TextView) findViewById(R.id.tv_address);
+        _address1 = (EditText) findViewById(R.id.tv_address);
         _address2 = (EditText) findViewById(R.id.et_address_detail);
 //        _layout_address_detail = (View) findViewById(R.id.layout_address_detail);
         _btn_findaddress = (AppCompatImageButton) findViewById(R.id.btn_findAddress);

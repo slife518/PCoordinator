@@ -312,9 +312,9 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
     private  void  initialize(){
         set_time();   //화면 초기화
-        _rice.setText("0");
-        _milk.setText("0");
-        _mothermilk.setText("0");
+//        _rice.setText("0");
+//        _milk.setText("0");
+//        _mothermilk.setText("0");
         _remainText.getText().clear();
 
     }

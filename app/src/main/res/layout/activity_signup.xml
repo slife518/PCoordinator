@@ -43,49 +43,49 @@
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <!-- Address Label -->
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:layout_margin="8dp">
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/address"/>
-            </android.support.design.widget.TextInputLayout>
+            <!--&lt;!&ndash; Address Label &ndash;&gt;-->
+            <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="7"-->
+                <!--android:layout_margin="8dp">-->
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_address"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/address"/>-->
+            <!--</android.support.design.widget.TextInputLayout>-->
 
 
-            <!-- 우편번호찾기 Button -->
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btn_findAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/findpost"
-                android:onClick="OnClickMethod"/>
+            <!--&lt;!&ndash; 우편번호찾기 Button &ndash;&gt;-->
+            <!--<android.support.v7.widget.AppCompatButton-->
+                <!--android:id="@+id/btn_findAddress"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="3"-->
+                <!--android:text="@string/findpost"-->
+                <!--android:onClick="OnClickMethod"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_address_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_margin="8dp">
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:id="@+id/input_address_detail"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="gone"-->
+            <!--android:layout_margin="8dp">-->
 
-            <EditText
-                android:id="@+id/et_address_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_address_detail"/>
-        </android.support.design.widget.TextInputLayout>
+            <!--<EditText-->
+                <!--android:id="@+id/et_address_detail"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="@string/hint_address_detail"/>-->
+        <!--</android.support.design.widget.TextInputLayout>-->
 
         <!--  Email Label -->
         <android.support.design.widget.TextInputLayout

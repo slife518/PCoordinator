@@ -84,7 +84,8 @@
                     android:layout_weight="8"
                     android:hint="@string/hint_birthday"
                     android:clickable="true"
-                    android:editable="false"/>
+                    android:editable="false"
+                    android:focusableInTouchMode="false"/>
 
             </LinearLayout>
 

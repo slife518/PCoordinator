@@ -31,8 +31,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.company.jk.pcoordinator.MainActivity.bottomBar;
-
 public class RecordActivity extends MyActivity implements View.OnClickListener,
                                                                 DatePickerDialog.OnDateSetListener,
                                                                 TimePickerDialog.OnTimeSetListener,
@@ -312,15 +310,15 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        Log.i(TAG, "클릭" + item.getItemId());
-        if(item.getItemId()==android.R.id.home){
-            bottomBar.selectTabAtPosition(0, false);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        Log.i(TAG, "클릭" + item.getItemId());
+//        if(item.getItemId()==android.R.id.home){
+//            bottomBar.selectTabAtPosition(0, false);
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
 }

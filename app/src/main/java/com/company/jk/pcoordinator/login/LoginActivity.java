@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
@@ -35,7 +33,6 @@ public class LoginActivity extends MyActivity {
     CheckBox cb_auto;
     Intent intent;
     LoginInfo loginInfo = LoginInfo.getInstance();
-    private String toastMessage = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +155,7 @@ public class LoginActivity extends MyActivity {
         @Override
         protected void onPostExecute(String value) {
             super.onPostExecute(value);
+            String toastMessage;
             if (value != "") {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 toastMessage = getString((R.string.Welcome));

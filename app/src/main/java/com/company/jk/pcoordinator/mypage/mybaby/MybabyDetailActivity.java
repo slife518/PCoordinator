@@ -40,6 +40,8 @@ import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.mypage.MyinfoActivity;
 import com.soundcloud.android.crop.Crop;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -146,7 +148,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
             String imgUrl = urlPath.getUrlBabyImg() + id + ".jpg";  //확장자 대소문자 구별함.
             Log.i(TAG, imgUrl);
-            Picasso.with(this).load(imgUrl).into(_profile);
+            Picasso.with(this).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(_profile);;  //image가 reload 되도록 하기 위하여 필요함
             _name.setText(name);
 //            _birthday.setText(birthday);
             if (sex.equals("1")) {
@@ -168,7 +170,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         _name = findViewById(R.id.et_name);
         _boy = findViewById(R.id.rd_boy);
         _girl = findViewById(R.id.rd_girl);
-        _birthday = (TextView)findViewById(R.id.tv_birthday);
+        _birthday = findViewById(R.id.tv_birthday);
     }
 
     @Override
@@ -201,7 +203,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             };
 
 
-        }else if(v==_profile){
+        }else if(v==_profile){   //사진 클릭시
             insert_picture();
         }else if(v==_btn_delete){
             deleteAelrtDialog();
@@ -358,102 +360,12 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         if(response.equals("true")) {
             showToast(getString(R.string.save));
             super.onBackPressed();
-//            MybabyActivity mf = new MybabyActivity();
-//            AppCompatActivity activity = (AppCompatActivity) getActivity();
-//            activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
         }else{
             showToast(response);
         }
     }
 
-
-//    private  void save_data(){
-//
-//        String server_url = new UrlPath().getUrlPath() + "Pc_baby/update";
-//        //request parameters
-//        Map<String, String> params = new HashMap<>();
-//        params.put("owner", email);
-//        params.put("baby_id", baby_id);
-//        params.put("babyname", _name.getText().toString());
-////        Log.i(TAG, _birthday.getText().toString());
-////        Log.i(TAG, _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(5, 7)+_birthday.getText().toString().substring(8, 10));
-//        params.put("birthday", _birthday.getText().toString());
-//        if(_boy.isChecked()){
-//            params.put("sex", "1");
-//        }else if(_girl.isChecked()){
-//            params.put("sex", "2");
-//        }
-//
-//
-//        // Inflate the layout for this fragment
-//        final RequestQueue queue = MyVolley.getInstance(getActivity()).getRequestQueue();
-//        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST, server_url, new JSONObject(params), networkSuccessListener(), networkErrorListener());
-//
-//        queue.add(myReq);
-//    }
-//
-//    private Response.Listener<JSONObject> networkSuccessListener() {
-//        return new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Log.i(TAG, "결과값은 " + response);
-//                Boolean result = null;
-//                try {
-//                    result = response.getBoolean("result");
-//                    if(result){
-//                        showToast( getString(R.string.save));
-//                        MybabyFragment mf = new MybabyFragment();
-//                        AppCompatActivity activity = (AppCompatActivity)getActivity();
-//                        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.enter_from_right).replace(R.id.frame, mf).addToBackStack(null).commit();
-//                    }else {
-//                        showToast( getString(R.string.savefail));
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        };
-//    }
-//    private Response.ErrorListener networkErrorListener() {
-//        return new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.i(TAG, error.getMessage());
-//                showToast("Network Error");
-//            }
-//        };
-//    }
-
-    // 비트맵을 원하는 폴더에 사진파일로 저장하기
-//    public static void saveBitmaptoJpeg(Bitmap bitmap,String folder, String name){
-//        String ex_storage = Environment.getExternalStorageDirectory().getAbsolutePath();
-//
-//        Log.i(TAG, "데이터 딕셔너리의 경로는 " + Environment.getDataDirectory().getAbsolutePath());
-//        // Get Absolute Path in External Sdcard
-////		String foler_name = "/"+folder+"/";
-//        String file_name = name+".jpg";
-////		String string_path = ex_storage+foler_name;
-//
-//        String string_path = "/data/data/kr.co.jkcompany.heartforceset/files/";
-//        Log.i(TAG, "string_path는  " + (string_path+file_name));
-//        File file_path;
-//        try{
-//            file_path = new File(string_path);
-//            if(!file_path.isDirectory()){
-//                file_path.mkdirs();
-//            }
-//            FileOutputStream out = new FileOutputStream(string_path+file_name);
-//
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-//            out.close();
-//
-//        }catch(FileNotFoundException exception){
-//            Log.e("FileNotFoundException", exception.getMessage());
-//        }catch(IOException exception){
-//            Log.e("IOException", exception.getMessage());
-//        }
-//    }
-
+    /////////////////////////////////////사진업로드 시작 //////////////////////////////////////////////
     public void onActivityResult(int requestCode, int resultCode,	Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         //Intent x = getActivity().getIntent();
@@ -477,9 +389,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
         Crop.of(source, destination).asSquare().start(this);
         Log.d("beginCrop", "End");
-
     }
-
 
     private void handleCrop(int resultCode, Intent result, Context ct) {
         if (resultCode == Activity.RESULT_OK) { // Activity 의 RESULT_OK값을 사용
@@ -507,16 +417,19 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         }
     }
 
+    /////////////////////////////////////사진업로드 끝 //////////////////////////////////////////////
+
+
     //추가된 소스, ToolBar에 menu.xml을 인플레이트함
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //return super.onCreateOptionsMenu(menu);
-        if(baby_id != null) {
-            MenuInflater menuInflater = getMenuInflater();
-            menuInflater.inflate(R.menu.menu_babydetail, menu);
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        //return super.onCreateOptionsMenu(menu);
+//        if(baby_id != null) {
+//            MenuInflater menuInflater = getMenuInflater();
+//            menuInflater.inflate(R.menu.menu_babydetail, menu);
+//        }
+//        return true;
+//    }
 
     //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
     @Override

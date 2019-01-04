@@ -1,21 +1,17 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.android.volley.Request;
@@ -29,7 +25,6 @@ import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
-import com.company.jk.pcoordinator.mypage.MypageFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +64,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
         _btn_add = findViewById(R.id.btn_add);
         _btn_add.setOnClickListener(this);
 
-        mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView = (RecyclerView) findViewById(R.id.listView_main);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -82,7 +77,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/get_baby_info";
-        RequestQueue postReqeustQueue = Volley.newRequestQueue(getApplicationContext());
+        RequestQueue postReqeustQueue = Volley.newRequestQueue(this);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

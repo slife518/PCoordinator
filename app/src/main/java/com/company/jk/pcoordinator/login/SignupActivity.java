@@ -1,18 +1,12 @@
 package com.company.jk.pcoordinator.login;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,60 +18,59 @@ import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.UrlPath;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class SignupActivity extends MyActivity {
     final static String TAG = "Regist";
-    final static String Controller = "Pc_Login";
+//    final static String Controller = "Pc_Login";
     private static final int ADDRESS_REQUEST = 1777;
-    private static String tcode;
+//    private static String tcode;
     Intent intent;                    //Activity
-    EditText _nameText, _emailText, _mobileText, _passwordText, _addressDetailText; //_reEnterPasswordText
-    TextInputLayout _address_detail;
+    EditText _nameText, _emailText, _mobileText, _passwordText; //, _addressDetailText,_reEnterPasswordText;
+//    TextInputLayout _address_detail;
     Button _signupButton;                    //activity handler
     TextView _loginLink, _addressText;
-    private JSONObject jObject = null; //group들로 구성된 json
-    private JSONObject jsonObject1;
-    private StringBuffer sb = new StringBuffer();
-    private String toastMessage = " ";
+//    private JSONObject jObject = null; //group들로 구성된 json
+//    private JSONObject jsonObject1;
+//    private StringBuffer sb = new StringBuffer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        _nameText = (EditText) findViewById(R.id.input_name);
-        _addressText = (TextView) findViewById(R.id.tv_address);
-        _addressDetailText = (EditText) findViewById(R.id.et_address_detail);
-        _address_detail = (TextInputLayout) findViewById(R.id.input_address_detail);
-        _emailText = (EditText) findViewById(R.id.input_email);
-        _mobileText = (EditText) findViewById(R.id.input_mobile);
-        _passwordText = (EditText) findViewById(R.id.input_password);
+        _nameText = findViewById(R.id.input_name);
+//        _addressText = (TextView) findViewById(R.id.tv_address);
+//        _addressDetailText = (EditText) findViewById(R.id.et_address_detail);
+//        _address_detail = (TextInputLayout) findViewById(R.id.input_address_detail);
+        _emailText = findViewById(R.id.input_email);
+        _mobileText = findViewById(R.id.input_mobile);
+        _passwordText = findViewById(R.id.input_password);
 //        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
-        _signupButton = (Button) findViewById(R.id.btn_signup);
-        _loginLink = (TextView) findViewById(R.id.link_login);
+        _signupButton = findViewById(R.id.btn_signup);
+        _loginLink =  findViewById(R.id.link_login);
 
 
-        _addressText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!_addressText.getText().toString().isEmpty()) {   //주소에 값이 있으면 상세주소칸 표시
-                    _address_detail.setVisibility(View.VISIBLE);
-                }
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                _address_detail.setVisibility(View.VISIBLE);
-            }
-        });
+        //  주소
+//        _addressText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if (!_addressText.getText().toString().isEmpty()) {   //주소에 값이 있으면 상세주소칸 표시
+//                    _address_detail.setVisibility(View.VISIBLE);
+//                }
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                _address_detail.setVisibility(View.VISIBLE);
+//            }
+//        });
     }
 
     public void OnClickMethod(View v) {
@@ -101,9 +94,9 @@ public class SignupActivity extends MyActivity {
 
     private boolean check_validation(){
 
-        if (_emailText.getText().toString() == ""
-                || _nameText.getText().toString().equals("")
-                || _passwordText.getText().toString().equals("")) {
+        if (_emailText.getText().toString().isEmpty()
+                || _nameText.getText().toString().isEmpty()
+                || _passwordText.getText().toString().isEmpty()) {
                 showToast(getString(R.string.CheckUnit));
 
             return false;
@@ -117,7 +110,7 @@ public class SignupActivity extends MyActivity {
 
     private void register_member(){
 
-        String server_url = new UrlPath().getUrlPath() + "Pc_Login/register_Member";
+        String server_url = new UrlPath().getUrlPath() + "Pc_login/register_Member";
         Log.i(TAG, server_url);
         RequestQueue postRequestQueue = Volley.newRequestQueue(this);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
@@ -139,7 +132,7 @@ public class SignupActivity extends MyActivity {
                 params.put("password",  _passwordText.getText().toString());
 //                params.put("repassword",  _reEnterPasswordText.getText().toString());
                 params.put("mobile", _mobileText.getText().toString());
-                params.put("address", _addressText.getText().toString());
+//                params.put("address", _addressText.getText().toString());
                 return params;
             }
         };
@@ -165,7 +158,7 @@ public class SignupActivity extends MyActivity {
     private void saveSuccess(String response){
         Log.i(TAG, "결과값은 " + response);
         if("1".equals(response)){
-            toastMessage = getString(R.string.RegisterNewMember);
+            String toastMessage = getString(R.string.RegisterNewMember);
             showToast(toastMessage);
             onBackPressed();
         }else {

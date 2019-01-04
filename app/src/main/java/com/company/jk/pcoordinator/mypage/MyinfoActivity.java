@@ -43,14 +43,13 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
     SharedPreferences mPreference;
     private static String tcode;
 
-    private StringBuffer sb = new StringBuffer();
+
     private static final String Controller = "Pc_login";
     private String toastMessage = " ";
     private DatePickerDialog.OnDateSetListener mDateSetListener ;
 
     TextView _address1, _birthday;
     EditText _address2, _name, _tel;
-    View _layout_address_detail;
     AppCompatImageButton _btn_findaddress;
     Button _btn_save;
     Intent intent;
@@ -69,7 +68,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
 
         // Toolbar를 생성한다.
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(loginInfo.getEmail());
@@ -78,15 +77,15 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         mContext = getApplicationContext();
         mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
 
-        _birthday = (TextView) findViewById(R.id.et_birthday);
-        _name = (EditText) findViewById(R.id.et_name);
-        _tel = (EditText) findViewById(R.id.et_tel);
-        _address1 = (EditText) findViewById(R.id.tv_address);
-        _address2 = (EditText) findViewById(R.id.et_address_detail);
+        _birthday = findViewById(R.id.et_birthday);
+        _name = findViewById(R.id.et_name);
+        _tel = findViewById(R.id.et_tel);
+        _address1 = findViewById(R.id.tv_address);
+        _address2 = findViewById(R.id.et_address_detail);
 //        _layout_address_detail = (View) findViewById(R.id.layout_address_detail);
-        _btn_findaddress = (AppCompatImageButton) findViewById(R.id.btn_findAddress);
-        _btn_save = (Button) findViewById(R.id.btn_save);
-        _cb_auto = (CheckBox) findViewById(R.id.cb_Auto);
+        _btn_findaddress = findViewById(R.id.btn_findAddress);
+        _btn_save = findViewById(R.id.btn_save);
+        _cb_auto = findViewById(R.id.cb_Auto);
         _btn_save.setOnClickListener(this);
         _btn_findaddress.setOnClickListener(this);
         _address1.setOnClickListener(this);
@@ -223,6 +222,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                         }
 
                     case("select_customer_info"):
+                        Log.i(TAG, "주소는 ??" + (jObject.getString("address1")));
                         _name.setText(jObject.getString("nickname"));
                         _birthday.setText(jObject.getString("birthday"));
                         _tel.setText(jObject.getString("tel"));
@@ -233,7 +233,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                 }
 
                 if(!toastMessage.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+                    showToast(toastMessage);
                 }
 
             } catch (Exception e) {

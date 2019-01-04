@@ -18,11 +18,11 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public RecyclerViewHolder(View itemView) {
         super(itemView);
-        mPicture = (ImageView) itemView.findViewById(R.id.date);
+        mPicture = itemView.findViewById(R.id.date);
 //        mID = (TextView) itemView.findViewById(R.id.ID);
-        mName = (TextView) itemView.findViewById(R.id.baby_name);
-        mSex = (TextView) itemView.findViewById(R.id.sex);
-        mBirthday = (TextView) itemView.findViewById(R.id.birthday);
+        mName = itemView.findViewById(R.id.baby_name);
+        mSex =  itemView.findViewById(R.id.sex);
+        mBirthday = itemView.findViewById(R.id.birthday);
 //        mMother = (TextView) itemView.findViewById(R.id.mother_name);
 //        mFather = (TextView) itemView.findViewById(R.id.father_name);
 

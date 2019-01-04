@@ -28,13 +28,13 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
     private String TAG = "MainActivity";
 
     public static BottomBar  bottomBar;
-    FragmentManager manager;
-    HomeFragment homeFragment;
-    RecordFragment recordFragment;
-    MypageFragment mypageFragment;
-    ChartFragment chartFragment;
-    boolean doubleBackToExitPressedOnce = false;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    private FragmentManager manager;
+    private HomeFragment homeFragment;
+    private RecordFragment recordFragment;
+    private MypageFragment mypageFragment;
+    private ChartFragment chartFragment;
+    private boolean doubleBackToExitPressedOnce = false;
+    private LoginInfo loginInfo = LoginInfo.getInstance();
 
 
     @Override
@@ -73,7 +73,7 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
             case R.id.bottomBarItemRecord:
 
                 Log.i("베이비아이디는 ", loginInfo.getBabyID());
-                if(loginInfo.getBabyID() == "null"){
+                if(loginInfo.getBabyID().equals("0") || loginInfo.getBabyID().isEmpty()){
                     bottomBar.selectTabAtPosition(0, false);
                     Intent intent = new Intent(this, MybabyActivity.class);
                     startActivityForResult(intent, 12);
@@ -97,27 +97,27 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
         fragmentTransaction.replace(R.id.frame, fragment).commit();
     }
 //
-//    @Override
-//    public void onBackPressed() {
-//        Log.i("백버튼", String.valueOf(doubleBackToExitPressedOnce));
-//        if (doubleBackToExitPressedOnce) {
-//            Log.i("백버튼실행 나가라 ", String.valueOf(doubleBackToExitPressedOnce));
-//            finish();
-//            return;
-//        }
-//
-//        this.doubleBackToExitPressedOnce = true;
-//        Toast.makeText(this, R.string.warning_back, Toast.LENGTH_SHORT).show();
-//
-//
-//        new Handler().postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                doubleBackToExitPressedOnce=false;
-//            }
-//        }, 2000);
-//    }
+    @Override
+    public void onBackPressed() {
+        Log.i("백버튼", String.valueOf(doubleBackToExitPressedOnce));
+        if (doubleBackToExitPressedOnce) {
+            Log.i("백버튼실행 나가라 ", String.valueOf(doubleBackToExitPressedOnce));
+            finish();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, R.string.warning_back, Toast.LENGTH_SHORT).show();
+
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 }
 
 

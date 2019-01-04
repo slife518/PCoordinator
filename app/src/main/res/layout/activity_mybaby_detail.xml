@@ -80,24 +80,33 @@
                     android:layout_weight="8"
                     android:clickable="true"
                     android:editable="false"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/hint_birthday"/>
 
             </LinearLayout>
 
-            <LinearLayout style="@style/EditIcon">
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="32dp">
                 <RadioGroup
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <RadioButton
                         android:id="@+id/rd_boy"
                         android:text = "남자아이"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="20dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"/>
                     <RadioButton
                         android:id="@+id/rd_girl"
                         android:text = "여자아이"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="20dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
                 </RadioGroup>
             </LinearLayout>
 

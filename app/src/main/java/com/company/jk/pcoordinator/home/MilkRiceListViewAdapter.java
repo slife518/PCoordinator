@@ -56,7 +56,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
             itemView.setTag(holder);
         }
 
-        Log.i("Adapter", listviewitem.getTime());
+//        Log.i("Adapter", listviewitem.getTime());
 
         DriveHolder holder = (DriveHolder)itemView.getTag();
 
@@ -71,7 +71,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
 
         String day = listviewitem.getDate().substring(3,5);
 
-        Log.i(TAG, day);
+//        Log.i(TAG, day);
         itemView.setBackgroundColor(COLOR[Integer.parseInt(day) % 3]);
 
         return itemView;

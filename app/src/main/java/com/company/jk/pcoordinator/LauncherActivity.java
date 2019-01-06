@@ -117,7 +117,7 @@ public class LauncherActivity extends MyActivity {
                 name = jsonObject.getString("nickname");
                 babyID = jsonObject.getString("baby_id");
 
-                if (name != "") {
+                if (babyID != "") {
                     loginInfo.setName(name);
                     loginInfo.setBabyID(babyID);
                 }
@@ -127,6 +127,7 @@ public class LauncherActivity extends MyActivity {
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             toastMessage = getString((R.string.Welcome));
+            showToast(toastMessage);
             intent.putExtra("jsReserved", String.valueOf(sb));
             startActivity(intent);
             finish();
@@ -136,7 +137,7 @@ public class LauncherActivity extends MyActivity {
             startActivity(intent);
             finish();
         }
-        showToast(toastMessage);
+
     }
 //    //  DB 쓰레드 작업
 //    class HttpTaskSignIn extends AsyncTask<String, String, String> {

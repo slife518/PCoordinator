@@ -83,32 +83,29 @@
                         android:layout_weight="1"/>
                 </TableRow>
 
-                <android.support.v4.widget.SwipeRefreshLayout
+            </TableLayout>
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/swipe_layout">
+
+                <ScrollView
+                    android:id="@+id/scrollView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/swipe_layout">
+                    android:background="@color/white">
 
-                    <ScrollView
-                        android:id="@+id/scrollView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white">
-                        <LinearLayout
+
+                        <ListView
+                            android:id="@+id/listView_main"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content"
+                            android:divider="#dcdcda"
+                            android:dividerHeight="1dp" />
 
-                            <ListView
-                                android:id="@+id/listView_main"
-                                android:divider="#dcdcda"
-                                android:dividerHeight="1dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"/>
+                </ScrollView>
+            </android.support.v4.widget.SwipeRefreshLayout>
 
-                        </LinearLayout>
-                    </ScrollView>
-                </android.support.v4.widget.SwipeRefreshLayout>
-            </TableLayout>
 </LinearLayout>
 
 

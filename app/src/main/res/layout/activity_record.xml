@@ -78,6 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:inputType="number"
+                    android:imeOptions="actionDone"
                     android:textAlignment="center"
                     android:text="0" />
 
@@ -115,6 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:inputType="number"
+                    android:imeOptions="actionDone"
                     android:textAlignment="center"
                     android:text="0" />
 
@@ -153,6 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:inputType="number"
+                    android:imeOptions="actionDone"
                     android:textAlignment="center"
                     android:text="0" />
 

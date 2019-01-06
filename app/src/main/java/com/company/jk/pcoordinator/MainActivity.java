@@ -72,8 +72,9 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
                 break;
             case R.id.bottomBarItemRecord:
 
-                Log.i("베이비아이디는 ", loginInfo.getBabyID());
-                if(loginInfo.getBabyID().equals("0") || loginInfo.getBabyID().isEmpty()){
+                Log.i(TAG, "베이비아이디는 " + loginInfo.getBabyID() );
+//                Log.i("베이비아이디는 ", loginInfo.getBabyID());
+                if(loginInfo.getBabyID().isEmpty()){
                     bottomBar.selectTabAtPosition(0, false);
                     Intent intent = new Intent(this, MybabyActivity.class);
                     startActivityForResult(intent, 12);

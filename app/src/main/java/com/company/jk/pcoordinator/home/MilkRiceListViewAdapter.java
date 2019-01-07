@@ -20,8 +20,6 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     int COLOR[] = { Color.rgb(209,196,233), Color.rgb(187,222,251), Color.rgb(255,205,210), Color.rgb(225,190,231) };
 
 
-
-
     public MilkRiceListViewAdapter(Context mContext, int layout, ArrayList<RecordHistoryinfo> data){
 
         this.data=data;
@@ -43,11 +41,8 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View itemView, ViewGroup parent){
 
-
         //항목 데이터 획득
         RecordHistoryinfo listviewitem=data.get(position);
-
-
         if(itemView==null){
             // 항목 layout 초기화
             LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -78,4 +73,10 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     }
 
 
+    public void refreshAdapter(ArrayList<RecordHistoryinfo> newItems) {
+
+        this.data.clear();
+        this.data.addAll(newItems);
+        notifyDataSetChanged();
+    }
 }

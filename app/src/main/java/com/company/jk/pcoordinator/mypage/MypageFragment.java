@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.company.jk.pcoordinator.ParentsActivity;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.login.LoginActivity;
@@ -51,10 +52,11 @@ public class MypageFragment extends MyFragment {
         btn_myinfo.setOnClickListener(onClickListener) ;
         Button btn_mybabyinfo = (Button) v.findViewById(R.id.btn_mybabyinfo) ;
         btn_mybabyinfo.setOnClickListener(onClickListener) ;
+        Button btn_parentslist = (Button) v.findViewById(R.id.btn_parentslist) ;
+        btn_parentslist.setOnClickListener(onClickListener) ;
+
         Button btn_password = (Button) v.findViewById(R.id.btn_password) ;
         btn_password.setOnClickListener(onClickListener) ;
-//        Button btn_bodyinfo = (Button) v.findViewById(R.id.btn_bodyinfo) ;
-//        btn_bodyinfo.setOnClickListener(onClickListener) ;
         Button btn_logout = (Button) v.findViewById(R.id.btn_Logout);
         btn_logout.setOnClickListener(onClickListener);
 
@@ -79,6 +81,10 @@ public class MypageFragment extends MyFragment {
                     break;
                 case R.id.btn_mybabyinfo:   //아기정보관리
                     intent = new Intent(getActivity(), MybabyActivity.class);
+                    startActivityForResult(intent, 300);
+                    break;
+                case R.id.btn_parentslist: //보호자명단
+                    intent = new Intent(getActivity(), ParentsActivity.class);
                     startActivityForResult(intent, 300);
                     break;
                 case R.id.btn_Logout:

@@ -24,7 +24,7 @@
     <string name="myinfo">내정보관리</string>
     <string name="memberinfo">회원정보</string>
     <string name="sex">성별</string>
-    <string name="txCustomerinfo">고객정보</string>
+    <string name="txCustomerinfo">내 정보</string>
     <string name="btn_save">저장하기</string>
     <string name="address">우번번호로 주소찾기</string>
     <string name="hint_address">주소</string>

@@ -420,16 +420,16 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     /////////////////////////////////////사진업로드 끝 //////////////////////////////////////////////
 
 
-    //추가된 소스, ToolBar에 menu.xml을 인플레이트함
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        //return super.onCreateOptionsMenu(menu);
-//        if(baby_id != null) {
-//            MenuInflater menuInflater = getMenuInflater();
-//            menuInflater.inflate(R.menu.menu_babydetail, menu);
-//        }
-//        return true;
-//    }
+//    추가된 소스, ToolBar에 menu.xml을 인플레이트함
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+        if(baby_id != null) {
+            MenuInflater menuInflater = getMenuInflater();
+            menuInflater.inflate(R.menu.menu_babydetail, menu);
+        }
+        return true;
+    }
 
     //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
     @Override

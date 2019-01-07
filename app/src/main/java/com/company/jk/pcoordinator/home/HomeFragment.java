@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,15 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SeekBar;
-import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyFragment;
@@ -63,8 +53,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Vector;
 
 public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener,
@@ -73,22 +61,21 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private Context mContext;
     private final String TAG = "HomeFragment";
     private LoginInfo loginInfo = LoginInfo.getInstance();
-    private ListView mListView;
+
     private ArrayList<RecordChartInfo> chartItems = new ArrayList();
+    private ArrayList<RecordHistoryinfo> listItems = new ArrayList();
     private ArrayList<RecordHistoryinfo> items = new ArrayList();
     private MilkRiceListViewAdapter mAdapter = null;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     private LineChart mChart;
-    private SeekBar mSeekBarX, mSeekBarY;
-    private TextView tvX, tvY;
-
-    private PowerManager.WakeLock mWakeLock;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ListView mListView;
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         mContext = v.getContext();
@@ -191,7 +178,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         YAxis leftAxis = mChart.getAxisLeft();
     //        leftAxis.setTypeface(mTfLight);
         leftAxis.setTextColor(Color.BLACK);
-        leftAxis.setAxisMaximum(1200);
+        leftAxis.setAxisMaximum(1000);
         leftAxis.setAxisMinimum(0);
         leftAxis.setDrawGridLines(true);
         leftAxis.setGranularityEnabled(true);
@@ -213,8 +200,6 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         //data binding start
         get_data_async();
 
-
-        Log.i(TAG, "메인 쓰레드 종료");
     }
 
     private void get_data_async(){  //데이터를 비 동기로 가져오기
@@ -283,20 +268,24 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            mAdapter.notifyDataSetChanged();
-            drawLineChart(chartItems);
+//            mAdapter.notifyDataSetChanged();
+            mAdapter.refreshAdapter(listItems);
+            if(!chartItems.isEmpty()) {
+                drawLineChart(chartItems);
+            }
+
         }
     }
 
     private void itemAppend(String response) {
         Log.i(TAG, "결과값은 " + response);
-        items.clear();
+        listItems.clear();
 
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(i);
-                items.add(new RecordHistoryinfo(
+                listItems.add(new RecordHistoryinfo(
                                                 rs.getString("id"),
                                                 rs.getString("record_date"),
                                                 rs.getString("record_time"),

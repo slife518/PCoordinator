@@ -8,7 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_margin="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -171,6 +173,7 @@
             android:id="@+id/et_remain_contents"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:inputType="text"
             android:hint="@string/remain_contents"/>
 
         <LinearLayout

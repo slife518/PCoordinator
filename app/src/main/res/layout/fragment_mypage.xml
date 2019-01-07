@@ -34,6 +34,11 @@
                             android:drawableLeft="@drawable/ic_baseline_accessibility_24px"
                             android:text="@string/mybabyinfo"
                             style="@style/Mypagebutton"/>
+                        <Button
+                            android:id="@+id/btn_parentslist"
+                            android:drawableLeft="@drawable/ic_baseline_group_24px"
+                            android:text="@string/parentlist"
+                            style="@style/Mypagebutton"/>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"

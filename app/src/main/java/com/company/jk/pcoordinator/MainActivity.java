@@ -16,6 +16,7 @@ import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
 import com.company.jk.pcoordinator.mypage.mybaby.MybabyActivity;
+import com.company.jk.pcoordinator.mypage.mybaby.MybabyDetailActivity;
 import com.company.jk.pcoordinator.mypage.mybaby.Mybabyinfo;
 import com.company.jk.pcoordinator.record.RecordFragment;
 import com.roughike.bottombar.BottomBar;
@@ -74,9 +75,11 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
 
                 Log.i(TAG, "베이비아이디는 " + loginInfo.getBabyID() );
 //                Log.i("베이비아이디는 ", loginInfo.getBabyID());
-                if(loginInfo.getBabyID().isEmpty()){
+                if(loginInfo.getBabyID().equals("0") || loginInfo.getBabyID().isEmpty()){  //loginInfo.getBabyID() 는 db 가 int 이므로 기본은 0
                     bottomBar.selectTabAtPosition(0, false);
-                    Intent intent = new Intent(this, MybabyActivity.class);
+
+                    Intent intent = new Intent(this, MybabyDetailActivity.class);
+                    intent.putExtra("email",loginInfo.getEmail() );
                     startActivityForResult(intent, 12);
                 }else if (!recordFragment.isVisible()){
                     replaceFragment(recordFragment);

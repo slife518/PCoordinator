@@ -92,9 +92,15 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _btn_minusRice.setOnClickListener(this);
         _btn_minusMilk.setOnClickListener(this);
         _btn_minusMotherMilk.setOnClickListener(this);
+
         _milk.setOnClickListener(this);
         _mothermilk.setOnClickListener(this);
         _rice.setOnClickListener(this);
+
+        _milk.setOnEditorActionListener(this);
+        _mothermilk.setOnEditorActionListener(this);
+        _rice.setOnEditorActionListener(this);
+
         _date.setOnClickListener(this);
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);

@@ -22,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.UrlPath;
+import com.company.jk.pcoordinator.login.LoginInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,9 +40,10 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
     ParentsRecyclerViewAdapter mAdapter;
     ImageView _back;
     ImageButton _btn_addParents;
-    String baby_id = null;
+    String baby_id;
     String TAG = "ParentsActivity";
     Intent intent;
+    LoginInfo loginInfo = LoginInfo.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,10 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
         intent = getIntent(); //getIntent()로 받을준비
         baby_id = intent.getStringExtra("baby_id");
 
-        _back = (ImageView) findViewById(R.id.btn_exit);
+        if(baby_id == null || baby_id.isEmpty()){    //나의 페이지에서 바로 들어온것이면
+            baby_id = loginInfo.getBabyID();
+        }
+        _back =  findViewById(R.id.btn_exit);
         _btn_addParents = findViewById(R.id.btn_addParents);
         _back.setOnClickListener(this);
         _btn_addParents.setOnClickListener(this);
@@ -58,7 +63,7 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
 
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView = (RecyclerView) findViewById(R.id.listView_main);
+        mRecyclerView =  findViewById(R.id.listView_main);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));

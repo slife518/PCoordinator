@@ -17,7 +17,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     private String TAG = "MilkRiceListViewAdapter";
     Context context;
 
-    int COLOR[] = { Color.rgb(209,196,233), Color.rgb(187,222,251), Color.rgb(255,205,210), Color.rgb(225,190,231) };
+    int COLOR[] = { Color.rgb(255,199,125), Color.rgb(242,188,248), Color.rgb(210,194,253), Color.rgb(222,250,187) };
 
 
     public MilkRiceListViewAdapter(Context mContext, int layout, ArrayList<RecordHistoryinfo> data){

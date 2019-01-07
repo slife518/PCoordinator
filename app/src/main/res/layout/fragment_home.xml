@@ -17,12 +17,15 @@
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart1"
+                android:layout_marginTop="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="254dp" />
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:background="@color/buttonColorAccent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
                 <TableRow>
@@ -100,6 +103,8 @@
                         android:id="@+id/listView_main"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
                         android:divider="#dcdcda"
                         android:dividerHeight="1dp" />
 

@@ -17,16 +17,16 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:layout_height="match_parent">
 
             <LinearLayout style="@style/EditIcon">
                 <ImageView
@@ -147,7 +147,6 @@
                 style="@style/MyWideButton"
                 android:text="@string/btn_save"
                 android:layout_width="match_parent"
-                android:drawableStart="@drawable/ic_baseline_save_24px"
                 />
             <View
                 android:layout_width="match_parent"

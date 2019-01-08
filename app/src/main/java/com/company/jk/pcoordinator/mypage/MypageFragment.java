@@ -42,6 +42,7 @@ public class MypageFragment extends MyFragment {
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = (Toolbar)v.findViewById(R.id.my_toolbar);
         activity.setSupportActionBar(myToolbar);
+        myToolbar.setTitle(R.string.mypage);
 
 
         // BtnOnClickListener의 객체 생성.

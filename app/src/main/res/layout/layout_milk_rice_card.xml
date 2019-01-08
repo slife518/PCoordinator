@@ -2,61 +2,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="55dp">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_date"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_gravity="center"
-        android:layout_weight="1"/>
+        android:layout_weight="1.5">
 
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_gravity="center"
-        android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="12-31"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="12:24"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_mothermilk"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="120"
+        android:gravity="center"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/tv_milk"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:textAlignment="center"
+        android:text="120"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/tv_rice"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:textAlignment="center"
+        android:text="120"
         android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/tv_author"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_gravity="center"
-        android:layout_weight="1"/>
+        android:layout_weight="2">
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="홍길동"
+                android:gravity="center"/>
 
-    <TextView
-        android:id="@+id/tv_comments"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:singleLine="true"
-        android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tv_comments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAlignment="textStart"
+                android:text="잘 먹었어요"
+                android:singleLine="true"/>
+
+    </LinearLayout>
 </LinearLayout>

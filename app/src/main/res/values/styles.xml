@@ -92,17 +92,7 @@
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
     </style>
-    <style name="Mypagebutton">
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">left|center_vertical</item>
-        <item name="android:fontFamily">fonts/nanumsquarel</item>
-        <item name="android:textSize">16dp</item>
-        <item name="android:paddingLeft">20dp</item>
 
-    </style>
     <style name="ImageButtonForward">
         <item name="android:src">@drawable/ic_baseline_keyboard_arrow_right_24px</item>
         <item name="android:layout_width">wrap_content</item>
@@ -143,8 +133,27 @@
         <item name="android:padding">16dp</item>
         <item name="android:background">@color/buttonColorAccent</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/btn_middlesize</item>
     </style>
 
     <style name="DatePicker" parent="@android:style/Theme.Holo.Light"/>
 
+    <style name="btn_style">
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:minHeight">46dp</item>
+        <item name="android:textSize">@dimen/btn_bigsize</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:fontFamily">fonts/nanumsquarel</item>
+    </style>
+
+    <style name="Mypagebutton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:fontFamily">fonts/nanumsquarel</item>
+        <item name="android:textSize">@dimen/btn_bigsize</item>
+        <item name="android:paddingLeft">20dp</item>
+    </style>
 </resources>

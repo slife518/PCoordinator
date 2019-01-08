@@ -120,7 +120,6 @@
                 <Button android:id="@+id/btn_delete"
                     style="@style/MyWideButton"
                     android:text="@string/btn_delete"
-                    android:drawableStart="@drawable/ic_baseline_clear_24px"
                     android:background="@drawable/button_bg"
                     android:textColor="@color/black"
                     />
@@ -128,7 +127,6 @@
                 <Button android:id="@+id/btn_save"
                     style="@style/MyWideButton"
                     android:text="@string/btn_save"
-                    android:drawableStart="@drawable/ic_outline_save_24px"
                     />
 
             </LinearLayout>

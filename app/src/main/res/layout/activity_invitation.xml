@@ -88,19 +88,21 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_profile"
+        android:textSize="@dimen/btn_bigsize"
         android:layout_marginTop="30dp"/>
 
 
     <Button
         android:id="@+id/btn_invite"
         android:text="@string/invitation"
-        android:layout_width="wrap_content"
+        android:textSize="@dimen/btn_bigsize"
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        style="@style/MyWideButton"/>
 
 
 </android.support.constraint.ConstraintLayout>

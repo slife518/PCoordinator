@@ -49,7 +49,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
 
-    <string name="app_name">자이언트 베이비</string>
+    <string name="app_name">공동육아</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="tab_text_1">남성복</string>
@@ -91,6 +91,7 @@
 
 
     <string name="record">Record</string>
+    <string name="title_record">기록하기</string>
     <string name="mybody">InBody</string>
     <string name="mybaby">우리아이</string>
     <string name="mybabyinfo">아기정보</string>
@@ -136,5 +137,7 @@
     <string name="btn_update">수정하기</string>
     <string name="milk_list">분유</string>
     <string name="rice_list">이유식</string>
-    <string name="mothermilk_list">모유수유</string>
+    <string name="mothermilk_list">수유</string>
+    <string name="mypage">내정보관리</string>
+    <string name="update">기록수정하기</string>
 </resources>

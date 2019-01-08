@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -55,7 +56,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     private String id;
     EditText _milk,_mothermilk, _rice, _remainText;
     EditText _date, _time;
-    Button _btn_plusMilk, _btn_minusMilk, _btn_plusRice, _btn_minusRice, _save, _btn_plusMotherMilk, _btn_minusMotherMilk;
+    Button _btn_plusMilk, _btn_minusMilk, _btn_plusRice, _btn_minusRice, _save, _delete, _btn_plusMotherMilk, _btn_minusMotherMilk;
 //    ImageView _back;
     static final String TAG = "RecordFragment";
     Context mContext; View v;
@@ -82,8 +83,17 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
                              Bundle savedInstanceState) {
 
         Log.i(TAG, "onCreateView 시작");
-        v = inflater.inflate(R.layout.fragment_record, container, false);
+        v = inflater.inflate(R.layout.activity_record, container, false);
         mContext = v.getContext();
+
+
+        // toolbar 설정1
+//        setHasOptionsMenu(true);   // toolbar 의 추가 메뉴
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+        Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
+        myToolbar.setTitle(R.string.title_record);
+        activity.setSupportActionBar(myToolbar);
+
 
         findViewById(v);
         _btn_plusRice.setOnClickListener(this);
@@ -104,6 +114,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _date.setOnClickListener(this);
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
+
 
         _milk.setOnFocusChangeListener(this);
         _mothermilk.setOnFocusChangeListener(this);
@@ -136,6 +147,9 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _btn_plusRice = v.findViewById(R.id.btn_rice_plus);
         _btn_minusRice = v.findViewById(R.id.btn_rice_minus);
         _save = v.findViewById(R.id.btn_save);
+        _delete = v.findViewById(R.id.btn_delete);
+        _delete.setVisibility(v.GONE);
+        _save.setText(R.string.btn_save);
         set_time();
     }
 

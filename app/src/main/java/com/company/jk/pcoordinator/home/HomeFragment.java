@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SeekBar;
+
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyFragment;
@@ -23,6 +25,7 @@ import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.record.RecordActivity;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -33,6 +36,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -85,6 +89,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
         activity.setSupportActionBar(myToolbar);
+        myToolbar.setTitle(R.string.app_name);
 
 
         //listview layout
@@ -168,12 +173,13 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         l.setDrawInside(false);
 //        l.setYOffset(11f);
 
-            XAxis xAxis = mChart.getXAxis();
-    //        xAxis.setTypeface(mTfLight);
-            xAxis.setTextSize(11f);
-            xAxis.setTextColor(Color.BLACK);
-            xAxis.setDrawGridLines(false);
-            xAxis.setDrawAxisLine(false);
+        // X축
+//            XAxis xAxis = mChart.getXAxis();
+//    //        xAxis.setTypeface(mTfLight);
+//            xAxis.setTextSize(11f);
+//            xAxis.setTextColor(Color.BLACK);
+//            xAxis.setDrawGridLines(false);
+//            xAxis.setDrawAxisLine(false);
 
         YAxis leftAxis = mChart.getAxisLeft();
     //        leftAxis.setTypeface(mTfLight);
@@ -366,6 +372,18 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 //        }
 //    }
 
+//    @Override
+//    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//
+//        tvX.setText("" + (mSeekBarX.getProgress() + 1));
+//        tvY.setText("" + (mSeekBarY.getProgress()));
+//
+//        setData(mSeekBarX.getProgress() + 1, mSeekBarY.getProgress());
+//
+//        // redraw
+//        mChart.invalidate();
+//    }
+
     @Override
     public void onRefresh() {
         get_data_async();
@@ -377,26 +395,36 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private void setData(ArrayList<RecordChartInfo> chartItems) {  //날짜, 모유수유, 분유, 이유식
         Log.i(TAG, "setData 시작 " + chartItems.size());
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-        for (int i = 0; i < chartItems.size(); i++) {
-            yVals1.add(new Entry(i, chartItems.get(i).getMothermilk()));
-        }
-
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
-        for (int i = 0; i < chartItems.size(); i++) {
-            yVals2.add(new Entry(i, chartItems.get(i).getMilk()));
-        }
-
         ArrayList<Entry> yVals3 = new ArrayList<Entry>();
-        for (int i = 0; i < chartItems.size(); i++) {
-            yVals3.add(new Entry(i, chartItems.get(i).getRice()));
-        }
+        final ArrayList<String> xVals = new ArrayList<String>();
 
+
+//        for (int i = 0; i < chartItems.size(); i++) {
+//            yVals1.add(new Entry(i, chartItems.get(i).getMothermilk()));
+//            yVals2.add(new Entry(i, chartItems.get(i).getMilk()));
+//            yVals3.add(new Entry(i, chartItems.get(i).getRice()));
+//            xVals.add( chartItems.get(n).getDate());
+//        }
+
+
+        final int maxDay = 15;  // 해당 일 수 만큼만 보여줌
+        final int visuableSize = (chartItems.size() >= maxDay) ? maxDay : chartItems.size();  // 데이터가 mayDay 개 보다 적으면 maxDay
+
+        for (int i = 0; i < visuableSize; i++) {
+            int n =  chartItems.size() - visuableSize + i ;
+            yVals1.add(new Entry(i, chartItems.get(n).getMothermilk()));
+            yVals2.add(new Entry(i, chartItems.get(n).getMilk()));
+            yVals3.add(new Entry(i, chartItems.get(n).getRice()));
+            xVals.add( chartItems.get(n).getDate());
+        }
 
 
         LineDataSet set1, set2, set3;
 
         if (mChart.getData() != null &&
                 mChart.getData().getDataSetCount() > 0) {
+
             set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
             set2 = (LineDataSet) mChart.getData().getDataSetByIndex(1);
             set3 = (LineDataSet) mChart.getData().getDataSetByIndex(2);
@@ -426,6 +454,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
                 // create a dataset and give it a type
                 set2 = new LineDataSet(yVals2, "분유");
+
                 set2.setAxisDependency(YAxis.AxisDependency.LEFT);  //지표 참조
                 set2.setColor(Color.RED);
                 set2.setCircleColor(Color.RED);
@@ -439,6 +468,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
 
                 set3 = new LineDataSet(yVals3, "이유식");
+
                 set3.setAxisDependency(YAxis.AxisDependency.LEFT);
                 set3.setColor(Color.YELLOW);
                 set3.setCircleColor(Color.YELLOW);
@@ -449,14 +479,26 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 set3.setDrawCircleHole(false);
                 set3.setHighLightColor(Color.rgb(244, 117, 117));
 
-            // create a data object with the datasets
-            LineData data = new LineData(set1, set2, set3);
+                // create a data object with the datasets
+                LineData data = new LineData(set1, set2, set3);
 
-            data.setValueTextColor(Color.GRAY);
-            data.setValueTextSize(9f);
+                data.setValueTextColor(Color.GRAY);
+                data.setValueTextSize(9f);
 
-            // set data
-            mChart.setData(data);
+                // x축 label
+                XAxis xAxis = mChart.getXAxis();
+                xAxis.setValueFormatter(new IAxisValueFormatter() {
+
+                    @Override
+                    public String getFormattedValue(float value, AxisBase axis) {
+
+                        return xVals.get((int)value);
+                    }
+
+                });
+
+                // set data
+                mChart.setData(data);
 
         }
     }

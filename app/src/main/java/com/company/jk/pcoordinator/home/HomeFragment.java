@@ -131,7 +131,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
         // 그래프보여주기 시작
         Description desc = new Description();
-        desc.setText("우리아기 식사량 변화");
+        desc.setText(""); // 오른쪽 아래에 작게 보여줘서 TextView 로 대체 처리 함
         mChart.setDescription(desc);
         mChart.setOnChartValueSelectedListener(this);
 

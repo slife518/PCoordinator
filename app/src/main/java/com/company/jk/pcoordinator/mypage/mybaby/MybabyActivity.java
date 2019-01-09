@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
+import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
@@ -114,38 +115,24 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String item = mSpinner.getSelectedItem().toString();
         final String selectedVal = target_baby_list_value.get(mSpinner.getSelectedItemPosition());
-
         Log.i(TAG, "선택된 아기의 아이디는 " + selectedVal);
+
         //data binding start
-        String server_url = new UrlPath().getUrlPath() + "Pc_baby/set_main_baby";
-        RequestQueue postReqeustQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-//               responseSuccess(response);    // 결과값 받아와서 처리하는 부분
-                LoginInfo loginInfo = LoginInfo.getInstance();
-                loginInfo.setBabyID(selectedVal);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", loginInfo.getEmail());
-                params.put("baby_id", selectedVal);
-                return params;
-            }
-        };
-        postReqeustQueue.add(postStringRequest);
-        //data binding end
+        Map<String, String> params = new HashMap<>();
+        params.put("email", loginInfo.getEmail());
+        params.put("baby_id", selectedVal);
+        MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext(), "Pc_baby/set_main_baby" );
+
+        String result = dataTransaction.queryExecute(params);  //결과값에 상관없이 진행하는 게 좀 문제 있어 보인다.
+
+        Log.i(TAG, "결과값은" + result);
+        LoginInfo loginInfo = LoginInfo.getInstance();
+        loginInfo.setBabyID(selectedVal);
 
 
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {

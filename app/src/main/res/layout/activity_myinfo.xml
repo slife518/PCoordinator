@@ -154,11 +154,12 @@
                 android:layout_margin="16dp"
                 android:background="@android:color/black"/>
             <CheckBox
+                android:id="@+id/cb_Auto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="자동로그인"
                 android:layout_margin="8dp"
-                android:id="@+id/cb_Auto"
+                android:buttonTint="@color/buttonColorAccent"
                 android:checked="true"/>
 
         </LinearLayout>

@@ -11,7 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.TestLooperManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -36,9 +35,10 @@ import com.company.jk.pcoordinator.ParentsActivity;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
+import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
-import com.company.jk.pcoordinator.mypage.MyinfoActivity;
+import com.company.jk.pcoordinator.login.LoginInfo;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -66,6 +66,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     String email, baby_id;
     UrlPath urlPath = new UrlPath();
     Upload upload = new Upload();
+    LoginInfo loginInfo = LoginInfo.getInstance();
     private DatePickerDialog.OnDateSetListener mDateSetListener ;
 
     @Override
@@ -89,6 +90,34 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         _profile.setOnClickListener(this);
         _birthday.setOnClickListener(this);
 
+
+
+
+        _birthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        MybabyDetailActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "on Date set " + year + "/" + month + 1 + "/" + day);
+
+                _birthday.setText(year + "/" + month + "/" + day);
+            }
+        };
 
         if(baby_id != null) {
             initLoader();   //기존아기 세부정보 db에서 가져오기
@@ -148,7 +177,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
             String imgUrl = urlPath.getUrlBabyImg() + id + ".jpg";  //확장자 대소문자 구별함.
             Log.i(TAG, imgUrl);
-            Picasso.with(this).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(_profile);;  //image가 reload 되도록 하기 위하여 필요함
+            Picasso.with(this).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(_profile);  //image가 reload 되도록 하기 위하여 필요함
             _name.setText(name);
 //            _birthday.setText(birthday);
             if (sex.equals("1")) {
@@ -170,7 +199,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         _name = findViewById(R.id.et_name);
         _boy = findViewById(R.id.rd_boy);
         _girl = findViewById(R.id.rd_girl);
-        _birthday = findViewById(R.id.tv_birthday);
+        _birthday = findViewById(R.id.et_birthday);
     }
 
     @Override
@@ -179,28 +208,28 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         if(v==_btn_save) {
 //            save_data();
             modify_data();
-        }else if(v==_birthday){
-
-            Calendar cal = Calendar.getInstance();
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH);
-            int day = cal.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog dialog = new DatePickerDialog(
-                    MybabyDetailActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
-
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.show();
-
-            mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    month = month + 1;
-                    Log.d(TAG, "on Date set " + year + "/" + month + 1 + "/" + day);
-
-                    _birthday.setText(year + "/" + month + "/" + day);
-                }
-            };
+//        }else if(v==_birthday){
+//
+//            Calendar cal = Calendar.getInstance();
+//            int year = cal.get(Calendar.YEAR);
+//            int month = cal.get(Calendar.MONTH);
+//            int day = cal.get(Calendar.DAY_OF_MONTH);
+//
+//            DatePickerDialog dialog = new DatePickerDialog(
+//                    MybabyDetailActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
+//
+//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            dialog.show();
+//
+//            mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+//                @Override
+//                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+//                    month = month + 1;
+//                    Log.d(TAG, "on Date set " + year + "/" + month + 1 + "/" + day);
+//
+//                    _birthday.setText(year + "/" + month + "/" + day);
+//                }
+//            };
 
 
         }else if(v==_profile){   //사진 클릭시
@@ -358,6 +387,9 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     private void deleteResponse(String response){
         Log.i(TAG, "deleteResponse 결과값은 " + response);
         if(response.equals("true")) {
+            if(loginInfo.getBabyID().equals(baby_id)){
+                update_user_babyid(baby_id);
+                loginInfo.setBabyID("");}  //선택하고 있는 아기를 삭제 할 경우 선택된 아기가 없도록 처리
             showToast(getString(R.string.save));
             super.onBackPressed();
         }else{
@@ -365,6 +397,17 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         }
     }
 
+    private String update_user_babyid(String babyid){
+
+        Map<String, String> param = new HashMap<>();
+        param.put("email",loginInfo.getEmail());
+        param.put("baby_id","0");
+
+        MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext(), "Pc_baby/set_main_baby");
+        return dataTransaction.queryExecute(param);
+
+
+    }
     /////////////////////////////////////사진업로드 시작 //////////////////////////////////////////////
     public void onActivityResult(int requestCode, int resultCode,	Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);

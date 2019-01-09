@@ -135,6 +135,7 @@
     <string name="rice_list">이유식</string>
     <string name="mothermilk_list">수유</string>
     <string name="update">기록수정하기</string>
+    <string name="chartTitle">우리아기 식사량변화추이</string>
 
 
 </resources>

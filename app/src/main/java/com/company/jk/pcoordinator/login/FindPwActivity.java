@@ -24,6 +24,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyActivity;
+import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 import com.company.jk.pcoordinator.http.UrlPath;
@@ -33,7 +35,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FindPwActivity extends AppCompatActivity implements View.OnClickListener{
+public class FindPwActivity extends MyActivity implements View.OnClickListener{
     final static String TAG = "FindPwActivity";
     final static String Controller = "Pc_login";
     Button btn_find_pw;
@@ -61,6 +63,14 @@ public class FindPwActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void send_password(){
+//        MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext(), "Pc_login/send_mail_pw");
+//        Map<String, String> params = new HashMap<>();
+//        params.put("email", et_email.getText().toString());
+//       if(dataTransaction.modify(params)){
+//           showToast("초기화된 비밀번호가 메일로 전송되었습니다.");
+//           finish();
+//       }
+//
         String server_url = new UrlPath().getUrlPath() + "Pc_login/send_mail_pw";
         Log.i(TAG, server_url);
         RequestQueue postRequestQueue = Volley.newRequestQueue(this);
@@ -74,7 +84,7 @@ public class FindPwActivity extends AppCompatActivity implements View.OnClickLis
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG + "메일전송시 에러발생.. 원인은 ", " " + error.getLocalizedMessage());
+                Log.d(TAG , "메일전송시 에러발생.. 원인은 " + error.getLocalizedMessage());
             }
         }){
             @Override

@@ -129,8 +129,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_margin">8dp</item>
-        <item name="android:padding">16dp</item>
+        <!--<item name="android:layout_margin">8dp</item>-->
         <item name="android:background">@color/buttonColorAccent</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/btn_middlesize</item>
@@ -147,13 +146,14 @@
     </style>
 
     <style name="Mypagebutton">
-        <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">left|center_vertical</item>
-        <item name="android:fontFamily">fonts/nanumsquarel</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawableEnd">@drawable/ic_baseline_keyboard_arrow_right_24px</item>
         <item name="android:textSize">@dimen/btn_bigsize</item>
-        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingLeft">@dimen/appbar_padding_left</item>
+        <item name="android:paddingRight">@dimen/appbar_padding_right</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:fontFamily">fonts/nanumsquarel</item>
+        <item name="android:drawablePadding">@dimen/appbar_padding_left</item>
     </style>
 </resources>

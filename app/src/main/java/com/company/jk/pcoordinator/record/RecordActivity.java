@@ -40,7 +40,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
     EditText _milk,_mothermilk, _rice, _remainText;
     EditText _date, _time;
     Button _btn_plusMilk, _btn_minusMilk, _btn_plusMotherMilk, _btn_minusMotherMilk, _btn_plusRice, _btn_minusRice, _save, _delete;
-    static final String TAG = "RecordFragment";
+    static final String TAG = "RecordActivity";
     LoginInfo loginInfo = LoginInfo.getInstance();
     RecordHistoryinfo info;
     Toolbar myToolbar;
@@ -198,7 +198,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
         }
         builder.setTitle(R.string.btn_delete)
                 .setMessage(R.string.deleteAlert)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.btn_delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         delete_data();
 //                        HomeFragment hf = new HomeFragment();
@@ -207,7 +207,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
 
                     }
                 })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
                     }

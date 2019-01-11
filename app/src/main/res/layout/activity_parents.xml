@@ -6,33 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".ParentsActivity">
 
+    <!-- 툴바, 추가된 소스 -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
 
-    <ImageButton
-        android:id="@+id/btn_exit"
-        style="@style/IconExit40x40"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/btn_addParents"
-        android:src="@drawable/ic_baseline_add_24px"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="16dp"
-        android:background="@drawable/button_bg_accent"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listView_main"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/btn_exit"
-            android:layout_margin="8dp"
-            />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <Button android:id="@+id/btn_addParents"
+                style="@style/MyWideButton"
+                android:layout_width="match_parent"
+                android:text="@string/btn_save"/>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listView_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/btn_exit"
+                android:layout_margin="8dp"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+    <!--<ImageButton-->
+        <!--android:id="@+id/btn_addParents"-->
+        <!--android:src="@drawable/ic_baseline_add_24px"-->
+        <!--android:textStyle="bold"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--android:layout_margin="16dp"-->
+        <!--android:background="@drawable/button_bg_accent"/>-->
+
 
 
 

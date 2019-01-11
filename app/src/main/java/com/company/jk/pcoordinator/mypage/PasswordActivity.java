@@ -33,7 +33,7 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
     private StringBuffer sb = new StringBuffer();
     private static final String Controller = "Pc_login";
     private String toastMessage = " ";
-    EditText _old_password, _password, _repassword;
+    EditText _old_password, _password;
     Toolbar myToolbar;
 
     Button _btn_save_pw;
@@ -53,7 +53,7 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
 
         _old_password = (EditText) findViewById(R.id.et_old_password);
         _password = (EditText) findViewById(R.id.et_new_password);
-        _repassword = (EditText) findViewById(R.id.et_new_password2);
+//        _repassword = (EditText) findViewById(R.id.et_new_password2);
         _btn_save_pw = (Button) findViewById(R.id.btn_password_save);
         _btn_save_pw.setOnClickListener(this);
 
@@ -72,7 +72,7 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
             case R.id.btn_password_save:  //비밀번호 변경 저장
                 if(check_validation_pw()){
                     tcode = "save_customer_pw";
-                    new HttpTaskSignIn().execute(loginInfo.getEmail(), _old_password.getText().toString(),  _password.getText().toString(), _repassword.getText().toString());
+                    new HttpTaskSignIn().execute(loginInfo.getEmail(), _old_password.getText().toString(),  _password.getText().toString());
                 }
                 break;
         }
@@ -93,19 +93,19 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
 
             return  false;
         }
-        if(!_password.getText().toString().equals(_repassword.getText().toString())){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.message_confirm_password)
-                    .setPositiveButton(R.string.message_OK, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-            AlertDialog alert =  builder.create();
-//            alert.setTitle("확인바랍니다.");
-            alert.show();
-            return  false;
-        }
+//        if(!_password.getText().toString().equals(_repassword.getText().toString())){
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setMessage(R.string.message_confirm_password)
+//                    .setPositiveButton(R.string.message_OK, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                        }
+//                    });
+//            AlertDialog alert =  builder.create();
+////            alert.setTitle("확인바랍니다.");
+//            alert.show();
+//            return  false;
+//        }
 
         return  true;
     }
@@ -121,7 +121,7 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
             LoginService serviceHandler = null;
             switch (tcode) {
                 case "save_customer_pw":
-                    serviceHandler = new LoginService.Builder(Controller, tcode).email(args[i++]).oldpassword(args[i++]).password(args[i++]).repassword(args[i++]).build();
+                    serviceHandler = new LoginService.Builder(Controller, tcode).email(args[i++]).oldpassword(args[i++]).password(args[i++]).build();
                     break;
             }
             sb = serviceHandler.getData();
@@ -149,7 +149,7 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
                 switch (tcode) {
                     case "save_customer_pw":
                         if (result.equals("true")){
-                            toastMessage = "저장되었습니다.";
+                            toastMessage = getResources().getString(R.string.message_updated);
                             break;
                         }else{
                             toastMessage = result;
@@ -161,6 +161,7 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
             }
             Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
             tcode = "";   //초기화
+            onBackPressed();
         }
     }
 }

@@ -72,7 +72,6 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(loginInfo.getEmail());
-        myToolbar.setTitle(R.string.myinfo);
 
 
         mContext = getApplicationContext();

@@ -13,30 +13,30 @@ import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyDataTransaction {
+public class MyDataTransaction{
 
     Context mContext;
-    String server_url;
-    String res;
-    Map<String, String>  setMapParam;
+    private final static String TAG = "MyDataTransaction";
 
-    public MyDataTransaction(Context context, String url) {
+
+    public MyDataTransaction(Context context) {
         mContext = context;
-        server_url = new UrlPath().getUrlPath() + url;
     }
 
-    public String queryExecute(final Map<String, String> param) {
+    public void queryExecute(final int method, final Map<String, String> param, String url, final VolleyCallback callback) {
 
-        setMapParam = param;
+        url = new UrlPath().getUrlPath() + url;
 
         RequestQueue postReqeustQueue = Volley.newRequestQueue(mContext);
-        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+        StringRequest postStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                send_response(response);   //비동기로 결과값이 넘어온다.
+                callback.onSuccessResponse(response, method);   //비동기로 결과값이 넘어온다.
 
             }
         }, new Response.ErrorListener() {
@@ -47,19 +47,12 @@ public class MyDataTransaction {
         }) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params = setMapParam;
-                return params;
+                return param;
             }
         };
         postReqeustQueue.add(postStringRequest);
         //data binding end
 
-        return res;
-    }
-
-    private String send_response(String res){
-        return  res;
     }
 
 }

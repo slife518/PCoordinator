@@ -24,6 +24,7 @@ import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
+import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
@@ -36,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MybabyActivity extends MyActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class MybabyActivity extends MyActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
 
     RecyclerView mRecyclerView;
     ArrayList<Mybabyinfo> items = new ArrayList();
@@ -45,7 +46,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
     Spinner mSpinner;
     Button _btn_add;
     Toolbar myToolbar;
-
+    MyDataTransaction transaction;
     LoginInfo loginInfo = LoginInfo.getInstance();
 
     String TAG = "MybabyFragment";
@@ -57,6 +58,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybaby);
 
+        transaction = new MyDataTransaction(getApplicationContext());
 // Toolbar를 생성한다.
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -76,30 +78,9 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 }
     public void get_baby_data(){
 
-        //data binding start
-        String server_url = new UrlPath().getUrlPath() + "Pc_baby/get_baby_info";
-        RequestQueue postReqeustQueue = Volley.newRequestQueue(this);
-        StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                responseSuccess(response);    // 결과값 받아와서 처리하는 부분
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", loginInfo.getEmail());
-                return params;
-            }
-        };
-        postReqeustQueue.add(postStringRequest);
-        //data binding end
-
-
+        Map<String, String> params = new HashMap<>();
+        params.put("email", loginInfo.getEmail());
+        transaction.queryExecute(2, params, "Pc_baby/get_baby_info", callback);
     }
 
     @Override
@@ -113,6 +94,23 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
     }
 
+    VolleyCallback callback = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
+
+            Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+
+            switch (method){
+                case 1 :  //onItemSelected
+                    break;
+                case 2:  //get_baby_data
+                    responseSuccess(result);
+                    break;
+            }
+
+        }
+    };
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         final String selectedVal = target_baby_list_value.get(mSpinner.getSelectedItemPosition());
@@ -122,14 +120,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
         Map<String, String> params = new HashMap<>();
         params.put("email", loginInfo.getEmail());
         params.put("baby_id", selectedVal);
-        MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext(), "Pc_baby/set_main_baby" );
-
-        String result = dataTransaction.queryExecute(params);  //결과값에 상관없이 진행하는 게 좀 문제 있어 보인다.
-
-        Log.i(TAG, "결과값은" + result);
-        LoginInfo loginInfo = LoginInfo.getInstance();
-        loginInfo.setBabyID(selectedVal);
-
+        transaction.queryExecute(1, params, "Pc_baby/set_main_baby", callback);  //결과값에 상관없이 진행하는 게 좀 문제 있어 보인다.
 
     }
 

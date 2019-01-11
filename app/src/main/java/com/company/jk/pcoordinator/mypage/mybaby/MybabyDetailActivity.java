@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,6 +37,7 @@ import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
+import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
@@ -52,7 +54,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MybabyDetailActivity extends MyActivity implements View.OnClickListener {
+public class MybabyDetailActivity extends MyActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
 
 
@@ -89,6 +91,8 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         _btn_delete.setOnClickListener(this);
         _profile.setOnClickListener(this);
         _birthday.setOnClickListener(this);
+
+        _name.setOnFocusChangeListener(this);
 
 
 
@@ -267,6 +271,22 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
                 .show();
     }
 
+
+    @Override
+    public void onFocusChange(View v, boolean b) {
+        Log.i(TAG, "포커스가 변경 되었습니다.");
+        if(!b){   //포커스아웃이면
+            if(v ==  _name){
+                if(TextUtils.isEmpty(_name.getText().toString())) {
+                    _name.setError("필수항목입니다.");
+                    return;
+                }
+
+            }
+        }else{  //포커스인이면
+        }
+    }
+
     private  void insert_picture(){
         Log.i(TAG, "이미지클릭");
 
@@ -298,6 +318,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     }
 
     private  void modify_data(){
+
 
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/modifyBaby";
         Log.i(TAG, server_url);
@@ -342,7 +363,6 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     private void modifyResponse(String response){
         Log.i(TAG, "결과값은 " + response);
 //        if (getArguments() == null) {    //아기 신규등록이면
-        showToast( getString(R.string.save));
         super.onBackPressed();
 //        MybabyActivity mf = new MybabyActivity();
 //        }else{
@@ -390,23 +410,26 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             if(loginInfo.getBabyID().equals(baby_id)){
                 update_user_babyid(baby_id);
                 loginInfo.setBabyID("");}  //선택하고 있는 아기를 삭제 할 경우 선택된 아기가 없도록 처리
-            showToast(getString(R.string.save));
             super.onBackPressed();
         }else{
             showToast(response);
         }
     }
 
-    private String update_user_babyid(String babyid){
+    private void update_user_babyid(String babyid){
 
         Map<String, String> param = new HashMap<>();
         param.put("email",loginInfo.getEmail());
         param.put("baby_id","0");
 
-        MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext(), "Pc_baby/set_main_baby");
-        return dataTransaction.queryExecute(param);
-
-
+        VolleyCallback callback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result, int method) {
+                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+            }
+        };
+        MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext());
+        dataTransaction.queryExecute(1,param,"Pc_baby/set_main_baby", callback);
     }
     /////////////////////////////////////사진업로드 시작 //////////////////////////////////////////////
     public void onActivityResult(int requestCode, int resultCode,	Intent imageReturnedIntent) {

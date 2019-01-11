@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -38,9 +40,9 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
     ArrayList<ParentsInfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
     ParentsRecyclerViewAdapter mAdapter;
-    ImageView _back;
-    ImageButton _btn_addParents;
+    Button _btn_addParents;
     String baby_id;
+    Toolbar myToolbar;
     String TAG = "ParentsActivity";
     Intent intent;
     LoginInfo loginInfo = LoginInfo.getInstance();
@@ -52,12 +54,18 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
         intent = getIntent(); //getIntent()로 받을준비
         baby_id = intent.getStringExtra("baby_id");
 
+
+        // Toolbar를 생성한다.
+        myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         if(baby_id == null || baby_id.isEmpty()){    //나의 페이지에서 바로 들어온것이면
             baby_id = loginInfo.getBabyID();
         }
-        _back =  findViewById(R.id.btn_exit);
+
         _btn_addParents = findViewById(R.id.btn_addParents);
-        _back.setOnClickListener(this);
         _btn_addParents.setOnClickListener(this);
 
 

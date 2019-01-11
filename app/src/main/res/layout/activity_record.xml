@@ -21,10 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="8dp"
+            android:layout_marginTop="@dimen/app_margin_top"
+            android:paddingLeft="@dimen/appbar_padding_left"
+            android:paddingRight="@dimen/appbar_padding_right"
             android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:padding="16dp">
+            android:focusableInTouchMode="true">
 
             <LinearLayout
                 android:layout_width="match_parent"

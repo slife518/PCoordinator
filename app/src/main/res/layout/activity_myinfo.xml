@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+
     <!-- 툴바, 추가된 소스 -->
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -17,152 +19,160 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginTop="@dimen/app_margin_top"
+            android:layout_marginLeft="@dimen/app_margin_left"
+            android:layout_marginRight="@dimen/app_margin_right"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout style="@style/EditIcon">
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="20dp"
-                    android:maxWidth="20dp"
-                    android:src="@drawable/icon_person_small"/>
-                <EditText
-                    android:id="@+id/et_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:hint="@string/name"
-                    android:inputType="text"/>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_name"
+                android:layout_marginTop="8dp">
 
-            </LinearLayout>
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout style="@style/EditIcon">
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="20dp"
-                    android:maxWidth="20dp"
-                    android:src="@drawable/icon_phone"/>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tel"
+                android:layout_marginTop="8dp">
+
                 <EditText
                     android:id="@+id/et_tel"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:hint="@string/tel"
-                    android:inputType="phone"/>
+                    android:inputType="phone" />
+            </android.support.design.widget.TextInputLayout>
 
-            </LinearLayout>
 
-            <LinearLayout style="@style/EditIcon">
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="20dp"
-                    android:maxWidth="20dp"
-                    android:src="@drawable/birthday"/>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_birthday"
+                android:layout_marginTop="8dp">
 
                 <EditText
                     android:id="@+id/et_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:editable="false"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:hint="@string/address"
                     android:layout_weight="8"
-                    android:hint="@string/hint_birthday"
-                    android:clickable="true"
-                    android:editable="false"
-                    android:focusableInTouchMode="false"/>
+                    android:layout_marginTop="8dp">
 
-            </LinearLayout>
+                    <EditText
+                        android:id="@+id/tv_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusableInTouchMode="false"/>
 
-            <LinearLayout style="@style/EditIcon">
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="20dp"
-                    android:maxWidth="20dp"
-                    android:src="@drawable/icon_email"/>
+                </android.support.design.widget.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/tv_address"
-                    android:clickable="true"
-                    android:editable="false"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:textSize="20dp"
-                    android:hint="@string/address"/>
-
-            <!-- 우편번호찾기 Button -->
+                <!-- 우편번호찾기 Button -->
                 <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/btn_findAddress"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:background="@color/transparent"
                     android:src="@drawable/ic_baseline_search_24px"/>
 
             </LinearLayout>
 
-            <LinearLayout style="@style/EditIcon">
+            <!--<LinearLayout style="@style/EditIcon">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:maxHeight="20dp"-->
+                    <!--android:maxWidth="20dp"-->
+                    <!--android:src="@drawable/icon_email"/>-->
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="20dp"
-                    android:maxWidth="20dp"
-                    android:src="@drawable/icon_email"/>
+                <!--<EditText-->
+                    <!--android:id="@+id/tv_address"-->
+                    <!--android:clickable="true"-->
+                    <!--android:editable="false"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="7"-->
+                    <!--android:textSize="20dp"-->
+                    <!--android:hint="@string/address"/>-->
+
+            <!--&lt;!&ndash; 우편번호찾기 Button &ndash;&gt;-->
+                <!--<android.support.v7.widget.AppCompatImageButton-->
+                    <!--android:id="@+id/btn_findAddress"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@color/transparent"-->
+                    <!--android:src="@drawable/ic_baseline_search_24px"/>-->
+
+            <!--</LinearLayout>-->
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_address_detail"
+                android:layout_marginTop="8dp">
+
                 <EditText
                     android:id="@+id/et_address_detail"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:hint="@string/hint_address_detail"/>
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
 
-            </LinearLayout>
+
             <Button
                 android:id="@+id/btn_save"
                 style="@style/MyWideButton"
+                android:layout_marginTop="32dp"
                 android:text="@string/btn_save"
                 android:layout_width="match_parent"
-                />
+                android:focusable="true"
+                android:focusableInTouchMode="false"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@android:color/black"/>
             <CheckBox
                 android:id="@+id/cb_Auto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="자동로그인"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
                 android:buttonTint="@color/buttonColorAccent"
                 android:checked="true"/>
 
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

@@ -49,16 +49,16 @@ public class MypageFragment extends MyFragment {
         BtnOnClickListener onClickListener = new BtnOnClickListener() ;
 
         // 각 Button의 이벤트 리스너로 onClickListener 지정.
-        Button btn_myinfo = (Button) v.findViewById(R.id.btn_myinfo) ;
+        TextView btn_myinfo = v.findViewById(R.id.tv_myinfo) ;
         btn_myinfo.setOnClickListener(onClickListener) ;
-        Button btn_mybabyinfo = (Button) v.findViewById(R.id.btn_mybabyinfo) ;
+        TextView btn_mybabyinfo = v.findViewById(R.id.tv_mybabyinfo) ;
         btn_mybabyinfo.setOnClickListener(onClickListener) ;
-        Button btn_parentslist = (Button) v.findViewById(R.id.btn_parentslist) ;
+        TextView btn_parentslist = v.findViewById(R.id.tv_parentslist) ;
         btn_parentslist.setOnClickListener(onClickListener) ;
 
-        Button btn_password = (Button) v.findViewById(R.id.btn_password) ;
+        TextView btn_password = v.findViewById(R.id.tv_password) ;
         btn_password.setOnClickListener(onClickListener) ;
-        Button btn_logout = (Button) v.findViewById(R.id.btn_Logout);
+        TextView btn_logout = v.findViewById(R.id.tv_Logout);
         btn_logout.setOnClickListener(onClickListener);
 
         return v;
@@ -72,23 +72,23 @@ public class MypageFragment extends MyFragment {
         public void onClick(View view) {
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             switch (view.getId()) {
-                case R.id.btn_myinfo :
+                case R.id.tv_myinfo :
                     intent = new Intent(getActivity(), MyinfoActivity.class);
                     startActivityForResult(intent, 300);
                     break;
-                case R.id.btn_password :    //비밀번호관리
+                case R.id.tv_password :    //비밀번호관리
                     intent = new Intent(getActivity(), PasswordActivity.class);
                     startActivityForResult(intent, 300);
                     break;
-                case R.id.btn_mybabyinfo:   //아기정보관리
+                case R.id.tv_mybabyinfo:   //아기정보관리
                     intent = new Intent(getActivity(), MybabyActivity.class);
                     startActivityForResult(intent, 300);
                     break;
-                case R.id.btn_parentslist: //보호자명단
+                case R.id.tv_parentslist: //보호자명단
                     intent = new Intent(getActivity(), ParentsActivity.class);
                     startActivityForResult(intent, 300);
                     break;
-                case R.id.btn_Logout:
+                case R.id.tv_Logout:
                     showLogout();
                     break;
             } } }
@@ -98,9 +98,9 @@ public class MypageFragment extends MyFragment {
     void showLogout()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-        builder.setTitle("로그아웃");
-        builder.setMessage("로그아웃 하시겠습니까");
-        builder.setPositiveButton("예",
+        builder.setTitle(R.string.logout);
+        builder.setMessage(R.string.logout_message);
+        builder.setPositiveButton(R.string.logout,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         SharedPreferences mPreference =  getActivity().getSharedPreferences("pcoordinator", MODE_PRIVATE);
@@ -112,10 +112,10 @@ public class MypageFragment extends MyFragment {
                         getActivity().startActivity(intent);
                     }
                 });
-        builder.setNegativeButton("아니오",
+        builder.setNegativeButton(R.string.cancel,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext().getApplicationContext(),"취소되었습니다.",Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext().getApplicationContext(),R.string.cancel_message,Toast.LENGTH_LONG).show();
                     }
                 });
         builder.show();

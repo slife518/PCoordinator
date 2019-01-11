@@ -23,37 +23,78 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/searchBackground"
                     android:orientation="vertical">
-                        <Button
-                            android:id="@+id/btn_myinfo"
-                            android:drawableLeft="@drawable/ic_outline_insert_drive_file_24px"
+                        <TextView
+                            android:id="@+id/tv_myinfo"
                             android:text="@string/txCustomerinfo"
+                            android:layout_height="70dp"
+                            android:drawableStart="@drawable/ic_outline_insert_drive_file_24px"
+                            android:layout_marginTop="@dimen/app_margin_top"
                             style="@style/Mypagebutton"/>
-                        <Button
-                            android:id="@+id/btn_mybabyinfo"
-                            android:drawableLeft="@drawable/ic_baseline_accessibility_24px"
+
+                        <TextView
+                            android:id="@+id/tv_mybabyinfo"
                             android:text="@string/mybabyinfo"
+                            android:drawableStart="@drawable/ic_baseline_accessibility_24px"
+                            android:layout_height="70dp"
                             style="@style/Mypagebutton"/>
-                        <Button
-                            android:id="@+id/btn_parentslist"
-                            android:drawableLeft="@drawable/ic_baseline_group_24px"
+
+                        <TextView
+                            android:id="@+id/tv_parentslist"
                             android:text="@string/parentlist"
+                            android:drawableStart="@drawable/ic_baseline_group_24px"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="@dimen/app_margin_top"
                             style="@style/Mypagebutton"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="16dp"
-                            android:background="@android:color/black"/>
-                        <Button
-                            android:id="@+id/btn_password"
-                            android:drawableLeft="@drawable/ic_outline_phonelink_lock_24px"
+
+                        <TextView
+                            android:id="@+id/tv_password"
                             android:text="@string/txPassword"
+                            android:drawableStart="@drawable/ic_outline_phonelink_lock_24px"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="@dimen/app_margin_top"
                             style="@style/Mypagebutton"/>
-                        <Button
-                            android:id="@+id/btn_Logout"
-                            android:drawableLeft="@drawable/ic_baseline_clear_24px"
+
+                        <TextView
+                            android:id="@+id/tv_Logout"
                             android:text="@string/logout"
+                            android:drawableStart="@drawable/ic_baseline_clear_24px"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>
+
+
+                        <!--<Button-->
+                            <!--android:id="@+id/btn_myinfo"-->
+                            <!--android:drawableLeft="@drawable/ic_outline_insert_drive_file_24px"-->
+                            <!--android:text="@string/txCustomerinfo"-->
+                            <!--style="@style/Mypagebutton"/>-->
+                        <!--<Button-->
+                            <!--android:id="@+id/btn_mybabyinfo"-->
+                            <!--android:drawableLeft="@drawable/ic_baseline_accessibility_24px"-->
+                            <!--android:text="@string/mybabyinfo"-->
+                            <!--style="@style/Mypagebutton"/>-->
+                        <!--<Button-->
+                            <!--android:id="@+id/btn_parentslist"-->
+                            <!--android:drawableLeft="@drawable/ic_baseline_group_24px"-->
+                            <!--android:text="@string/parentlist"-->
+                            <!--style="@style/Mypagebutton"/>-->
+                        <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="16dp"-->
+                            <!--android:background="@android:color/black"/>-->
+                        <!--<Button-->
+                            <!--android:id="@+id/btn_password"-->
+                            <!--android:drawableLeft="@drawable/ic_outline_phonelink_lock_24px"-->
+                            <!--android:text="@string/txPassword"-->
+                            <!--style="@style/Mypagebutton"/>-->
+                        <!--<Button-->
+                            <!--android:id="@+id/btn_Logout"-->
+                            <!--android:drawableLeft="@drawable/ic_baseline_clear_24px"-->
+                            <!--android:text="@string/logout"-->
+                            <!--style="@style/Mypagebutton"/>-->
                 </LinearLayout>
 
         </ScrollView>

@@ -436,7 +436,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         } else {
 
                 // create a dataset and give it a type
-                set1 = new LineDataSet(yVals1, " 모유수유");
+                set1 = new LineDataSet(yVals1, "수유");
 
                 set1.setAxisDependency(YAxis.AxisDependency.RIGHT);
                 set1.setColor(ColorTemplate.getHoloBlue());

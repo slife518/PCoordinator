@@ -15,10 +15,11 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <TextView
+                <com.company.jk.pcoordinator.common.ygotjalnanfontTextview
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:gravity="center"
@@ -27,6 +28,8 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chart1"
                     android:layout_marginTop="3dp"
+                    android:layout_marginLeft="@dimen/app_margin_left"
+                    android:layout_marginRight="@dimen/app_margin_right"
                     android:layout_width="match_parent"
                     android:layout_height="254dp" />
 
@@ -146,7 +149,6 @@
 
                 <!--</ScrollView>-->
             </android.support.v4.widget.SwipeRefreshLayout>
-
 </LinearLayout>
 
 

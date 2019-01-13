@@ -58,7 +58,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        myToolbar.setTitle(R.string.update);
+        this.getSupportActionBar().setTitle(R.string.update);
 
         findViewById();
         _btn_plusRice.setOnClickListener(this);
@@ -276,9 +276,9 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
                 params.put("email", loginInfo.getEmail());
                 params.put("record_date", _date.getText().toString());
                 params.put("record_time", _time.getText().toString());
-                params.put("milk", _milk.getText().toString());
-                params.put("mothermilk", _mothermilk.getText().toString());
-                params.put("rice", _rice.getText().toString());
+                params.put("milk",(_milk.getText().toString().isEmpty()?"0":_milk.getText().toString()));
+                params.put("mothermilk",(_mothermilk.getText().toString().isEmpty()?"0":_mothermilk.getText().toString()));
+                params.put("rice", (_rice.getText().toString().isEmpty()?"0":_rice.getText().toString()));
                 params.put("description", _remainText.getText().toString());
 
                 return params;

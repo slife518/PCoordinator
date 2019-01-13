@@ -71,6 +71,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private ArrayList<RecordHistoryinfo> items = new ArrayList();
     private MilkRiceListViewAdapter mAdapter = null;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private Integer max_milk, min_milk, max_mothermilk, min_mothermilk;
 
 
     private LineChart mChart;
@@ -184,16 +185,16 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         YAxis leftAxis = mChart.getAxisLeft();
     //        leftAxis.setTypeface(mTfLight);
         leftAxis.setTextColor(Color.BLACK);
-        leftAxis.setAxisMaximum(1000);
-        leftAxis.setAxisMinimum(0);
+        leftAxis.setAxisMaximum(((max_milk + 100) > 1000)? 1000 : max_milk + 100);
+        leftAxis.setAxisMinimum(((min_milk - 30) < 0)? 0 : min_milk - 30);
         leftAxis.setDrawGridLines(true);
         leftAxis.setGranularityEnabled(true);
 
         YAxis rightAxis = mChart.getAxisRight();
 //        rightAxis.setTypeface(mTfLight);
         rightAxis.setTextColor(ColorTemplate.getHoloBlue());
-        rightAxis.setAxisMaximum(200);
-        rightAxis.setAxisMinimum(0);
+        rightAxis.setAxisMaximum(((max_mothermilk + 20) > 100)? 100 : max_mothermilk + 20);
+        rightAxis.setAxisMinimum(((min_mothermilk - 10) < 0)? 0 : min_mothermilk - 10);
         rightAxis.setDrawGridLines(false);
         rightAxis.setDrawZeroLine(false);
         rightAxis.setGranularityEnabled(false);
@@ -323,6 +324,26 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 e.printStackTrace();
             }
         }
+
+        //최대값 최소값 가져오기
+        //차트 데이터 가져오기
+        jsonArray = JsonParse.getJsonArrayFromString(response, "max_value");
+
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                JSONObject rs = (JSONObject) jsonArray.get(i);
+
+                max_mothermilk =        Integer.parseInt(rs.getString("max_mothermilk"));
+                min_mothermilk =        Integer.parseInt(rs.getString("min_mothermilk"));
+                max_milk =        Integer.parseInt(rs.getString("max_milk"));
+                min_milk =        Integer.parseInt(rs.getString("min_milk"));
+
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 

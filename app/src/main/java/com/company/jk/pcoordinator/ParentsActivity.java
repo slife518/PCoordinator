@@ -3,6 +3,7 @@ package com.company.jk.pcoordinator;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -40,7 +41,8 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
     ArrayList<ParentsInfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
     ParentsRecyclerViewAdapter mAdapter;
-    Button _btn_addParents;
+    //Button _btn_addParents;
+    FloatingActionButton _fab;
     String baby_id;
     Toolbar myToolbar;
     String TAG = "ParentsActivity";
@@ -59,16 +61,15 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        this.getSupportActionBar().setTitle(R.string.parentlist);
 
         if(baby_id == null || baby_id.isEmpty()){    //나의 페이지에서 바로 들어온것이면
             baby_id = loginInfo.getBabyID();
         }
 
-        _btn_addParents = findViewById(R.id.btn_addParents);
-        _btn_addParents.setOnClickListener(this);
 
-
+        _fab = findViewById(R.id.fab);
+        _fab.setOnClickListener(this);
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView =  findViewById(R.id.listView_main);
@@ -158,7 +159,7 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
             case R.id.btn_exit:
                 onBackPressed();
                 break;
-            case R.id.btn_addParents:
+            case R.id.fab:
                 Intent intent = new Intent(getApplicationContext(), InvitationActivity.class);
                 intent.putExtra("baby_id", baby_id);
                 startActivityForResult(intent, 2000);

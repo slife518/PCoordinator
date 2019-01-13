@@ -110,6 +110,9 @@ public class MypageFragment extends MyFragment {
                         //Toast.makeText(context.getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getContext(), LoginActivity.class );
                         getActivity().startActivity(intent);
+                        getActivity().finish();;
+
+
                     }
                 });
         builder.setNegativeButton(R.string.cancel,

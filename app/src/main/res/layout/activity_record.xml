@@ -22,8 +22,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/app_margin_top"
-            android:paddingLeft="@dimen/appbar_padding_left"
-            android:paddingRight="@dimen/appbar_padding_right"
+            android:layout_marginLeft="@dimen/app_margin_left"
+            android:layout_marginRight="@dimen/app_margin_right"
             android:focusable="true"
             android:focusableInTouchMode="true">
 

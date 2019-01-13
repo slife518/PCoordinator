@@ -108,7 +108,7 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.message_confirm_delete);
         builder.setMessage(R.string.message_confirm_delete_parents);
-        builder.setPositiveButton(R.string.yes,
+        builder.setPositiveButton(R.string.parent_yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {  //예 선택
                         delete_parents(email, baby_id, position);

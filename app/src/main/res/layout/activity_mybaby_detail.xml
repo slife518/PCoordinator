@@ -23,8 +23,8 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="@dimen/app_margin_left"
+            android:layout_marginRight="@dimen/app_margin_right"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="true"
@@ -84,14 +84,14 @@
                     <RadioButton
                         android:id="@+id/rd_boy"
                         android:text = "남자아이"
-                        android:textSize="20dp"
+                        android:textSize="15dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"/>
                     <RadioButton
                         android:id="@+id/rd_girl"
                         android:text = "여자아이"
-                        android:textSize="20dp"
+                        android:textSize="15dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>

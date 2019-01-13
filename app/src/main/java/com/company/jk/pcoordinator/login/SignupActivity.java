@@ -2,6 +2,10 @@ package com.company.jk.pcoordinator.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,17 +27,11 @@ import java.util.Map;
 
 public class SignupActivity extends MyActivity {
     final static String TAG = "Regist";
-//    final static String Controller = "Pc_Login";
     private static final int ADDRESS_REQUEST = 1777;
-//    private static String tcode;
     Intent intent;                    //Activity
     EditText _nameText, _emailText, _mobileText, _passwordText; //, _addressDetailText,_reEnterPasswordText;
-//    TextInputLayout _address_detail;
     Button _signupButton;                    //activity handler
     TextView _loginLink, _addressText;
-//    private JSONObject jObject = null; //group들로 구성된 json
-//    private JSONObject jsonObject1;
-//    private StringBuffer sb = new StringBuffer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +39,11 @@ public class SignupActivity extends MyActivity {
         setContentView(R.layout.activity_signup);
 
         _nameText = findViewById(R.id.input_name);
-//        _addressText = (TextView) findViewById(R.id.tv_address);
-//        _addressDetailText = (EditText) findViewById(R.id.et_address_detail);
-//        _address_detail = (TextInputLayout) findViewById(R.id.input_address_detail);
         _emailText = findViewById(R.id.input_email);
         _mobileText = findViewById(R.id.input_mobile);
         _passwordText = findViewById(R.id.input_password);
-//        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
         _signupButton = findViewById(R.id.btn_signup);
         _loginLink =  findViewById(R.id.link_login);
-
 
 
         //  주소

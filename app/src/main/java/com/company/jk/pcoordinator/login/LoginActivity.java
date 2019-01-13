@@ -171,4 +171,10 @@ public class LoginActivity extends MyActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

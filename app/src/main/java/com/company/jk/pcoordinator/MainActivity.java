@@ -103,24 +103,26 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
 //
     @Override
     public void onBackPressed() {
-        Log.i("백버튼", String.valueOf(doubleBackToExitPressedOnce));
-        if (doubleBackToExitPressedOnce) {
-            Log.i("백버튼실행 나가라 ", String.valueOf(doubleBackToExitPressedOnce));
-            finish();
-            return;
-        }
+//        Log.i("백버튼", String.valueOf(doubleBackToExitPressedOnce));
+//        if (doubleBackToExitPressedOnce) {
+//            Log.i("백버튼실행 나가라 ", String.valueOf(doubleBackToExitPressedOnce));
+//            finish();
+//            return;
+//        }
+//
+//        this.doubleBackToExitPressedOnce = true;
+//        Toast.makeText(this, R.string.warning_back, Toast.LENGTH_SHORT).show();
+//
+//
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                doubleBackToExitPressedOnce=false;
+//            }
+//        }, 2000);
 
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, R.string.warning_back, Toast.LENGTH_SHORT).show();
-
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
+        moveTaskToBack(true);
     }
 }
 

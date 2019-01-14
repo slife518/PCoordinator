@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.VolleyCallback;
@@ -72,7 +73,8 @@ public class FindPwActivity extends MyActivity implements View.OnClickListener{
             @Override
             public void onSuccessResponse(String result, int method) {
                 Log.i(TAG, "패스워드 조회 메일 발송 결과 : " + result);
-                if(result.equals("1")) {
+
+                if(JsonParse.getResultFromJsonString(result).equals("true")) {
                     showToast("초기화된 비밀번호가 메일로 전송되었습니다.");
                     finish();
                 }

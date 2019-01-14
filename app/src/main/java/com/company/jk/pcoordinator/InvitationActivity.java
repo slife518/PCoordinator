@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -37,18 +38,26 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
     RadioGroup _radioGroup;
     RadioButton _btn_email, _btn_phone;
     Button _btn_invite;
-    ImageButton _btn_search_person, _btn_exit;
+    ImageButton _btn_search_person;
     ImageView _iv_profile;
     EditText _find_user;
     TextView _name;
     final String TAG = "InvatationActivity";
     Intent intent;
     String _baby_id, _email;
+    Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
+
+
+        // Toolbar를 생성한다.
+        myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.invite);
 
         intent = getIntent(); //getIntent()로 받을준비
         _baby_id = intent.getStringExtra("baby_id");
@@ -58,7 +67,6 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
         _btn_phone = (RadioButton) findViewById(R.id.btn_tel);
 
         _btn_search_person = (ImageButton) findViewById(R.id.search_person);
-        _btn_exit = (ImageButton) findViewById(R.id.btn_exit);
 
         _btn_invite = (Button) findViewById(R.id.btn_invite);
         _iv_profile = (ImageView) findViewById(R.id.iv_profile);
@@ -66,7 +74,6 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
         _find_user = (EditText)findViewById(R.id.et_find_user);
 
         _btn_search_person.setOnClickListener(this);
-        _btn_exit.setOnClickListener(this);
         _btn_invite.setOnClickListener(this);
         _radioGroup.setOnCheckedChangeListener(this);
 
@@ -87,8 +94,6 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
         if(view ==_btn_search_person) {
             get_person_info();
             closeKeyboard();
-        }else if (view == _btn_exit){
-            finish();
         }else if(view == _btn_invite){
             invite_person();
         }

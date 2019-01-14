@@ -125,4 +125,17 @@ public class JsonParse {
         }
         return  jsonObject;
     }
+
+    public  static String getResultFromJsonString(String param){   //결과값이 {"result":"true"} 이런것
+//        JSONObject jObject = null; //group들로 구성된 json
+        String result = "";
+        try {
+            JSONObject jObject = new JSONObject(param);
+            result = jObject.getString("result");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }

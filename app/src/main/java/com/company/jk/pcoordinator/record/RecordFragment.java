@@ -35,6 +35,7 @@ import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
+import com.company.jk.pcoordinator.mypage.mybaby.MybabyActivity;
 import com.company.jk.pcoordinator.mypage.mybaby.Mybabyinfo;
 
 import java.text.SimpleDateFormat;
@@ -114,7 +115,6 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _date.setOnClickListener(this);
         _time.setOnClickListener(this);
         _save.setOnClickListener(this);
-
 
         _milk.setOnFocusChangeListener(this);
         _mothermilk.setOnFocusChangeListener(this);
@@ -201,7 +201,14 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
                 _rice.setText(calNumber(_rice.getText().toString(), - rice_num));
             }
         }else if(v == _save) {
-            save_data();
+            if(loginInfo.getBabyID().equals("0") || loginInfo.getBabyID().isEmpty()) {   //선택된 또는 등록된 아기가 없으면
+                Intent intent = new Intent(getContext(), MybabyActivity.class);
+                intent.putExtra("email", loginInfo.getEmail());
+                startActivityForResult(intent, 12);
+                showToast(getResources().getString(R.string.message_warnning_register_baby));
+            }else {
+                save_data();
+            }
         }
     }
 

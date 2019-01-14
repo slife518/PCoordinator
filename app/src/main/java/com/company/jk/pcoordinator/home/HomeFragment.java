@@ -316,9 +316,9 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 JSONObject rs = (JSONObject) jsonArray.get(i);
                 chartItems.add(new RecordChartInfo(
                         rs.getString("record_date"),
-                        Integer.parseInt(rs.getString("mothermilk")),
-                        Integer.parseInt(rs.getString("milk")),
-                        Integer.parseInt(rs.getString("rice"))
+                        (rs.getString("mothermilk")==null||rs.getString("mothermilk").isEmpty()?0:Integer.parseInt(rs.getString("mothermilk"))),
+                        (rs.getString("milk")==null||rs.getString("milk").isEmpty()?0 :Integer.parseInt(rs.getString("milk"))),
+                        (rs.getString("rice")==null||rs.getString("rice").isEmpty()?0 :Integer.parseInt(rs.getString("rice")))
                 ));
             }catch (JSONException e) {
                 e.printStackTrace();

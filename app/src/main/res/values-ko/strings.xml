@@ -50,13 +50,15 @@
     <string name="btn_delete">삭제하기</string>
     <string name="deleteAlert">삭제를 하시겠습니까?</string>
     <string name="saveAlert">저장되었습니다. 연속으로 저장하시겠습니까?</string>
-    <string name="invitation">초대</string>
+    <string name="invite">보호자 초대하기</string>
+    <string name="invitation">보호자 초대</string>
     <string name="parentlist">보호자 명단</string>
     <string name="letsEmail">이메일주소를 입력하세요</string>
     <string name="letsTel">연락처를 입력하세요</string>
     <string name="message_duplicate_user">이미 보호자로 등록되어 있습니다</string>
     <string name="message_confirm_delete">삭제</string>
     <string name="message_confirm_delete_parents">관계를 끊으시겠습니까?</string>
+    <string name="message_warnning_register_baby">아이 등록 후 사용 가능합니다.</string>
     <string name="mainTarget">기록 대상 아기</string>
     <string name="signin">회원가입</string>
     <string name="title_activity_signup">회원가입</string>

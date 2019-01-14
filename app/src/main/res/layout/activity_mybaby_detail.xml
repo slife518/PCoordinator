@@ -78,14 +78,17 @@
                 android:orientation="vertical"
                 android:layout_margin="32dp">
                 <RadioGroup
+                    android:id="@+id/rd_sex_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checkedButton="@+id/rd_boy"
                     android:orientation="horizontal">
                     <RadioButton
                         android:id="@+id/rd_boy"
                         android:text = "남자아이"
                         android:textSize="15dp"
                         android:layout_width="0dp"
+
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"/>
                     <RadioButton

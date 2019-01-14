@@ -18,6 +18,7 @@ import com.company.jk.pcoordinator.ParentsActivity;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.login.LoginActivity;
+import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.mybaby.MybabyActivity;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -26,6 +27,7 @@ public class MypageFragment extends MyFragment {
 
     TextView txCustomerinfo;
     View v;
+    LoginInfo loginInfo = LoginInfo.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,8 +87,14 @@ public class MypageFragment extends MyFragment {
                     startActivityForResult(intent, 300);
                     break;
                 case R.id.tv_parentslist: //보호자명단
-                    intent = new Intent(getActivity(), ParentsActivity.class);
-                    startActivityForResult(intent, 300);
+                    if(loginInfo.getBabyID().isEmpty() || loginInfo.getBabyID().equals("0")){
+                        showToast(getResources().getString(R.string.message_warnning_register_baby));
+                    }else {
+                        intent = new Intent(getActivity(), ParentsActivity.class);
+                        startActivityForResult(intent, 300);
+
+                    }
+
                     break;
                 case R.id.tv_Logout:
                     showLogout();

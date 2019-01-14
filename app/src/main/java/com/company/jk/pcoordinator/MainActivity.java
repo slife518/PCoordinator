@@ -76,11 +76,12 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
                 Log.i(TAG, "베이비아이디는 " + loginInfo.getBabyID() );
 //                Log.i("베이비아이디는 ", loginInfo.getBabyID());
                 if(loginInfo.getBabyID().equals("0") || loginInfo.getBabyID().isEmpty()){  //loginInfo.getBabyID() 는 db 가 int 이므로 기본은 0
-                    bottomBar.selectTabAtPosition(0, false);
 
-                    Intent intent = new Intent(this, MybabyDetailActivity.class);
+                    Intent intent = new Intent(this, MybabyActivity.class);
                     intent.putExtra("email",loginInfo.getEmail() );
                     startActivityForResult(intent, 12);
+                    replaceFragment(recordFragment);
+                    showToast( getResources().getString(R.string.message_warnning_register_baby));
                 }else if (!recordFragment.isVisible()){
                     replaceFragment(recordFragment);
                 }
@@ -92,6 +93,8 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
                 break;
         }
     }
+
+
 
 
     // Fragment 변환을 해주기 위한 부분, Fragment의 Instance를 받아서 변경

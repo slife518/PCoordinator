@@ -23,6 +23,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,8 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.company.jk.pcoordinator.MainActivity.bottomBar;
 
 public class MybabyDetailActivity extends MyActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
@@ -93,9 +96,6 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         _birthday.setOnClickListener(this);
 
         _name.setOnFocusChangeListener(this);
-
-
-
 
         _birthday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -362,7 +362,6 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
     private void modifyResponse(String response){
         Log.i(TAG, "결과값은 " + response);
-//        if (getArguments() == null) {    //아기 신규등록이면
         super.onBackPressed();
 //        MybabyActivity mf = new MybabyActivity();
 //        }else{

@@ -79,4 +79,6 @@
     <string name="chartTitle">우리아기 식사량 변화추이</string>
     <string name="logout_message">로그아웃하시겠습니까?</string>
     <string name="message_updated">수정되었습니다.</string>
+    <string name="nomember">등록되지 않은 메일주소입니다.</string>
+
 </resources>

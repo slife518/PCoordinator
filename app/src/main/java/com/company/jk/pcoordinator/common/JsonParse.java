@@ -50,6 +50,24 @@ public class JsonParse {
         return jsonObject1;
     }
 
+
+
+    public static JSONObject getJsonObjectSingleFromString(String rs) {   //:{"email":"slife705@naver.com","baby_id":"1"}
+
+        //JSONObject jsonObject = new JSONObject(rs);
+
+        JSONObject jsonObject = new JSONObject(); //group들로 구성된 json
+
+        try {
+            jsonObject = new JSONObject(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+
+
     //StringBuffer 에서 jsonObject 추출
     public static JSONObject getJsonObjectFromStringBuffer(StringBuffer sb){
         JSONObject jsonObject = new JSONObject(); //group들로 구성된 json

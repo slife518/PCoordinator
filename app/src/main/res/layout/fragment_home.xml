@@ -33,60 +33,116 @@
             <!--android:layout_height="254dp" />-->
     <!--</RelativeLayout>-->
 
-        <HorizontalScrollView
-            android:layout_width="400dp"
-            android:layout_height="wrap_content" >
-             <LinearLayout
-                android:layout_width="match_parent"
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="700dp"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/layout_chart1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1">
 
-                <RelativeLayout
-                    android:id="@+id/layout_chart1"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:gravity="center"
-                        android:fontFamily="@font/nanumsquarel"
-                        android:layout_marginLeft="@dimen/chart_margin_left"
-                        android:text="@string/chartTitle1"/>
+                    android:layout_marginLeft="@dimen/chart_margin_left"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nanumsquarel"
+                    android:gravity="center"
+                    android:text="@string/chartTitle1" />
 
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/chart1"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="@dimen/chart_margin_left"
-                        android:layout_width="match_parent"
-                        android:layout_height="254dp" />
-                </RelativeLayout>
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart1"
+                    android:layout_width="matcslife0h_parent"
+                    android:layout_height="254dp"
+                    android:layout_marginLeft="@dimen/chart_margin_left"
+                    android:layout_marginTop="3dp" />
+            </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/layout_chart2"
-                    android:layout_width="0dp"
+            <RelativeLayout
+                android:id="@+id/layout_chart2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_marginRight="@dimen/chart_margin_right"
-                        android:layout_marginLeft="5dp"
-                        android:fontFamily="@font/nanumsquarel"
-                        android:gravity="center"
-                        android:text="@string/chartTitle2"/>
+                    android:layout_marginLeft="@dimen/chart_margin_left"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nanumsquarel"
+                    android:gravity="center"
+                    android:text="@string/chartTitle2" />
 
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/chart2"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="@dimen/chart_margin_right"
-                        android:layout_width="match_parent"
-                        android:layout_height="254dp" />
-                </RelativeLayout>
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart2"
+                    android:layout_width="match_parent"
+                    android:layout_height="254dp"
+                    android:layout_marginRight="@dimen/chart_margin_right"
+                    android:layout_marginTop="3dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
-            </LinearLayout>
-        </HorizontalScrollView>
+        <!--<HorizontalScrollView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" >-->
+             <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/layout_chart1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="@dimen/chart_width"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center"-->
+                        <!--android:fontFamily="@font/nanumsquarel"-->
+                        <!--android:layout_marginLeft="@dimen/chart_margin_left"-->
+                        <!--android:layout_marginTop="20dp"-->
+                        <!--android:text="@string/chartTitle1"/>-->
+
+                    <!--<com.github.mikephil.charting.charts.LineChart-->
+                        <!--android:id="@+id/chart1"-->
+                        <!--android:layout_marginTop="3dp"-->
+                        <!--android:layout_marginLeft="@dimen/chart_margin_left"-->
+                        <!--android:layout_width="@dimen/chart_width"-->
+                        <!--android:layout_height="254dp" />-->
+                <!--</RelativeLayout>-->
+
+                 <!--<RelativeLayout-->
+                     <!--android:id="@+id/layout_chart2"-->
+                     <!--android:layout_width="wrap_content"-->
+                     <!--android:layout_height="wrap_content">-->
+                     <!--<TextView-->
+                         <!--android:layout_width="@dimen/chart_width"-->
+                         <!--android:layout_height="wrap_content"-->
+                         <!--android:layout_marginTop="20dp"-->
+                         <!--android:gravity="center"-->
+                         <!--android:fontFamily="@font/nanumsquarel"-->
+                         <!--android:layout_marginLeft="@dimen/chart_margin_left"-->
+                         <!--android:text="@string/chartTitle2"/>-->
+
+                     <!--<com.github.mikephil.charting.charts.LineChart-->
+                         <!--android:id="@+id/chart2"-->
+                         <!--android:layout_marginTop="3dp"-->
+                         <!--android:layout_marginRight="@dimen/chart_margin_right"-->
+                         <!--android:layout_width="@dimen/chart_width"-->
+                         <!--android:layout_height="254dp" />-->
+                 <!--</RelativeLayout>-->
+            <!--</LinearLayout>-->
+        <!--</HorizontalScrollView>-->
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -83,7 +83,7 @@
     </style>
 
     <style name="ToolbarTheme">
-        <item name="android:fontFamily">fonts/nanumsquarel</item>
+        <item name="android:fontFamily">@font/nanumsquarel</item>
         <!--<item name="android:fontFamily">fonts/greatvibesregular</item>-->
     </style>
 
@@ -108,9 +108,8 @@
     <style name="btn_style">
         <item name="android:background">@drawable/button_bg</item>
         <item name="android:minHeight">46dp</item>
-        <item name="android:textSize">@dimen/btn_bigsize</item>
+        <item name="android:textSize">@dimen/btn_middlesize</item>
         <item name="android:paddingLeft">16dp</item>
-        <item name="android:fontFamily">fonts/nanumsquarel</item>
     </style>
 
     <style name="Mypagebutton">
@@ -121,7 +120,11 @@
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:background">@android:color/white</item>
-        <item name="android:fontFamily">fonts/nanumsquarel</item>
+        <item name="android:fontFamily">@font/nanumsquarer</item>
         <item name="android:drawablePadding">@dimen/appbar_padding_left</item>
+    </style>
+
+    <style name="toolbarTitle">
+        <item name="android:fontFamily">@font/nanumsquareeb</item>
     </style>
 </resources>

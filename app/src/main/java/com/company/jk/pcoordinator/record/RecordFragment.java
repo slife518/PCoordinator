@@ -94,6 +94,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
         myToolbar.setTitle(R.string.title_record);
         activity.setSupportActionBar(myToolbar);
+        myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
 
 
         findViewById(v);

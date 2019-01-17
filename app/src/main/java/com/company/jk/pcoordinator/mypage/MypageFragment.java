@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.company.jk.pcoordinator.ParentsActivity;
 import com.company.jk.pcoordinator.R;
@@ -45,6 +44,7 @@ public class MypageFragment extends MyFragment {
         Toolbar myToolbar = (Toolbar)v.findViewById(R.id.my_toolbar);
         activity.setSupportActionBar(myToolbar);
         myToolbar.setTitle(R.string.mypage);
+        myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
 
 
         // BtnOnClickListener의 객체 생성.

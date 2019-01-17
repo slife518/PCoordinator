@@ -68,10 +68,10 @@ public class SignupActivity extends MyActivity {
 
     public void OnClickMethod(View v) {
         switch (v.getId()) {
-            case R.id.btn_findAddress:
-                intent = new Intent(getApplicationContext(), AddressPostActivity.class);
-                startActivityForResult(intent, ADDRESS_REQUEST);
-                break;
+//            case R.id.btn_findAddress:
+//                intent = new Intent(getApplicationContext(), AddressPostActivity.class);
+//                startActivityForResult(intent, ADDRESS_REQUEST);
+//                break;
 
             case R.id.btn_signup:
                 if (check_validation()) {

@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginLeft="@dimen/appbar_padding_left"
+            android:layout_marginLeft="@dimen/app_margin_left"
             android:layout_marginRight="@dimen/app_margin_right"
             android:background="@color/transparent"
             android:orientation="horizontal">
@@ -73,16 +73,17 @@
                 android:textAlignment="center"
                 android:hint="@string/letsEmail"
                 android:singleLine="true"
+                android:imeOptions="actionSearch"
                 android:textSize="@dimen/btn_middlesize" />
 
-            <ImageButton
-                android:id="@+id/search_person"
-                style="?android:buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingBottom="5dp"
-                android:src="@drawable/ic_baseline_search_24px" />
+            <!--<ImageButton-->
+                <!--android:id="@+id/search_person"-->
+                <!--style="?android:buttonBarButtonStyle"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:src="@drawable/ic_baseline_search_24px" />-->
 
         </LinearLayout>
 

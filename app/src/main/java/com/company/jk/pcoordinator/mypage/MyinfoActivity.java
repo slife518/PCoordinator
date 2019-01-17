@@ -50,7 +50,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
     TextView _address1, _birthday;
     EditText _address2, _name, _tel;
-    AppCompatImageButton _btn_findaddress;
+//    AppCompatImageButton _btn_findaddress;
     Button _btn_save;
     Intent intent;
     CheckBox _cb_auto;
@@ -72,6 +72,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(loginInfo.getEmail());
+        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
 
         mContext = getApplicationContext();
@@ -83,11 +84,11 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         _address1 = findViewById(R.id.tv_address);
         _address2 = findViewById(R.id.et_address_detail);
 //        _layout_address_detail = (View) findViewById(R.id.layout_address_detail);
-        _btn_findaddress = findViewById(R.id.btn_findAddress);
+//        _btn_findaddress = findViewById(R.id.btn_findAddress);
         _btn_save = findViewById(R.id.btn_save);
         _cb_auto = findViewById(R.id.cb_Auto);
         _btn_save.setOnClickListener(this);
-        _btn_findaddress.setOnClickListener(this);
+//        _btn_findaddress.setOnClickListener(this);
         _address1.setOnClickListener(this);
         _cb_auto.setChecked(mPreference.getBoolean("AutoChecked", true));
         _cb_auto.setOnCheckedChangeListener(
@@ -143,7 +144,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 //                //왼쪽에서 오른쪽 슬라이드
 //                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
 //                break;
-            case R.id.btn_findAddress : case R.id.tv_address:
+            case R.id.tv_address:
                 intent = new Intent(mContext, AddressPostActivity.class);
                 startActivityForResult(intent, ADDRESS_REQUEST);
                 break;

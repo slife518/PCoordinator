@@ -9,28 +9,28 @@ import android.util.AttributeSet;
  * Created by jungkukjo on 13/01/2019.
  */
 
-public class ygotjalnanfontTextview extends AppCompatTextView{
+public class Textview_nanumsquarer extends AppCompatTextView{
 
 
 
-    public ygotjalnanfontTextview(Context context) {
+    public Textview_nanumsquarer(Context context) {
         super(context, (AttributeSet)null);
         applyTypeface(context);
     }
 
-    public ygotjalnanfontTextview(Context context, AttributeSet attrs) {
+    public Textview_nanumsquarer(Context context, AttributeSet attrs) {
         super(context, attrs, 16842884);
         applyTypeface(context);
     }
 
-    public ygotjalnanfontTextview(Context context, AttributeSet attrs, int defStyleAttr) {
+    public Textview_nanumsquarer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context,attrs,defStyleAttr);
         applyTypeface(context);
 
     }
 
     private void applyTypeface(Context context){
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "font/ygotjalnanfont.ttf");
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "font/nanumsquarer.ttf");
         setTypeface(typeface);
     }
 }

@@ -59,6 +59,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle(R.string.update);
+        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         findViewById();
         _btn_plusRice.setOnClickListener(this);

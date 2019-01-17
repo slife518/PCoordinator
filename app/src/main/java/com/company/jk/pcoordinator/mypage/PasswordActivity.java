@@ -49,6 +49,7 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.passwordmng);
+        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
 
         _old_password = (EditText) findViewById(R.id.et_old_password);
@@ -63,12 +64,12 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_exit:
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                MypageFragment myFragment = new MypageFragment();
-                //왼쪽에서 오른쪽 슬라이드
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
-                break;
+//            case R.id.btn_exit:
+//                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+//                MypageFragment myFragment = new MypageFragment();
+//                //왼쪽에서 오른쪽 슬라이드
+//                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
+//                break;
             case R.id.btn_password_save:  //비밀번호 변경 저장
                 if(check_validation_pw()){
                     tcode = "save_customer_pw";

@@ -62,6 +62,7 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle(R.string.parentlist);
+        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         if(baby_id == null || baby_id.isEmpty()){    //나의 페이지에서 바로 들어온것이면
             baby_id = loginInfo.getBabyID();
@@ -156,9 +157,6 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
         switch (view.getId()) {
-            case R.id.btn_exit:
-                onBackPressed();
-                break;
             case R.id.fab:
                 Intent intent = new Intent(getApplicationContext(), InvitationActivity.class);
                 intent.putExtra("baby_id", baby_id);

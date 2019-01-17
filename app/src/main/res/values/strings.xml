@@ -66,7 +66,7 @@
     <string name="find_password">비밀번호찾기</string>
     <string name="create_Account">가입하기</string>
     <string name="Already_a_member">Already a member? Login</string>
-    <string name="confirm">Send Password to Email address above</string>
+    <string name="confirm">비밀번호 보내기</string>
     <string name="password">비밀번호</string>
     <string name="launchtext">소중한 우리 아기</string>
     <string name="mothermilk">모유수유(분)</string>
@@ -76,7 +76,8 @@
     <string name="mothermilk_list">수유</string>
     <string name="mypage">마이페이지</string>
     <string name="update">기록수정하기</string>
-    <string name="chartTitle">우리아기 식사량 변화추이</string>
+    <string name="chartTitle1">수유시간</string>
+    <string name="chartTitle2">분유/이유식</string>
     <string name="logout_message">로그아웃하시겠습니까?</string>
     <string name="message_updated">수정되었습니다.</string>
     <string name="nomember">등록되지 않은 메일주소입니다.</string>

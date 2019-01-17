@@ -6,20 +6,18 @@ import java.io.Serializable;
  * Created by jungkukjo on 06/01/2019.
  */
 
-public class RecordChartInfo implements Serializable {
+public class RecordChart2Info implements Serializable {
 
 
     private String date;
-    private int mothermilk;
     private int milk;
     private int rice;
 
 
-    public RecordChartInfo(String date, int mothermilk, int milk, int rice){
+    public RecordChart2Info(String date, int milk, int rice){
 
         this.date = date.substring(5,10);
         this.milk = milk;
-        this.mothermilk = mothermilk;
         this.rice = rice;
 
     }
@@ -32,13 +30,6 @@ public class RecordChartInfo implements Serializable {
         this.date = date;
     }
 
-    public int getMothermilk() {
-        return mothermilk;
-    }
-
-    public void setMothermilk(int mothermilk) {
-        this.mothermilk = mothermilk;
-    }
 
     public int getMilk() {
         return milk;

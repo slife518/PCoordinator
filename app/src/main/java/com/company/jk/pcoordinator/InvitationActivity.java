@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +40,7 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
     RadioGroup _radioGroup;
     RadioButton _btn_email, _btn_phone;
     Button _btn_invite;
-    ImageButton _btn_search_person;
+//    ImageButton _btn_search_person;
     ImageView _iv_profile;
     EditText _find_user;
     TextView _name;
@@ -58,6 +60,7 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.invite);
+        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         intent = getIntent(); //getIntent()로 받을준비
         _baby_id = intent.getStringExtra("baby_id");
@@ -66,14 +69,15 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
         _btn_email = (RadioButton) findViewById(R.id.btn_email);
         _btn_phone = (RadioButton) findViewById(R.id.btn_tel);
 
-        _btn_search_person = (ImageButton) findViewById(R.id.search_person);
+//        _btn_search_person = (ImageButton) findViewById(R.id.search_person);
 
         _btn_invite = (Button) findViewById(R.id.btn_invite);
         _iv_profile = (ImageView) findViewById(R.id.iv_profile);
         _name = (TextView)findViewById(R.id.tv_name);
         _find_user = (EditText)findViewById(R.id.et_find_user);
 
-        _btn_search_person.setOnClickListener(this);
+        _find_user.setOnEditorActionListener(this);
+//        _btn_search_person.setOnClickListener(this);
         _btn_invite.setOnClickListener(this);
         _radioGroup.setOnCheckedChangeListener(this);
 
@@ -91,12 +95,23 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        if(view ==_btn_search_person) {
-            get_person_info();
-            closeKeyboard();
-        }else if(view == _btn_invite){
+//        if(view ==_btn_search_person) {
+//            get_person_info();
+//            closeKeyboard();
+//        }else
+            if(view == _btn_invite){
             invite_person();
         }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            get_person_info();
+            closeKeyboard();
+            return true;
+        }
+        return false;
     }
 
     private void get_person_info(){
@@ -213,8 +228,4 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
         }
     }
 
-    @Override
-    public void onBackPressed() {
-
-    }
 }

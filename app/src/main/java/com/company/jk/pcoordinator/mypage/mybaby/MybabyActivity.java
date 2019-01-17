@@ -63,6 +63,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         _btn_add = findViewById(R.id.btn_add);
         _btn_add.setOnClickListener(this);

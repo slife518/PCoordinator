@@ -15,31 +15,82 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <!--<RelativeLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<com.company.jk.pcoordinator.common.ygotjalnanfontTextview-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="80dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/chartTitle"/>-->
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <com.company.jk.pcoordinator.common.ygotjalnanfontTextview
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:gravity="center"
-                    android:text="@string/chartTitle"/>
+        <!--<com.github.mikephil.charting.charts.LineChart-->
+            <!--android:id="@+id/chart1"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:layout_marginLeft="@dimen/app_margin_left"-->
+            <!--android:layout_marginRight="@dimen/app_margin_right"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="254dp" />-->
+    <!--</RelativeLayout>-->
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart1"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginLeft="@dimen/app_margin_left"
-                    android:layout_marginRight="@dimen/app_margin_right"
-                    android:layout_width="match_parent"
-                    android:layout_height="254dp" />
+        <HorizontalScrollView
+            android:layout_width="400dp"
+            android:layout_height="wrap_content" >
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/layout_chart1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/nanumsquarel"
+                        android:layout_marginLeft="@dimen/chart_margin_left"
+                        android:text="@string/chartTitle1"/>
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/chart1"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="@dimen/chart_margin_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="254dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_chart2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginRight="@dimen/chart_margin_right"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/nanumsquarel"
+                        android:gravity="center"
+                        android:text="@string/chartTitle2"/>
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/chart2"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="@dimen/chart_margin_right"
+                        android:layout_width="match_parent"
+                        android:layout_height="254dp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </HorizontalScrollView>
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:background="@color/buttonColorAccent">
                 <TableRow>
                     <TableLayout
@@ -129,9 +180,7 @@
             <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/swipe_layout"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
+                android:id="@+id/swipe_layout">
 
                 <!--<ScrollView-->
                     <!--android:id="@+id/scrollView"-->

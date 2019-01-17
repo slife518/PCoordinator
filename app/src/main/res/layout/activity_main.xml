@@ -34,6 +34,6 @@
         app:bb_inActiveTabAlpha="0.3"
         app:bb_inActiveTabColor="@color/colorAccent"
         app:bb_activeTabColor="@color/colorAccent"
-        app:bb_titleTypeFace="font/GreatVibes-Regular.otf"
+        app:bb_titleTypeFace="font/nanumsquareb.ttf"
         app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"/>
 </RelativeLayout>

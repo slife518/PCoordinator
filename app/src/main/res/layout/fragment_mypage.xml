@@ -65,6 +65,14 @@
                             android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>
 
+                        <TextView
+                            android:id="@+id/tv_QnA"
+                            android:text="@string/QnA"
+                            android:drawableStart="@drawable/ic_baseline_question_answer_24px"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="1dp"
+                            style="@style/Mypagebutton"/>
+
 
                         <!--<Button-->
                             <!--android:id="@+id/btn_myinfo"-->

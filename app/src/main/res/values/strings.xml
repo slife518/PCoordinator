@@ -31,7 +31,7 @@
     <string name="action_settings">Settings</string>
     <string name="account">Mypage</string>
     <string name="logout">로그아웃</string>
-    <string name="record">Record</string>
+    <string name="record">기록하기</string>
     <string name="title_record">기록하기</string>
     <string name="mybaby">우리아이</string>
     <string name="mybabyinfo">아기정보</string>
@@ -42,7 +42,7 @@
     <string name="remain_contents">남기고싶은말</string>
     <string name="addBaby">아기추가</string>
     <string name="baby_picture">아기사진을 올려주세요</string>
-    <string name="Home">Home</string>
+    <string name="home">홈</string>
     <string name="author">작성자</string>
     <string name="comments">설명</string>
     <string name="btn_cancel">취소하기</string>
@@ -81,5 +81,6 @@
     <string name="logout_message">로그아웃하시겠습니까?</string>
     <string name="message_updated">수정되었습니다.</string>
     <string name="nomember">등록되지 않은 메일주소입니다.</string>
+    <string name="QnA">문의하기</string>
 
 </resources>

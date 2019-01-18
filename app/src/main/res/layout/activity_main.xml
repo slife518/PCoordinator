@@ -26,14 +26,14 @@
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_marginTop="3dp"
+        android:layout_height="49dp"
         android:layout_alignParentBottom="true"
         android:background="#FFFFFF"
         app:bb_tabXmlResource="@xml/bottombar_tabs"
-        app:bb_behavior="shifting"
         app:bb_inActiveTabAlpha="0.3"
-        app:bb_inActiveTabColor="@color/colorAccent"
-        app:bb_activeTabColor="@color/colorAccent"
-        app:bb_titleTypeFace="font/nanumsquareb.ttf"
+        app:bb_inActiveTabColor="@color/inActivebuttonColor"
+        app:bb_activeTabColor="@color/buttonColorAccent"
+        app:bb_titleTypeFace="font/nanumsquarel.ttf"
         app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"/>
 </RelativeLayout>

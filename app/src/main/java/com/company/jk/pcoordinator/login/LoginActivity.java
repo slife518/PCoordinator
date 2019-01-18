@@ -13,10 +13,18 @@ import android.widget.TextView;
 
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
+import com.company.jk.pcoordinator.common.MyDataTransaction;
+import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends MyActivity {
     final static String TAG = "Login";
@@ -75,7 +83,20 @@ public class LoginActivity extends MyActivity {
                 setAutoLogin();   //자동로그인
                 //ID 체크 후 회원이면 예약현황화면으로 이동
                 if (NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())) {
-                    new HttpTaskSignIn().execute("signin");
+                    MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext());
+                    Map<String, String> params = new HashMap<>();
+                    params.put("email", et_email.getText().toString());
+                    params.put("password", et_pw.getText().toString());
+
+                    VolleyCallback callback = new VolleyCallback() {
+                        @Override
+                        public void onSuccessResponse(String result, int method) {
+                            success_login(result);
+                        }
+                    };
+                    dataTransaction.queryExecute(1, params, "Pc_login/signin", callback);
+
+//                    new HttpTaskSignIn().execute("signin");
                 }
                 break;
 
@@ -117,60 +138,101 @@ public class LoginActivity extends MyActivity {
         editor.commit();
     }
 
-    //  DB 쓰레드 작업
-    class HttpTaskSignIn extends AsyncTask<String, String, String> {
-        @Override
-        protected String doInBackground(String... args) {
-            String name = "";
-            String babyID = "";
-            LoginService httpHandler = new LoginService.Builder(Controller, "signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
+    private void success_login(String result) {
 
-            sb = httpHandler.getData();
+        String name = "", babyID = "", babyBirthday = "", babyName = "";
+
+            //
+            JSONObject memberinfo = JsonParse.getJsonObecjtFromString(result, "memberinfo");
+            JSONObject babyinfo = JsonParse.getJsonObecjtFromString(result, "babyinfo");
 
             try {
-                //결과값에 jsonobject 가 두건 이상인 경우 한건 조회
-//                JSONObject jsonObject = httpHandler.getNeedJSONObject(sb, "result");
+                name = memberinfo.getString("nickname");
+                babyID = memberinfo.getString("baby_id");
+                babyName = babyinfo.getString("babyname");
+                babyBirthday = babyinfo.getString("birthday");
 
-                //결과값이 한건의 json인 경우
-                JSONObject jsonObject = new JSONObject(sb.toString());
-
-                name = jsonObject.getString("nickname");
-                babyID = jsonObject.getString("baby_id");
-
-                //  String level = jsonObject.getString("level");
-                //  String birthday = jsonObject.getString("birthday");
-                if (name != "") {
-                    loginInfo.setName(name);
-                    loginInfo.setBabyID(babyID);
-                    //  loginInfo.setBirthday(birthday);
-                    //  loginInfo.setLevel(level);
-
-                }
-            } catch (Exception e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return name;
-        }
 
-        @Override
-        protected void onPostExecute(String value) {
-            super.onPostExecute(value);
-            String toastMessage;
-            if (value != "") {
+            //  String birthday = jsonObject.getString("birthday");
+            if (name != "") {
+                loginInfo.setName(name);
+                loginInfo.setBabyID(babyID);
+                loginInfo.setBabybirthday(babyBirthday);
+                loginInfo.setBabyname(babyName);
+                //  loginInfo.setLevel(level);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                toastMessage = getString((R.string.Welcome));
                 intent.putExtra("jsReserved", String.valueOf(sb));
                 startActivity(intent);
+                showToast(getResources().getString( R.string.Welcome));
                 finish();
-            } else {
-                toastMessage = getString(R.string.Warnning);
+            }else{
+                showToast(getResources().getString( R.string.Warnning));
             }
-//            Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
-            showToast(toastMessage);
-        }
-
-
     }
+
+    //  DB 쓰레드 작업
+//    class HttpTaskSignIn extends AsyncTask<String, String, String> {
+//        @Override
+//        protected String doInBackground(String... args) {
+//            String name = "";
+//            String babyID = "";
+//            String babyBirthday = "";
+//            String babyName = "";
+//            LoginService httpHandler = new LoginService.Builder(Controller, "signin").email(loginInfo.getEmail()).password(loginInfo.getPassword()).build();
+//
+//            sb = httpHandler.getData();
+//
+//            try {
+////                결과값에 jsonobject 가 두건 이상인 경우 한건 조회
+//                JSONObject memberinfo = httpHandler.getNeedJSONObject(sb, "memberinfo");
+//                JSONObject babyinfo = httpHandler.getNeedJSONObject(sb, "babyinfo");
+//
+////                //결과값이 한건의 json인 경우
+////                JSONObject jsonObject = new JSONObject(sb.toString());
+//
+//                name = memberinfo.getString("nickname");
+//                babyID = memberinfo.getString("baby_id");
+//
+//                babyBirthday = babyinfo.getString("birthday");
+//                babyName = babyinfo.getString("babyname");
+//                //  String level = jsonObject.getString("level");
+//                //  String birthday = jsonObject.getString("birthday");
+//                if (name != "") {
+//                    loginInfo.setName(name);
+//                    loginInfo.setBabyID(babyID);
+//                    loginInfo.setBabybirthday(babyBirthday);
+//                    loginInfo.setBabyname(babyName);
+//                    //  loginInfo.setLevel(level);
+//
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return name;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String value) {
+//            super.onPostExecute(value);
+//            String toastMessage;
+//            if (value != "") {
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                toastMessage = getString((R.string.Welcome));
+//                intent.putExtra("jsReserved", String.valueOf(sb));
+//                startActivity(intent);
+//                finish();
+//            } else {
+//                toastMessage = getString(R.string.Warnning);
+//            }
+////            Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+//            showToast(toastMessage);
+//        }
+//
+//
+//    }
 
     @Override
     public void onBackPressed() {

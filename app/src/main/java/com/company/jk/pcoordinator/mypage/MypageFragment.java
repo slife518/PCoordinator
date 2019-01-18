@@ -3,6 +3,7 @@ package com.company.jk.pcoordinator.mypage;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,9 @@ public class MypageFragment extends MyFragment {
         TextView btn_logout = v.findViewById(R.id.tv_Logout);
         btn_logout.setOnClickListener(onClickListener);
 
+        TextView btn_QnA = v.findViewById(R.id.tv_QnA);
+        btn_QnA.setOnClickListener(onClickListener);
+
         return v;
     }
 
@@ -92,12 +96,13 @@ public class MypageFragment extends MyFragment {
                     }else {
                         intent = new Intent(getActivity(), ParentsActivity.class);
                         startActivityForResult(intent, 300);
-
                     }
-
                     break;
                 case R.id.tv_Logout:
                     showLogout();
+                    break;
+                case R.id.tv_QnA:
+                    link_QnA();
                     break;
             } } }
 
@@ -130,5 +135,11 @@ public class MypageFragment extends MyFragment {
                     }
                 });
         builder.show();
+    }
+
+    private void link_QnA(){
+        Intent i = new Intent(android.content.Intent.ACTION_VIEW);
+        i.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.company.jk.pcoordinator"));
+        startActivity(i);
     }
 }

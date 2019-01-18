@@ -2,16 +2,18 @@
 <tabs>
     <tab
         id="@+id/bottomBarItemHome"
-        icon="@drawable/ic_baseline_home_24px"
+        icon="@drawable/ic_outline_home_24px"
+        title="@string/home"
         />
     <tab
         id="@+id/bottomBarItemRecord"
-        icon="@drawable/ic_baseline_create_24px"
+        icon="@drawable/ic_outline_create_24px"
+        title="@string/record"
         />
     <tab
         id="@+id/bottomBarItemPerson"
-        icon="@drawable/ic_baseline_person_24px"
-
+        icon="@drawable/ic_outline_person_24px"
+        title="@string/mypage"
         />
 
 </tabs>

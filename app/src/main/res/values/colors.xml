@@ -14,8 +14,17 @@
     <color name="transparent">#00000000</color>
 
     <color name="searchBackground">#e0e0e0</color>
-    <color name="buttonColorAccent">#0B6623</color>
+    <color name="buttonColorAccent">#486dda</color>
     <color name="buttonColor1">#e0e0e0</color>
+    <color name="inActivebuttonColor">#808080</color>
     <color name="buttonTextColor">#FFFFFF</color>
+
+
+    //차트 선 색상
+    <color name="mothermilkcolor">#9ae1ef</color>
+    <color name="milkcolor">#EF9A9A</color>
+    <color name="ricecolor">#a8f4a9</color>
+
+
 
 </resources>

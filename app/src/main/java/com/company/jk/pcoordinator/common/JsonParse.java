@@ -118,6 +118,19 @@ public class JsonParse {
         return jsonArray;
     }
 
+    // {"chartData":[{"record_date":"2018-06-03","milk":"150","mothermilk":"0","rice":"50"}  로 .. chartData 만 받기 위함
+    public static JSONObject getJsonObecjtFromString(String rs, String groupname) {
+
+        JSONObject result = new JSONObject();
+        try {
+            JSONObject object = new JSONObject(rs);
+            result = object.getJSONObject(groupname);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     //result 이름의 jsonObject 를 jsonArray 에 담는다.
     public static  JSONArray getJsonArrayFromJsonObject(JSONObject jsonObject, String name){
         JSONArray jsonArray = new JSONArray();

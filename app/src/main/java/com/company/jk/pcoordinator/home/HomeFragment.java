@@ -94,6 +94,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
         activity.setSupportActionBar(myToolbar);
         myToolbar.setTitle(R.string.app_name);
+        myToolbar.setSubtitle("민준이는 태어난 지 18개월째입니다.");
         myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
 
 
@@ -432,12 +433,12 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 set1 = new LineDataSet(yVals1, "수유");
 
                 set1.setAxisDependency(YAxis.AxisDependency.RIGHT);
-                set1.setColor(ColorTemplate.getHoloBlue());
+                set1.setColor(getResources().getColor(R.color.mothermilkcolor));
                 set1.setCircleColor(ColorTemplate.getHoloBlue());
                 set1.setLineWidth(2f);
                 set1.setCircleRadius(3f);
                 set1.setFillAlpha(65);
-                set1.setFillColor(ColorTemplate.getHoloBlue());
+                set1.setFillColor(getResources().getColor(R.color.mothermilkcolor));
                 set1.setHighLightColor(Color.rgb(244, 117, 117));
                 set1.setDrawCircleHole(false);
                 //set1.setFillFormatter(new MyFillFormatter(0f));
@@ -449,7 +450,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 LineData data1 = new LineData(set1);  // 수유
 
 
-                data1.setValueTextColor(Color.GRAY);
+                data1.setValueTextColor(Color.BLACK);
                 data1.setValueTextSize(9f);
 
                 // x축 label
@@ -503,12 +504,12 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             set2 = new LineDataSet(yVals2, "분유");
 
             set2.setAxisDependency(YAxis.AxisDependency.LEFT);  //지표 참조
-            set2.setColor(Color.RED);
-            set2.setCircleColor(Color.RED);
+            set2.setColor(getResources().getColor(R.color.milkcolor));
+            set2.setCircleColor(getResources().getColor(R.color.milkcolor));
             set2.setLineWidth(2f);
             set2.setCircleRadius(3f);
             set2.setFillAlpha(65);
-            set2.setFillColor(Color.RED);
+            set2.setFillColor(getResources().getColor(R.color.milkcolor));
             set2.setDrawCircleHole(false);
             set2.setHighLightColor(Color.rgb(244, 117, 117));
             //set2.setFillFormatter(new MyFillFormatter(900f));
@@ -517,12 +518,12 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             set3 = new LineDataSet(yVals3, "이유식");
 
             set3.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set3.setColor(Color.BLUE);
-            set3.setCircleColor(Color.BLUE);
+            set3.setColor(getResources().getColor(R.color.ricecolor));
+            set3.setCircleColor(getResources().getColor(R.color.ricecolor));
             set3.setLineWidth(2f);
             set3.setCircleRadius(3f);
             set3.setFillAlpha(65);
-            set3.setFillColor(ColorTemplate.colorWithAlpha(Color.BLUE, 200));
+            set3.setFillColor(ColorTemplate.colorWithAlpha(getResources().getColor(R.color.ricecolor), 200));
             set3.setDrawCircleHole(false);
             set3.setHighLightColor(Color.rgb(244, 117, 117));
 

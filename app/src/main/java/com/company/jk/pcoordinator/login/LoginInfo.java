@@ -16,12 +16,24 @@ public class LoginInfo {
 
     private String email;
     private String name;
-    private String birthday;
+
     private String age;
     private String address1;
     private String address2;
 
     private String babyID;
+    private String babybirthday;  //아기 생일
+
+    public String getBabyname() {
+        return babyname;
+    }
+
+    public void setBabyname(String babyname) {
+        this.babyname = babyname;
+    }
+
+    private String babyname;
+
     private String tel;
     private String password;
 
@@ -36,8 +48,8 @@ public class LoginInfo {
     public  String getBabyID(){
         return  babyID;
     }
-    public String getBirthday() {
-        return birthday;
+    public String getBabyBirthday() {
+        return babybirthday;
     }
     public String getName() {
         return name;
@@ -57,8 +69,8 @@ public class LoginInfo {
         this.email = email;
     }
     public  void  setBabyID(String babyID){ this.babyID = babyID;}
-    public void setBirthday(String birthday) {
-        this.birthday= birthday;
+    public void setBabybirthday(String birthday) {
+        this.babybirthday= birthday;
     }
     public void setName(String name) {
         this.name = name;

@@ -1,7 +1,7 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
 public class Mybabyinfo {
-    String id;
+    int id;
     String name;
     String birthday;
     String sex;
@@ -9,7 +9,7 @@ public class Mybabyinfo {
     String mother;
 
 
-    public Mybabyinfo(String id, String name, String birthday, String sex, String father, String mother){
+    public Mybabyinfo(int id, String name, String birthday, String sex, String father, String mother){
         this.id = id;
         this.name = name;
         this.birthday = birthday;
@@ -19,7 +19,7 @@ public class Mybabyinfo {
     }
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

@@ -73,7 +73,7 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
         }
 //
 
-        String imgUrl = urlPath.getUrlBabyImg() + mItems.get(position).email + ".jpg";  //확장자 대소문자 구별함.
+        String imgUrl = urlPath.getUrlMemberImg() + mItems.get(position).email + ".jpg";  //확장자 대소문자 구별함.
         Picasso.with(mContext).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
         Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE);  //image가 reload 되도록 하기 위하여 필요함.
         Picasso.with(mContext).load(imgUrl).into(holder.mPicture);
@@ -104,7 +104,7 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
         return mItems.size();
     }
 
-    private  void popup_to_confirm_delete(final String email, final  String baby_id, final int position){
+    private  void popup_to_confirm_delete(final String email, final  int baby_id, final int position){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.message_confirm_delete);
         builder.setMessage(R.string.message_confirm_delete_parents);
@@ -124,7 +124,7 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
     }
 
 
-    private  void  delete_parents(final String email, final String baby_id, final int position){
+    private  void  delete_parents(final String email, final int baby_id, final int position){
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/delete_relation";
         Log.i(TAG, server_url);
         RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
@@ -148,7 +148,7 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("email", email);
-                params.put("baby_id", baby_id);
+                params.put("baby_id", String.valueOf(baby_id));
 
                 return params;
             }

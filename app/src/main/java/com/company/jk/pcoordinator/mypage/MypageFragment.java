@@ -94,7 +94,7 @@ public class MypageFragment extends MyFragment {
                     startActivityForResult(intent, 300);
                     break;
                 case R.id.tv_parentslist: //보호자명단
-                    if(loginInfo.getBabyID().isEmpty() || loginInfo.getBabyID().equals("0")){
+                    if(loginInfo.getBabyID() == 0){
                         showToast(getResources().getString(R.string.message_warnning_register_baby));
                     }else {
                         intent = new Intent(getActivity(), ParentsActivity.class);

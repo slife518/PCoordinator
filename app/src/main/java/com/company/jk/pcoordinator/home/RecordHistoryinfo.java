@@ -8,14 +8,14 @@ public class RecordHistoryinfo implements Serializable {
     String date;
     String yearDate;
     String time;
-    String milk;
-    String mothermilk;
-    String rice;
+    int milk;
+    int mothermilk;
+    int rice;
     String author;
     String comments;
 
 
-    public RecordHistoryinfo(String id, String date, String time, String milk,String mothermilk, String rice,  String author, String comments){
+    public RecordHistoryinfo(String id, String date, String time, int milk,int mothermilk, int rice,  String author, String comments){
         this.id = id;
         this.yearDate = date;
         this.date = date.substring(5,10);
@@ -44,15 +44,15 @@ public class RecordHistoryinfo implements Serializable {
         return time;
     }
 
-    public String getMilk() {
+    public int getMilk() {
         return milk;
     }
 
-    public String getMothermilk() {
+    public int getMothermilk() {
         return mothermilk;
     }
 
-    public String getRice() {
+    public int getRice() {
         return rice;
     }
 

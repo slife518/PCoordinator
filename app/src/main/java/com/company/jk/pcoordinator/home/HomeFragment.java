@@ -95,8 +95,13 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
         activity.setSupportActionBar(myToolbar);
-        myToolbar.setTitle(getResources().getString(R.string.app_name) + "("+ loginInfo.getBabyname() + ")");
-        myToolbar.setSubtitle(make_subtitle());
+        myToolbar.setTitle(loginInfo.getBabyname());
+//        myToolbar.setTitle(getResources().getString(R.string.app_name) + "("+ loginInfo.getBabyname() + ")");
+
+        if(loginInfo.getBabyBirthday() != null){
+            myToolbar.setSubtitle(make_subtitle());
+        }
+
         myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
 
 
@@ -148,8 +153,10 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
     private void get_data_async(){  //데이터를 비 동기로 가져오기
         Log.i(TAG, "get_data_async 시작");
-        if (NetworkUtil.getConnectivityStatusBoolean(mContext.getApplicationContext())) {
-            new HttpTaskRecordList().execute();
+        if(loginInfo.getBabyID() != 0) {
+            if (NetworkUtil.getConnectivityStatusBoolean(mContext.getApplicationContext())) {
+                new HttpTaskRecordList().execute();
+            }
         }
     }
     class HttpTaskRecordList extends AsyncTask<String, String, String>{
@@ -219,7 +226,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 drawLineChart(mChart1, max_mothermilk, min_mothermilk);  //draw LineChart
 
             }else{  // 차트 안보이게 처리
-                layout_chart1.setVisibility(getView().GONE);
+//                layout_chart1.setVisibility(getView().GONE);
             }
 
 
@@ -311,9 +318,9 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                                                 rs.getString("id"),
                                                 rs.getString("record_date"),
                                                 rs.getString("record_time"),
-                                                rs.getString("milk"),
-                                                rs.getString("mothermilk"),
-                                                rs.getString("rice"),
+                                                rs.getInt("milk"),
+                                                rs.getInt("mothermilk"),
+                                                rs.getInt("rice"),
                                                 rs.getString("author"),
                                                 rs.getString("description")));
 
@@ -322,53 +329,56 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             }
         }
 
-        //차트 데이터 가져오기
-        jsonArray = JsonParse.getJsonArrayFromString(response, "chartData");
-        chart1Items.clear();
-        chart2Items.clear();
+        if(loginInfo.getBabyID() != 0) {
+            //차트 데이터 가져오기
+            jsonArray = JsonParse.getJsonArrayFromString(response, "chartData");
+            chart1Items.clear();
+            chart2Items.clear();
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                JSONObject rs = (JSONObject) jsonArray.get(i);
-                chart1Items.add(new RecordChart1Info(
-                        rs.getString("record_date"),
-                        (rs.getString("mothermilk")==null||rs.getString("mothermilk").isEmpty()?0:Integer.parseInt(rs.getString("mothermilk")))
-                ));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    JSONObject rs = (JSONObject) jsonArray.get(i);
+                    chart1Items.add(new RecordChart1Info(
+                            rs.getString("record_date"),
+                            Integer.parseInt(rs.getString("mothermilk"))
+                    ));
 
-                chart2Items.add(new RecordChart2Info(
-                        rs.getString("record_date"),
-                        (rs.getString("milk")==null||rs.getString("milk").isEmpty()?0 :Integer.parseInt(rs.getString("milk"))),
-                        (rs.getString("rice")==null||rs.getString("rice").isEmpty()?0 :Integer.parseInt(rs.getString("rice")))
-                ));
-            }catch (JSONException e) {
-                e.printStackTrace();
+                    chart2Items.add(new RecordChart2Info(
+                            rs.getString("record_date"),
+                            rs.getInt("milk"),
+                            rs.getInt("rice")
+                    ));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        //최대값 최소값 가져오기
-        //차트 데이터 가져오기
-        jsonArray = JsonParse.getJsonArrayFromString(response, "max_value");
+            //최대값 최소값 가져오기
+            //차트 데이터 가져오기
+            jsonArray = JsonParse.getJsonArrayFromString(response, "max_value");
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                JSONObject rs = (JSONObject) jsonArray.get(i);
 
-                max_mothermilk =        Integer.parseInt(rs.getString("max_mothermilk"));
-                min_mothermilk =        Integer.parseInt(rs.getString("min_mothermilk"));
-                max_milk =        Integer.parseInt(rs.getString("max_milk"));
-                min_milk =        Integer.parseInt(rs.getString("min_milk"));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    JSONObject rs = (JSONObject) jsonArray.get(i);
 
-            }catch (JSONException e) {
-                e.printStackTrace();
+                    max_mothermilk = rs.getInt("max_mothermilk");
+                    min_mothermilk = rs.getInt("min_mothermilk");
+                    max_milk = rs.getInt("max_milk");
+                    min_milk = rs.getInt("min_milk");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        // 최대값 0 이상이면 차트를 보여준다.
-        if(max_mothermilk > 0){
-            isChart1 = true;
-        }
-        if(max_milk > 0){
-            isChart2 = true;
+            // 최대값 0 이상이면 차트를 보여준다.
+            if (max_mothermilk != null && max_mothermilk > 0) {
+                isChart1 = true;
+            }
+            if (max_milk != null && max_milk > 0) {
+                isChart2 = true;
+            }
         }
 
     }

@@ -51,7 +51,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
     String TAG = "MybabyFragment";
 
-    List<String> target_baby_list_value = new ArrayList<String>() ;;
+    List<Integer> target_baby_list_value = new ArrayList<Integer>() ;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,13 +135,13 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        final String selectedVal = target_baby_list_value.get(mSpinner.getSelectedItemPosition());
+        final int selectedVal = target_baby_list_value.get(mSpinner.getSelectedItemPosition());
         Log.i(TAG, "선택된 아기의 아이디는 " + selectedVal);
 
         //data binding start
         Map<String, String> params = new HashMap<>();
         params.put("email", loginInfo.getEmail());
-        params.put("baby_id", selectedVal);
+        params.put("baby_id", String.valueOf(selectedVal));
         transaction.queryExecute(1, params, "Pc_baby/set_main_baby", callback);  //결과값에 상관없이 진행하는 게 좀 문제 있어 보인다.
 
     }
@@ -154,7 +154,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
     private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);
-        String id = null;
+        int id = 0;
         String name = null;
         String birthday = null;
         String sex = null;
@@ -174,7 +174,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(i);
-                id = rs.getString("baby_id");
+                id = rs.getInt("baby_id");
                 name = rs.getString("babyname");
                 arrayAdapter.add(name);   // 타겟 아기 리스트
                 target_baby_list_value.add(id);   // 타겟 아기 리스트

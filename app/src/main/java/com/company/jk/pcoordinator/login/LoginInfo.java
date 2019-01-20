@@ -21,7 +21,7 @@ public class LoginInfo {
     private String address1;
     private String address2;
 
-    private String babyID;
+    private int babyID;
     private String babybirthday;  //아기 생일
 
     public String getBabyname() {
@@ -45,7 +45,7 @@ public class LoginInfo {
     public String getEmail() {
         return email;
     }
-    public  String getBabyID(){
+    public  int getBabyID(){
         return  babyID;
     }
     public String getBabyBirthday() {
@@ -68,7 +68,7 @@ public class LoginInfo {
     public void setEmail(String email) {
         this.email = email;
     }
-    public  void  setBabyID(String babyID){ this.babyID = babyID;}
+    public  void  setBabyID(int babyID){ this.babyID = babyID;}
     public void setBabybirthday(String birthday) {
         this.babybirthday= birthday;
     }

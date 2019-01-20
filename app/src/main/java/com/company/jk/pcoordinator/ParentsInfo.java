@@ -2,7 +2,7 @@ package com.company.jk.pcoordinator;
 
 public class ParentsInfo {
     String email;
-    String baby_id;
+    int baby_id;
     String nickname; 
     String birthday;
     String relationship;
@@ -10,7 +10,7 @@ public class ParentsInfo {
 
 
 
-    public ParentsInfo(String email, String nickname, String birthday, String relationship, String baby_id){
+    public ParentsInfo(String email, String nickname, String birthday, String relationship, int baby_id){
         this.email = email;
         this.nickname = nickname;
         this.birthday = birthday;
@@ -35,5 +35,5 @@ public class ParentsInfo {
         return relationship;
     }
 
-    public  String getBaby_id(){ return baby_id; }
+    public  int getBaby_id(){ return baby_id; }
 }

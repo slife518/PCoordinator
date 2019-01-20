@@ -75,7 +75,7 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
 
                 Log.i(TAG, "베이비아이디는 " + loginInfo.getBabyID() );
 //                Log.i("베이비아이디는 ", loginInfo.getBabyID());
-                if(loginInfo.getBabyID().equals("0") || loginInfo.getBabyID().isEmpty()){  //loginInfo.getBabyID() 는 db 가 int 이므로 기본은 0
+                if(loginInfo.getBabyID() == 0){  //loginInfo.getBabyID() 는 db 가 int 이므로 기본은 0
 
                     Intent intent = new Intent(this, MybabyActivity.class);
                     intent.putExtra("email",loginInfo.getEmail() );

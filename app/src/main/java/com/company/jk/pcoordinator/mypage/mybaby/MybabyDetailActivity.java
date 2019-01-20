@@ -68,7 +68,8 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     Toolbar myToolbar;
     EditText _name, _sex, _father, _mother, _owner;
     TextView _birthday;
-    String email, baby_id;
+    String email;
+    int baby_id;
     UrlPath urlPath = new UrlPath();
     Upload upload = new Upload();
     LoginInfo loginInfo = LoginInfo.getInstance();
@@ -79,7 +80,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         email = intent.getExtras().getString("email");
-        baby_id = intent.getExtras().getString("baby_id");
+        baby_id = intent.getExtras().getInt("baby_id");
 
         setContentView(R.layout.activity_mybaby_detail);
 
@@ -124,7 +125,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             }
         };
 
-        if(baby_id != null) {
+        if(baby_id != 0) {
             initLoader();   //기존아기 세부정보 db에서 가져오기
         }else{
             _btn_delete.setVisibility(View.GONE);
@@ -156,7 +157,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("email", email);
-                params.put("baby_id", baby_id);
+                params.put("baby_id", String.valueOf(baby_id));
                 return params;
             }
         };
@@ -340,8 +341,8 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                if(baby_id != null) {
-                    params.put("baby_id", baby_id);
+                if(baby_id != 0) {
+                    params.put("baby_id", String.valueOf(baby_id));
                 }
                 params.put("owner", email);
                 Log.i(TAG, "owner 는  " + email);
@@ -394,7 +395,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("baby_id", baby_id);
+                params.put("baby_id", String.valueOf(baby_id));
                 params.put("email", email);
 
                 return params;
@@ -407,16 +408,16 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     private void deleteResponse(String response){
         Log.i(TAG, "deleteResponse 결과값은 " + response);
         if(response.equals("true")) {
-            if(loginInfo.getBabyID().equals(baby_id)){
+            if(loginInfo.getBabyID() == baby_id){
                 update_user_babyid(baby_id);
-                loginInfo.setBabyID("");}  //선택하고 있는 아기를 삭제 할 경우 선택된 아기가 없도록 처리
+                loginInfo.setBabyID(0);}  //선택하고 있는 아기를 삭제 할 경우 선택된 아기가 없도록 처리
             super.onBackPressed();
         }else{
             showToast(response);
         }
     }
 
-    private void update_user_babyid(String babyid){
+    private void update_user_babyid(int babyid){
 
         Map<String, String> param = new HashMap<>();
         param.put("email",loginInfo.getEmail());
@@ -475,7 +476,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
                     runOnUiThread(new Runnable() {
                         public void run() {	}	});
                     Log.i(TAG, "파일명은 " + baby_id + " 업로드할 사진의 절대 경로 " + absolutePath);
-                    upload.uploadFile(absolutePath, baby_id, "babyprofile");
+                    upload.uploadFile(absolutePath, String.valueOf(baby_id), "babyprofile");
                     //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
                 }
             }).start();
@@ -494,7 +495,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //return super.onCreateOptionsMenu(menu);
-        if(baby_id != null) {
+        if(baby_id != 0) {
             MenuInflater menuInflater = getMenuInflater();
             menuInflater.inflate(R.menu.menu_babydetail, menu);
         }

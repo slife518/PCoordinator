@@ -43,7 +43,7 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
     ParentsRecyclerViewAdapter mAdapter;
     //Button _btn_addParents;
     FloatingActionButton _fab;
-    String baby_id;
+    int baby_id;
     Toolbar myToolbar;
     String TAG = "ParentsActivity";
     Intent intent;
@@ -54,7 +54,7 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parents);
         intent = getIntent(); //getIntent()로 받을준비
-        baby_id = intent.getStringExtra("baby_id");
+        baby_id = Integer.parseInt(intent.getStringExtra("baby_id"));
 
 
         // Toolbar를 생성한다.
@@ -64,7 +64,7 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
         this.getSupportActionBar().setTitle(R.string.parentlist);
         myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
-        if(baby_id == null || baby_id.isEmpty()){    //나의 페이지에서 바로 들어온것이면
+        if(baby_id == 0){    //나의 페이지에서 바로 들어온것이면
             baby_id = loginInfo.getBabyID();
         }
 
@@ -98,7 +98,7 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("baby_id", baby_id);
+                params.put("baby_id", String.valueOf(baby_id));
                 return params;
             }
         };

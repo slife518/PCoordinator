@@ -146,15 +146,15 @@ public class LoginActivity extends MyActivity {
 
     private void success_login(String result) {
 
-        String name = "", babyID = "", babyBirthday = "", babyName = "";
-
+        String name = null, babyBirthday = null, babyName = null;
+        int babyID = 0;
             //
             JSONObject memberinfo = JsonParse.getJsonObecjtFromString(result, "memberinfo");
             JSONObject babyinfo = JsonParse.getJsonObecjtFromString(result, "babyinfo");
 
             try {
                 name = memberinfo.getString("nickname");
-                babyID = memberinfo.getString("baby_id");
+                babyID = memberinfo.getInt("baby_id");
                 babyName = babyinfo.getString("babyname");
                 babyBirthday = babyinfo.getString("birthday");
 

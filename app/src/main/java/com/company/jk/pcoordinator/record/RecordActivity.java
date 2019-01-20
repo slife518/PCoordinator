@@ -273,7 +273,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
                 if(id != null) {
                     params.put("record_id", id);
                 }
-                params.put("baby_id", loginInfo.getBabyID());
+                params.put("baby_id", String.valueOf(loginInfo.getBabyID()));
                 params.put("email", loginInfo.getEmail());
                 params.put("record_date", _date.getText().toString());
                 params.put("record_time", _time.getText().toString());

@@ -121,7 +121,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _mothermilk.setOnFocusChangeListener(this);
         _rice.setOnFocusChangeListener(this);
 
-        Log.i("loginInfo.getBabyID()" , loginInfo.getBabyID());
+        Log.i(TAG , "loginInfo.getBabyID() " + loginInfo.getBabyID());
 
         return v;
     }
@@ -202,7 +202,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
                 _rice.setText(calNumber(_rice.getText().toString(), - rice_num));
             }
         }else if(v == _save) {
-            if(loginInfo.getBabyID().equals("0") || loginInfo.getBabyID().isEmpty()) {   //선택된 또는 등록된 아기가 없으면
+            if(loginInfo.getBabyID() == 0) {   //선택된 또는 등록된 아기가 없으면
                 Intent intent = new Intent(getContext(), MybabyActivity.class);
                 intent.putExtra("email", loginInfo.getEmail());
                 startActivityForResult(intent, 12);
@@ -322,7 +322,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
                 if(id != null) {
                     params.put("record_id", id);
                 }
-                params.put("baby_id", loginInfo.getBabyID());
+                params.put("baby_id", String.valueOf(loginInfo.getBabyID()));
                 params.put("email", loginInfo.getEmail());
                 params.put("record_date", _date.getText().toString());
                 params.put("record_time", _time.getText().toString());

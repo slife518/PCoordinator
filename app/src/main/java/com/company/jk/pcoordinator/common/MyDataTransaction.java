@@ -42,7 +42,8 @@ public class MyDataTransaction{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(mContext.getPackageName(), "에러발생 원인은 " + error.getLocalizedMessage());
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+                callback.onFailResponse(error);
             }
         }) {
             @Override

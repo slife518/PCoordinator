@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.MainActivity;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
@@ -92,6 +93,11 @@ public class LoginActivity extends MyActivity {
                         @Override
                         public void onSuccessResponse(String result, int method) {
                             success_login(result);
+                        }
+                        @Override
+                        public void onFailResponse(VolleyError error) {
+                            showToast(getResources().getString(R.string.message_network_problem));
+                            Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
                         }
                     };
                     dataTransaction.queryExecute(1, params, "Pc_login/signin", callback);

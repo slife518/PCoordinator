@@ -67,6 +67,9 @@ public class MypageFragment extends MyFragment {
         TextView btn_QnA = v.findViewById(R.id.tv_QnA);
         btn_QnA.setOnClickListener(onClickListener);
 
+        TextView btn_review = v.findViewById(R.id.tv_review);
+        btn_review.setOnClickListener(onClickListener);
+
         return v;
     }
 
@@ -102,6 +105,10 @@ public class MypageFragment extends MyFragment {
                     showLogout();
                     break;
                 case R.id.tv_QnA:
+                    intent = new Intent(getActivity(), AskActivity.class);
+                    startActivityForResult(intent, 300);
+                    break;
+                case R.id.tv_review:
                     link_QnA();
                     break;
             } } }

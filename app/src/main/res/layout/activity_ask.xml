@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.company.jk.pcoordinator.mypage.AskActivity">
+
+
+
+    <!-- 툴바, 추가된 소스 -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/app_margin_top"
+            android:layout_marginLeft="@dimen/app_margin_left"
+            android:layout_marginRight="@dimen/app_margin_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/title"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <EditText
+                android:id="@+id/et_contents"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/contents"
+                android:gravity="top"
+                android:background="@drawable/edittext_bg"
+                android:inputType="textMultiLine"
+                />
+
+        </LinearLayout>
+</LinearLayout>

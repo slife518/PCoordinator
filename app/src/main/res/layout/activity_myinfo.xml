@@ -26,48 +26,79 @@
             android:layout_marginLeft="@dimen/app_margin_left"
             android:layout_marginRight="@dimen/app_margin_right"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.TextInputLayout
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
-                android:layout_marginTop="8dp">
-
-            <EditText
-                android:id="@+id/et_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/tel"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/et_tel"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="phone" />
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_birthday"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/et_birthday"
-                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <FrameLayout style="@style/EditIcon">
+                        <TextView
+                            android:text="@string/upload_picture"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                        <ImageView
+                            android:id="@+id/iv_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:paddingBottom="30dp"/>
+                    </FrameLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:editable="false"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_name"
+                        android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/tel"
+                        android:layout_marginTop="8dp">
+
+                        <EditText
+                            android:id="@+id/et_tel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_birthday"
+                        android:layout_marginTop="8dp">
+
+                        <EditText
+                            android:id="@+id/et_birthday"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:editable="false"/>
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -155,9 +186,7 @@
                 style="@style/MyWideButton"
                 android:layout_marginTop="32dp"
                 android:text="@string/btn_save"
-                android:layout_width="match_parent"
-                android:focusable="true"
-                android:focusableInTouchMode="false"/>
+                android:layout_width="match_parent" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

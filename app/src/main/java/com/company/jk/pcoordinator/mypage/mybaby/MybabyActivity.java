@@ -103,14 +103,33 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
             switch (method){
                 case 1 :  //onItemSelected
-                    String baby_id = JsonParse.getResultFromJsonString(result);
-                    loginInfo.setBabyID(baby_id);
+//                    String baby_id = JsonParse.getResultFromJsonString(result);
+//                    loginInfo.setBabyID(baby_id);
+//                    try {
+////                        loginInfo.setBabyname(JsonParse.getJsonObecjtFromString(result, "result").getString("babyname"));
+////                        loginInfo.setBabyID(JsonParse.getJsonObecjtFromString(result, "result").getString("baby_id"));
+////                        loginInfo.setBabybirthday(JsonParse.getJsonObecjtFromString(result, "result").getString("birthday"));
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+
+                    Mybabyinfo mybabyinfo = items.get(mSpinner.getSelectedItemPosition());
+                    loginInfo.setBabyname(mybabyinfo.getName());
+                    loginInfo.setBabyID(mybabyinfo.getId());
+                    loginInfo.setBabybirthday(mybabyinfo.getBirthday());
+
                     break;
                 case 2:  //get_baby_data
                     responseSuccess(result);
                     break;
             }
 
+        }
+
+        @Override
+        public void onFailResponse(VolleyError error) {
+            Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
         }
     };
 

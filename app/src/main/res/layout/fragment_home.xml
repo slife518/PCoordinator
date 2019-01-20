@@ -166,39 +166,85 @@
                                 android:textAlignment="center"/>
                             </TableRow>
                     </TableLayout>
-                    <TextView
-                        android:text="@string/mothermilk_list"
-                        android:textColor="@color/white"
-                        android:layout_width="0dp"
+                    <TableLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textAlignment="center"
-                        android:gravity="center"
-                        android:paddingStart="2dp"
-                        android:paddingEnd="2dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1.5">
+                        <TableRow>
+                                    <TextView
+                                        android:text="@string/mothermilk_list"
+                                        android:textColor="@color/white"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:textAlignment="center"
+                                        android:gravity="center"
+                                        android:paddingStart="2dp"
+                                        android:paddingEnd="2dp"
+                                        android:layout_weight="1"/>
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:text="@string/mothermilk_unit"
+                                android:textColor="@color/white"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:textAlignment="center"/>
+                        </TableRow>
+                    </TableLayout>
 
-                    <TextView
-                        android:text="@string/milk_list"
-                        android:textColor="@color/white"
-                        android:layout_width="0dp"
+                    <TableLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textAlignment="center"
-                        android:gravity="center"
-                        android:paddingStart="2dp"
-                        android:paddingEnd="2dp"
-                        android:layout_weight="1"/>
-
-                    <TextView
-                        android:text="@string/rice_list"
-                        android:textColor="@color/white"
-                        android:layout_width="0dp"
+                        android:layout_weight="1.5">
+                        <TableRow>
+                                    <TextView
+                                        android:text="@string/milk_list"
+                                        android:textColor="@color/white"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:textAlignment="center"
+                                        android:gravity="center"
+                                        android:paddingStart="2dp"
+                                        android:paddingEnd="2dp"
+                                        android:layout_weight="1"/>
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:text="@string/milk_unit"
+                                android:textColor="@color/white"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:textAlignment="center"/>
+                        </TableRow>
+                    </TableLayout>
+                    <TableLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textAlignment="center"
-                        android:gravity="center"
-                        android:paddingStart="2dp"
-                        android:paddingEnd="2dp"
-                        android:layout_weight="1"/>
-
+                        android:layout_weight="1.5">
+                        <TableRow>
+                                    <TextView
+                                        android:text="@string/rice_list"
+                                        android:textColor="@color/white"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:textAlignment="center"
+                                        android:gravity="center"
+                                        android:paddingStart="2dp"
+                                        android:paddingEnd="2dp"
+                                        android:layout_weight="1"/>
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:text="@string/rice_unit"
+                                android:textColor="@color/white"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:textAlignment="center"/>
+                        </TableRow>
+                    </TableLayout>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

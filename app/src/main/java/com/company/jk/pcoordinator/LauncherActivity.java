@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
@@ -81,6 +82,13 @@ public class LauncherActivity extends MyActivity {
             @Override
             public void onSuccessResponse(String result, int method) {
                 success_login(result);
+            }
+
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         };
         dataTransaction.queryExecute(1, params, "Pc_login/signin", callback);

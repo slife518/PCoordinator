@@ -55,7 +55,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".record.RecordActivity" />
-
+        <activity android:name=".mypage.AskActivity"></activity>
     </application>
 
 </manifest>

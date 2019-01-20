@@ -32,10 +32,10 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -55,7 +55,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener,
@@ -93,8 +95,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
         activity.setSupportActionBar(myToolbar);
-        myToolbar.setTitle(R.string.app_name);
-        myToolbar.setSubtitle("민준이는 태어난 지 18개월째입니다.");
+        myToolbar.setTitle(getResources().getString(R.string.app_name) + "("+ loginInfo.getBabyname() + ")");
+        myToolbar.setSubtitle(make_subtitle());
         myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
 
 
@@ -371,6 +373,30 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
     }
 
+
+    private String make_subtitle(){
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        String today = format.format(new Date());
+        //String babybirthday = format.format(loginInfo.getBabyBirthday());
+        int diffmonth = 0, diffday = 0;
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            Date beginDate = formatter.parse(loginInfo.getBabyBirthday());
+            Date endDate = formatter.parse(today);
+            long diff = endDate.getTime() - beginDate.getTime();
+            diffmonth = (int)( diff / (24 * 60 * 60 * 1000) ) / 30;
+            diffday = (int)( diff / (24 * 60 * 60 * 1000) );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String message = getResources().getString(R.string.subtitle) + " " + diffmonth + getResources().getString(R.string.month) + " " + getResources().getString(R.string.subtitle2)
+                + diffday + getResources().getString(R.string.day) ;
+        return  message;
+
+    }
 
 //    public static void setListViewHeightBasedOnChildren(ListView listView) {
 //        ListAdapter listAdapter = listView.getAdapter();

@@ -427,6 +427,10 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             public void onSuccessResponse(String result, int method) {
                 Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
             }
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+            }
         };
         MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext());
         dataTransaction.queryExecute(1,param,"Pc_baby/set_main_baby", callback);

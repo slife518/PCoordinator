@@ -1,11 +1,13 @@
 package com.company.jk.pcoordinator.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
@@ -54,6 +56,10 @@ public class FindPwActivity extends MyActivity implements View.OnClickListener {
             public void onSuccessResponse(String result, int method) {
                 Log.i(TAG, "패스워드 조회 메일 발송 결과 : " + result);
             }
+           @Override
+           public void onFailResponse(VolleyError error) {
+               Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+           }
         };
         dataTransaction.queryExecute(1, params, "Pc_login/sendMailPw", callback);
 
@@ -85,6 +91,10 @@ public class FindPwActivity extends MyActivity implements View.OnClickListener {
                     showToast(getResources().getString(R.string.nomember));
                     e.printStackTrace();
                 }
+            }
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
             }
         };
 

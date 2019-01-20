@@ -82,5 +82,18 @@
     <string name="message_updated">수정되었습니다.</string>
     <string name="nomember">등록되지 않은 메일주소입니다.</string>
     <string name="QnA">문의하기</string>
+    <string name="subtitle">태어난 지</string>
+    <string name="subtitle2">지났습니다. (</string>
+    <string name="month">개월</string>
+    <string name="day">일 )</string>
+    <string name="milk_unit">(ml)</string>
+    <string name="mothermilk_unit">(분)</string>
+    <string name="rice_unit">(mg)</string>
+    <string name="upload_picture">사진을 올려주세요</string>
+    <string name="title">제목</string>
+    <string name="contents">내용을 입력해 주세요</string>
+    <string name="review">리뷰쓰기</string>
+    <string name="send_ask">문의하신 내용이 메일로 전달되었습니다 빠른 답변 드리겠습니다.</string>
+    <string name="message_network_problem">네트워크에 문제가 있습니다 잠시 후 다시 실행해 주세요</string>
 
 </resources>

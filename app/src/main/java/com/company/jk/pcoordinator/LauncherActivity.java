@@ -3,6 +3,10 @@ package com.company.jk.pcoordinator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.common.JsonParse;
@@ -10,6 +14,7 @@ import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.NetworkUtil;
+import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
@@ -27,11 +32,35 @@ public class LauncherActivity extends MyActivity {
     Boolean auto_boolean;
     LoginInfo loginInfo = LoginInfo.getInstance();
 
+    private WebView mWebView;
+    private WebSettings mWebSettings;
+
+    private  String url ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
+
+
+
+        mWebView = findViewById(R.id.webview);  //레이어와 연결
+        mWebView.setWebViewClient(new WebViewClient());  // 클릭시 새창 안뜨게
+        mWebSettings = mWebView.getSettings();   //세부세팅등록
+
+        mWebSettings.setJavaScriptEnabled(true);  //자바스크립트
+
+        url = new UrlPath().getUrlPath()  + "Pc_login/preview";
+        Log.i(TAG, url);
+
+        mWebView.loadUrl(url);   //원하는 url 입력
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
         String id = mPreference.getString("Email", "");
@@ -48,7 +77,6 @@ public class LauncherActivity extends MyActivity {
                 //ID 체크 후 회원이면 예약현황화면으로 이동
                 if (NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())) {
                     auto_login();
-                   // new LauncherActivity.HttpTaskSignIn().execute("signin");
                 }
             }else{
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -81,20 +109,27 @@ public class LauncherActivity extends MyActivity {
         VolleyCallback callback = new VolleyCallback() {
             @Override
             public void onSuccessResponse(String result, int method) {
-                success_login(result);
+                if (result == null || result.isEmpty()){
+                    fail_login();
+                    showToast(getResources().getString( R.string.message_confirm_id_password));
+                }else {
+                    success_login(result);
+                }
             }
 
             @Override
             public void onFailResponse(VolleyError error) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
+                fail_login();
             }
         };
         dataTransaction.queryExecute(1, params, "Pc_login/signin", callback);
     }
 
-
+    private void fail_login(){
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
     private void success_login(String response) {
 
         String name = null,  babyBirthday  = null, babyName = null;
@@ -115,7 +150,7 @@ public class LauncherActivity extends MyActivity {
         }
 
         //  String birthday = jsonObject.getString("birthday");
-        if (name != "") {
+        if (name != null) {
             loginInfo.setName(name);
             loginInfo.setBabyID(babyID);
             loginInfo.setBabybirthday(babyBirthday);
@@ -124,10 +159,11 @@ public class LauncherActivity extends MyActivity {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("jsReserved", String.valueOf(sb));
             startActivity(intent);
-            showToast(getResources().getString( R.string.Welcome));
+            showToast(getResources().getString( R.string.message_Welcome));
             finish();
         }else{
-            showToast(getResources().getString( R.string.Warnning));
+            showToast(getResources().getString( R.string.message_confirm_id_password));
+            fail_login();
         }
 
     }

@@ -87,7 +87,6 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "재시작 onResume");
         get_baby_data();
 
         //스피너 설정 시작

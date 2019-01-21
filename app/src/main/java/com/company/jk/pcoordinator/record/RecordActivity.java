@@ -110,9 +110,9 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
             id = info.getId();
             _date.setText(info.getYearDate());
             _time.setText(info.getTime());
-            _milk.setText(info.getMilk());
-            _mothermilk.setText(info.getMothermilk());
-            _rice.setText(info.getRice());
+            _milk.setText(String.valueOf(info.getMilk()));
+            _mothermilk.setText(String.valueOf(info.getMothermilk()));
+            _rice.setText(String.valueOf(info.getRice()));
             _remainText.setText(info.getComments());
     }
     @Override

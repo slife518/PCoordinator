@@ -92,7 +92,12 @@ public class LoginActivity extends MyActivity {
                     VolleyCallback callback = new VolleyCallback() {
                         @Override
                         public void onSuccessResponse(String result, int method) {
-                            success_login(result);
+                            if (result == null || result.isEmpty()){
+                                showToast(getResources().getString( R.string.message_confirm_id_password));
+                            }else {
+                                success_login(result);
+                            }
+
                         }
                         @Override
                         public void onFailResponse(VolleyError error) {
@@ -145,7 +150,7 @@ public class LoginActivity extends MyActivity {
     }
 
     private void success_login(String result) {
-
+        Log.i(TAG, "로그인 결과 : " + result);
         String name = null, babyBirthday = null, babyName = null;
         int babyID = 0;
             //
@@ -163,7 +168,7 @@ public class LoginActivity extends MyActivity {
             }
 
             //  String birthday = jsonObject.getString("birthday");
-            if (name != "") {
+            if (name !=  null) {
                 loginInfo.setName(name);
                 loginInfo.setBabyID(babyID);
                 loginInfo.setBabybirthday(babyBirthday);
@@ -172,10 +177,10 @@ public class LoginActivity extends MyActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("jsReserved", String.valueOf(sb));
                 startActivity(intent);
-                showToast(getResources().getString( R.string.Welcome));
+                showToast(getResources().getString( R.string.message_Welcome));
                 finish();
             }else{
-                showToast(getResources().getString( R.string.Warnning));
+                showToast(getResources().getString( R.string.message_confirm_id_password));
             }
     }
 

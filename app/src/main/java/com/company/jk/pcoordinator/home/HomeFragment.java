@@ -226,7 +226,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 drawLineChart(mChart1, max_mothermilk, min_mothermilk);  //draw LineChart
 
             }else{  // 차트 안보이게 처리
-//                layout_chart1.setVisibility(getView().GONE);
+                layout_chart1.setVisibility(getView().GONE);
             }
 
 
@@ -236,6 +236,10 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
             }else{  // 차트 안보이게 처리
                 layout_chart2.setVisibility(getView().GONE);
+            }
+
+            if(isChart1 == false && isChart2 == false){
+                layout_chart1.setVisibility(getView().VISIBLE);
             }
         }
     }

@@ -1,6 +1,5 @@
 <resources>
-    <string name="Welcome">환영합니다.</string>
-    <string name="Warnning">이메일 또는 비밀번호를 확인하세요</string>
+    <string name="message_Welcome">환영합니다.</string>
     <string name="CheckUnit">필수항목을 입력바랍니다.</string>
     <string name="yes">예</string>
     <string name="no">아니요</string>
@@ -28,8 +27,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="app_name">공동육아</string>
-    <string name="action_settings">Settings</string>
-    <string name="account">Mypage</string>
     <string name="logout">로그아웃</string>
     <string name="record">기록하기</string>
     <string name="title_record">기록하기</string>
@@ -68,7 +65,6 @@
     <string name="Already_a_member">Already a member? Login</string>
     <string name="confirm">비밀번호 보내기</string>
     <string name="password">비밀번호</string>
-    <string name="launchtext">소중한 우리 아기</string>
     <string name="mothermilk">모유수유(분)</string>
     <string name="btn_update">수정하기</string>
     <string name="milk_list">분유</string>
@@ -95,5 +91,6 @@
     <string name="review">리뷰쓰기</string>
     <string name="send_ask">문의하신 내용이 메일로 전달되었습니다 빠른 답변 드리겠습니다.</string>
     <string name="message_network_problem">네트워크에 문제가 있습니다 잠시 후 다시 실행해 주세요</string>
+    <string name="message_confirm_id_password">아이디(이메일) 또는 비밀번호를 틀립니다.</string>
 
 </resources>

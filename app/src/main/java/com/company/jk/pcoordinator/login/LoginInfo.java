@@ -68,7 +68,7 @@ public class LoginInfo {
     public void setEmail(String email) {
         this.email = email;
     }
-    public  void  setBabyID(int babyID){ this.babyID = babyID;}
+    public void setBabyID(int babyID){ this.babyID = babyID;}
     public void setBabybirthday(String birthday) {
         this.babybirthday= birthday;
     }

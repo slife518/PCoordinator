@@ -34,14 +34,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="@string/hint_email"
             android:layout_marginTop="8dp">
-
-            android:inputType="textEmailAddress"
-            <EditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/input_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
         <!--  Password Label -->

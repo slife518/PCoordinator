@@ -11,6 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -35,14 +38,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParentsActivity extends MyActivity implements View.OnClickListener {
+public class ParentsActivity extends MyActivity{
 
     RecyclerView mRecyclerView;
     ArrayList<ParentsInfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
     ParentsRecyclerViewAdapter mAdapter;
     //Button _btn_addParents;
-    FloatingActionButton _fab;
+
 //    int baby_id = 0;
     Toolbar myToolbar;
     String TAG = "ParentsActivity";
@@ -70,8 +73,6 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
 //        }
 
 
-        _fab = findViewById(R.id.fab);
-        _fab.setOnClickListener(this);
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView =  findViewById(R.id.listView_main);
@@ -106,6 +107,15 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
         postReqeustQueue.add(postStringRequest);
         //data binding end
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_parents, menu);
+        return true;
     }
 
     private void responseSuccess(String response) {
@@ -153,18 +163,37 @@ public class ParentsActivity extends MyActivity implements View.OnClickListener 
         mAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onClick(View view) {
-        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+//    @Override
+//    public void onClick(View view) {
+////        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+//
+//        switch (view.getId()) {
+//            case R.id.action_add:
+//                Intent intent = new Intent(getApplicationContext(), InvitationActivity.class);
+//                intent.putExtra("baby_id", loginInfo.getBabyID());
+//                startActivityForResult(intent, 2000);
+//        }
+//    }
 
-        switch (view.getId()) {
-            case R.id.fab:
+
+    //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_add:
                 Intent intent = new Intent(getApplicationContext(), InvitationActivity.class);
                 intent.putExtra("baby_id", loginInfo.getBabyID());
                 startActivityForResult(intent, 2000);
-        }
-    }
+                return true;
 
+            default:
+                onBackPressed();
+
+        }
+        return true;
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Log.i(TAG, "재시작합니다."+ requestCode);

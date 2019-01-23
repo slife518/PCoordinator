@@ -13,8 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
@@ -77,6 +77,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private  com.github.mikephil.charting.charts.LineChart lineChart1, lineChart2;
 
     private LineChart mChart1, mChart2;
+    private ImageView iv_sample1, iv_sample2;
     private Boolean isChart1 = false, isChart2 = false;  // 차트를 보여줄 지 말지
 
 
@@ -106,6 +107,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
         //listview layout
         mListView = v.findViewById(R.id.listView_main);
+        iv_sample1 = v.findViewById(R.id.sample1);
+        iv_sample2 = v.findViewById(R.id.sample2);
 
         lineChart1 = v.findViewById(R.id.chart1);
         lineChart2 = v.findViewById(R.id.chart2);
@@ -240,7 +243,11 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             }
 
             if(isChart1 == false && isChart2 == false){
-                lineChart1.setVisibility(getView().VISIBLE);
+                iv_sample1.setVisibility(getView().VISIBLE);
+                iv_sample2.setVisibility(getView().VISIBLE);
+            }else{
+                iv_sample1.setVisibility(getView().GONE);
+                iv_sample2.setVisibility(getView().GONE);
             }
         }
     }

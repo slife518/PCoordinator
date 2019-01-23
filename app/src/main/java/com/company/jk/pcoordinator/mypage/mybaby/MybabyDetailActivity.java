@@ -137,7 +137,6 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
     }
 
-
     private void initLoader() {
         //data binding start
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/get_baby_info_detail";
@@ -510,7 +509,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
         //return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
-            case R.id.action_parentlist:
+            case R.id.action_add:
                 // User chose the "Settings" item, show the app settings UI...
 
                 Intent intent = new Intent(getApplicationContext(),ParentsActivity.class);

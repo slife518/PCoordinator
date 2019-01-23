@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,6 +29,9 @@ import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.UrlPath;
+import com.company.jk.pcoordinator.login.LoginInfo;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -46,14 +51,14 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
     TextView _name;
     final String TAG = "InvatationActivity";
     Intent intent;
-    String _baby_id, _email;
+    int _baby_id;
+    String _email;
     Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
-
 
         // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);
@@ -63,20 +68,29 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
         myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         intent = getIntent(); //getIntent()로 받을준비
-        _baby_id = intent.getStringExtra("baby_id");
+//        _baby_id = Integer.parseInt(intent.getStringExtra("baby_id"));
+        if(intent.getStringExtra("baby_id") != null){
+            _baby_id = Integer.parseInt(intent.getStringExtra("baby_id"));
+        }else {
+            LoginInfo loginInfo = LoginInfo.getInstance();
+            _baby_id = loginInfo.getBabyID();
+        }
 
-        _radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        _btn_email = (RadioButton) findViewById(R.id.btn_email);
-        _btn_phone = (RadioButton) findViewById(R.id.btn_tel);
+        _radioGroup = findViewById(R.id.radioGroup);
+        _btn_email =  findViewById(R.id.btn_email);
+        _btn_phone =  findViewById(R.id.btn_tel);
+
 
 //        _btn_search_person = (ImageButton) findViewById(R.id.search_person);
 
-        _btn_invite = (Button) findViewById(R.id.btn_invite);
-        _iv_profile = (ImageView) findViewById(R.id.iv_profile);
-        _name = (TextView)findViewById(R.id.tv_name);
-        _find_user = (EditText)findViewById(R.id.et_find_user);
-
+        _btn_invite =  findViewById(R.id.btn_invite);
+        _iv_profile =  findViewById(R.id.iv_profile);
+        _name = findViewById(R.id.tv_name);
+        _find_user = findViewById(R.id.et_find_user);
         _find_user.setOnEditorActionListener(this);
+        PhoneNumberUtils.formatNumber(_find_user.getText().toString());
+        _find_user.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
 //        _btn_search_person.setOnClickListener(this);
         _btn_invite.setOnClickListener(this);
         _radioGroup.setOnCheckedChangeListener(this);
@@ -86,10 +100,14 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         Log.i(TAG, String.valueOf(i));
+        _find_user.setText("");
         if(_btn_email.isChecked()){
             _find_user.setHint(R.string.letsEmail );
+            _find_user.setInputType(1);   // TEXT 타입
+//            _find_user.addTextChangedListener(this);
         }else {
             _find_user.setHint(R.string.letsTel );
+            _find_user.setInputType(3);  //PHONE 타입
         }
     }
 
@@ -157,12 +175,20 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
 
             String email = rs.getString("email");
             String name = rs.getString("nickname");
-            String imgUrl = new UrlPath().getUrlBabyImg() + email + ".jpg";  //확장자 대소문자 구별함.
-            Log.i(TAG, imgUrl);
-            Picasso.with(getApplicationContext()).load(imgUrl).into(_iv_profile);
+            if(email != null){
+                String imgUrl = new UrlPath().getUrlMemberImg() + email + ".jpg";  //확장자 대소문자 구별함.
+                Log.i(TAG, imgUrl);
+                Picasso.with(getApplicationContext()).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(_iv_profile);  //image가 reload 되도록 하기 위하여 필요함
+
+                _iv_profile.setVisibility(View.VISIBLE);
+            }else {
+                _iv_profile.setVisibility(View.INVISIBLE);
+            }
+
             _name.setText(name);
             _email = email;
             _btn_invite.setVisibility(View.VISIBLE);
+
 
         } catch (JSONException e) {
 //            _name.setVisibility(View.VISIBLE);
@@ -191,7 +217,7 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
             protected Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<>();
                 params.put("email", _email);
-                params.put("baby_id", _baby_id);
+                params.put("baby_id",String.valueOf(_baby_id));
 
                 Log.i(TAG, "email는 " + _email);
                 Log.i(TAG, "baby_id는 " +_baby_id);

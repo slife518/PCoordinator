@@ -60,10 +60,12 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
         transaction = new MyDataTransaction(getApplicationContext());
 // Toolbar를 생성한다.
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle(getResources().getString(R.string.mybabyinfo));
         myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
+
 
         _btn_add = findViewById(R.id.btn_add);
         _btn_add.setOnClickListener(this);
@@ -76,11 +78,28 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
         mAdapter = new RecyclerViewAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
-}
+    }
     public void get_baby_data(){
 
         Map<String, String> params = new HashMap<>();
         params.put("email", loginInfo.getEmail());
+
+        VolleyCallback callback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
+
+                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+
+                switch (method){
+                    case 2:  //get_baby_data
+                        responseSuccess(result);
+                        break;
+                } }
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+            }
+        };
         transaction.queryExecute(2, params, "Pc_baby/get_baby_info", callback);
     }
 
@@ -94,43 +113,6 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 
     }
 
-    VolleyCallback callback = new VolleyCallback() {
-        @Override
-        public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
-
-            Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
-
-            switch (method){
-                case 1 :  //onItemSelected
-//                    String baby_id = JsonParse.getResultFromJsonString(result);
-//                    loginInfo.setBabyID(baby_id);
-//                    try {
-////                        loginInfo.setBabyname(JsonParse.getJsonObecjtFromString(result, "result").getString("babyname"));
-////                        loginInfo.setBabyID(JsonParse.getJsonObecjtFromString(result, "result").getString("baby_id"));
-////                        loginInfo.setBabybirthday(JsonParse.getJsonObecjtFromString(result, "result").getString("birthday"));
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-
-                    Mybabyinfo mybabyinfo = items.get(mSpinner.getSelectedItemPosition());
-                    loginInfo.setBabyname(mybabyinfo.getName());
-                    loginInfo.setBabyID(mybabyinfo.getId());
-                    loginInfo.setBabybirthday(mybabyinfo.getBirthday());
-
-                    break;
-                case 2:  //get_baby_data
-                    responseSuccess(result);
-                    break;
-            }
-
-        }
-
-        @Override
-        public void onFailResponse(VolleyError error) {
-            Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
-        }
-    };
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -141,6 +123,29 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
         Map<String, String> params = new HashMap<>();
         params.put("email", loginInfo.getEmail());
         params.put("baby_id", String.valueOf(selectedVal));
+
+        VolleyCallback callback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
+
+                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+
+                switch (method){
+                    case 1 :
+                        Mybabyinfo mybabyinfo = items.get(mSpinner.getSelectedItemPosition());
+                        loginInfo.setBabyname(mybabyinfo.getName());
+                        loginInfo.setBabyID(mybabyinfo.getId());
+                        loginInfo.setBabybirthday(mybabyinfo.getBirthday());
+                }
+
+            }
+
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+            }
+        };
+
         transaction.queryExecute(1, params, "Pc_baby/set_main_baby", callback);  //결과값에 상관없이 진행하는 게 좀 문제 있어 보인다.
 
     }
@@ -196,7 +201,7 @@ public class MybabyActivity extends MyActivity implements View.OnClickListener, 
 //        JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
         JSONObject rs = JsonParse.getJsonObjectFromString(response, "main_baby");
         try {
-            String baby_id = rs.getString("baby_id");
+            int baby_id = Integer.parseInt(rs.getString("baby_id"));
             mSpinner.setSelection(target_baby_list_value.indexOf(baby_id));
         } catch (JSONException e) {
             e.printStackTrace();

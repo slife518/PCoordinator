@@ -88,6 +88,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle(getResources().getString(R.string.mybabyinfo));
         myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         findViewsById();

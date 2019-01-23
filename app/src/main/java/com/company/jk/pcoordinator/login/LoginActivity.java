@@ -177,7 +177,7 @@ public class LoginActivity extends MyActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("jsReserved", String.valueOf(sb));
                 startActivity(intent);
-                showToast(getResources().getString( R.string.message_Welcome));
+//                showToast(getResources().getString( R.string.message_Welcome));
                 finish();
             }else{
                 showToast(getResources().getString( R.string.message_confirm_id_password));

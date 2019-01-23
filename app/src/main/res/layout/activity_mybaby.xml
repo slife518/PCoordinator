@@ -47,13 +47,13 @@
                 android:id="@+id/listView_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"/>
+                />
             <Button
                 android:id="@+id/btn_add"
                 style="@style/MyWideButton"
                 android:text="@string/addBaby"
                 android:layout_width="match_parent"
-                android:layout_margin="8dp"/>
+                android:layout_marginTop="8dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

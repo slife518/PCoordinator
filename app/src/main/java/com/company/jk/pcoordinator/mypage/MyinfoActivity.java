@@ -14,6 +14,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,6 +98,10 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         _birthday = findViewById(R.id.et_birthday);
         _name = findViewById(R.id.et_name);
         _tel = findViewById(R.id.et_tel);
+        PhoneNumberUtils.formatNumber(_tel.getText().toString());
+        _tel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+
         _address1 = findViewById(R.id.tv_address);
         _address2 = findViewById(R.id.et_address_detail);
 //        _layout_address_detail = (View) findViewById(R.id.layout_address_detail);

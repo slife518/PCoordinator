@@ -1,5 +1,5 @@
 <resources>
-    <string name="message_Welcome">환영합니다.</string>
+    <string name="app_name">공동육아</string>
     <string name="CheckUnit">필수항목을 입력바랍니다.</string>
     <string name="yes">예</string>
     <string name="no">아니요</string>
@@ -18,15 +18,13 @@
     <string name="oldpassword">현재비밀번호를 입력하세요</string>
     <string name="newpassword">새 비밀번호를 입력하세요</string>
     <string name="btn_save_password">비밀번호변경</string>
-    <string name="RegisterNewMember">>환영합니다. 이메일로 로그인 해보세요.</string>
+    <string name="RegisterNewMember">환영합니다. 이메일로 로그인 해보세요.</string>
     <string name="txPassword">비밀번호관리</string>
-    <string name="message_OK">확인</string>
-    <string name="message_confirm_password_count">자릿수가 최소 5자리이상만 가능합니다.</string>
     <string name="save">처리되었습니다.</string>
     <string name="parent_yes">관계끊기</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="app_name">공동육아</string>
+
     <string name="logout">로그아웃</string>
     <string name="record">기록하기</string>
     <string name="title_record">기록하기</string>
@@ -62,7 +60,7 @@
     <string name="login">로그인</string>
     <string name="find_password">비밀번호찾기</string>
     <string name="create_Account">가입하기</string>
-    <string name="Already_a_member">Already a member? Login</string>
+    <string name="Already_a_member">이미 회원가입이 되어 있습니다. 로그인</string>
     <string name="confirm">비밀번호 보내기</string>
     <string name="password">비밀번호</string>
     <string name="mothermilk">모유수유(분)</string>
@@ -76,6 +74,9 @@
     <string name="chartTitle2">분유/이유식</string>
     <string name="logout_message">로그아웃하시겠습니까?</string>
     <string name="message_updated">수정되었습니다.</string>
+    <string name="message_OK">확인</string>
+    <string name="message_confirm_password_count">자릿수가 최소 5자리이상만 가능합니다.</string>
+    <string name="message_Welcome">환영합니다.</string>
     <string name="nomember">등록되지 않은 메일주소입니다.</string>
     <string name="QnA">문의하기</string>
     <string name="subtitle">태어난 지</string>
@@ -92,5 +93,5 @@
     <string name="send_ask">문의하신 내용이 메일로 전달되었습니다 빠른 답변 드리겠습니다.</string>
     <string name="message_network_problem">네트워크에 문제가 있습니다 잠시 후 다시 실행해 주세요</string>
     <string name="message_confirm_id_password">아이디(이메일) 또는 비밀번호를 틀립니다.</string>
-
+    <string name="received_email">답변받을 이메일주소</string>
 </resources>

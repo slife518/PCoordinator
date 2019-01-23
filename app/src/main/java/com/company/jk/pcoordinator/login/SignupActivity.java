@@ -41,6 +41,9 @@ public class SignupActivity extends MyActivity {
         _nameText = findViewById(R.id.input_name);
         _emailText = findViewById(R.id.input_email);
         _mobileText = findViewById(R.id.input_mobile);
+        PhoneNumberUtils.formatNumber(_mobileText.getText().toString());
+        _mobileText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
         _passwordText = findViewById(R.id.input_password);
         _signupButton = findViewById(R.id.btn_signup);
         _loginLink =  findViewById(R.id.link_login);

@@ -11,6 +11,8 @@
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/app_margin_left"
         android:layout_marginRight="@dimen/app_margin_right"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:paddingTop="56dp">
 
         <com.company.jk.pcoordinator.common.Textview_ygotjalnanfont
@@ -109,6 +111,7 @@
             android:gravity="center"
             android:onClick="OnClickMethod"
             android:text="@string/Already_a_member"
+            android:textColor="@color/black"
             android:textSize="16dip" />
 
     </LinearLayout>

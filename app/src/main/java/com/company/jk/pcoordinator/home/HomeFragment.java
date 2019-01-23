@@ -73,9 +73,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private ArrayList<RecordHistoryinfo> items = new ArrayList();
     private MilkRiceListViewAdapter mAdapter = null;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private Integer max_milk, min_milk, max_mothermilk, min_mothermilk;
-    private RelativeLayout layout_chart1;
-    private RelativeLayout layout_chart2;
+    private Integer max_milk, max_mothermilk, min_milk,  min_mothermilk;
+    private  com.github.mikephil.charting.charts.LineChart lineChart1, lineChart2;
 
     private LineChart mChart1, mChart2;
     private Boolean isChart1 = false, isChart2 = false;  // 차트를 보여줄 지 말지
@@ -108,8 +107,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         //listview layout
         mListView = v.findViewById(R.id.listView_main);
 
-        layout_chart1 = v.findViewById(R.id.layout_chart1);
-        layout_chart2 = v.findViewById(R.id.layout_chart2);
+        lineChart1 = v.findViewById(R.id.chart1);
+        lineChart2 = v.findViewById(R.id.chart2);
 
         mAdapter = new MilkRiceListViewAdapter(mContext, R.layout.layout_milk_rice_card, items);
         mListView.setAdapter(mAdapter);
@@ -226,7 +225,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 drawLineChart(mChart1, max_mothermilk, min_mothermilk);  //draw LineChart
 
             }else{  // 차트 안보이게 처리
-                layout_chart1.setVisibility(getView().GONE);
+                lineChart1.setVisibility(getView().GONE);
+                lineChart2.setPadding(20, 0, 0, 0);
             }
 
 
@@ -235,11 +235,12 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 drawLineChart(mChart2, max_milk, min_milk);  //draw LineChart
 
             }else{  // 차트 안보이게 처리
-                layout_chart2.setVisibility(getView().GONE);
+                lineChart2.setVisibility(getView().GONE);
+                lineChart1.setPadding(20, 0, 0, 0);
             }
 
             if(isChart1 == false && isChart2 == false){
-                layout_chart1.setVisibility(getView().VISIBLE);
+                lineChart1.setVisibility(getView().VISIBLE);
             }
         }
     }
@@ -248,7 +249,11 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private void drawLineChart(LineChart chart, int max, int min ){
 
         Description desc = new Description();
-        desc.setText(""); // 오른쪽 아래에 작게 보여줘서 TextView 로 대체 처리 함
+        if(chart == mChart1) {
+            desc.setText(getResources().getString(R.string.chartTitle1));
+        }else{
+            desc.setText(getResources().getString(R.string.chartTitle2));
+        }
         chart.setDescription(desc);
         chart.setOnChartValueSelectedListener(this);
 
@@ -298,11 +303,11 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
 
         //Y축
-//        YAxis leftAxis = chart.getAxisLeft();
+        YAxis leftAxis = chart.getAxisLeft();
 //        //        leftAxis.setTypeface(mTfLight);
 //        leftAxis.setTextColor(Color.BLACK);
 //        leftAxis.setAxisMaximum(max);
-//        leftAxis.setAxisMinimum(min);
+        leftAxis.setAxisMinimum(min);
 //        leftAxis.setDrawGridLines(true);
 //        leftAxis.setGranularityEnabled(true);
 
@@ -367,9 +372,11 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                     JSONObject rs = (JSONObject) jsonArray.get(i);
 
                     max_mothermilk = rs.getInt("max_mothermilk");
-                    min_mothermilk = rs.getInt("min_mothermilk");
+//                    min_mothermilk = rs.getInt("min_mothermilk");
+                    min_mothermilk = 0;
                     max_milk = rs.getInt("max_milk");
-                    min_milk = rs.getInt("min_milk");
+//                    min_milk = rs.getInt("min_milk");
+                    min_milk = 0;
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -379,9 +386,13 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             // 최대값 0 이상이면 차트를 보여준다.
             if (max_mothermilk != null && max_mothermilk > 0) {
                 isChart1 = true;
+            }else {
+                isChart1 = false;
             }
             if (max_milk != null && max_milk > 0) {
                 isChart2 = true;
+            }else {
+                isChart2 = false;
             }
         }
 
@@ -411,28 +422,6 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         return  message;
 
     }
-
-//    public static void setListViewHeightBasedOnChildren(ListView listView) {
-//        ListAdapter listAdapter = listView.getAdapter();
-//        if (listAdapter == null) {
-//            // pre-condition
-//            return;
-//        }
-//
-//        int totalHeight = 0;
-//        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-//
-//        for (int i = 0; i < listAdapter.getCount(); i++) {
-//            View listItem = listAdapter.getView(i, null, listView);
-//            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-//            totalHeight += listItem.getMeasuredHeight();
-//        }
-//
-//        ViewGroup.LayoutParams params = listView.getLayoutParams();
-//        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-//        listView.setLayoutParams(params);
-//        listView.requestLayout();
-//    }
 
     @Override
     public void onRefresh() {

@@ -70,7 +70,7 @@
                             android:text="@string/QnA"
                             android:drawableStart="@drawable/ic_outline_question_answer_24px"
                             android:layout_height="70dp"
-                            android:layout_marginTop="1dp"
+                            android:layout_marginTop="8dp"
                             style="@style/Mypagebutton"/>
                         <TextView
                             android:id="@+id/tv_review"

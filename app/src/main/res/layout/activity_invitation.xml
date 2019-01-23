@@ -48,12 +48,14 @@
                 android:checked="true"
                 android:text="@string/email" />
 
+
             <RadioButton
                 android:id="@+id/btn_tel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/tel" />
+
         </RadioGroup>
 
         <LinearLayout
@@ -89,8 +91,8 @@
 
         <ImageView
             android:id="@+id/iv_profile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:visibility="invisible"
             android:layout_gravity="center"
             android:foreground="@drawable/rounded_fg"

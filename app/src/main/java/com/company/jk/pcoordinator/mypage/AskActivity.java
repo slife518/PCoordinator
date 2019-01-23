@@ -24,7 +24,8 @@ public class AskActivity extends MyActivity {
 
     private final static String TAG = "AskActivity";
     private Toolbar myToolbar;
-    EditText et_contents, et_title;
+    EditText et_contents, et_fromEmail;
+    LoginInfo loginInfo = LoginInfo.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +39,10 @@ public class AskActivity extends MyActivity {
         getSupportActionBar().setTitle(R.string.QnA);
         myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
-        et_title = findViewById(R.id.et_title);
+        et_fromEmail = findViewById(R.id.et_fromEmail);
         et_contents = findViewById(R.id.et_contents);
 
+        et_fromEmail.setText(loginInfo.getEmail());
     }
 
 
@@ -70,12 +72,12 @@ public class AskActivity extends MyActivity {
     }
 
     private void  send_mail(){
-        LoginInfo loginInfo = LoginInfo.getInstance();
+
         MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext());
         Map<String, String> params = new HashMap<>();
-        params.put("title", et_title.getText().toString());
+        params.put("email", et_fromEmail.getText().toString());
         params.put("contents", et_contents.getText().toString());
-        params.put("email",loginInfo.getEmail() );
+//        params.put("email",loginInfo.getEmail() );
 
         VolleyCallback callback = new VolleyCallback() {
             @Override

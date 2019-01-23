@@ -60,7 +60,7 @@
     <string name="login">로그인</string>
     <string name="find_password">비밀번호찾기</string>
     <string name="create_Account">가입하기</string>
-    <string name="Already_a_member">이미 회원가입이 되어 있습니다. 로그인</string>
+    <string name="Already_a_member">이미 회원가입이 되어 있습니까?</string>
     <string name="confirm">비밀번호 보내기</string>
     <string name="password">비밀번호</string>
     <string name="mothermilk">모유수유(분)</string>

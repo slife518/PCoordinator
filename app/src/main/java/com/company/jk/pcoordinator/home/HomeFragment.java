@@ -60,6 +60,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener,
         OnChartValueSelectedListener {
 
@@ -74,8 +77,6 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private MilkRiceListViewAdapter mAdapter = null;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Integer max_milk, max_mothermilk, min_milk,  min_mothermilk;
-    private  com.github.mikephil.charting.charts.LineChart lineChart1, lineChart2;
-
     private LineChart mChart1, mChart2;
     private ImageView iv_sample1, iv_sample2;
     private Boolean isChart1 = false, isChart2 = false;  // 차트를 보여줄 지 말지
@@ -95,8 +96,12 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
         activity.setSupportActionBar(myToolbar);
-        myToolbar.setTitle(loginInfo.getBabyname());
-//        myToolbar.setTitle(getResources().getString(R.string.app_name) + "("+ loginInfo.getBabyname() + ")");
+
+        if(loginInfo.getBabyID() == 0){   //매핑된 아이가 없을 경우
+            myToolbar.setTitle(getResources().getString(R.string.app_name));
+        }else{   //매핑된 아이가 있을 경우
+            myToolbar.setTitle(loginInfo.getBabyname());
+        }
 
         if(loginInfo.getBabyBirthday() != null){
             myToolbar.setSubtitle(make_subtitle());
@@ -110,8 +115,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         iv_sample1 = v.findViewById(R.id.sample1);
         iv_sample2 = v.findViewById(R.id.sample2);
 
-        lineChart1 = v.findViewById(R.id.chart1);
-        lineChart2 = v.findViewById(R.id.chart2);
+        mChart1 = v.findViewById(R.id.chart1);
+        mChart2 = v.findViewById(R.id.chart2);
 
         mAdapter = new MilkRiceListViewAdapter(mContext, R.layout.layout_milk_rice_card, items);
         mListView.setAdapter(mAdapter);
@@ -127,10 +132,6 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 startActivityForResult(intent, 2300);
             }
         });
-
-
-        mChart1 = v.findViewById(R.id.chart1);
-        mChart2 = v.findViewById(R.id.chart2);
 
         //리스트 새로고침
         mSwipeRefreshLayout = v.findViewById(R.id.swipe_layout);
@@ -149,9 +150,41 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     public void onStart() {
         super.onStart();
         //data binding start
-        get_data_async();
+        if(loginInfo.getBabyID() != 0) {   //매핑된 아이가 있을 경우
+            get_data_async();
+        }else{   // 매핑된 아기가 없을 경우
+            mChart1.setVisibility(GONE);
+            mChart2.setVisibility(GONE);
+            iv_sample1.setVisibility(VISIBLE);
+            iv_sample2.setVisibility(VISIBLE);
+        }
+    }
+
+
+    private String make_subtitle(){
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        String today = format.format(new Date());
+        //String babybirthday = format.format(loginInfo.getBabyBirthday());
+        int diffmonth = 0, diffday = 0;
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            Date beginDate = formatter.parse(loginInfo.getBabyBirthday());
+            Date endDate = formatter.parse(today);
+            long diff = endDate.getTime() - beginDate.getTime();
+            diffmonth = (int)( diff / (24 * 60 * 60 * 1000) ) / 30;
+            diffday = (int)( diff / (24 * 60 * 60 * 1000) );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return getResources().getString(R.string.subtitle) + " " + diffmonth + getResources().getString(R.string.month) + " " + getResources().getString(R.string.subtitle2)
+                + diffday + getResources().getString(R.string.day) ;
+
 
     }
+
 
     private void get_data_async(){  //데이터를 비 동기로 가져오기
         Log.i(TAG, "get_data_async 시작");
@@ -202,8 +235,9 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 while ((line = reader.readLine()) != null) {
                     sb.append(line);
                 }
+
                 Log.i(TAG, "sb : " + sb.toString());
-                itemAppend(sb.toString());
+                itemAppend(sb.toString());  // 조회 된 데이터 표현하기
                 im.close();
 
             } catch (UnsupportedEncodingException e) {
@@ -223,37 +257,42 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             super.onPostExecute(s);
 //            mAdapter.notifyDataSetChanged();
             mAdapter.refreshAdapter(listItems);
+
+            // 수유차트
             if(isChart1) {
+                mChart1.setVisibility(VISIBLE);
                 setChart1Data(chart1Items);   // add data
-                drawLineChart(mChart1, max_mothermilk, min_mothermilk);  //draw LineChart
-
+//                drawLineChart(mChart1, max_mothermilk, min_mothermilk);  //draw LineChart
+                drawLineChart(mChart1);  //draw LineChart
             }else{  // 차트 안보이게 처리
-                lineChart1.setVisibility(getView().GONE);
-                lineChart2.setPadding(20, 0, 0, 0);
+                mChart1.setVisibility(GONE);
+                mChart2.setPadding(20, 0, 0, 0);
             }
 
 
+            //분유/이유식차트
             if(isChart2) {
+                mChart2.setVisibility(VISIBLE);
                 setChart2Data(chart2Items);  // add data
-                drawLineChart(mChart2, max_milk, min_milk);  //draw LineChart
-
+//                drawLineChart(mChart2, max_milk, min_milk);  //draw LineChart
+                drawLineChart(mChart2);  //draw LineChart
             }else{  // 차트 안보이게 처리
-                lineChart2.setVisibility(getView().GONE);
-                lineChart1.setPadding(20, 0, 0, 0);
+                mChart2.setVisibility(GONE);
+                mChart1.setPadding(20, 0, 0, 0);
             }
 
-            if(isChart1 == false && isChart2 == false){
-                iv_sample1.setVisibility(getView().VISIBLE);
-                iv_sample2.setVisibility(getView().VISIBLE);
+            if(!isChart1 && !isChart2){
+                iv_sample1.setVisibility(VISIBLE);
+                iv_sample2.setVisibility(VISIBLE);
             }else{
-                iv_sample1.setVisibility(getView().GONE);
-                iv_sample2.setVisibility(getView().GONE);
+                iv_sample1.setVisibility(GONE);
+                iv_sample2.setVisibility(GONE);
             }
         }
     }
 
 
-    private void drawLineChart(LineChart chart, int max, int min ){
+    private void drawLineChart(LineChart chart){
 
         Description desc = new Description();
         if(chart == mChart1) {
@@ -310,11 +349,11 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
 
         //Y축
-        YAxis leftAxis = chart.getAxisLeft();
+//        YAxis leftAxis = chart.getAxisLeft();
 //        //        leftAxis.setTypeface(mTfLight);
 //        leftAxis.setTextColor(Color.BLACK);
 //        leftAxis.setAxisMaximum(max);
-        leftAxis.setAxisMinimum(min);
+//        leftAxis.setAxisMinimum(min);
 //        leftAxis.setDrawGridLines(true);
 //        leftAxis.setGranularityEnabled(true);
 
@@ -373,16 +412,13 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             //차트 데이터 가져오기
             jsonArray = JsonParse.getJsonArrayFromString(response, "max_value");
 
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject rs = (JSONObject) jsonArray.get(i);
 
                     max_mothermilk = rs.getInt("max_mothermilk");
-//                    min_mothermilk = rs.getInt("min_mothermilk");
                     min_mothermilk = 0;
                     max_milk = rs.getInt("max_milk");
-//                    min_milk = rs.getInt("min_milk");
                     min_milk = 0;
 
                 } catch (JSONException e) {
@@ -391,44 +427,22 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             }
 
             // 최대값 0 이상이면 차트를 보여준다.
-            if (max_mothermilk != null && max_mothermilk > 0) {
-                isChart1 = true;
-            }else {
-                isChart1 = false;
-            }
-            if (max_milk != null && max_milk > 0) {
-                isChart2 = true;
-            }else {
-                isChart2 = false;
-            }
+            isChart1  = (max_mothermilk != null && max_mothermilk > 0) ? true : false;
+            isChart2  = (max_milk != null && max_milk > 0) ? true : false;
+//            if (max_mothermilk != null && max_mothermilk > 0) {
+//                isChart1 = true;
+//            }else {
+//                isChart1 = false;
+////            }
+//            if (max_milk != null && max_milk > 0) {
+//                isChart2 = true;
+//            }else {
+//                isChart2 = false;
+//            }
         }
 
     }
 
-
-    private String make_subtitle(){
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-        String today = format.format(new Date());
-        //String babybirthday = format.format(loginInfo.getBabyBirthday());
-        int diffmonth = 0, diffday = 0;
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-            Date beginDate = formatter.parse(loginInfo.getBabyBirthday());
-            Date endDate = formatter.parse(today);
-            long diff = endDate.getTime() - beginDate.getTime();
-            diffmonth = (int)( diff / (24 * 60 * 60 * 1000) ) / 30;
-            diffday = (int)( diff / (24 * 60 * 60 * 1000) );
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String message = getResources().getString(R.string.subtitle) + " " + diffmonth + getResources().getString(R.string.month) + " " + getResources().getString(R.string.subtitle2)
-                + diffday + getResources().getString(R.string.day) ;
-        return  message;
-
-    }
 
     @Override
     public void onRefresh() {

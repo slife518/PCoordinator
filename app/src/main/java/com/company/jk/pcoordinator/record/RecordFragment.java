@@ -242,29 +242,29 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         Log.i("n은" , n);
         return String.valueOf(Integer.parseInt(n) + i );
     }
-
-    private void saveAelrtDialog(){
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(v.getContext(), android.R.style.Theme_Material_Light_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(v.getContext());
-        }
-        builder.setTitle(R.string.btn_save)
-                .setMessage(R.string.saveAlert)
-                .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        bottomBar.selectTabAtPosition(0, false);
-                    }
-                })
-                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        initialize();
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .show();
-    }
+//
+//    private void saveAelrtDialog(){
+//        AlertDialog.Builder builder;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            builder = new AlertDialog.Builder(v.getContext(), android.R.style.Theme_Material_Light_Dialog_Alert);
+//        } else {
+//            builder = new AlertDialog.Builder(v.getContext());
+//        }
+//        builder.setTitle(R.string.btn_save)
+//                .setMessage(R.string.saveAlert)
+//                .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        bottomBar.selectTabAtPosition(0, false);
+//                    }
+//                })
+//                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        initialize();
+//                    }
+//                })
+//                .setIcon(android.R.drawable.ic_dialog_info)
+//                .show();
+//    }
 
 
     @Override

@@ -42,9 +42,6 @@ public class LauncherActivity extends MyActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-
-
-
         mWebView = findViewById(R.id.webview);  //레이어와 연결
         mWebView.setWebViewClient(new WebViewClient());  // 클릭시 새창 안뜨게
         mWebSettings = mWebView.getSettings();   //세부세팅등록
@@ -142,8 +139,11 @@ public class LauncherActivity extends MyActivity {
         try {
             name = memberinfo.getString("nickname");
             babyID = memberinfo.getInt("baby_id");
-            babyName = babyinfo.getString("babyname");
-            babyBirthday = babyinfo.getString("birthday");
+
+            if(babyID != 0) {   // 매핑된 아기정보가 있으면
+                babyName = babyinfo.getString("babyname");
+                babyBirthday = babyinfo.getString("birthday");
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

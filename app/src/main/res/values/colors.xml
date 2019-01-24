@@ -10,9 +10,11 @@
     <color name="searchBackground">#e0e0e0</color>
     <color name="buttonColorAccent">#486dda</color>
     <color name="buttonColor1">#e0e0e0</color>
-    <color name="inActivebuttonColor">#808080</color>
     <color name="buttonTextColor">#FFFFFF</color>
 
+
+    //BottomBar 색상
+    <color name="inActivebuttonColor">#000000</color>
 
     //차트 선 색상
     <color name="mothermilkcolor">#9ae1ef</color>

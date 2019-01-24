@@ -33,10 +33,7 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
     private HomeFragment homeFragment;
     private RecordFragment recordFragment;
     private MypageFragment mypageFragment;
-    private ChartFragment chartFragment;
-    private boolean doubleBackToExitPressedOnce = false;
     private LoginInfo loginInfo = LoginInfo.getInstance();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +42,6 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
 
         homeFragment = new HomeFragment();
         recordFragment = new RecordFragment();
-        chartFragment = new ChartFragment();
         mypageFragment = new MypageFragment();
 
         manager= getSupportFragmentManager();
@@ -54,7 +50,7 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
         ft.add(R.id.frame, homeFragment);
         ft.commit();
 
-        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar = findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(this);
 
         Log.i(TAG, "아기정보는 " + loginInfo.getBabyID() );
@@ -74,7 +70,6 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
             case R.id.bottomBarItemRecord:
 
                 Log.i(TAG, "베이비아이디는 " + loginInfo.getBabyID() );
-//                Log.i("베이비아이디는 ", loginInfo.getBabyID());
                 if(loginInfo.getBabyID() == 0){  //loginInfo.getBabyID() 는 db 가 int 이므로 기본은 0
 
                     Intent intent = new Intent(this, MybabyActivity.class);
@@ -94,9 +89,6 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
         }
     }
 
-
-
-
     // Fragment 변환을 해주기 위한 부분, Fragment의 Instance를 받아서 변경
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -106,24 +98,6 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
 //
     @Override
     public void onBackPressed() {
-//        Log.i("백버튼", String.valueOf(doubleBackToExitPressedOnce));
-//        if (doubleBackToExitPressedOnce) {
-//            Log.i("백버튼실행 나가라 ", String.valueOf(doubleBackToExitPressedOnce));
-//            finish();
-//            return;
-//        }
-//
-//        this.doubleBackToExitPressedOnce = true;
-//        Toast.makeText(this, R.string.warning_back, Toast.LENGTH_SHORT).show();
-//
-//
-//        new Handler().postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                doubleBackToExitPressedOnce=false;
-//            }
-//        }, 2000);
 
         moveTaskToBack(true);
     }

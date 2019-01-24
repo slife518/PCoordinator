@@ -58,6 +58,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     EditText _milk,_mothermilk, _rice, _remainText;
     EditText _date, _time;
     Button _btn_plusMilk, _btn_minusMilk, _btn_plusRice, _btn_minusRice, _save, _delete, _btn_plusMotherMilk, _btn_minusMotherMilk;
+    Button _btn_shortcut1, _btn_shortcut2, _btn_shortcut3, _btn_shortcut4,_btn_shortcut5;
 //    ImageView _back;
     static final String TAG = "RecordFragment";
     Context mContext; View v;
@@ -104,6 +105,11 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _btn_minusRice.setOnClickListener(this);
         _btn_minusMilk.setOnClickListener(this);
         _btn_minusMotherMilk.setOnClickListener(this);
+        _btn_shortcut1.setOnClickListener(this);
+        _btn_shortcut2.setOnClickListener(this);
+        _btn_shortcut3.setOnClickListener(this);
+        _btn_shortcut4.setOnClickListener(this);
+        _btn_shortcut5.setOnClickListener(this);
 
         _milk.setOnClickListener(this);
         _mothermilk.setOnClickListener(this);
@@ -147,6 +153,13 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _btn_minusMotherMilk = v.findViewById(R.id.btn_mothermilk_minus);
         _btn_plusRice = v.findViewById(R.id.btn_rice_plus);
         _btn_minusRice = v.findViewById(R.id.btn_rice_minus);
+
+        _btn_shortcut1 = v.findViewById(R.id.btn_custom1);
+        _btn_shortcut2 = v.findViewById(R.id.btn_custom2);
+        _btn_shortcut3 = v.findViewById(R.id.btn_custom3);
+        _btn_shortcut4 = v.findViewById(R.id.btn_custom4);
+        _btn_shortcut5 = v.findViewById(R.id.btn_custom5);
+
         _save = v.findViewById(R.id.btn_save);
         _delete = v.findViewById(R.id.btn_delete);
         _delete.setVisibility(v.GONE);
@@ -201,6 +214,12 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
             if(Integer.parseInt(_rice.getText().toString()) > 0) {
                 _rice.setText(calNumber(_rice.getText().toString(), - rice_num));
             }
+
+        }else if(v == _btn_shortcut1){ _remainText.setText( _remainText.getText() + _btn_shortcut1.getText().toString() );
+        }else if(v == _btn_shortcut2){ _remainText.setText( _remainText.getText() + _btn_shortcut2.getText().toString() );
+        }else if(v == _btn_shortcut3){ _remainText.setText( _remainText.getText() + _btn_shortcut3.getText().toString() );
+        }else if(v == _btn_shortcut4){ _remainText.setText( _remainText.getText() + _btn_shortcut4.getText().toString() );
+        }else if(v == _btn_shortcut5){ _remainText.setText( _remainText.getText() + _btn_shortcut5.getText().toString() );
         }else if(v == _save) {
             if(loginInfo.getBabyID() == 0) {   //선택된 또는 등록된 아기가 없으면
                 Intent intent = new Intent(getContext(), MybabyActivity.class);

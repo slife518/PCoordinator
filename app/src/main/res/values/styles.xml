@@ -104,4 +104,16 @@
     <style name="toolbarTitle">
         <item name="android:fontFamily">@font/nanumsquareeb</item>
     </style>
+
+<!---->
+    <style name="shortcut">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shortcut_button</item>
+        <item name="android:textSize">11dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+
+    </style>
+
 </resources>

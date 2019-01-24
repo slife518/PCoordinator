@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/app_margin_top"
             android:layout_marginLeft="@dimen/app_margin_left"
             android:layout_marginRight="@dimen/app_margin_right"
             android:focusable="true"
@@ -194,6 +193,36 @@
                 android:inputType="text"
                 android:hint="@string/remain_contents"/>
 
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btn_custom1"
+                        android:text="@string/shortcut_text1"
+                        style="@style/shortcut" />
+                    <Button
+                        android:id="@+id/btn_custom2"
+                        android:text="@string/shortcut_text2"
+                       style="@style/shortcut" />
+                    <Button
+                        android:id="@+id/btn_custom3"
+                        android:text="@string/shortcut_text3"
+                        style="@style/shortcut" />
+                    <Button
+                        android:id="@+id/btn_custom4"
+                        android:text="@string/shortcut_text4"
+                        style="@style/shortcut" />
+                    <Button
+                        android:id="@+id/btn_custom5"
+                        android:text="@string/shortcut_text5"
+                        style="@style/shortcut"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
             <LinearLayout
                 android:id="@+id/record_activity"
                 android:orientation="horizontal"
@@ -205,14 +234,12 @@
                     style="@style/MyWideButton"
                     android:text="@string/btn_delete"
                     android:background="@drawable/button_bg"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black"/>
 
                 <Button
                     android:id="@+id/btn_save"
                     style="@style/MyWideButton"
                     android:text="@string/btn_update" />
-
 
             </LinearLayout>
         </LinearLayout>

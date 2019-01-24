@@ -94,4 +94,9 @@
     <string name="message_network_problem">네트워크에 문제가 있습니다 잠시 후 다시 실행해 주세요</string>
     <string name="message_confirm_id_password">아이디(이메일) 또는 비밀번호를 틀립니다.</string>
     <string name="received_email">답변받을 이메일주소</string>
+    <string name="shortcut_text1">잘먹었어요</string>
+    <string name="shortcut_text2">겨우먹였어요</string>
+    <string name="shortcut_text3">잘안먹어요</string>
+    <string name="shortcut_text4">다남기네요</string>
+    <string name="shortcut_text5">맛이없나?</string>
 </resources>

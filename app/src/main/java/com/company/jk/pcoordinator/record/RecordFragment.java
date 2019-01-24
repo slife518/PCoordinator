@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     EditText _date, _time;
     Button _btn_plusMilk, _btn_minusMilk, _btn_plusRice, _btn_minusRice, _save, _delete, _btn_plusMotherMilk, _btn_minusMotherMilk;
     Button _btn_shortcut1, _btn_shortcut2, _btn_shortcut3, _btn_shortcut4,_btn_shortcut5;
+    LinearLayout linearLayout;
 //    ImageView _back;
     static final String TAG = "RecordFragment";
     Context mContext; View v;
@@ -154,6 +156,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _btn_plusRice = v.findViewById(R.id.btn_rice_plus);
         _btn_minusRice = v.findViewById(R.id.btn_rice_minus);
 
+        linearLayout = v.findViewById(R.id.layout_shortcut);
         _btn_shortcut1 = v.findViewById(R.id.btn_custom1);
         _btn_shortcut2 = v.findViewById(R.id.btn_custom2);
         _btn_shortcut3 = v.findViewById(R.id.btn_custom3);

@@ -195,30 +195,35 @@
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
                 <LinearLayout
                     android:id="@+id/layout_shortcut"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <Button
-                        android:id="@+id/btn_custom1"
+                        android:id="@+id/shortcutplus"
+                        android:text="+"
+                        style="@style/shortcutstyle"/>
+                    <Button
+                        android:id="@+id/shortcut1"
                         android:text="@string/shortcut_text1"
-                        style="@style/shortcut" />
+                        style="@style/shortcut"/>
                     <Button
-                        android:id="@+id/btn_custom2"
+                        android:id="@+id/shortcut2"
                         android:text="@string/shortcut_text2"
-                       style="@style/shortcut" />
+                        style="@style/shortcut"/>
                     <Button
-                        android:id="@+id/btn_custom3"
+                        android:id="@+id/shortcut3"
                         android:text="@string/shortcut_text3"
-                        style="@style/shortcut" />
+                        style="@style/shortcut"/>
                     <Button
-                        android:id="@+id/btn_custom4"
+                        android:id="@+id/shortcut4"
                         android:text="@string/shortcut_text4"
-                        style="@style/shortcut" />
+                        style="@style/shortcut"/>
                     <Button
-                        android:id="@+id/btn_custom5"
+                        android:id="@+id/shortcut5"
                         android:text="@string/shortcut_text5"
                         style="@style/shortcut"/>
                 </LinearLayout>
@@ -227,7 +232,7 @@
             <LinearLayout
                 android:id="@+id/record_activity"
                 android:orientation="horizontal"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button

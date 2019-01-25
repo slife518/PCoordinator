@@ -8,9 +8,6 @@ public class UrlPath {
 //    private final static String urlPath = "http://192.168.0.6:8080/dev.php/giantbaby/";  //래미안
 //    private final static String urlImg = "http://192.168.0.6:8080/etc/img/";
 
-//   --네트워크 안됨  private final static String urlPath = "http://172.21.16.79:80/dev.php/giantbaby/";  //company
-//   -- private final static String urlImg = "http://172.21.16.79:80/etc/img/";  //company
-
 //    private final static String urlPath = "http://10.0.2.2:80/dev.php/giantbaby/";  //local
 //    private final static String urlImg = "http://10.0.2.2:80/etc/img/";  //company
 
@@ -19,12 +16,14 @@ public class UrlPath {
 
     private final static String uploadPath = urlImg + "UploadToServer.php/";     //사진 업로드용
     private final static String urlBabyImg = urlImg + "babyprofile/";
+    private final static String urlMemberImg = urlImg + "memberprofile/";
 
 
     public String getUrlPath(){  return  urlPath; }
     public String getImgPath(){ return  urlImg;}
     public String getUploadPath(){return  uploadPath; }   //파일업로드용
     public String getUrlBabyImg(){return urlBabyImg;}     //아기사진 읽기용
+    public String getUrlMemberImg(){return urlMemberImg;}     //아기사진 읽기용
 
 
 

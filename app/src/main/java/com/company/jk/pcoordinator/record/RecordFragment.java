@@ -6,9 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,9 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,17 +29,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.MyFragment;
-import com.company.jk.pcoordinator.home.HomeFragment;
+import com.company.jk.pcoordinator.common.sqlite.Comment;
+import com.company.jk.pcoordinator.common.sqlite.DatabaseHelper;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.mybaby.MybabyActivity;
-import com.company.jk.pcoordinator.mypage.mybaby.Mybabyinfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.company.jk.pcoordinator.MainActivity.bottomBar;
@@ -51,36 +49,29 @@ import static com.company.jk.pcoordinator.MainActivity.bottomBar;
  * A simple {@link Fragment} subclass.
  */
 public class RecordFragment extends MyFragment implements View.OnClickListener,
+                                                                View.OnLongClickListener,
                                                                 DatePickerDialog.OnDateSetListener,
                                                                 TimePickerDialog.OnTimeSetListener,
                                                                 View.OnFocusChangeListener {
 
-    private String id;
-    EditText _milk,_mothermilk, _rice, _remainText;
-    EditText _date, _time;
-    Button _btn_plusMilk, _btn_minusMilk, _btn_plusRice, _btn_minusRice, _save, _delete, _btn_plusMotherMilk, _btn_minusMotherMilk;
-    Button _btn_shortcut1, _btn_shortcut2, _btn_shortcut3, _btn_shortcut4,_btn_shortcut5;
-    LinearLayout linearLayout;
-//    ImageView _back;
-    static final String TAG = "RecordFragment";
-    Context mContext; View v;
+    EditText _milk,_mothermilk, _rice, _remainText,  _date, _time;
+    Button _btn_plusMilk, _btn_minusMilk, _btn_plusRice, _btn_minusRice, _save, _delete,
+            _btn_plusMotherMilk, _btn_minusMotherMilk, _btn_shortcut1, _btn_shortcut2,
+            _btn_shortcut3, _btn_shortcut4,_btn_shortcut5, _btn_shortcutPlus;
+//    LinearLayout layout_shortcut;
+
+    Context mContext;
+    View v;
     LoginInfo loginInfo = LoginInfo.getInstance();
     RecordHistoryinfo info;
 
     // 간격
+    final static String TAG = "RecordFragment";
     final static int mothermilk_num = 5;
     final static int milk_num = 10;
     final static int rice_num = 10;
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        if(loginInfo.getBabyID().isEmpty()){
-//            Intent intent = new Intent(mContext, Mybabyinfo.class);
-//            startActivityForResult(intent, 12);
-//        }
-    }
+    final DatabaseHelper db =  new DatabaseHelper(getContext());
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,19 +90,62 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         activity.setSupportActionBar(myToolbar);
         myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
 
-
         findViewById(v);
+
+       select_comment_btn();
+        Log.i(TAG , "loginInfo.getBabyID() " + loginInfo.getBabyID());
+        return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initialize();
+
+    }
+
+    private  void findViewById(View v){
+
+        _date = v.findViewById(R.id.tv_date);
+        _time = v.findViewById(R.id.tv_time);
+        _milk = v.findViewById(R.id.et_milk);
+        _mothermilk = v.findViewById(R.id.et_mothermilk);
+        _rice = v.findViewById(R.id.et_rice);
+        _remainText = v.findViewById(R.id.et_remain_contents);
+        _btn_plusMilk = v.findViewById(R.id.btn_milk_plus);
+        _btn_plusMotherMilk = v.findViewById(R.id.btn_mothermilk_plus);
+        _btn_minusMilk = v.findViewById(R.id.btn_milk_minus);
+        _btn_minusMotherMilk = v.findViewById(R.id.btn_mothermilk_minus);
+        _btn_plusRice = v.findViewById(R.id.btn_rice_plus);
+        _btn_minusRice = v.findViewById(R.id.btn_rice_minus);
+        _btn_shortcut1 = v.findViewById(R.id.shortcut1);
+        _btn_shortcut2 = v.findViewById(R.id.shortcut2);
+        _btn_shortcut3 = v.findViewById(R.id.shortcut3);
+        _btn_shortcut4 = v.findViewById(R.id.shortcut4);
+        _btn_shortcut5 = v.findViewById(R.id.shortcut5);
+        _btn_shortcutPlus = v.findViewById(R.id.shortcutplus);
+
+//        layout_shortcut = v.findViewById(R.id.layout_shortcut);
+
+        _save = v.findViewById(R.id.btn_save);
+        _delete = v.findViewById(R.id.btn_delete);
+        _delete.setVisibility(v.GONE);
+        _save.setText(R.string.btn_save);
+        set_time();
+
         _btn_plusRice.setOnClickListener(this);
         _btn_plusMilk.setOnClickListener(this);
         _btn_plusMotherMilk.setOnClickListener(this);
         _btn_minusRice.setOnClickListener(this);
         _btn_minusMilk.setOnClickListener(this);
         _btn_minusMotherMilk.setOnClickListener(this);
+
         _btn_shortcut1.setOnClickListener(this);
         _btn_shortcut2.setOnClickListener(this);
         _btn_shortcut3.setOnClickListener(this);
         _btn_shortcut4.setOnClickListener(this);
         _btn_shortcut5.setOnClickListener(this);
+        _btn_shortcutPlus.setOnClickListener(this);
 
         _milk.setOnClickListener(this);
         _mothermilk.setOnClickListener(this);
@@ -129,45 +163,8 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _mothermilk.setOnFocusChangeListener(this);
         _rice.setOnFocusChangeListener(this);
 
-        Log.i(TAG , "loginInfo.getBabyID() " + loginInfo.getBabyID());
+        make_comments_button(v);
 
-        return v;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        initialize();
-
-    }
-
-
-    private  void findViewById(View v){
-        _date = v.findViewById(R.id.tv_date);
-        _time = v.findViewById(R.id.tv_time);
-        _milk = v.findViewById(R.id.et_milk);
-        _mothermilk = v.findViewById(R.id.et_mothermilk);
-        _rice = v.findViewById(R.id.et_rice);
-        _remainText = v.findViewById(R.id.et_remain_contents);
-        _btn_plusMilk = v.findViewById(R.id.btn_milk_plus);
-        _btn_plusMotherMilk = v.findViewById(R.id.btn_mothermilk_plus);
-        _btn_minusMilk = v.findViewById(R.id.btn_milk_minus);
-        _btn_minusMotherMilk = v.findViewById(R.id.btn_mothermilk_minus);
-        _btn_plusRice = v.findViewById(R.id.btn_rice_plus);
-        _btn_minusRice = v.findViewById(R.id.btn_rice_minus);
-
-        linearLayout = v.findViewById(R.id.layout_shortcut);
-        _btn_shortcut1 = v.findViewById(R.id.btn_custom1);
-        _btn_shortcut2 = v.findViewById(R.id.btn_custom2);
-        _btn_shortcut3 = v.findViewById(R.id.btn_custom3);
-        _btn_shortcut4 = v.findViewById(R.id.btn_custom4);
-        _btn_shortcut5 = v.findViewById(R.id.btn_custom5);
-
-        _save = v.findViewById(R.id.btn_save);
-        _delete = v.findViewById(R.id.btn_delete);
-        _delete.setVisibility(v.GONE);
-        _save.setText(R.string.btn_save);
-        set_time();
     }
 
     public void set_time(){   //화면 초기화
@@ -179,6 +176,10 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
         _date.setText(sdf.format(date));
         _time.setText(stf.format(date));
+
+    }
+
+    private  void  make_comments_button(View v){    // 자주사용하는 코멘트 버튼 만들기
 
     }
     @Override
@@ -223,6 +224,8 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         }else if(v == _btn_shortcut3){ _remainText.setText( _remainText.getText() + _btn_shortcut3.getText().toString() );
         }else if(v == _btn_shortcut4){ _remainText.setText( _remainText.getText() + _btn_shortcut4.getText().toString() );
         }else if(v == _btn_shortcut5){ _remainText.setText( _remainText.getText() + _btn_shortcut5.getText().toString() );
+        }else if(v == _btn_shortcutPlus){
+            popup_comment();
         }else if(v == _save) {
             if(loginInfo.getBabyID() == 0) {   //선택된 또는 등록된 아기가 없으면
                 Intent intent = new Intent(getContext(), MybabyActivity.class);
@@ -235,6 +238,80 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         }
     }
 
+
+    private void popup_comment(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.dialog_comment, null))
+                // Add action buttons
+                .setPositiveButton(R.string.add_comment, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText et_add_btn = v.findViewById(R.id.et_comment);
+                       add_comment_btn(et_add_btn.toString());
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                }).show();
+    }
+    @Override
+    public boolean onLongClick(View view) {
+
+        if(view == _btn_shortcut1){ _remainText.setText( _remainText.getText() + _btn_shortcut1.getText().toString() );
+        }else if(view == _btn_shortcut2){ _remainText.setText( _remainText.getText() + _btn_shortcut2.getText().toString() );
+        }else if(view == _btn_shortcut3){ _remainText.setText( _remainText.getText() + _btn_shortcut3.getText().toString() );
+        }else if(view == _btn_shortcut4){ _remainText.setText( _remainText.getText() + _btn_shortcut4.getText().toString() );
+        }else if(view == _btn_shortcut5) {
+            _remainText.setText(_remainText.getText() + _btn_shortcut5.getText().toString());
+        }
+
+        return false;
+    }
+
+    private  void add_comment_btn(String co){   //코맨트 버튼 추가
+        Comment comment = new Comment(co);
+        db.add(comment);
+
+        select_comment_btn();
+    }
+
+    private void select_comment_btn(){
+
+        List<Comment> listComment =  db.getAll();
+
+        Log.d(TAG, "Comment list ==>");
+
+        int i = 0;
+        for (Comment comment : listComment) {
+            switch (i){
+                case 0 :
+                    _btn_shortcut1.setText(comment.getComment());
+                    _btn_shortcut1.setVisibility(View.VISIBLE);
+                case 1 :
+                    _btn_shortcut2.setText(comment.getComment());
+                    _btn_shortcut2.setVisibility(View.VISIBLE);
+                case 2 :
+                    _btn_shortcut3.setText(comment.getComment());
+                    _btn_shortcut3.setVisibility(View.VISIBLE);
+                case 3 :
+                    _btn_shortcut4.setText(comment.getComment());
+                    _btn_shortcut4.setVisibility(View.VISIBLE);
+                case 4 :
+                    _btn_shortcut5.setText(comment.getComment());
+                    _btn_shortcut5.setVisibility(View.VISIBLE);
+            }
+
+            i = i + 1;
+            Log.d(TAG, "comment " + comment.getId() + ": " + comment.getComment());
+        }
+        Log.d(TAG, "<==");
+    }
     @Override
     public void onFocusChange(View v, boolean b) {
         Log.i("포커스가 변경 되었습니다.", String.valueOf(b) + _mothermilk.getText().toString());
@@ -341,9 +418,9 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                if(id != null) {
-                    params.put("record_id", id);
-                }
+//                if(id != null) {
+//                    params.put("record_id", id);
+//                }
                 params.put("baby_id", String.valueOf(loginInfo.getBabyID()));
                 params.put("email", loginInfo.getEmail());
                 params.put("record_date", _date.getText().toString());

@@ -106,13 +106,18 @@
     </style>
 
 <!---->
-    <style name="shortcut">
+    <style name="shortcut" parent="shortcutstyle">
+        <!--<item name="android:visibility">gone</item>-->
+    </style>
+    <style name="shortcutstyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/shortcut_button</item>
-        <item name="android:textSize">11dp</item>
-        <item name="android:paddingTop">0dp</item>
-        <item name="android:layout_margin">0dp</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:padding">7dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:layout_margin">1dp</item>
 
     </style>
 

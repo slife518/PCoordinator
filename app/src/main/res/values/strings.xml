@@ -99,4 +99,6 @@
     <string name="shortcut_text3">잘안먹어요</string>
     <string name="shortcut_text4">다남기네요</string>
     <string name="shortcut_text5">맛이없나?</string>
+    <string name="add_comment">멘트 추가</string>
+    <string name="add_comment_desc">자주사용하는 단어를 쉽게 추가할 수 있어요</string>
 </resources>

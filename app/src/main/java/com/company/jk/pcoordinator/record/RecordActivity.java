@@ -2,12 +2,14 @@ package com.company.jk.pcoordinator.record;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,15 +25,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.MyActivity;
+import com.company.jk.pcoordinator.common.sqlite.Comment;
+import com.company.jk.pcoordinator.common.sqlite.DatabaseHelper;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class RecordActivity extends MyActivity implements View.OnClickListener,
+public class RecordActivity extends MyActivity implements View.OnClickListener,   View.OnLongClickListener,
                                                                 DatePickerDialog.OnDateSetListener,
                                                                 TimePickerDialog.OnTimeSetListener,
                                                                 View.OnFocusChangeListener {
@@ -39,7 +44,10 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
     private String id;
     EditText _milk,_mothermilk, _rice, _remainText;
     EditText _date, _time;
-    Button _btn_plusMilk, _btn_minusMilk, _btn_plusMotherMilk, _btn_minusMotherMilk, _btn_plusRice, _btn_minusRice, _save, _delete;
+    Button _btn_plusMilk, _btn_minusMilk, _btn_plusMotherMilk, _btn_minusMotherMilk,
+            _btn_plusRice, _btn_minusRice, _save, _delete,
+            _btn_shortcut1, _btn_shortcut2,
+            _btn_shortcut3, _btn_shortcut4,_btn_shortcut5, _btn_shortcutPlus;
     static final String TAG = "RecordActivity";
     LoginInfo loginInfo = LoginInfo.getInstance();
     RecordHistoryinfo info;
@@ -47,6 +55,9 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
     final static int mothermilk_num = 5;
     final static int milk_num = 10;
     final static int rice_num = 10;
+
+
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +73,46 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
         myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         findViewById();
+        db =  new DatabaseHelper(getApplicationContext());
+        select_comment_btn();
+    }
+
+
+    private  void findViewById(){
+        _date = findViewById(R.id.tv_date);
+        _time = findViewById(R.id.tv_time);
+        _milk = findViewById(R.id.et_milk);
+        _mothermilk = findViewById(R.id.et_mothermilk);
+        _rice = findViewById(R.id.et_rice);
+        _remainText = findViewById(R.id.et_remain_contents);
+        _btn_plusMilk = findViewById(R.id.btn_milk_plus);
+        _btn_plusMotherMilk = findViewById(R.id.btn_mothermilk_plus);
+        _btn_minusMilk = findViewById(R.id.btn_milk_minus);
+        _btn_minusMotherMilk = findViewById(R.id.btn_mothermilk_minus);
+        _btn_plusRice = findViewById(R.id.btn_rice_plus);
+        _btn_minusRice = findViewById(R.id.btn_rice_minus);
+        _save = findViewById(R.id.btn_save);
+        _delete = findViewById(R.id.btn_delete);
+
+        _btn_shortcut1 = findViewById(R.id.shortcut1);
+        _btn_shortcut2 = findViewById(R.id.shortcut2);
+        _btn_shortcut3 = findViewById(R.id.shortcut3);
+        _btn_shortcut4 = findViewById(R.id.shortcut4);
+        _btn_shortcut5 = findViewById(R.id.shortcut5);
+        _btn_shortcutPlus = findViewById(R.id.shortcutplus);
+
+        Bundle loadInfo = getIntent().getExtras();
+         info = (RecordHistoryinfo)loadInfo.getSerializable("RecordHistoryinfo");
+        Log.i(TAG, info.getDate());
+        id = info.getId();
+        _date.setText(info.getYearDate());
+        _time.setText(info.getTime());
+        _milk.setText(String.valueOf(info.getMilk()));
+        _mothermilk.setText(String.valueOf(info.getMothermilk()));
+        _rice.setText(String.valueOf(info.getRice()));
+        _remainText.setText(info.getComments());
+
+
         _btn_plusRice.setOnClickListener(this);
         _btn_plusMilk.setOnClickListener(this);
         _btn_plusMotherMilk.setOnClickListener(this);
@@ -85,35 +136,19 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
         _mothermilk.setOnFocusChangeListener(this);
         _rice.setOnFocusChangeListener(this);
 
-    }
 
+        _btn_shortcut1.setOnClickListener(this);
+        _btn_shortcut2.setOnClickListener(this);
+        _btn_shortcut3.setOnClickListener(this);
+        _btn_shortcut4.setOnClickListener(this);
+        _btn_shortcut5.setOnClickListener(this);
+        _btn_shortcutPlus.setOnClickListener(this);
+        _btn_shortcut1.setOnLongClickListener(this);
+        _btn_shortcut2.setOnLongClickListener(this);
+        _btn_shortcut3.setOnLongClickListener(this);
+        _btn_shortcut4.setOnLongClickListener(this);
+        _btn_shortcut5.setOnLongClickListener(this);
 
-    private  void findViewById(){
-        _date = findViewById(R.id.tv_date);
-        _time = findViewById(R.id.tv_time);
-        _milk = findViewById(R.id.et_milk);
-        _mothermilk = findViewById(R.id.et_mothermilk);
-        _rice = findViewById(R.id.et_rice);
-        _remainText = findViewById(R.id.et_remain_contents);
-        _btn_plusMilk = findViewById(R.id.btn_milk_plus);
-        _btn_plusMotherMilk = findViewById(R.id.btn_mothermilk_plus);
-        _btn_minusMilk = findViewById(R.id.btn_milk_minus);
-        _btn_minusMotherMilk = findViewById(R.id.btn_mothermilk_minus);
-        _btn_plusRice = findViewById(R.id.btn_rice_plus);
-        _btn_minusRice = findViewById(R.id.btn_rice_minus);
-        _save = findViewById(R.id.btn_save);
-        _delete = findViewById(R.id.btn_delete);
-
-        Bundle loadInfo = getIntent().getExtras();
-         info = (RecordHistoryinfo)loadInfo.getSerializable("RecordHistoryinfo");
-            Log.i(TAG, info.getDate());
-            id = info.getId();
-            _date.setText(info.getYearDate());
-            _time.setText(info.getTime());
-            _milk.setText(String.valueOf(info.getMilk()));
-            _mothermilk.setText(String.valueOf(info.getMothermilk()));
-            _rice.setText(String.valueOf(info.getRice()));
-            _remainText.setText(info.getComments());
     }
     @Override
     public void onClick(View v) {
@@ -151,6 +186,16 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
             if(Integer.parseInt(_rice.getText().toString()) > 0) {
                 _rice.setText(calNumber(_rice.getText().toString(), - rice_num));
             }
+
+
+        }else if(v == _btn_shortcut1){ _remainText.setText( _remainText.getText() + _btn_shortcut1.getText().toString() );
+        }else if(v == _btn_shortcut2){ _remainText.setText( _remainText.getText() + _btn_shortcut2.getText().toString() );
+        }else if(v == _btn_shortcut3){ _remainText.setText( _remainText.getText() + _btn_shortcut3.getText().toString() );
+        }else if(v == _btn_shortcut4){ _remainText.setText( _remainText.getText() + _btn_shortcut4.getText().toString() );
+        }else if(v == _btn_shortcut5){ _remainText.setText( _remainText.getText() + _btn_shortcut5.getText().toString() );
+        }else if(v == _btn_shortcutPlus){ popup_comment();
+
+
         }else if(v == _save) {
             save_data();
         }else if(v == _delete){
@@ -317,15 +362,93 @@ public class RecordActivity extends MyActivity implements View.OnClickListener,
 
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        Log.i(TAG, "클릭" + item.getItemId());
-//        if(item.getItemId()==android.R.id.home){
-//            bottomBar.selectTabAtPosition(0, false);
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onLongClick(View view) {
+
+        if(view == _btn_shortcut1){ db.delete(_btn_shortcut1.getText().toString());
+        }else if(view == _btn_shortcut2){  db.delete(_btn_shortcut2.getText().toString());
+        }else if(view == _btn_shortcut3){  db.delete(_btn_shortcut3.getText().toString());
+        }else if(view == _btn_shortcut4){  db.delete(_btn_shortcut4.getText().toString());
+        }else if(view == _btn_shortcut5) {  db.delete(_btn_shortcut5.getText().toString());
+        }
+        select_comment_btn();
+
+        return true;
+    }
+
+    private  void add_comment_btn(String co){   //코맨트 버튼 추가
+        Comment comment = new Comment(co);
+        db.add(comment);
+
+        select_comment_btn();
+    }
+
+    private void select_comment_btn(){
+
+        List<Comment> listComment =  db.getAll();
+
+        Log.d(TAG, "Comment list ==>");
+
+        _btn_shortcut1.setVisibility(View.GONE);
+        _btn_shortcut2.setVisibility(View.GONE);
+        _btn_shortcut3.setVisibility(View.GONE);
+        _btn_shortcut4.setVisibility(View.GONE);
+        _btn_shortcut5.setVisibility(View.GONE);
+
+        int i = 0;
+        for (Comment comment : listComment) {
+            switch (i){
+                case 0 :
+                    _btn_shortcut1.setText(comment.getComment());
+                    _btn_shortcut1.setVisibility(View.VISIBLE);
+                    break;
+                case 1 :
+                    _btn_shortcut2.setText(comment.getComment());
+                    _btn_shortcut2.setVisibility(View.VISIBLE);
+                    break;
+                case 2 :
+                    _btn_shortcut3.setText(comment.getComment());
+                    _btn_shortcut3.setVisibility(View.VISIBLE);
+                    break;
+                case 3 :
+                    _btn_shortcut4.setText(comment.getComment());
+                    _btn_shortcut4.setVisibility(View.VISIBLE);
+                    break;
+                case 4 :
+                    _btn_shortcut5.setText(comment.getComment());
+                    _btn_shortcut5.setVisibility(View.VISIBLE);
+                    break;
+            }
+
+            i = i + 1;
+            Log.d(TAG, "comment " + comment.getId() + ": " + comment.getComment());
+        }
+        Log.d(TAG, "<==");
+    }
 
 
+
+    private void popup_comment(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.dialog_comment, null))
+                // Add action buttons
+                .setPositiveButton(R.string.add_comment_btn, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        Dialog dialogView = (Dialog)dialog;
+
+                        EditText _add_text = dialogView.findViewById(R.id.et_comment);
+                        add_comment_btn(_add_text.getText().toString());
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                }).show();
+    }
 }

@@ -2,6 +2,7 @@ package com.company.jk.pcoordinator.record;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -71,7 +72,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     final static int milk_num = 10;
     final static int rice_num = 10;
 
-    final DatabaseHelper db =  new DatabaseHelper(getContext());
+    DatabaseHelper db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,7 +93,9 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
         findViewById(v);
 
-       select_comment_btn();
+
+        db =  new DatabaseHelper(v.getContext());
+        select_comment_btn();
         Log.i(TAG , "loginInfo.getBabyID() " + loginInfo.getBabyID());
         return v;
     }
@@ -146,6 +149,11 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _btn_shortcut4.setOnClickListener(this);
         _btn_shortcut5.setOnClickListener(this);
         _btn_shortcutPlus.setOnClickListener(this);
+        _btn_shortcut1.setOnLongClickListener(this);
+        _btn_shortcut2.setOnLongClickListener(this);
+        _btn_shortcut3.setOnLongClickListener(this);
+        _btn_shortcut4.setOnLongClickListener(this);
+        _btn_shortcut5.setOnLongClickListener(this);
 
         _milk.setOnClickListener(this);
         _mothermilk.setOnClickListener(this);
@@ -163,8 +171,6 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _mothermilk.setOnFocusChangeListener(this);
         _rice.setOnFocusChangeListener(this);
 
-        make_comments_button(v);
-
     }
 
     public void set_time(){   //화면 초기화
@@ -179,9 +185,6 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
     }
 
-    private  void  make_comments_button(View v){    // 자주사용하는 코멘트 버튼 만들기
-
-    }
     @Override
     public void onClick(View v) {
         if(v == _date) {
@@ -224,8 +227,8 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         }else if(v == _btn_shortcut3){ _remainText.setText( _remainText.getText() + _btn_shortcut3.getText().toString() );
         }else if(v == _btn_shortcut4){ _remainText.setText( _remainText.getText() + _btn_shortcut4.getText().toString() );
         }else if(v == _btn_shortcut5){ _remainText.setText( _remainText.getText() + _btn_shortcut5.getText().toString() );
-        }else if(v == _btn_shortcutPlus){
-            popup_comment();
+        }else if(v == _btn_shortcutPlus){ popup_comment();
+
         }else if(v == _save) {
             if(loginInfo.getBabyID() == 0) {   //선택된 또는 등록된 아기가 없으면
                 Intent intent = new Intent(getContext(), MybabyActivity.class);
@@ -248,11 +251,13 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(inflater.inflate(R.layout.dialog_comment, null))
                 // Add action buttons
-                .setPositiveButton(R.string.add_comment, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.add_comment_btn, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText et_add_btn = v.findViewById(R.id.et_comment);
-                       add_comment_btn(et_add_btn.toString());
+                        Dialog dialogView = (Dialog)dialog;
+
+                        EditText _add_text = dialogView.findViewById(R.id.et_comment);
+                       add_comment_btn(_add_text.getText().toString());
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -263,15 +268,15 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     @Override
     public boolean onLongClick(View view) {
 
-        if(view == _btn_shortcut1){ _remainText.setText( _remainText.getText() + _btn_shortcut1.getText().toString() );
-        }else if(view == _btn_shortcut2){ _remainText.setText( _remainText.getText() + _btn_shortcut2.getText().toString() );
-        }else if(view == _btn_shortcut3){ _remainText.setText( _remainText.getText() + _btn_shortcut3.getText().toString() );
-        }else if(view == _btn_shortcut4){ _remainText.setText( _remainText.getText() + _btn_shortcut4.getText().toString() );
-        }else if(view == _btn_shortcut5) {
-            _remainText.setText(_remainText.getText() + _btn_shortcut5.getText().toString());
+        if(view == _btn_shortcut1){ db.delete(_btn_shortcut1.getText().toString());
+        }else if(view == _btn_shortcut2){  db.delete(_btn_shortcut2.getText().toString());
+        }else if(view == _btn_shortcut3){  db.delete(_btn_shortcut3.getText().toString());
+        }else if(view == _btn_shortcut4){  db.delete(_btn_shortcut4.getText().toString());
+        }else if(view == _btn_shortcut5) {  db.delete(_btn_shortcut5.getText().toString());
         }
+        select_comment_btn();
 
-        return false;
+        return true;
     }
 
     private  void add_comment_btn(String co){   //코맨트 버튼 추가
@@ -287,24 +292,35 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
         Log.d(TAG, "Comment list ==>");
 
+        _btn_shortcut1.setVisibility(View.GONE);
+        _btn_shortcut2.setVisibility(View.GONE);
+        _btn_shortcut3.setVisibility(View.GONE);
+        _btn_shortcut4.setVisibility(View.GONE);
+        _btn_shortcut5.setVisibility(View.GONE);
+
         int i = 0;
         for (Comment comment : listComment) {
             switch (i){
                 case 0 :
                     _btn_shortcut1.setText(comment.getComment());
                     _btn_shortcut1.setVisibility(View.VISIBLE);
+                    break;
                 case 1 :
                     _btn_shortcut2.setText(comment.getComment());
                     _btn_shortcut2.setVisibility(View.VISIBLE);
+                    break;
                 case 2 :
                     _btn_shortcut3.setText(comment.getComment());
                     _btn_shortcut3.setVisibility(View.VISIBLE);
+                    break;
                 case 3 :
                     _btn_shortcut4.setText(comment.getComment());
                     _btn_shortcut4.setVisibility(View.VISIBLE);
+                    break;
                 case 4 :
                     _btn_shortcut5.setText(comment.getComment());
                     _btn_shortcut5.setVisibility(View.VISIBLE);
+                    break;
             }
 
             i = i + 1;

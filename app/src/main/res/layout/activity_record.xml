@@ -203,10 +203,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <Button
-                        android:id="@+id/shortcutplus"
-                        android:text="+"
-                        style="@style/shortcutstyle"/>
-                    <Button
                         android:id="@+id/shortcut1"
                         android:text="@string/shortcut_text1"
                         style="@style/shortcut"/>
@@ -226,6 +222,10 @@
                         android:id="@+id/shortcut5"
                         android:text="@string/shortcut_text5"
                         style="@style/shortcut"/>
+                    <Button
+                        android:id="@+id/shortcutplus"
+                        android:text=" + "
+                        style="@style/shortcutstyle"/>
                 </LinearLayout>
             </HorizontalScrollView>
 

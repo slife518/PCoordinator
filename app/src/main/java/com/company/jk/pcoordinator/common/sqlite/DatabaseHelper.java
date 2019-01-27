@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
-    private static final String DATABASE_NAME = "FoodAndBeverage";
+    private static final String DATABASE_NAME = "GiantBaby";
 
     private static final String TABLE_COMMENT = "Comment";
 
     private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
+    private static final String KEY_NAME = "comment";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,19 +25,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE_DRINK =
+        String CREATE_TABLE =
                 "CREATE TABLE " + TABLE_COMMENT + "(" +
                         KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         KEY_NAME + " TEXT NOT NULL" +
                         ");";
-        db.execSQL(CREATE_TABLE_DRINK);
+
+        db.execSQL(CREATE_TABLE);
+
+        add(db,"잘먹었어요.");
+        add(db,"소고기이유식");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String DROP_TABLE_DRINK =
+        String DROP_TABLE =
                 "DROP TABLE IF EXISTS " + TABLE_COMMENT;
-        db.execSQL(DROP_TABLE_DRINK);
+        db.execSQL(DROP_TABLE);
 
         onCreate(db);
     }
@@ -52,6 +56,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void add(String comment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, comment);
+
+        db.insert(TABLE_COMMENT, null, values);
+        db.close();
+    }
+
+    public void add(SQLiteDatabase database,String comment) {  //최초 기본 코멘트 넣을 때만 사용
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, comment);
+
+        database.insert(TABLE_COMMENT, null, values);
+//        database.close();
+    }
+
+    public void delete(String comment){
+        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(KEY_NAME, id);
+        db.delete(TABLE_COMMENT, KEY_NAME + " = '" + comment + "'", null);
+    }
     public List<Comment> getAll() {
         List<Comment> drinkList = new ArrayList<Comment>();
 

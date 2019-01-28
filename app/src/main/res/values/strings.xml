@@ -102,4 +102,9 @@
     <string name="add_comment">멘트 추가(최대 5개)</string>
     <string name="add_comment_desc">멘트를 길게 누르면 삭제됩니다.</string>
     <string name="add_comment_btn">멘트추가</string>
+
+    <string name="facebook_app_id">1026071290903888</string>
+    <string name="fb_login_protocol_scheme">fb1026071290903888</string>
+
+
 </resources>

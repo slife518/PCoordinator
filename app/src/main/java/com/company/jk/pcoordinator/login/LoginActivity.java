@@ -2,8 +2,12 @@ package com.company.jk.pcoordinator.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,12 +34,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends MyActivity {
     final static String TAG = "Login";
     final static String Controller = "Pc_login";
+
+    private static final String EMAIL = "email";
+    private static final String USER_POSTS = "user_posts";
+    private static final String USER_BIRTHDAY = "user_birthday";
+
+
     StringBuffer sb = new StringBuffer();
     SharedPreferences mPreference;
     Button btn_login;
@@ -81,9 +94,11 @@ public class LoginActivity extends MyActivity {
             }
         }
 
+//        printKeyHash();
 
         callbackManager = CallbackManager.Factory.create();
         loginButton =  findViewById(R.id.login_button);
+//        loginButton.setReadPermissions((Arrays.asList(EMAIL, USER_POSTS, USER_BIRTHDAY)));
         loginButton.setReadPermissions("email");
 
 
@@ -93,19 +108,39 @@ public class LoginActivity extends MyActivity {
             public void onSuccess(LoginResult loginResult) {
                 // App code
                 showToast(loginResult.getAccessToken().getUserId());
+                Log.d(TAG, "로그인 성공 " + loginResult.getAccessToken().getUserId());
             }
 
             @Override
             public void onCancel() {
                 // App code
+                showToast("취소하였습니다. ");
             }
 
             @Override
             public void onError(FacebookException exception) {
+                Log.i(TAG,exception.toString());
                 // App code
             }
         });
 
+    }
+
+    private void printKeyHash() {
+
+            try {
+                PackageInfo info = getPackageManager().getPackageInfo("com.company.jk.pcoordinator", PackageManager.GET_SIGNATURES);
+                for (Signature signature: info.signatures) {
+
+                    MessageDigest md = MessageDigest.getInstance("SHA");
+                    md.update(signature.toByteArray());
+                    Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }  catch (NoSuchAlgorithmException e ){
+                e.printStackTrace();
+        }
     }
 
     public void OnClickMethod(View v) {      // TODO Auto-generated method stub

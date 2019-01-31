@@ -103,8 +103,11 @@
     <string name="add_comment_desc">멘트를 길게 누르면 삭제됩니다.</string>
     <string name="add_comment_btn">멘트추가</string>
 
+
+
+    <!--//oauth -->
     <string name="facebook_app_id">1026071290903888</string>
     <string name="fb_login_protocol_scheme">fb1026071290903888</string>
-
+    <string name="kakao_app_key">79da95c0f5f79a250663ba7708a81b5c</string>
 
 </resources>

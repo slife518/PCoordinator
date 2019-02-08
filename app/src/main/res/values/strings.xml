@@ -104,10 +104,12 @@
     <string name="add_comment_btn">멘트추가</string>
 
 
-
     <!--//oauth -->
     <string name="facebook_app_id">1026071290903888</string>
     <string name="fb_login_protocol_scheme">fb1026071290903888</string>
     <string name="kakao_app_key">79da95c0f5f79a250663ba7708a81b5c</string>
+    <string name="title_activity_board">BoardActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

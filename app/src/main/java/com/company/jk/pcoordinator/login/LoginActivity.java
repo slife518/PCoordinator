@@ -95,35 +95,35 @@ public class LoginActivity extends MyActivity {
             }
         }
 
-//        printKeyHash();
+//        printKeyHash();  // 키 해쉬 찾기
 
-        callbackManager = CallbackManager.Factory.create();
-        loginButton =  findViewById(R.id.login_button);
-//        loginButton.setReadPermissions((Arrays.asList(EMAIL, USER_POSTS, USER_BIRTHDAY)));
-        loginButton.setReadPermissions("email");
-
-
-        // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                showToast(loginResult.getAccessToken().getUserId());
-                Log.d(TAG, "로그인 성공 " + loginResult.getAccessToken().getUserId());
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-                showToast("취소하였습니다. ");
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                Log.i(TAG,exception.toString());
-                // App code
-            }
-        });
+//        callbackManager = CallbackManager.Factory.create();
+//        loginButton =  findViewById(R.id.login_button);
+////        loginButton.setReadPermissions((Arrays.asList(EMAIL, USER_POSTS, USER_BIRTHDAY)));
+//        loginButton.setReadPermissions("email");
+//
+//
+//        // Callback registration
+//        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                // App code
+//                showToast(loginResult.getAccessToken().getUserId());
+//                Log.d(TAG, "로그인 성공 " + loginResult.getAccessToken().getUserId());
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                // App code
+//                showToast("취소하였습니다. ");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException exception) {
+//                Log.i(TAG,exception.toString());
+//                // App code
+//            }
+//        });
 
     }
 

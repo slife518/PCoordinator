@@ -19,7 +19,7 @@
     <string name="newpassword">Enter new password</string>
     <string name="btn_save_password">Change password</string>
     <string name="RegisterNewMember">Welcome. Please enter the email.</string>
-    <string name="txPassword">비밀번호관리</string>
+    <string name="txPassword">Password Management</string>
     <string name="save">처리되었습니다.</string>
     <string name="parent_yes">관계끊기</string>
 

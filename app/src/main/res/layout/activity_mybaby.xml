@@ -54,14 +54,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="이미 등록된 아이가 있다면?"
+                android:text="@string/already_baby"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_marginTop="8dp"
-                android:text="최초등록자가 나를 아이의 보호자로 추가해 주어야 합니다. "
+                android:text="@string/baby_register_method"
                 />
 
         </LinearLayout>

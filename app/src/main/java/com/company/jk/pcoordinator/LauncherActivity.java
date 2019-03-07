@@ -35,29 +35,29 @@ public class LauncherActivity extends MyActivity {
     private WebView mWebView;
     private WebSettings mWebSettings;
 
-    private  String url ;
+    private  String url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-        mWebView = findViewById(R.id.webview);  //레이어와 연결
-        mWebView.setWebViewClient(new WebViewClient());  // 클릭시 새창 안뜨게
-        mWebSettings = mWebView.getSettings();   //세부세팅등록
-
-        mWebSettings.setJavaScriptEnabled(true);  //자바스크립트
-
-        url = new UrlPath().getUrlPath()  + "Pc_login/preview";
-        Log.i(TAG, url);
-
-        mWebView.loadUrl(url);   //원하는 url 입력
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        mWebView = findViewById(R.id.webview);  //레이어와 연결
+//        mWebView.setWebViewClient(new WebViewClient());  // 클릭시 새창 안뜨게
+//        mWebSettings = mWebView.getSettings();   //세부세팅등록
+//
+//        mWebSettings.setJavaScriptEnabled(true);  //자바스크립트
+//
+//        url = new UrlPath().getUrlPath()  + "Pc_login/preview";
+//        Log.i(TAG, url);
+//
+//        mWebView.loadUrl(url);   //원하는 url 입력
+//
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
         String id = mPreference.getString("Email", "");

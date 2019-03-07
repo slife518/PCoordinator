@@ -179,7 +179,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             e.printStackTrace();
         }
 
-        return getResources().getString(R.string.subtitle) + " " + diffmonth + getResources().getString(R.string.month) + " " + getResources().getString(R.string.subtitle2)
+        return getResources().getString(R.string.subtitle) + " " + diffmonth + getResources().getString(R.string.subtitle2)
                 + diffday + getResources().getString(R.string.day) ;
 
 

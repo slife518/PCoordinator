@@ -61,7 +61,7 @@
            <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="자동로그인"
+            android:text="@string/autologin"
             android:id="@+id/cb_Auto"
             android:checked="true"/>
 

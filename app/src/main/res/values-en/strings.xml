@@ -112,7 +112,7 @@
     <string name="title_activity_board">BoardActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="autologin">Pass the login process</string>
+    <string name="autologin">Skip login process</string>
     <string name="already_baby"> if theres is a baby who was already registered?</string>
     <string name="baby_register_method">The first registrar must add me as a guardian of the baby.</string>
 

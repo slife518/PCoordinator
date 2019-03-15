@@ -24,12 +24,12 @@ import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.NetworkUtil;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+//import com.facebook.CallbackManager;
+//import com.facebook.FacebookCallback;
+//import com.facebook.FacebookException;
+//import com.facebook.login.LoginManager;
+//import com.facebook.login.LoginResult;
+//import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,8 +62,8 @@ public class LoginActivity extends MyActivity {
     CheckBox cb_auto;
     Intent intent;
     LoginInfo loginInfo = LoginInfo.getInstance();
-    private LoginButton loginButton;
-    private CallbackManager callbackManager;
+//    private LoginButton loginButton;
+//    private CallbackManager callbackManager;
 
 
     @Override
@@ -341,7 +341,7 @@ public class LoginActivity extends MyActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

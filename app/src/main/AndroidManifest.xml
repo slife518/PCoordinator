@@ -47,6 +47,7 @@
         <activity android:name=".mypage.mybaby.MybabyDetailActivity" />
         <activity android:name=".mypage.PasswordActivity" />
         <activity android:name=".mypage.AskActivity" />
+        <activity android:name=".board.talk.TalkActivity" />
         <activity android:name=".record.RecordActivity" />
 
         <!--<meta-data-->

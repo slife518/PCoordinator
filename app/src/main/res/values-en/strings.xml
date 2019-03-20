@@ -101,6 +101,6 @@
     <string name="autologin">Skip login process</string>
     <string name="already_baby"> if theres is a baby who was already registered?</string>
     <string name="baby_register_method">The first registrar must add me as a guardian of the baby.</string>
-    <string name="talklist">엄마아빠의 수다</string>
+    <string name="talklist">Talk Box</string>
 
 </resources>

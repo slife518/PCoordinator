@@ -34,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_babycard, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talkcard, parent, false);
         mContext = parent.getContext();
         RecyclerViewHolder holder = new RecyclerViewHolder(v);
 
@@ -47,20 +47,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         // 이벤트처리 : 생성된 List 중 선택된 목록번호를 Toast로 출력
         holder.title.setText(mItems.get(position).title);
         holder.contents.setText(mItems.get(position).contents);
-        holder.eyes.setText(mItems.get(position).eyes);
-        holder.talks.setText(mItems.get(position).talks);
-        holder.good.setText(mItems.get(position).good);
+        holder.eyes.setText(String.valueOf(mItems.get(position).eyes));
+        holder.talks.setText(String.valueOf(mItems.get(position).talks));
+        holder.good.setText(String.valueOf(mItems.get(position).good));
+        holder.createDate.setText(String.valueOf(mItems.get(position).createDate));
       //  holder.goodChecked.setText(mItems.get(position).goodChecked);
 
 
 
-        String imgUrl = urlPath.getUrlBabyImg() + mItems.get(position).id + ".jpg";  //확장자 대소문자 구별함.
+        String imgUrl = urlPath.getUrlTalkImg() + mItems.get(position).id + ".jpg";  //확장자 대소문자 구별함.
 
         Log.i(TAG, imgUrl);
 
         Picasso.with(mContext).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
         Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.mPicture);;  //image가 reload 되도록 하기 위하여 필요함.
-
+        Log.i(TAG, mItems.get(position).id  + " : " + holder.mPicture.getMaxWidth() );
+        if(holder.mPicture.getDrawable() == null){   //이부분 문제 있음... 사진이 있던 없던 모두 null 임..
+            holder.mPicture.setVisibility(View.GONE);
+        }
 
         // 이벤트처리
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -68,8 +72,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
             public void onClick(View v) {
 
                 Intent intent = new Intent(mContext, TalkDetailActivity.class);
-                intent.putExtra("email", loginInfo.getEmail());
-                intent.putExtra("baby_id", mItems.get(position).id);
+                intent.putExtra("id", mItems.get(position).id);
                 mContext.startActivity(intent);
             }
         });

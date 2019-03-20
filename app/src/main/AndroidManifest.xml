@@ -48,6 +48,7 @@
         <activity android:name=".mypage.PasswordActivity" />
         <activity android:name=".mypage.AskActivity" />
         <activity android:name=".board.talk.TalkActivity" />
+        <activity android:name=".board.talk.TalkDetailActivity" />
         <activity android:name=".record.RecordActivity" />
 
         <!--<meta-data-->

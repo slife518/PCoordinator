@@ -8,15 +8,16 @@ public class UrlPath {
 //    private final static String urlPath = "http://192.168.0.6:8080/dev.php/giantbaby/";  //래미안
 //    private final static String urlImg = "http://192.168.0.6:8080/etc/img/";
 
-//    private final static String urlPath = "http://10.0.2.2:80/dev.php/giantbaby/";  //local
-//    private final static String urlImg = "http://10.0.2.2:80/etc/img/";  //company
+    private final static String urlPath = "http://10.0.2.2:80/dev.php/giantbaby/";  //local
+    private final static String urlImg = "http://10.0.2.2:80/etc/img/";  //company
 
-    private final static String urlPath = "http://slife705.cafe24.com/index.php/giantbaby/";  //cafe24
-    private final static String urlImg = "http://slife705.cafe24.com/etc/img/";  //\Bitnami\wampstack-7.1.11-0\apache2\htdocs
+//    private final static String urlPath = "http://slife705.cafe24.com/index.php/giantbaby/";  //cafe24
+//    private final static String urlImg = "http://slife705.cafe24.com/etc/img/";  //\Bitnami\wampstack-7.1.11-0\apache2\htdocs
 
     private final static String uploadPath = urlImg + "UploadToServer.php/";     //사진 업로드용
     private final static String urlBabyImg = urlImg + "babyprofile/";
     private final static String urlMemberImg = urlImg + "memberprofile/";
+    private final static String urlTalkImg = urlImg + "talk/";
 
 
     public String getUrlPath(){  return  urlPath; }
@@ -24,6 +25,7 @@ public class UrlPath {
     public String getUploadPath(){return  uploadPath; }   //파일업로드용
     public String getUrlBabyImg(){return urlBabyImg;}     //아기사진 읽기용
     public String getUrlMemberImg(){return urlMemberImg;}     //아기사진 읽기용
+    public String getUrlTalkImg(){return urlTalkImg;}     //엄마아빠들의 수다 사진게시용
 
 
 

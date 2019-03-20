@@ -4,10 +4,11 @@ public class Talkinfo {
     int id, eyes, talks, good;
     String title;
     String contents;
+    String createDate;
     boolean goodChecked;
 
 
-    public Talkinfo(int id, String title, String contents, int eyes, int talks, int good, boolean goodChecked){
+    public Talkinfo(int id, String title, String contents, int eyes, int talks, int good, boolean goodChecked, String createDate){
         this.id = id;
         this.title = title;
         this.contents = contents;
@@ -15,6 +16,7 @@ public class Talkinfo {
         this.talks = talks;
         this.good = good;
         this.goodChecked = goodChecked;
+        this.createDate = createDate;
 
     }
 

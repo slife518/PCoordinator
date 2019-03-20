@@ -103,6 +103,7 @@ public class TalkActivity extends MyActivity{
         int id = 0, eyes = 0, talks = 0, good = 0;
         String title = null;
         String contents = null;
+        String createDate = null;
         boolean goodChecked = false;
 
         items.clear();
@@ -116,12 +117,14 @@ public class TalkActivity extends MyActivity{
                 title = rs.getString("title");
                 contents = rs.getString("contents");
                 eyes = rs.getInt("eyes");
-                talks = rs.getInt("talks");
+                talks = rs.getInt("talk");
+                good = rs.getInt("good");
                 goodChecked = rs.getBoolean("goodChecked");
+                createDate = rs.getString("createDate");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            items.add(new Talkinfo(id, title, contents, eyes, talks, good, goodChecked));
+            items.add(new Talkinfo(id, title, contents, eyes, talks, good, goodChecked, createDate));
         }
         mAdapter.notifyDataSetChanged();
 

@@ -14,16 +14,18 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public TextView eyes;
     public TextView talks;
     public TextView good;
+    public TextView createDate;
     public ImageView mPicture;
 
     public RecyclerViewHolder(View itemView) {
         super(itemView);
         mPicture = itemView.findViewById(R.id.iv_image);
-        title = itemView.findViewById(R.id.title);
+        title = itemView.findViewById(R.id.tv_title);
         contents =  itemView.findViewById(R.id.tv_contents);
         talks = itemView.findViewById(R.id.tv_chatcount);
         eyes = itemView.findViewById(R.id.tv_eyecount);
         good = itemView.findViewById(R.id.tv_goodcount);
+        createDate = itemView.findViewById(R.id.tv_createDate);
 
     }
 }

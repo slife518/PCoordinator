@@ -8,6 +8,7 @@ public class Talkinfo {
     boolean goodChecked;
 
 
+
     public Talkinfo(int id, String title, String contents, int eyes, int talks, int good, boolean goodChecked, String createDate){
         this.id = id;
         this.title = title;
@@ -45,6 +46,10 @@ public class Talkinfo {
         return contents;
     }
 
+
+    public void setGoodChecked(boolean goodChecked) {
+        this.goodChecked = goodChecked;
+    }
     public boolean getGoodChecked(){
         return  goodChecked;
     }

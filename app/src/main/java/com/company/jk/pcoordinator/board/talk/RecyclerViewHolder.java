@@ -16,10 +16,12 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public TextView good;
     public TextView createDate;
     public ImageView mPicture;
+    public ImageView iv_good;
 
     public RecyclerViewHolder(View itemView) {
         super(itemView);
         mPicture = itemView.findViewById(R.id.iv_image);
+        iv_good = itemView.findViewById(R.id.iv_good);
         title = itemView.findViewById(R.id.tv_title);
         contents =  itemView.findViewById(R.id.tv_contents);
         talks = itemView.findViewById(R.id.tv_chatcount);

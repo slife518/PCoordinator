@@ -9,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyDataTransaction;
+import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.squareup.picasso.MemoryPolicy;
@@ -17,6 +20,8 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     private String TAG = "RecyclerViewAdapter";
@@ -24,7 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     private UrlPath urlPath = new UrlPath();
     private LoginInfo loginInfo = LoginInfo.getInstance();
     private ArrayList<Talkinfo> mItems;
-
+    MyDataTransaction transaction;
     public RecyclerViewAdapter(ArrayList itemList) {
         mItems = itemList;
     }
@@ -37,13 +42,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talkcard, parent, false);
         mContext = parent.getContext();
         RecyclerViewHolder holder = new RecyclerViewHolder(v);
-
+        transaction = new MyDataTransaction(mContext);
         return holder;
     }
 
     // 필수 오버라이드 : 재활용되는 View 가 호출, Adapter 가 해당 position 에 해당하는 데이터를 결합
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
         // 이벤트처리 : 생성된 List 중 선택된 목록번호를 Toast로 출력
         holder.title.setText(mItems.get(position).title);
         holder.contents.setText(mItems.get(position).contents);
@@ -60,11 +65,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         Log.i(TAG, imgUrl);
 
         Picasso.with(mContext).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
-        Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.mPicture);;  //image가 reload 되도록 하기 위하여 필요함.
-        Log.i(TAG, mItems.get(position).id  + " : " + holder.mPicture.getMaxWidth() );
-        if(holder.mPicture.getDrawable() == null){   //이부분 문제 있음... 사진이 있던 없던 모두 null 임..
-            holder.mPicture.setVisibility(View.GONE);
-        }
+//        Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.mPicture);  //image가 reload 되도록 하기 위하여 필요함.
+        Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.mPicture, new com.squareup.picasso.Callback(){
+            @Override
+            public void onSuccess() {
+            }
+            @Override
+            public void onError() {
+                holder.mPicture.setVisibility(View.GONE);
+            }
+        });
+//        Log.i(TAG, mItems.get(position).id  + " : " + holder.mPicture.getMaxWidth() );
+//        if(holder.mPicture.getDrawable() == null){   //이부분 문제 있음... 사진이 있던 없던 모두 null 임..
+//            holder.mPicture.setVisibility(View.GONE);
+//        }
 
         // 이벤트처리
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +90,51 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                 mContext.startActivity(intent);
             }
         });
+
+        holder.iv_good.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mItems.get(position).getGoodChecked()){
+                    mItems.get(position).setGoodChecked(false);
+                    holder.good.setText(String.valueOf(--mItems.get(position).good));
+                }else{
+                    mItems.get(position).setGoodChecked(true);
+                    holder.good.setText(String.valueOf(++mItems.get(position).good));
+                }
+                update_good(mItems.get(position).id,  mItems.get(position).getGoodChecked());
+
+            }
+        });
+    }
+
+    private void update_good(int id, boolean goodStatus){
+
+        Map<String, String> params = new HashMap<>();
+        params.put("email", loginInfo.getEmail());
+        params.put("id", String.valueOf(id));
+
+        VolleyCallback callback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
+
+                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                switch (method){
+                    case 2:  //get_data
+                        break;
+                } }
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+            }
+        };
+        String url = "";
+        if (goodStatus){
+            url = "Pc_board/add_talk_good";
+        }else {
+            url = "Pc_board/delete_talk_good";
+        }
+
+        transaction.queryExecute(2, params, url, callback);  //좋아요 체크 업데이트
     }
 
     // 필수 오버라이드 : 데이터 갯수 반환

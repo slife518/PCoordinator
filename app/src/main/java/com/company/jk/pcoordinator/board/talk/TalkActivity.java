@@ -100,7 +100,7 @@ public class TalkActivity extends MyActivity{
 
     private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);
-        int id = 0, eyes = 0, talks = 0, good = 0;
+        int id = 0, reply_id = 0, reply_level = 0, eyes = 0, talks = 0, good = 0;
         String title = null;
         String contents = null;
         String createDate = null;
@@ -114,6 +114,9 @@ public class TalkActivity extends MyActivity{
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(i);
                 id = rs.getInt("id");
+                reply_id = rs.getInt("reply_id");
+                reply_level = rs.getInt("reply_level");
+
                 title = rs.getString("title");
                 contents = rs.getString("contents");
                 eyes = rs.getInt("eyes");
@@ -124,7 +127,7 @@ public class TalkActivity extends MyActivity{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            items.add(new Talkinfo(id, title, contents, eyes, talks, good, goodChecked, createDate));
+            items.add(new Talkinfo(id,reply_id, reply_level, title, contents, eyes, talks, good, goodChecked, createDate));
         }
         mAdapter.notifyDataSetChanged();
 
@@ -137,7 +140,7 @@ public class TalkActivity extends MyActivity{
         //return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent intent = new Intent(this, TalkDetailActivity.class);
+                Intent intent = new Intent(this, NewTalkActivity.class);
                 intent.putExtra("email",loginInfo.getEmail() );
                 startActivityForResult(intent, 300);
 

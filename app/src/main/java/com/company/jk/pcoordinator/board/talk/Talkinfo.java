@@ -1,7 +1,8 @@
 package com.company.jk.pcoordinator.board.talk;
 
 public class Talkinfo {
-    int id, eyes, talks, good;
+    int id, reply_id, reply_level,
+            eyes, talks, good;
     String title;
     String contents;
     String createDate;
@@ -9,8 +10,11 @@ public class Talkinfo {
 
 
 
-    public Talkinfo(int id, String title, String contents, int eyes, int talks, int good, boolean goodChecked, String createDate){
+    public Talkinfo(int id, int reply_id, int reply_level, String title, String contents, int eyes, int talks, int good, boolean goodChecked, String createDate){
+
         this.id = id;
+        this.reply_id = reply_id;
+        this.reply_level = reply_level;
         this.title = title;
         this.contents = contents;
         this.eyes = eyes;
@@ -24,6 +28,14 @@ public class Talkinfo {
 
     public int getId() {
         return id;
+    }
+
+    public int getReply_id() {
+        return reply_id;
+    }
+
+    public int getReply_level() {
+        return reply_level;
     }
 
     public int getEyes() {

@@ -130,16 +130,26 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="10dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
             android:src="@drawable/ic_baseline_camera_alt_24px" />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_reply"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
             android:hint="@string/reply_comment" />
+        <TextView
+            android:id="@+id/tv_register"
+            android:text="@string/register"
+            android:textColor="@color/red"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

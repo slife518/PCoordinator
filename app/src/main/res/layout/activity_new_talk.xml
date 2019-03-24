@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.company.jk.pcoordinator.board.talk.NewTalkActivity">
+
+
+    <!-- 툴바 -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/et_title"
+        android:hint="@string/message_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="16dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <EditText
+        android:id="@+id/et_contents"
+        android:hint="@string/message_contents"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:padding="16dp"
+        android:gravity="top"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <ImageView
+        android:id="@+id/iv_camera"
+        android:src="@drawable/ic_baseline_camera_alt_24px"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:paddingLeft="16dp"/>
+</LinearLayout>

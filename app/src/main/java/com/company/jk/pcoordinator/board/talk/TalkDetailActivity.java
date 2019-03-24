@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -39,8 +40,10 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     Toolbar myToolbar;
     MyDataTransaction transaction;
     LoginInfo loginInfo = LoginInfo.getInstance();
-    String TAG = "MybabyFragment";
+    String TAG = "TalkDetailActivity";
     int id = 0;
+    int reply_id = 0;
+    int reply_level = 0;
     int goodCount = 0 ;
     TextView title;
     TextView contents;
@@ -48,6 +51,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     TextView talks;
     TextView good;
     TextView createDate;
+    TextView tv_register;
     ImageView mPicture;
     ImageView iv_good;
     boolean goodChecked;
@@ -77,13 +81,16 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
         findviewByid();
         iv_good.setOnClickListener(this);
+        tv_register.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
         if(view == iv_good){
-            update_good(id, goodChecked);
+            update_contents("good");
+        }else if(view == tv_register){
+            update_contents("reply");
         }
     }
 
@@ -95,6 +102,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         talks = findViewById(R.id.tv_talk);
         createDate = findViewById(R.id.tv_createDate);
         mPicture = findViewById(R.id.iv_image);
+        tv_register = findViewById(R.id.tv_register);
     }
     public void get_data(){
 
@@ -155,6 +163,8 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         try {
             JSONObject rs = (JSONObject) jsonArray.get(0);
             id = rs.getInt("id");
+            reply_id = rs.getInt("reply_id");
+            reply_level = rs.getInt("reply_level");
             title.setText(rs.getString("title"));
             contents.setText(rs.getString("contents"));
             eyes.setText(String.valueOf( rs.getInt("eyes")));
@@ -168,8 +178,8 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     }
 
 
-    private void set_reply(JSONArray jsonArray){
-        int id = 0, eyes = 0, talks = 0;
+    private void set_reply(JSONArray jsonArray){   //recyclerview 에 뿌려줄 댓글들
+        int id = 0, reply_id = 0, reply_level = 0, eyes = 0, talks = 0;
         String title = null;
         String contents = null;
         String createDate = null;
@@ -179,6 +189,8 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(i);
                 id = rs.getInt("id");
+                reply_id = rs.getInt("reply_id");
+                reply_level = rs.getInt("reply_level");
                 title = rs.getString("title");
                 contents = rs.getString("contents");
                 eyes = rs.getInt("eyes");
@@ -189,7 +201,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            items.add(new Talkinfo(id, title, contents, eyes, talks, goodCount, goodChecked, createDate));
+            items.add(new Talkinfo(id, reply_id, reply_level, title, contents, eyes, talks, goodCount, goodChecked, createDate));
         }
     }
 
@@ -213,11 +225,12 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
     }
 
-    private void update_good(int id, boolean goodStatus){
+    private void update_contents(String gubun){
 
         Map<String, String> params = new HashMap<>();
         params.put("email", loginInfo.getEmail());
         params.put("id", String.valueOf(id));
+
 
         VolleyCallback callback = new VolleyCallback() {
             @Override
@@ -225,7 +238,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
                 Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
-                    case 2:  //get_data
+                    case 1:  //get_data
                         break;
                 } }
             @Override
@@ -234,17 +247,33 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
             }
         };
         String url = "";
-        if (!goodStatus){
-            goodChecked = true;
-            good.setText(++goodCount);
-            url = "Pc_board/add_talk_good";
-        }else {
-            goodChecked = false;
-            good.setText(--goodCount);
-            url = "Pc_board/delete_talk_good";
+        int method = 0;
+
+        switch(gubun){
+            case "good":  //좋아요 업데이트
+                if (!goodChecked){
+                    goodChecked = true;
+                    good.setText(++goodCount);
+                    url = "Pc_board/add_talk_good";
+
+                }else {
+                    goodChecked = false;
+                    good.setText(--goodCount);
+                    url = "Pc_board/delete_talk_good";
+
+                }
+                method = 1;
+
+            case "reply": //댓글
+                params.put("reply_id", String.valueOf(reply_id));   //댓글 수정시 필요 (값이 있으면 수정, 없으면 삽입
+                params.put("reply_level", String.valueOf(reply_level));  //댓글 수정시 필요
+                url = "Pc_board/add_reply";
+                method =2;
         }
 
-        transaction.queryExecute(2, params, url, callback);  //좋아요 체크 업데이트
+        transaction.queryExecute(method, params, url, callback);  //좋아요 체크 업데이트
+
+
     }
 
 }

@@ -104,5 +104,8 @@
     <string name="dummy_title">세상에 우리 아이가 천재네요..</string>
     <string name="talklist">엄마아빠의 수다</string>
     <string name="reply_comment">댓글을 남겨주세요</string>
+    <string name="register">등록</string>
+    <string name="message_title">제목을 입력하세요</string>
+    <string name="message_contents">내용을 입력하세요</string>
 
 </resources>

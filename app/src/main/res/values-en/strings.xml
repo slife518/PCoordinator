@@ -102,5 +102,8 @@
     <string name="already_baby"> if theres is a baby who was already registered?</string>
     <string name="baby_register_method">The first registrar must add me as a guardian of the baby.</string>
     <string name="talklist">Talk Box</string>
+    <string name="register">등록</string>
+    <string name="message_title">제목을 입력하세요</string>
+    <string name="message_contents" />
 
 </resources>

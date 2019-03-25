@@ -1,8 +1,5 @@
 package com.company.jk.pcoordinator.board.talk;
 
-import android.content.Intent;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,7 +15,6 @@ import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
-import com.company.jk.pcoordinator.common.Textview_nanumsquareeb;
 import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
@@ -48,13 +44,9 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
         this.getSupportActionBar().setTitle(getResources().getString(R.string.talklist));
         myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
-
-        tv_register = findViewById(R.id.tv_register);
         et_title = findViewById(R.id.et_title);
         et_contents = findViewById(R.id.et_contents);
         iv_camera = findViewById(R.id.iv_camera);
-
-        tv_register.setOnClickListener(this);
         iv_camera.setOnClickListener(this);
     }
 
@@ -66,8 +58,6 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
         return true;
     }
 
-
-
     //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,6 +68,8 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
 
                 return true;
 
+            case R.id.iv_camera:
+                insert_picture();
             default:
                 onBackPressed();
 
@@ -86,10 +78,19 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+
     private void register_content(){
 
         Map<String, String> params = new HashMap<>();
         params.put("email", loginInfo.getEmail());
+        params.put("title", et_title.getText().toString());
+        params.put("contents", et_contents.getText().toString());
 
         VolleyCallback callback = new VolleyCallback() {
             @Override
@@ -98,7 +99,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
                 Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
                     case 1:  //get_data
-                        break;
+                        onBackPressed();
                 } }
             @Override
             public void onFailResponse(VolleyError error) {
@@ -107,7 +108,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
         };
         String url = "";
         int method = 1;
-        url = "Pc_board/add_reply";
+        url = "Pc_board/add_new";
 
         transaction.queryExecute(method, params, url, callback);  //좋아요 체크 업데이트
     }
@@ -115,5 +116,9 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
 
+    }
+
+    private boolean insert_picture(){
+        return true;
     }
 }

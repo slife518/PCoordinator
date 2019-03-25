@@ -140,7 +140,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     // 필수 오버라이드 : 데이터 갯수 반환
     @Override
     public int getItemCount() {
-        Log.i(TAG, "아기는 " + mItems.size());
         return mItems.size();
     }
 }

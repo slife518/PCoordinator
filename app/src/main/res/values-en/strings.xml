@@ -104,6 +104,6 @@
     <string name="talklist">Talk Box</string>
     <string name="register">등록</string>
     <string name="message_title">제목을 입력하세요</string>
-    <string name="message_contents" />
+    <string name="message_contents">내용을 입력하세요</string>
 
 </resources>

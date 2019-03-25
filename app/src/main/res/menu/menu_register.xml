@@ -8,13 +8,4 @@
         android:title="등록"
         app:showAsAction="ifRoom"/>
 
-    <!-- Settings, should always be in the overflow -->
-    <!--<item android:id="@+id/action_settings2"-->
-        <!--android:title="항목1"-->
-        <!--app:showAsAction="never"/>-->
-
-    <!--<item android:id="@+id/action_settings3"-->
-        <!--android:title="항목2"-->
-        <!--app:showAsAction="never"/>-->
-
 </menu>

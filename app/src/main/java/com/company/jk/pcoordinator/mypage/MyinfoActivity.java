@@ -12,7 +12,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneNumberUtils;
@@ -27,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.http.Upload;
@@ -342,15 +342,15 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
 
     private void beginCrop(Uri source) {
-        Log.d("beginCrop", "Start" +source.toString());
+//        Log.d("beginCrop", "Start" +source.toString());
         Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
         Crop.of(source, destination).asSquare().start(this);
-        Log.d("beginCrop", "End");
+//        Log.d("beginCrop", "End");
     }
 
     private void handleCrop(int resultCode, Intent result, Context ct) {
         if (resultCode == Activity.RESULT_OK) { // Activity 의 RESULT_OK값을 사용
-            Log.d("handleCrop", "RESULT_OK" + (Crop.getOutput(result).toString()));
+//            Log.d("handleCrop", "RESULT_OK" + (Crop.getOutput(result).toString()));
             _profile.setImageDrawable(null);
             _profile.setImageURI(Crop.getOutput(result));
             _profile.invalidate();
@@ -361,14 +361,14 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                 public void run() {
                     runOnUiThread(new Runnable() {
                         public void run() {	}	});
-                    Log.i(TAG, "파일명은 " + loginInfo.getEmail() + " 업로드할 사진의 절대 경로 " + absolutePath);
+//                    Log.i(TAG, "파일명은 " + loginInfo.getEmail() + " 업로드할 사진의 절대 경로 " + absolutePath);
                     upload.uploadFile(absolutePath, loginInfo.getEmail(), "memberprofile");
                     //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
                 }
             }).start();
 
         } else if (resultCode == Crop.RESULT_ERROR) {
-            Log.d("handleCrop", "RESULT_ERROR");
+//            Log.d("handleCrop", "RESULT_ERROR");
             Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
 //Activity에서 사용되던 this는 Fragment에서 보통 getActivity() 또는 getContext() 로 변경해서 사용한다.
         }

@@ -60,7 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
 
 
-        String imgUrl = urlPath.getUrlTalkImg() + mItems.get(position).id + ".jpg";  //확장자 대소문자 구별함.
+        String imgUrl = urlPath.getUrlTalkImg() + mItems.get(position).id + ".jpg";  //확장자 대소문자 구별함(무조건 소문자 jpg 사용할 것.
 
         Log.i(TAG, imgUrl);
 

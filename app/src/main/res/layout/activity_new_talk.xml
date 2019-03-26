@@ -25,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingLeft="16dp"/>
+        android:paddingLeft="16dp"
+        android:layout_marginTop="@dimen/app_margin_top"/>
 
     <View
         android:layout_width="match_parent"
@@ -43,14 +44,15 @@
         android:id="@+id/iv_insertPhoto1"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:paddingLeft="8dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <ImageView
-        android:id="@+id/iv_camera"
+        android:id="@+id/ib_camera"
         android:src="@drawable/ic_baseline_camera_alt_24px"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:paddingLeft="16dp"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:paddingLeft="8dp"/>
 </LinearLayout>

@@ -15,6 +15,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public TextView talks;
     public TextView good;
     public TextView createDate;
+    public TextView author;
     public ImageView mPicture;
     public ImageView iv_good;
 
@@ -23,6 +24,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         mPicture = itemView.findViewById(R.id.iv_image);
         iv_good = itemView.findViewById(R.id.iv_good);
         title = itemView.findViewById(R.id.tv_title);
+        author = itemView.findViewById(R.id.tv_author);
         contents =  itemView.findViewById(R.id.tv_contents);
         talks = itemView.findViewById(R.id.tv_chatcount);
         eyes = itemView.findViewById(R.id.tv_eyecount);

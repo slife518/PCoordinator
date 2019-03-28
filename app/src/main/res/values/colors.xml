@@ -12,6 +12,7 @@
     <color name="buttonColorAccent">#486dda</color>
     <color name="buttonColor1">#e0e0e0</color>
     <color name="buttonTextColor">#FFFFFF</color>
+    <color name="lineColor">#e0e0e0</color>
 
 
     //BottomBar 색상

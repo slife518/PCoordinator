@@ -37,7 +37,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_talk);
+        setContentView(R.layout.activity_talk_new);
 
         transaction = new MyDataTransaction(getApplicationContext());
 // Toolbar를 생성한다.
@@ -104,6 +104,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
                 Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
                     case 1:  //get_data
+                        result = result + "_0_0";
                         if(iv_insertPhoto1.getDrawable() != null){
                             photoCrop.uploadPhoto((iv_insertPhoto1.getTag().toString()), "talk", result);
                         }

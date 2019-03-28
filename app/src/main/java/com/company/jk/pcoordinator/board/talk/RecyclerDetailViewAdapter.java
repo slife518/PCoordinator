@@ -23,14 +23,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
-    private String TAG = "RecyclerViewAdapter";
+public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+    private String TAG = "RecyclerDetailViewAdapter";
     private Context mContext;
     private UrlPath urlPath = new UrlPath();
     private LoginInfo loginInfo = LoginInfo.getInstance();
     private ArrayList<Talkinfo> mItems;
     MyDataTransaction transaction;
-    public RecyclerViewAdapter(ArrayList itemList) {
+    public RecyclerDetailViewAdapter(ArrayList itemList) {
         mItems = itemList;
     }
 
@@ -39,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talkcard, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
         mContext = parent.getContext();
         RecyclerViewHolder holder = new RecyclerViewHolder(v);
         return holder;
@@ -49,16 +49,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
         // 이벤트처리 : 생성된 List 중 선택된 목록번호를 Toast로 출력
-        holder.title.setText(mItems.get(position).title);
+//        holder.title.setText(mItems.get(position).title);
         holder.author.setText(mItems.get(position).author);
         holder.contents.setText(mItems.get(position).contents);
-        holder.eyes.setText(String.valueOf(mItems.get(position).eyes));
-        holder.talks.setText(String.valueOf(mItems.get(position).talks));
+//        holder.eyes.setText(String.valueOf(mItems.get(position).eyes));
+//        holder.talks.setText(String.valueOf(mItems.get(position).talks));
         holder.good.setText(String.valueOf(mItems.get(position).good));
         holder.createDate.setText(String.valueOf(mItems.get(position).createDate));
       //  holder.goodChecked.setText(mItems.get(position).goodChecked);
 
-        final String imgUrl = urlPath.getUrlTalkImg() + mItems.get(position).id + "_" + mItems.get(position).reply_id + "_" + mItems.get(position).reply_level +  ".jpg";  //확장자 대소문자 구별함(무조건 소문자 jpg 사용할 것.
+        final String imgUrl = urlPath.getUrlTalkImg() + mItems.get(position).id + "_" + mItems.get(position).reply_id + "_" + mItems.get(position).reply_level + ".jpg";  //확장자 대소문자 구별함(무조건 소문자 jpg 사용할 것.
 //        Log.i(TAG, imgUrl);
 
         Picasso.with(mContext).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
@@ -81,7 +81,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
                 Intent intent = new Intent(mContext, TalkDetailActivity.class);
                 intent.putExtra("id", mItems.get(position).id);
-                intent.putExtra("author_email", mItems.get(position).email);
                 mContext.startActivity(intent);
             }
         });

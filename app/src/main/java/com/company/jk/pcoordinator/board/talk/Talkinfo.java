@@ -1,21 +1,26 @@
 package com.company.jk.pcoordinator.board.talk;
 
 public class Talkinfo {
-    int id, reply_id, reply_level,
-            eyes, talks, good;
+    int id, reply_id, reply_level, eyes, talks, good;
     String title;
+    String author;
+
+
+    String email;
     String contents;
     String createDate;
     boolean goodChecked;
 
 
 
-    public Talkinfo(int id, int reply_id, int reply_level, String title, String contents, int eyes, int talks, int good, boolean goodChecked, String createDate){
+    public Talkinfo(int id, int reply_id, int reply_level, String title, String  author, String email, String contents, int eyes, int talks, int good, boolean goodChecked, String createDate){
 
         this.id = id;
         this.reply_id = reply_id;
         this.reply_level = reply_level;
         this.title = title;
+        this.author = author;
+        this.email = email;
         this.contents = contents;
         this.eyes = eyes;
         this.talks = talks;
@@ -54,6 +59,10 @@ public class Talkinfo {
         return title;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
     public String getContents() {
         return contents;
     }
@@ -66,4 +75,11 @@ public class Talkinfo {
         return  goodChecked;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

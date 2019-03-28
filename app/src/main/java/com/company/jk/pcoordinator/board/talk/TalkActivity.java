@@ -60,6 +60,15 @@ public class TalkActivity extends MyActivity{
         mAdapter = new RecyclerViewAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        get_data();
+    }
+
+
     public void get_data(){
 
         Map<String, String> params = new HashMap<>();
@@ -84,11 +93,6 @@ public class TalkActivity extends MyActivity{
         transaction.queryExecute(2, params, "Pc_board/get_talklist", callback);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        get_data();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,6 +106,8 @@ public class TalkActivity extends MyActivity{
         Log.i(TAG, "결과값은 " + response);
         int id = 0, reply_id = 0, reply_level = 0, eyes = 0, talks = 0, good = 0;
         String title = null;
+        String author = null;
+        String email = null;
         String contents = null;
         String createDate = null;
         boolean goodChecked = false;
@@ -118,6 +124,8 @@ public class TalkActivity extends MyActivity{
                 reply_level = rs.getInt("reply_level");
 
                 title = rs.getString("title");
+                author = rs.getString("author");
+                email = rs.getString("email");
                 contents = rs.getString("contents");
                 eyes = rs.getInt("eyes");
                 talks = rs.getInt("talk");
@@ -127,7 +135,7 @@ public class TalkActivity extends MyActivity{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            items.add(new Talkinfo(id,reply_id, reply_level, title, contents, eyes, talks, good, goodChecked, createDate));
+            items.add(new Talkinfo(id,reply_id, reply_level, title, author, email, contents, eyes, talks, good, goodChecked, createDate));
         }
         mAdapter.notifyDataSetChanged();
 

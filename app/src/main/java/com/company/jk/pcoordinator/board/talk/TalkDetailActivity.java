@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -36,7 +35,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     RecyclerView mRecyclerView;
     ArrayList<Talkinfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
-    RecyclerViewAdapter mAdapter;
+    RecyclerDetailViewAdapter mAdapter;
     Toolbar myToolbar;
     MyDataTransaction transaction;
     LoginInfo loginInfo = LoginInfo.getInstance();
@@ -46,9 +45,10 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     int reply_level = 0;
     int goodCount = 0 ;
     TextView title;
+    TextView author;
     TextView contents;
-    TextView eyes;
-    TextView talks;
+//    TextView eyes;
+//    TextView talks;
     TextView good;
     TextView createDate;
     TextView tv_register;
@@ -76,7 +76,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
-        mAdapter = new RecyclerViewAdapter(items);
+        mAdapter = new RecyclerDetailViewAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
 
         findviewByid();
@@ -96,20 +96,23 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
     private void findviewByid(){
         title    = findViewById(R.id.tv_title);
+        author    = findViewById(R.id.tv_author);
         contents = findViewById(R.id.tv_contents);
+//        eyes = findViewById(R.id.tv_eyecount);
         good = findViewById(R.id.tv_goodcount);
         iv_good = findViewById(R.id.iv_good);
-        talks = findViewById(R.id.tv_talk);
+//        talks = findViewById(R.id.tv_chatcount);
         createDate = findViewById(R.id.tv_createDate);
         mPicture = findViewById(R.id.iv_image);
         tv_register = findViewById(R.id.tv_register);
     }
     public void get_data(){
-
         Intent intent = getIntent();
         Map<String, String> params = new HashMap<>();
-        params.put("email", loginInfo.getEmail());
         id = intent.getExtras().getInt("id");
+
+        params.put("email", loginInfo.getEmail());
+        params.put("id", String.valueOf(id));
 
         VolleyCallback callback = new VolleyCallback() {
             @Override
@@ -138,9 +141,13 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Intent intent = getIntent();
 
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_talk, menu);
+        if(loginInfo.getEmail().equals(intent.getExtras().getString("author_email"))){
+            MenuInflater menuInflater = getMenuInflater();
+            menuInflater.inflate(R.menu.menu_talk, menu);
+        }
+
         return true;
     }
 
@@ -166,12 +173,15 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
             reply_id = rs.getInt("reply_id");
             reply_level = rs.getInt("reply_level");
             title.setText(rs.getString("title"));
+            author.setText(rs.getString("author"));
             contents.setText(rs.getString("contents"));
-            eyes.setText(String.valueOf( rs.getInt("eyes")));
-            talks.setText(String.valueOf( rs.getInt("talk")));
-            good.setText(String.valueOf( rs.getInt("good")));
+//            eyes.setText(rs.getString("eyes"));
+//            talks.setText(rs.getString("talk"));
+            good.setText(rs.getString("good"));
             goodChecked = rs.getBoolean("goodChecked");
             createDate.setText(rs.getString("createDate"));
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -181,6 +191,8 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     private void set_reply(JSONArray jsonArray){   //recyclerview 에 뿌려줄 댓글들
         int id = 0, reply_id = 0, reply_level = 0, eyes = 0, talks = 0;
         String title = null;
+        String author = null;
+        String email = null;
         String contents = null;
         String createDate = null;
         boolean goodChecked = false;
@@ -192,6 +204,8 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
                 reply_id = rs.getInt("reply_id");
                 reply_level = rs.getInt("reply_level");
                 title = rs.getString("title");
+                author = rs.getString("author");
+                email = rs.getString("email");
                 contents = rs.getString("contents");
                 eyes = rs.getInt("eyes");
                 talks = rs.getInt("talk");
@@ -201,7 +215,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            items.add(new Talkinfo(id, reply_id, reply_level, title, contents, eyes, talks, goodCount, goodChecked, createDate));
+            items.add(new Talkinfo(id, reply_id, reply_level, title, author, email, contents, eyes, talks, goodCount, goodChecked, createDate));
         }
     }
 

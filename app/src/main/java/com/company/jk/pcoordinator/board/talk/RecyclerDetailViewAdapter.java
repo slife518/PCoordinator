@@ -1,7 +1,6 @@
 package com.company.jk.pcoordinator.board.talk;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,13 +33,25 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
         mItems = itemList;
     }
 
+    public int getItemViewType(int position) {
+//        Log.i(TAG, "recyclerviewDetailholder" + position);
+        return position;
+    }
 
     // 필수 오버라이드 : view 생성, viewholder 호출
     @NonNull
     @Override
-    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
+    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//        Log.i(TAG, "recyclerviewDetailholder_ viewType_ " + viewType);
+
+        View v;
+        if(viewType==0){
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_detail, parent, false);
+        }else {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
+        }
         mContext = parent.getContext();
+
         RecyclerViewHolder holder = new RecyclerViewHolder(v);
         return holder;
     }
@@ -49,20 +60,27 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
         // 이벤트처리 : 생성된 List 중 선택된 목록번호를 Toast로 출력
-//        holder.title.setText(mItems.get(position).title);
-        holder.author.setText(mItems.get(position).author);
-        holder.contents.setText(mItems.get(position).contents);
-//        holder.eyes.setText(String.valueOf(mItems.get(position).eyes));
-//        holder.talks.setText(String.valueOf(mItems.get(position).talks));
-        holder.good.setText(String.valueOf(mItems.get(position).good));
-        holder.createDate.setText(String.valueOf(mItems.get(position).createDate));
-      //  holder.goodChecked.setText(mItems.get(position).goodChecked);
+
+        switch (holder.getItemViewType()){
+            case 0:
+                holder.author.setText(mItems.get(position).author);
+                holder.contents.setText(mItems.get(position).contents);
+                holder.good.setText(String.valueOf(mItems.get(position).good));
+                holder.createDate.setText(String.valueOf(mItems.get(position).createDate));
+
+                break;
+            default:
+                holder.author.setText(mItems.get(position).author);
+                holder.contents.setText(mItems.get(position).contents);
+                holder.good.setText(String.valueOf(mItems.get(position).good));
+                holder.createDate.setText(String.valueOf(mItems.get(position).createDate));
+        }
+
 
         final String imgUrl = urlPath.getUrlTalkImg() + mItems.get(position).id + "_" + mItems.get(position).reply_id + "_" + mItems.get(position).reply_level + ".jpg";  //확장자 대소문자 구별함(무조건 소문자 jpg 사용할 것.
 //        Log.i(TAG, imgUrl);
 
         Picasso.with(mContext).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
-//        Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.mPicture);  //image가 reload 되도록 하기 위하여 필요함.
         Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.mPicture, new com.squareup.picasso.Callback(){
             @Override
             public void onSuccess() {
@@ -71,17 +89,6 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
             @Override
             public void onError() {
                 holder.mPicture.setVisibility(View.GONE);
-            }
-        });
-
-        // 이벤트처리
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(mContext, TalkDetailActivity.class);
-                intent.putExtra("id", mItems.get(position).id);
-                mContext.startActivity(intent);
             }
         });
 

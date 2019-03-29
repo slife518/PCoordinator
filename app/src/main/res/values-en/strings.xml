@@ -105,5 +105,6 @@
     <string name="register">등록</string>
     <string name="message_title">제목을 입력하세요</string>
     <string name="message_contents">내용을 입력하세요</string>
+    <string name="now">now</string>
 
 </resources>

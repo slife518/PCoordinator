@@ -11,7 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -40,22 +41,9 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     MyDataTransaction transaction;
     LoginInfo loginInfo = LoginInfo.getInstance();
     String TAG = "TalkDetailActivity";
-    int id = 0;
-    int reply_id = 0;
-    int reply_level = 0;
-    int goodCount = 0 ;
-    TextView title;
-    TextView author;
-    TextView contents;
-//    TextView eyes;
-//    TextView talks;
-    TextView good;
-    TextView createDate;
     TextView tv_register;
-    ImageView mPicture;
-    ImageView iv_good;
-    boolean goodChecked;
-
+    EditText et_reply;
+   int id = 0, reply_id = 0, reply_level = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,35 +68,24 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         mRecyclerView.setAdapter(mAdapter);
 
         findviewByid();
-        iv_good.setOnClickListener(this);
         tv_register.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
-        if(view == iv_good){
-            update_contents("good");
-        }else if(view == tv_register){
             update_contents("reply");
-        }
+
     }
 
     private void findviewByid(){
-        title    = findViewById(R.id.tv_title);
-        author    = findViewById(R.id.tv_author);
-        contents = findViewById(R.id.tv_contents);
-//        eyes = findViewById(R.id.tv_eyecount);
-        good = findViewById(R.id.tv_goodcount);
-        iv_good = findViewById(R.id.iv_good);
-//        talks = findViewById(R.id.tv_chatcount);
-        createDate = findViewById(R.id.tv_createDate);
-        mPicture = findViewById(R.id.iv_image);
         tv_register = findViewById(R.id.tv_register);
+        et_reply = findViewById(R.id.tv_reply);
     }
     public void get_data(){
         Intent intent = getIntent();
         Map<String, String> params = new HashMap<>();
+
         id = intent.getExtras().getInt("id");
 
         params.put("email", loginInfo.getEmail());
@@ -153,69 +130,36 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
     private void responseSuccess(String response) {
         Log.i(TAG, "결과값은 " + response);
-
         items.clear();
-
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
-
-        set_main_contents(jsonArray);
         set_reply(jsonArray);
 
         mAdapter.notifyDataSetChanged();
     }
 
-
-    private void set_main_contents(JSONArray jsonArray){
-
-        try {
-            JSONObject rs = (JSONObject) jsonArray.get(0);
-            id = rs.getInt("id");
-            reply_id = rs.getInt("reply_id");
-            reply_level = rs.getInt("reply_level");
-            title.setText(rs.getString("title"));
-            author.setText(rs.getString("author"));
-            contents.setText(rs.getString("contents"));
-//            eyes.setText(rs.getString("eyes"));
-//            talks.setText(rs.getString("talk"));
-            good.setText(rs.getString("good"));
-            goodChecked = rs.getBoolean("goodChecked");
-            createDate.setText(rs.getString("createDate"));
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     private void set_reply(JSONArray jsonArray){   //recyclerview 에 뿌려줄 댓글들
-        int id = 0, reply_id = 0, reply_level = 0, eyes = 0, talks = 0;
-        String title = null;
-        String author = null;
-        String email = null;
-        String contents = null;
-        String createDate = null;
-        boolean goodChecked = false;
 
-        for (int i = 1; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(i);
-                id = rs.getInt("id");
-                reply_id = rs.getInt("reply_id");
-                reply_level = rs.getInt("reply_level");
-                title = rs.getString("title");
-                author = rs.getString("author");
-                email = rs.getString("email");
-                contents = rs.getString("contents");
-                eyes = rs.getInt("eyes");
-                talks = rs.getInt("talk");
-                goodCount = rs.getInt("good");
-                goodChecked = rs.getBoolean("goodChecked");
-                createDate = rs.getString("createDate");
+                items.add(new Talkinfo( rs.getInt("id")
+                        , rs.getInt("reply_id")
+                        , rs.getInt("reply_level")
+                        , rs.getString("title")
+                        ,rs.getString("author")
+                        , rs.getString("email")
+                        , rs.getString("contents")
+                        , rs.getInt("eyes")
+                        , rs.getInt("talk")
+                        , rs.getInt("good")
+                        , rs.getBoolean("goodChecked")
+                        , rs.getString("createDate")
+                ));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            items.add(new Talkinfo(id, reply_id, reply_level, title, author, email, contents, eyes, talks, goodCount, goodChecked, createDate));
+
         }
     }
 
@@ -233,7 +177,6 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
             default:
                 onBackPressed();
-
         }
         return true;
 
@@ -245,14 +188,16 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         params.put("email", loginInfo.getEmail());
         params.put("id", String.valueOf(id));
 
-
         VolleyCallback callback = new VolleyCallback() {
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
                 Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
-                    case 1:  //get_data
+                    case 2:  //댓글업데이트 완료
+                        items.add(new Talkinfo(id, reply_id, reply_level,"", loginInfo.getName(), loginInfo.getEmail(),et_reply.getText().toString(), 0, 0, 0, false, getResources().getString(R.string.now)));
+                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(et_reply.getWindowToken(), 0);
                         break;
                 } }
             @Override
@@ -260,30 +205,13 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
                 Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
             }
         };
-        String url = "";
-        int method = 0;
-
-        switch(gubun){
-            case "good":  //좋아요 업데이트
-                if (!goodChecked){
-                    goodChecked = true;
-                    good.setText(++goodCount);
-                    url = "Pc_board/add_talk_good";
-
-                }else {
-                    goodChecked = false;
-                    good.setText(--goodCount);
-                    url = "Pc_board/delete_talk_good";
-
-                }
-                method = 1;
-
-            case "reply": //댓글
-                params.put("reply_id", String.valueOf(reply_id));   //댓글 수정시 필요 (값이 있으면 수정, 없으면 삽입
-                params.put("reply_level", String.valueOf(reply_level));  //댓글 수정시 필요
-                url = "Pc_board/add_reply";
-                method =2;
-        }
+        params.put("id", String.valueOf(id));   //댓글 수정시 필요 (값이 있으면 수정, 없으면 삽입
+        params.put("reply_id", String.valueOf(reply_id));   //댓글 수정시 필요 (값이 있으면 수정, 없으면 삽입
+        params.put("reply_level", String.valueOf(reply_level));  //댓글 수정시 필요
+        params.put("contents", et_reply.getText().toString());  //댓글 수정시 필요
+        params.put("email", loginInfo.getEmail());  //댓글 수정시 필요
+        String url = "Pc_board/add_reply";
+        int method =2;
 
         transaction.queryExecute(method, params, url, callback);  //좋아요 체크 업데이트
 

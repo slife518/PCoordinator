@@ -29,27 +29,27 @@
         android:textSize="20dp"
         android:layout_marginTop="@dimen/app_margin_top"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"/>
+        android:layout_marginLeft="@dimen/app_margin_left"
+        android:layout_marginRight="@dimen/app_margin_right"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginLeft="@dimen/app_margin_left"
+        android:layout_marginRight="@dimen/app_margin_right">
 
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"/>
         <TextView
             android:id="@+id/tv_contents"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:text="@string/dummy_contents"/>
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -60,7 +60,8 @@
         android:id="@+id/tv_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/app_margin_top"
+        android:layout_marginLeft="@dimen/app_margin_left"
+        android:layout_marginRight="@dimen/app_margin_right"
         android:text="작성자닉네임"/>
     <View
         android:layout_width="match_parent"
@@ -72,12 +73,14 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/app_margin_top">
+        android:layout_marginLeft="@dimen/app_margin_left"
+        android:layout_marginRight="@dimen/app_margin_right">
         <ImageView
             android:src="@drawable/ic_baseline_chat_24px"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/imageviewcolor"/>
         <TextView
             android:id="@+id/tv_chatcount"
             android:layout_weight="1"
@@ -88,7 +91,8 @@
             android:src="@drawable/ic_baseline_remove_red_eye_24px"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/imageviewcolor"/>
         <TextView
             android:id="@+id/tv_eyecount"
             android:layout_weight="1"
@@ -100,7 +104,8 @@
             android:src="@drawable/ic_baseline_thumb_up_24px"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/imageviewcolor"/>
         <TextView
             android:id="@+id/tv_goodcount"
             android:layout_weight="1"

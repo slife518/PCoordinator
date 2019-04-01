@@ -59,14 +59,16 @@ public class TalkActivity extends MyActivity{
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
         mAdapter = new RecyclerViewAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
-    }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         get_data();
     }
+
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//    }
 
 
     public void get_data(){

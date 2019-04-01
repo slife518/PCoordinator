@@ -121,4 +121,8 @@
 
     </style>
 
+    <style name="imageviewcolor">
+        <item name="android:tint">@color/lineColor</item>
+    </style>
+
 </resources>

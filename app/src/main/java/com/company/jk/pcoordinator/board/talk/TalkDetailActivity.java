@@ -132,12 +132,12 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         Log.i(TAG, "결과값은 " + response);
         items.clear();
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
-        set_reply(jsonArray);
+        set_recyclerview(jsonArray);
 
         mAdapter.notifyDataSetChanged();
     }
 
-    private void set_reply(JSONArray jsonArray){   //recyclerview 에 뿌려줄 댓글들
+    private void set_recyclerview(JSONArray jsonArray){   //recyclerview
 
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
@@ -146,7 +146,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
                         , rs.getInt("reply_id")
                         , rs.getInt("reply_level")
                         , rs.getString("title")
-                        ,rs.getString("author")
+                        , rs.getString("author")
                         , rs.getString("email")
                         , rs.getString("contents")
                         , rs.getInt("eyes")
@@ -195,7 +195,9 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
                 Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
                     case 2:  //댓글업데이트 완료
-                        items.add(new Talkinfo(id, reply_id, reply_level,"", loginInfo.getName(), loginInfo.getEmail(),et_reply.getText().toString(), 0, 0, 0, false, getResources().getString(R.string.now)));
+//                        items.add(new Talkinfo(id, reply_id, reply_level,"", loginInfo.getName(), loginInfo.getEmail(),et_reply.getText().toString(), 0, 0, 0, false, getResources().getString(R.string.now)));
+                        get_data();
+                        et_reply.setText("");
                         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(et_reply.getWindowToken(), 0);
                         break;

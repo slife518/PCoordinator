@@ -111,6 +111,24 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
 
             }
         });
+
+        holder.good.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mItems.get(position).getGoodChecked()){
+                    mItems.get(position).setGoodChecked(false);
+                    holder.good.setText(String.valueOf(--mItems.get(position).good));
+                }else{
+                    mItems.get(position).setGoodChecked(true);
+                    holder.good.setText(String.valueOf(++mItems.get(position).good));
+                }
+                update_good(mItems.get(position).id
+                        , mItems.get(position).reply_id
+                        , mItems.get(position).reply_level
+                        , mItems.get(position).getGoodChecked());
+
+            }
+        });
     }
 
     private void update_good(int id, int reply_id, int reply_level, boolean goodStatus){

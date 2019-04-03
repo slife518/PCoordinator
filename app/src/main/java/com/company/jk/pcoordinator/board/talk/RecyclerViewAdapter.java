@@ -100,13 +100,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
             }
         });
+
+        holder.good.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mItems.get(position).getGoodChecked()){
+                    mItems.get(position).setGoodChecked(false);
+                    holder.good.setText(String.valueOf(--mItems.get(position).good));
+                }else{
+                    mItems.get(position).setGoodChecked(true);
+                    holder.good.setText(String.valueOf(++mItems.get(position).good));
+                }
+                update_good(mItems.get(position).id,  mItems.get(position).getGoodChecked());
+
+            }
+        });
+
     }
+
 
     private void update_good(int id, boolean goodStatus){
 
         Map<String, String> params = new HashMap<>();
         params.put("email", loginInfo.getEmail());
         params.put("id", String.valueOf(id));
+        params.put("reply_id", "0");
+        params.put("reply_level", "0");
 
         VolleyCallback callback = new VolleyCallback() {
             @Override

@@ -64,7 +64,8 @@
     <string name="rice_list">이유식</string>
     <string name="mothermilk_list">수유</string>
     <string name="mypage">마이페이지</string>
-    <string name="update">기록수정하기</string>
+    <string name="update">수정하기</string>
+
     <string name="chartTitle1">수유시간</string>
     <string name="chartTitle2">분유/이유식</string>
     <string name="logout_message">로그아웃하시겠습니까?</string>
@@ -108,5 +109,6 @@
     <string name="message_title">제목을 입력하세요</string>
     <string name="message_contents">내용을 입력하세요</string>
     <string name="now">방금</string>
+    <string name="delete">삭제하기</string>
 
 </resources>

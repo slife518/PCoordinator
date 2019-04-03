@@ -60,15 +60,15 @@ public class TalkActivity extends MyActivity{
         mAdapter = new RecyclerViewAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
 
-        get_data();
+//        get_data();
     }
 
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        get_data();
+    }
 
 
     public void get_data(){

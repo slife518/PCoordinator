@@ -2,6 +2,8 @@ package com.company.jk.pcoordinator.board.talk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TalkDetailActivity extends MyActivity implements View.OnClickListener{
@@ -44,6 +47,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     TextView tv_register;
     EditText et_reply;
    int id = 0, reply_id = 0, reply_level = 0;
+    BottomSheetDialog modalBottomSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +59,8 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setTitle(getResources().getString(R.string.talklist));
-        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
+//        this.getSupportActionBar().setTitle(getResources().getString(R.string.talklist));
+//        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -75,7 +79,6 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
             update_contents("reply");
-
     }
 
     private void findviewByid(){
@@ -169,10 +172,13 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         //return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent intent = new Intent(this, TalkDetailActivity.class);
-                intent.putExtra("email",loginInfo.getEmail() );
-                startActivityForResult(intent, 300);
 
+                createDialog();
+
+//                Intent intent = new Intent(this, NewTalkActivity.class);
+//                intent.putExtra("email",loginInfo.getEmail() );
+//                intent.putExtra("id", id);
+//                startActivityForResult(intent, 300);
                 return true;
 
             default:
@@ -218,6 +224,37 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         transaction.queryExecute(method, params, url, callback);  //좋아요 체크 업데이트
 
 
+    }
+
+
+    private void createDialog(){
+        List<DataVO> list=new ArrayList<>();
+        DataVO vo=new DataVO();
+        vo.title=getResources().getString(R.string.update);
+        vo.id = id;
+        vo.reply_id = reply_id;
+        vo.reply_level = reply_level;
+        vo.image= ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_create_24px, null);
+        list.add(vo);
+
+        vo=new DataVO();
+        vo.title=getResources().getString(R.string.delete);
+        vo.image= ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_delete_24px, null);
+        vo.id = id;
+        vo.reply_id = reply_id;
+        vo.reply_level = reply_level;
+        list.add(vo);
+
+
+        BottomRecyclerViewAdapter adapter=new BottomRecyclerViewAdapter(list);
+        View view=getLayoutInflater().inflate(R.layout.layout_bottom_sheet, null);
+        RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.lab4_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+        modalBottomSheet=new BottomSheetDialog(this);
+        modalBottomSheet.setContentView(view);
+        modalBottomSheet.show();
     }
 
 }

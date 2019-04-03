@@ -48,7 +48,8 @@
         <activity android:name=".mypage.PasswordActivity" />
         <activity android:name=".mypage.AskActivity" />
         <activity android:name=".board.talk.TalkActivity" />
-        <activity android:name=".board.talk.TalkDetailActivity" />
+        <activity android:name=".board.talk.TalkDetailActivity"
+                    android:label=""/>
         <activity android:name=".record.RecordActivity" />
 
         <!-- <meta-data -->
@@ -94,7 +95,8 @@
         <!-- <activity -->
         <!-- android:name=".board.BoardActivity" -->
         <!-- android:label="@string/title_activity_board"></activity> -->
-        <activity android:name=".board.talk.NewTalkActivity"></activity>
+        <activity android:name=".board.talk.NewTalkActivity"
+                    android:label=""/>
     </application>
 
 </manifest>

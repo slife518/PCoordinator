@@ -11,9 +11,15 @@
     <dimen name="app_margin_right">24dp</dimen>
     <dimen name="app_margin_left">24dp</dimen>
 
+
+    <dimen name="boardlist_margin_top">8dp</dimen>
+    <dimen name="boardlist_margin_right">24dp</dimen>
+    <dimen name="boardlist_margin_left">24dp</dimen>
+    <dimen name="boardlist_margin_bottom">24dp</dimen>
+
     <dimen name="chart_width">310dp</dimen>
-    <dimen name="text_smallfont">15dp</dimen>
-    <dimen name="text_2smallfont">12dp</dimen>
+    <dimen name="text_smallfont">15sp</dimen>
+    <dimen name="text_2smallfont">12sp</dimen>
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
 

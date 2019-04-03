@@ -14,12 +14,21 @@ import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.MyPhotoCrop;
 import com.company.jk.pcoordinator.common.VolleyCallback;
+import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.soundcloud.android.crop.Crop;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,10 +38,12 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
     EditText et_title, et_contents;
     ImageView iv_insertPhoto1, iv_camera;
     Toolbar myToolbar;
+    private UrlPath urlPath = new UrlPath();
     MyDataTransaction transaction;
     String TAG = "NewTalkActivity";
     LoginInfo loginInfo = LoginInfo.getInstance();
     MyPhotoCrop photoCrop = new MyPhotoCrop();
+    int id = 0, reply_id = 0, reply_level = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +55,74 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setTitle(getResources().getString(R.string.talklist));
-        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
+//        this.getSupportActionBar().setTitle(getResources().getString(R.string.talklist));
+//        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         et_title = findViewById(R.id.et_title);
         et_contents = findViewById(R.id.et_contents);
         iv_insertPhoto1 = findViewById(R.id.iv_insertPhoto1);
         iv_camera = findViewById(R.id.ib_camera);
         iv_camera.setOnClickListener(this);
+
+        get_data();
     }
+
+    public void get_data(){
+        Intent intent = getIntent();
+        Map<String, String> params = new HashMap<>();
+
+        id = intent.getExtras().getInt("id");
+
+        params.put("email", loginInfo.getEmail());
+        params.put("id", String.valueOf(id));
+
+        VolleyCallback callback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
+
+                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+
+                switch (method){
+                    case 2:  //get_data
+                        responseSuccess(result);
+                        break;
+                } }
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+            }
+        };
+        transaction.queryExecute(2, params, "Pc_board/modify_talk_detail", callback);
+    }
+
+
+
+    private void responseSuccess(String response) {
+        Log.i(TAG, "결과값은 " + response);
+        JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
+
+            try {
+                JSONObject rs = (JSONObject) jsonArray.get(0);
+                et_title.setText(rs.getString("title"));
+                et_contents.setText(rs.getString("contents"));
+                final String imgUrl = urlPath.getUrlTalkImg() + id + "_" + reply_id + "_" + reply_level + ".jpg";  //확장자 대소문자 구별함(무조건 소문자 jpg 사용할 것.
+                Picasso.with(this).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
+                Picasso.with(this).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(iv_insertPhoto1, new com.squareup.picasso.Callback(){
+                    @Override
+                    public void onSuccess() {
+                        iv_insertPhoto1.setVisibility(View.VISIBLE);
+                    }
+                    @Override
+                    public void onError() {
+                        iv_insertPhoto1.setVisibility(View.GONE);
+                    }
+                });
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+       }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,6 +164,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
 
         Map<String, String> params = new HashMap<>();
         params.put("email", loginInfo.getEmail());
+        params.put("id", String.valueOf(id));
         params.put("title", et_title.getText().toString());
         params.put("contents", et_contents.getText().toString());
 

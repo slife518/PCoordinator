@@ -76,11 +76,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/app_margin_top">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="3"/>
             <ImageView
                 android:id="@+id/iv_chatcount"
                 android:layout_width="wrap_content"
@@ -94,16 +89,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"/>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="3"/>
-
             <ImageView
                 android:id="@+id/iv_good"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="200dp"
+                android:layout_marginStart="40dp"
                 android:src="@drawable/ic_baseline_thumb_up_24px"
                 style="@style/imageviewcolor"/>
             <TextView
@@ -111,15 +101,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="5"/>
         </LinearLayout>
 
     </LinearLayout>
-
-
 
     <View
         android:id="@+id/view_line1"

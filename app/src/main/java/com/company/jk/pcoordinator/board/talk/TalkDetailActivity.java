@@ -1,6 +1,9 @@
 package com.company.jk.pcoordinator.board.talk;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.content.res.ResourcesCompat;
@@ -34,12 +37,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TalkDetailActivity extends MyActivity implements View.OnClickListener{
+public class TalkDetailActivity extends MyActivity implements View.OnClickListener, BottomRecyclerViewAdapter.BottomSheetListener{
 
     RecyclerView mRecyclerView;
     ArrayList<Talkinfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
     RecyclerDetailViewAdapter mAdapter;
+    BottomSheetDialog modalBottomSheet;
     Toolbar myToolbar;
     MyDataTransaction transaction;
     LoginInfo loginInfo = LoginInfo.getInstance();
@@ -47,7 +51,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     TextView tv_register;
     EditText et_reply;
    int id = 0, reply_id = 0, reply_level = 0;
-    BottomSheetDialog modalBottomSheet;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,9 +256,93 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        modalBottomSheet=new BottomSheetDialog(this);
+
+
+        modalBottomSheet = new BottomSheetDialog(this);
         modalBottomSheet.setContentView(view);
         modalBottomSheet.show();
+
+    }
+
+    @Override
+    public void onButtonClicked(int position) {
+        Log.i(TAG, "방금 선택한 건 "+position) ;
+
+                    switch (position){
+                        case 0 : //수정하기
+
+                            Intent intent = new Intent(this, NewTalkActivity.class);
+                            intent.putExtra("email",loginInfo.getEmail() );
+                            intent.putExtra("id", id);
+                            intent.putExtra("reply_id", reply_id);
+                            intent.putExtra("reply_level", reply_level);
+                            startActivity(intent);
+
+                            break;
+                        case 1 :  // 삭제하기
+;
+                            deleteAelrtDialog();
+
+                            break;
+                    }
+
+        modalBottomSheet.dismiss();
+    }
+
+
+    private void delete_talk(){
+
+        Map<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(id));
+
+        VolleyCallback callback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
+
+                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                switch (method){
+                    case 1:  //get_data
+
+                        //onBackPressed();
+                } }
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+            }
+        };
+        String url = "";
+        int method = 1;
+        url = "Pc_board/delete_talk";
+
+        MyDataTransaction transaction;
+        transaction = new MyDataTransaction(this.getApplicationContext());
+        transaction.queryExecute(method, params, url, callback);  //좋아요 체크 업데이트
+    }
+
+
+
+    private void deleteAelrtDialog(){
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        builder.setTitle(R.string.btn_delete)
+                .setMessage(R.string.deleteAlert)
+                .setPositiveButton(R.string.btn_delete, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        delete_talk();
+                        onBackPressed();
+                    }
+                })
+                .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 }

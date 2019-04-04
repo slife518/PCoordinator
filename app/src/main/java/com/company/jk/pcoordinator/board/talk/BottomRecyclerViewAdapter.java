@@ -1,7 +1,6 @@
 package com.company.jk.pcoordinator.board.talk;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,7 +17,9 @@ import java.util.List;
 public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<ItemHolder> {
     private List<DataVO> list;
     private Context mContext;
+    BottomSheetListener mListener;
     LoginInfo loginInfo = LoginInfo.getInstance();
+
 
     String TAG = "BottomRecyclerViewAdapter";
     public BottomRecyclerViewAdapter(List<DataVO> list) {
@@ -29,6 +30,7 @@ public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<ItemHolder> 
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_bottom_sheet_row, parent, false);
         mContext = parent.getContext();
+        mListener = (BottomSheetListener)mContext;
         return new ItemHolder(root);
     }
 
@@ -42,26 +44,17 @@ public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<ItemHolder> 
 
             @Override
                public void onClick(View v) {
-                    switch (position){
-                        case 0 : //수정하기
-                            Intent intent = new Intent(mContext, NewTalkActivity.class);
-                            intent.putExtra("email",loginInfo.getEmail() );
-                            intent.putExtra("id",list.get(position).id);
-                            intent.putExtra("reply_id", list.get(position).reply_id);
-                            intent.putExtra("reply_level", list.get(position).reply_level);
-                            mContext.startActivity(intent);
 
-                            break;
-                        case 1 :  // 삭제하기
-                            break;
-                    }
-
-
-
+                mListener.onButtonClicked(position);
 
                }
         });
     }
+
+    public interface BottomSheetListener{
+            void onButtonClicked(int position);
+    }
+
 
     @Override
     public int getItemCount() {

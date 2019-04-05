@@ -65,6 +65,7 @@
     <string name="mothermilk_list">수유</string>
     <string name="mypage">마이페이지</string>
     <string name="update">수정하기</string>
+    <string name="rereply">대댓글쓰기</string>
 
     <string name="chartTitle1">수유시간</string>
     <string name="chartTitle2">분유/이유식</string>

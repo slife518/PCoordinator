@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -37,17 +36,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TalkDetailActivity extends MyActivity implements View.OnClickListener, BottomRecyclerViewAdapter.BottomSheetListener, RecyclerDetailViewAdapter.BottomSheetCallListener{
+public class TalkDetailRereplyActivity extends MyActivity implements View.OnClickListener, BottomRecyclerViewAdapter.BottomSheetListener, RecyclerDetailViewAdapter.BottomSheetCallListener{
 
     RecyclerView mRecyclerView;
     ArrayList<Talkinfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
-    RecyclerDetailViewAdapter mAdapter;
+    RecyclerDetailRereplyViewAdapter mAdapter;
     BottomSheetDialog modalBottomSheet;
     Toolbar myToolbar;
     MyDataTransaction transaction;
     LoginInfo loginInfo = LoginInfo.getInstance();
-    String TAG = "TalkDetailActivity";
+    String TAG = "TalkDetailRereplyActivity";
     TextView tv_register;
     EditText et_reply;
    int id = 0, reply_id = 0, reply_level = 0;
@@ -72,7 +71,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
-        mAdapter = new RecyclerDetailViewAdapter(items);
+        mAdapter = new RecyclerDetailRereplyViewAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
 
         findviewByid();
@@ -94,9 +93,11 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         Map<String, String> params = new HashMap<>();
 
         id = intent.getExtras().getInt("id");
+        reply_id = intent.getExtras().getInt("reply_id");
 
         params.put("email", loginInfo.getEmail());
         params.put("id", String.valueOf(id));
+        params.put("reply_id", String.valueOf(reply_id));
 
         VolleyCallback callback = new VolleyCallback() {
             @Override
@@ -114,7 +115,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
                 Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
             }
         };
-        transaction.queryExecute(2, params, "Pc_board/get_talk_detail", callback);
+        transaction.queryExecute(2, params, "Pc_board/get_talk_detail_reply", callback);
     }
 
     @Override
@@ -169,34 +170,36 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
         }
     }
-
-    //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //return super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case R.id.action_add:
-
-                createDialog();
-
-//                Intent intent = new Intent(this, NewTalkActivity.class);
-//                intent.putExtra("email",loginInfo.getEmail() );
-//                intent.putExtra("id", id);
-//                startActivityForResult(intent, 300);
-                return true;
-
-            default:
-                onBackPressed();
-        }
-        return true;
-
-    }
+//
+//    //추가된 소스, ToolBar에 추가된 항목의 select 이벤트를 처리하는 함수
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        //return super.onOptionsItemSelected(item);
+//        switch (item.getItemId()) {
+//            case R.id.action_add:
+//
+//                createDialog();
+//
+////                Intent intent = new Intent(this, NewTalkActivity.class);
+////                intent.putExtra("email",loginInfo.getEmail() );
+////                intent.putExtra("id", id);
+////                startActivityForResult(intent, 300);
+//                return true;
+//
+//            default:
+//                onBackPressed();
+//        }
+//        return true;
+//
+//    }
 
     private void update_contents(String gubun){
 
         Map<String, String> params = new HashMap<>();
         params.put("email", loginInfo.getEmail());
         params.put("id", String.valueOf(id));
+        params.put("reply_id", String.valueOf(reply_id));
+        params.put("reply_level", String.valueOf(reply_level));
 
         VolleyCallback callback = new VolleyCallback() {
             @Override
@@ -204,7 +207,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
                 Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
-                    case 2:  //댓글업데이트 완료
+                    case 2:  //댓글추가 완료
 //                        items.add(new Talkinfo(id, reply_id, reply_level,"", loginInfo.getName(), loginInfo.getEmail(),et_reply.getText().toString(), 0, 0, 0, false, getResources().getString(R.string.now)));
                         get_data();
                         et_reply.setText("");
@@ -225,88 +228,59 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         String url = "Pc_board/add_reply";
         int method =2;
 
-        transaction.queryExecute(method, params, url, callback);  //좋아요 체크 업데이트
+        transaction.queryExecute(method, params, url, callback);
 
 
     }
 
 
-    private void createDialog(){    // 게시글 수정/삭제
-        List<DataVO> list=new ArrayList<>();
-        DataVO vo=new DataVO();
-        vo.title=getResources().getString(R.string.update);
-        vo.tcode = "modify";
-        vo.id = id;
-        vo.reply_id = reply_id;
-        vo.reply_level = reply_level;
-        vo.image= ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_create_24px, null);
-        list.add(vo);
-
-        vo=new DataVO();
-        vo.title=getResources().getString(R.string.delete);
-        vo.tcode = "delete";
-        vo.image= ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_delete_24px, null);
-        vo.id = id;
-        vo.reply_id = reply_id;
-        vo.reply_level = reply_level;
-        list.add(vo);
-
-
-        BottomRecyclerViewAdapter adapter=new BottomRecyclerViewAdapter(list);
-        View view=getLayoutInflater().inflate(R.layout.layout_bottom_sheet, null);
-        RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.lab4_recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-
-
-        modalBottomSheet = new BottomSheetDialog(this);
-        modalBottomSheet.setContentView(view);
-        modalBottomSheet.show();
-
-    }
+//    private void createDialog(){    // 게시글 수정/삭제
+//        List<DataVO> list=new ArrayList<>();
+//        DataVO vo=new DataVO();
+//        vo.title=getResources().getString(R.string.update);
+//        vo.tcode = "modify";
+//        vo.id = id;
+//        vo.reply_id = reply_id;
+//        vo.reply_level = reply_level;
+//        vo.image= ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_create_24px, null);
+//        list.add(vo);
+//
+//        vo=new DataVO();
+//        vo.title=getResources().getString(R.string.delete);
+//        vo.tcode = "delete";
+//        vo.image= ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_delete_24px, null);
+//        vo.id = id;
+//        vo.reply_id = reply_id;
+//        vo.reply_level = reply_level;
+//        list.add(vo);
+//
+//
+//        BottomRecyclerViewAdapter adapter=new BottomRecyclerViewAdapter(list);
+//        View view=getLayoutInflater().inflate(R.layout.layout_bottom_sheet, null);
+//        RecyclerView recyclerView=(RecyclerView)view.findViewById(R.id.lab4_recyclerView);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(adapter);
+//
+//
+//
+//        modalBottomSheet = new BottomSheetDialog(this);
+//        modalBottomSheet.setContentView(view);
+//        modalBottomSheet.show();
+//
+//    }
 
     @Override
     public void onButtonClicked(String tcode) {
-        Intent intent ;
-            switch (tcode){
-                case "modify" : //수정하기
-                    intent = new Intent(this, NewTalkActivity.class);
-                    intent.putExtra("email",loginInfo.getEmail() );
-                    intent.putExtra("id", id);
-                    intent.putExtra("reply_id", reply_id);
-                    intent.putExtra("reply_level", reply_level);
-                    startActivity(intent);
-                    break;
-                case "delete" :  // 삭제하기;
-                    deleteAelrtDialog();
-                    break;
-                case "rereply":   //대댓글달기
-                    intent = new Intent(this, TalkDetailRereplyActivity.class);
-                    intent.putExtra("email",loginInfo.getEmail() );
-                    intent.putExtra("id", id);
-                    intent.putExtra("reply_id", reply_id);
-                    intent.putExtra("reply_level", reply_level);
-                    startActivity(intent);
-
-                    break;
-            }
-
-        modalBottomSheet.dismiss();
     }
 
     @Override
     public void onButtonClicked(String tcode, int id, int reply) {
-        Intent intent ;
         switch (tcode){
-            case "rereply":   //대댓글달기
-                intent = new Intent(this, TalkDetailRereplyActivity.class);
-                intent.putExtra("email",loginInfo.getEmail() );
-                intent.putExtra("id", id);
-                intent.putExtra("reply_id", reply);
-                startActivity(intent);
+            case "delete" :  // 삭제하기;
+                deleteAelrtDialog();
                 break;
         }
+
         modalBottomSheet.dismiss();
     }
 
@@ -314,6 +288,8 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
         Map<String, String> params = new HashMap<>();
         params.put("id", String.valueOf(id));
+        params.put("reply_id", String.valueOf(reply_id));
+        params.put("reply_level", String.valueOf(reply_level));
 
         VolleyCallback callback = new VolleyCallback() {
             @Override
@@ -336,7 +312,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 
         MyDataTransaction transaction;
         transaction = new MyDataTransaction(this.getApplicationContext());
-        transaction.queryExecute(method, params, url, callback);  //좋아요 체크 업데이트
+        transaction.queryExecute(method, params, url, callback);
     }
 
 
@@ -368,8 +344,8 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     public void createDialog(int id, int reply_id) {
         List<DataVO> list=new ArrayList<>();
         DataVO vo=new DataVO();
-        vo.title=getResources().getString(R.string.rereply);
-        vo.tcode = "rereply";   //대댓글 달기
+        vo.title=getResources().getString(R.string.delete);
+        vo.tcode = "delete";   //대댓글 달기
         vo.id = id;
         vo.reply_id = reply_id;
         vo.image= ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_create_24px, null);

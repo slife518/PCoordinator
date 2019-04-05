@@ -101,6 +101,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"/>
+
+            <ImageView
+                android:id="@+id/iv_function"
+                android:src="@drawable/ic_outline_more_horiz_24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
+
         </LinearLayout>
 
     </LinearLayout>

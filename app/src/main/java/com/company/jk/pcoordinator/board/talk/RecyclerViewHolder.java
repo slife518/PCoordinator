@@ -18,11 +18,13 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public TextView author;
     public ImageView mPicture;
     public ImageView iv_good;
+    public ImageView iv_function;
 
     public RecyclerViewHolder(View itemView) {
         super(itemView);
         mPicture = itemView.findViewById(R.id.iv_image);
         iv_good = itemView.findViewById(R.id.iv_good);
+        iv_function = itemView.findViewById(R.id.iv_function);
         title = itemView.findViewById(R.id.tv_title);
         author = itemView.findViewById(R.id.tv_author);
         contents =  itemView.findViewById(R.id.tv_contents);

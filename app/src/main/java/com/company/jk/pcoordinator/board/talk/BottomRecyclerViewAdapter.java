@@ -36,7 +36,7 @@ public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<ItemHolder> 
 
     @Override
     public void onBindViewHolder(final ItemHolder holder, final int position) {
-        DataVO vo=list.get(position);
+        final DataVO vo=list.get(position);
         holder.textView.setText(vo.title);
         holder.imageView.setImageDrawable(vo.image);
 
@@ -44,15 +44,22 @@ public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<ItemHolder> 
 
             @Override
                public void onClick(View v) {
+                switch (vo.tcode){
+                    case "rereply":
+                        mListener.onButtonClicked(vo.tcode, vo.id, vo.reply_id);
+                        break;
+                    default:
+                        mListener.onButtonClicked(vo.tcode);
+                }
 
-                mListener.onButtonClicked(position);
 
                }
         });
     }
 
     public interface BottomSheetListener{
-            void onButtonClicked(int position);
+            void onButtonClicked(String tcode);
+            void onButtonClicked(String tcode, int id, int reply);
     }
 
 
@@ -74,6 +81,7 @@ class ItemHolder extends RecyclerView.ViewHolder{
 }
 class DataVO {
     String title;
+    String tcode;   //기능코드
     Drawable image;
     int id, reply_id, reply_level;
 }

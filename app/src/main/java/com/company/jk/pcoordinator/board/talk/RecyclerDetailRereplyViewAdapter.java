@@ -22,14 +22,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     private String TAG = "RecyclerDetailViewAdapter";
     private Context mContext;
     private UrlPath urlPath = new UrlPath();
     private LoginInfo loginInfo = LoginInfo.getInstance();
     private ArrayList<Talkinfo> mItems;
     MyDataTransaction transaction;
-    public RecyclerDetailViewAdapter(ArrayList itemList) {
+    public RecyclerDetailRereplyViewAdapter(ArrayList itemList) {
         mItems = itemList;
     }
 
@@ -46,12 +46,8 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        Log.i(TAG, "recyclerviewDetailholder_ viewType_ " + viewType);
 
-        View v;
-        if(viewType==0){
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_detail, parent, false);
-        }else {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
-        }
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
+
         mContext = parent.getContext();
 
         RecyclerViewHolder holder = new RecyclerViewHolder(v);

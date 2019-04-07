@@ -46,7 +46,10 @@ public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<ItemHolder> 
                public void onClick(View v) {
                 switch (vo.tcode){
                     case "rereply":
-                        mListener.onButtonClicked(vo.tcode, vo.id, vo.reply_id);
+                        mListener.onButtonClicked(vo.tcode, vo.id, vo.reply_id, vo.reply_level);
+                        break;
+                    case "delreply":
+                        mListener.onButtonClicked(vo.tcode, vo.id, vo.reply_id, vo.reply_level);
                         break;
                     default:
                         mListener.onButtonClicked(vo.tcode);
@@ -59,7 +62,7 @@ public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<ItemHolder> 
 
     public interface BottomSheetListener{
             void onButtonClicked(String tcode);
-            void onButtonClicked(String tcode, int id, int reply);
+            void onButtonClicked(String tcode, int id, int reply_id, int reply_level);
     }
 
 

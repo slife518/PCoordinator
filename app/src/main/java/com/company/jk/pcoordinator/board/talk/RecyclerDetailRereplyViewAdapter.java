@@ -33,7 +33,7 @@ public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<Recyc
         mItems = itemList;
     }
 
-    BottomSheetCallListener  mBottomSheetCall;
+//    BottomSheetCallListener  mBottomSheetCall;
 
     public int getItemViewType(int position) {
 //        Log.i(TAG, "recyclerviewDetailholder" + position);
@@ -46,7 +46,14 @@ public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<Recyc
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        Log.i(TAG, "recyclerviewDetailholder_ viewType_ " + viewType);
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
+        View v;
+//                = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
+
+        if(viewType==0){
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
+        }else{
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_rere, parent, false);
+        }
 
         mContext = parent.getContext();
 
@@ -57,8 +64,8 @@ public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<Recyc
     // 필수 오버라이드 : 재활용되는 View 가 호출, Adapter 가 해당 position 에 해당하는 데이터를 결합
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
-        // 이벤트처리 : 생성된 List 중 선택된 목록번호를 Toast로 출력
-        mBottomSheetCall = (BottomSheetCallListener)mContext;
+
+//        mBottomSheetCall = (BottomSheetCallListener)mContext;
 
         final String imgUrl = urlPath.getUrlTalkImg() + mItems.get(position).id + "_" + mItems.get(position).reply_id + "_" + mItems.get(position).reply_level + ".jpg";  //확장자 대소문자 구별함(무조건 소문자 jpg 사용할 것.
         Picasso.with(mContext).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
@@ -74,15 +81,6 @@ public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<Recyc
         });
 
         switch (holder.getItemViewType()){
-            case 0:
-                holder.author.setText(mItems.get(position).author);
-                holder.title.setText(mItems.get(position).title);
-                holder.contents.setText(mItems.get(position).contents);
-                holder.good.setText(String.valueOf(mItems.get(position).good));
-                holder.talks.setText(String.valueOf(mItems.get(position).talks));
-                holder.createDate.setText(String.valueOf(mItems.get(position).createDate));
-
-                break;
             default:
                 holder.author.setText(mItems.get(position).author);
                 holder.contents.setText(mItems.get(position).contents);
@@ -120,17 +118,17 @@ public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<Recyc
         });
 
 
-        holder.iv_function.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               mBottomSheetCall.createDialog(mItems.get(position).id, mItems.get(position).reply_id);
-            }
-        });
+//        holder.iv_function.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//               mBottomSheetCall.createDialog(mItems.get(position).id, mItems.get(position).reply_id);
+//            }
+//        });
     }
 
-    public interface BottomSheetCallListener {
-        void createDialog(int id, int reply_id);
-    }
+//    public interface BottomSheetCallListener {
+//        void createDialog(int id, int reply_id);
+//    }
 
     private void update_good(int id, int reply_id, int reply_level, boolean goodStatus){
 

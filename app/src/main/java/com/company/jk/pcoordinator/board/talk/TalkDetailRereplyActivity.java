@@ -274,7 +274,7 @@ public class TalkDetailRereplyActivity extends MyActivity implements View.OnClic
     }
 
     @Override
-    public void onButtonClicked(String tcode, int id, int reply) {
+    public void onButtonClicked(String tcode, int id, int reply_id, int reply_level) {
         switch (tcode){
             case "delete" :  // 삭제하기;
                 deleteAelrtDialog();
@@ -341,7 +341,7 @@ public class TalkDetailRereplyActivity extends MyActivity implements View.OnClic
                 .show();
     }
 
-    public void createDialog(int id, int reply_id) {
+    public void createDialog(String email, int id, int reply_id, int reply_level) {
         List<DataVO> list=new ArrayList<>();
         DataVO vo=new DataVO();
         vo.title=getResources().getString(R.string.delete);

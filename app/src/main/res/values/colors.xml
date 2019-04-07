@@ -17,6 +17,7 @@
 
     //BottomBar 색상
     <color name="inActivebuttonColor">#000000</color>
+    <color name="rereply_background">#d7d4d4</color>
 
     //차트 선 색상
     <color name="mothermilkcolor">#9ae1ef</color>

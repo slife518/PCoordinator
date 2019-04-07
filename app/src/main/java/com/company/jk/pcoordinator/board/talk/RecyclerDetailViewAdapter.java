@@ -44,12 +44,16 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        Log.i(TAG, "recyclerviewDetailholder_ viewType_ " + viewType);
+        Log.i(TAG, "recyclerviewDetailholder_ viewType_ " + viewType);
 
         View v;
+
+        Log.i(TAG,mItems.get(viewType).contents + mItems.get(viewType).reply_level );
         if(viewType==0){
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_detail, parent, false);
-        }else {
+        }else if( mItems.get(viewType).reply_level > 0) {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_rere, parent, false);
+        }else{
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
         }
         mContext = parent.getContext();
@@ -127,13 +131,13 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
         holder.iv_function.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               mBottomSheetCall.createDialog(mItems.get(position).id, mItems.get(position).reply_id);
+               mBottomSheetCall.createDialog(mItems.get(position).email, mItems.get(position).id, mItems.get(position).reply_id, mItems.get(position).reply_level);
             }
         });
     }
 
     public interface BottomSheetCallListener {
-        void createDialog(int id, int reply_id);
+        void createDialog(String email, int id, int reply_id, int reply_level);
     }
 
     private void update_good(int id, int reply_id, int reply_level, boolean goodStatus){

@@ -66,14 +66,6 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 //        this.getSupportActionBar().setTitle(getResources().getString(R.string.talklist));
 //        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
-        mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView = findViewById(R.id.listView_main);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
-        mAdapter = new RecyclerDetailViewAdapter(items);
-        mRecyclerView.setAdapter(mAdapter);
 
         findviewByid();
         tv_register.setOnClickListener(this);
@@ -120,7 +112,24 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     @Override
     protected void onStart() {
         super.onStart();
+
+        //대댓글을 달고 돌아오면 다시 뷰를 바꿔줘야 해서  onStart 에 작성
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView = findViewById(R.id.listView_main);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
+        mAdapter = new RecyclerDetailViewAdapter(items);
+        mRecyclerView.setAdapter(mAdapter);
+
         get_data();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+//        showToast("화면에서 나왔다가 다시 오면 다시 보여줌");
     }
 
     @Override
@@ -267,7 +276,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
     }
 
     @Override
-    public void onButtonClicked(String tcode) {
+    public void onButtonClicked(String tcode) {  //메인 게시글에 대한 기능
         Intent intent ;
             switch (tcode){
                 case "modify" : //수정하기
@@ -281,39 +290,43 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
                 case "delete" :  // 삭제하기;
                     deleteAelrtDialog();
                     break;
-                case "rereply":   //대댓글달기
-                    intent = new Intent(this, TalkDetailRereplyActivity.class);
-                    intent.putExtra("email",loginInfo.getEmail() );
-                    intent.putExtra("id", id);
-                    intent.putExtra("reply_id", reply_id);
-                    intent.putExtra("reply_level", reply_level);
-                    startActivity(intent);
-
-                    break;
+//                case "rereply":   //대댓글달기
+//                    intent = new Intent(this, TalkDetailRereplyActivity.class);
+//                    intent.putExtra("email",loginInfo.getEmail() );
+//                    intent.putExtra("id", id);
+//                    intent.putExtra("reply_id", reply_id);
+//                    intent.putExtra("reply_level", reply_level);
+//                    startActivity(intent);
+//
+//                    break;
             }
 
         modalBottomSheet.dismiss();
     }
 
     @Override
-    public void onButtonClicked(String tcode, int id, int reply) {
+    public void onButtonClicked(String tcode, int id, int reply_id, int reply_level) {   //댓글 대댓글에 대한 내용
         Intent intent ;
         switch (tcode){
             case "rereply":   //대댓글달기
                 intent = new Intent(this, TalkDetailRereplyActivity.class);
                 intent.putExtra("email",loginInfo.getEmail() );
                 intent.putExtra("id", id);
-                intent.putExtra("reply_id", reply);
+                intent.putExtra("reply_id", reply_id);
                 startActivity(intent);
                 break;
+            case "delreply" :  // 삭제하기;
+                delete_talk(id, reply_id, reply_level);
         }
         modalBottomSheet.dismiss();
     }
 
-    private void delete_talk(){
+    private void delete_talk(int id, int reply_id, int reply_level){
 
         Map<String, String> params = new HashMap<>();
         params.put("id", String.valueOf(id));
+        params.put("reply_id", String.valueOf(reply_id));
+        params.put("reply_level", String.valueOf(reply_level));
 
         VolleyCallback callback = new VolleyCallback() {
             @Override
@@ -352,7 +365,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
                 .setMessage(R.string.deleteAlert)
                 .setPositiveButton(R.string.btn_delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        delete_talk();
+                        delete_talk(id, reply_id, reply_level);
                         onBackPressed();
                     }
                 })
@@ -365,13 +378,20 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
                 .show();
     }
 
-    public void createDialog(int id, int reply_id) {
+    public void createDialog(String email, int id, int reply_id, int reply_level) {
         List<DataVO> list=new ArrayList<>();
         DataVO vo=new DataVO();
-        vo.title=getResources().getString(R.string.rereply);
-        vo.tcode = "rereply";   //대댓글 달기
+        if(email.equals(loginInfo.getEmail())){
+            vo.title=getResources().getString(R.string.delete);
+            vo.tcode = "delreply";   //대댓글 삭제하기
+
+        }else{
+            vo.title=getResources().getString(R.string.rereply);
+            vo.tcode = "rereply";   //대댓글 달기
+        }
         vo.id = id;
         vo.reply_id = reply_id;
+        vo.reply_level = reply_level;
         vo.image= ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_create_24px, null);
         list.add(vo);
 

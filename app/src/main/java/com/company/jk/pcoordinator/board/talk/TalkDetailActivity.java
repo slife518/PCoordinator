@@ -66,6 +66,14 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
 //        this.getSupportActionBar().setTitle(getResources().getString(R.string.talklist));
 //        myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView = findViewById(R.id.listView_main);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
+        mAdapter = new RecyclerDetailViewAdapter(items);
+        mRecyclerView.setAdapter(mAdapter);
 
         findviewByid();
         tv_register.setOnClickListener(this);
@@ -114,16 +122,17 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         super.onStart();
 
         //대댓글을 달고 돌아오면 다시 뷰를 바꿔줘야 해서  onStart 에 작성
-        mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView = findViewById(R.id.listView_main);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
-        mAdapter = new RecyclerDetailViewAdapter(items);
-        mRecyclerView.setAdapter(mAdapter);
+//        mLayoutManager = new LinearLayoutManager(this);
+//        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        mRecyclerView = findViewById(R.id.listView_main);
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
+//        mAdapter = new RecyclerDetailViewAdapter(items);
+//        mRecyclerView.setAdapter(mAdapter);
 
         get_data();
+
     }
 
     @Override
@@ -331,13 +340,9 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         VolleyCallback callback = new VolleyCallback() {
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
-
                 Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
-                switch (method){
-                    case 1:  //get_data
-
-                        //onBackPressed();
-                } }
+                get_data();
+            }
             @Override
             public void onFailResponse(VolleyError error) {
                 Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());

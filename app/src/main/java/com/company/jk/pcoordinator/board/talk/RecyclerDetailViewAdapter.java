@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
@@ -51,8 +52,8 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
         Log.i(TAG,mItems.get(viewType).contents + mItems.get(viewType).reply_level );
         if(viewType==0){
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_detail, parent, false);
-        }else if( mItems.get(viewType).reply_level > 0) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_rere, parent, false);
+//        }else if( mItems.get(viewType).reply_level > 0) {
+//            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_rere, parent, false);
         }else{
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
         }
@@ -65,7 +66,7 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
     // 필수 오버라이드 : 재활용되는 View 가 호출, Adapter 가 해당 position 에 해당하는 데이터를 결합
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
-        // 이벤트처리 : 생성된 List 중 선택된 목록번호를 Toast로 출력
+
         mBottomSheetCall = (BottomSheetCallListener)mContext;
 
         final String imgUrl = urlPath.getUrlTalkImg() + mItems.get(position).id + "_" + mItems.get(position).reply_id + "_" + mItems.get(position).reply_level + ".jpg";  //확장자 대소문자 구별함(무조건 소문자 jpg 사용할 것.
@@ -81,6 +82,18 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
             }
         });
 
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        if( mItems.get(position).reply_level > 0){  //대댓글인 경우
+
+            params.setMargins(160, 0, 10, 0);
+            holder.layout_rere.setLayoutParams(params);
+            holder.layout_main.setBackgroundColor(mContext.getResources().getColor(R.color.rereply_background ));
+        }else if( mItems.get(position).reply_id > 0){   //댓글인 경우
+            params.setMargins(72, 0, 72, 0);
+            holder.layout_rere.setLayoutParams(params);
+            holder.layout_main.setBackgroundColor(mContext.getResources().getColor(R.color.reply_background));
+        }
         switch (holder.getItemViewType()){
             case 0:
                 holder.author.setText(mItems.get(position).author);

@@ -3,6 +3,7 @@ package com.company.jk.pcoordinator.board.talk;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.company.jk.pcoordinator.R;
@@ -19,6 +20,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public ImageView mPicture;
     public ImageView iv_good;
     public ImageView iv_function;
+    public LinearLayout layout_rere;
+    public LinearLayout layout_main;
 
     public RecyclerViewHolder(View itemView) {
         super(itemView);
@@ -32,6 +35,9 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         eyes = itemView.findViewById(R.id.tv_eyecount);
         good = itemView.findViewById(R.id.tv_goodcount);
         createDate = itemView.findViewById(R.id.tv_createDate);
+
+        layout_rere = itemView.findViewById(R.id.layout_rere);
+        layout_main = itemView.findViewById(R.id.layout_main);
 
     }
 }

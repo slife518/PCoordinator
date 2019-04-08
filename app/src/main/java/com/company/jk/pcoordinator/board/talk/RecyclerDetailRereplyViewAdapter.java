@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
@@ -49,11 +50,13 @@ public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<Recyc
         View v;
 //                = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
 
-        if(viewType==0){
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
-        }else{
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_rere, parent, false);
-        }
+//        if(viewType==0){
+//            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
+//        }else{
+//            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_rere, parent, false);
+//        }
+
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_replay, parent, false);
 
         mContext = parent.getContext();
 
@@ -79,6 +82,18 @@ public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<Recyc
                 holder.mPicture.setVisibility(View.GONE);
             }
         });
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        if( mItems.get(position).reply_level > 0){  //대댓글인 경우
+
+            params.setMargins(160, 0, 10, 0);
+            holder.layout_rere.setLayoutParams(params);
+            holder.layout_main.setBackgroundColor(mContext.getResources().getColor(R.color.rereply_background ));
+        }else if( mItems.get(position).reply_id > 0){   //댓글인 경우
+            params.setMargins(72, 0, 72, 0);
+            holder.layout_rere.setLayoutParams(params);
+            holder.layout_main.setBackgroundColor(mContext.getResources().getColor(R.color.reply_background));
+        }
 
         switch (holder.getItemViewType()){
             default:

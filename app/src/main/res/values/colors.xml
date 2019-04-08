@@ -15,9 +15,11 @@
     <color name="lineColor">#e0e0e0</color>
 
 
-    //BottomBar 색상
+    //BottomBar /댓글 바탕색 상
     <color name="inActivebuttonColor">#000000</color>
     <color name="rereply_background">#d7d4d4</color>
+    <color name="reply_point">#9b9898</color>
+    <color name="reply_background">#FFFFFF</color>
 
     //차트 선 색상
     <color name="mothermilkcolor">#9ae1ef</color>

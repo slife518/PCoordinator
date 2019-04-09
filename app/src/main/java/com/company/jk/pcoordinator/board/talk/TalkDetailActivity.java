@@ -225,9 +225,7 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
                     case 2:  //댓글업데이트 완료
 //                        items.add(new Talkinfo(id, reply_id, reply_level,"", loginInfo.getName(), loginInfo.getEmail(),et_reply.getText().toString(), 0, 0, 0, false, getResources().getString(R.string.now)));
                         get_data();
-                        et_reply.setText("");
-                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(et_reply.getWindowToken(), 0);
+
                         break;
                 } }
             @Override
@@ -244,7 +242,9 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         int method =2;
 
         transaction.queryExecute(method, params, url, callback);  //좋아요 체크 업데이트
-
+        et_reply.setText("");
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(et_reply.getWindowToken(), 0);
 
     }
 

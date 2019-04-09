@@ -2,22 +2,16 @@ package com.company.jk.pcoordinator;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.company.jk.pcoordinator.chart.ChartFragment;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
-import com.company.jk.pcoordinator.mypage.mybaby.MybabyActivity;
 import com.company.jk.pcoordinator.mypage.mybaby.MybabyDetailActivity;
-import com.company.jk.pcoordinator.mypage.mybaby.Mybabyinfo;
 import com.company.jk.pcoordinator.record.RecordFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -72,7 +66,7 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
                 Log.i(TAG, "베이비아이디는 " + loginInfo.getBabyID() );
                 if(loginInfo.getBabyID() == 0){  //loginInfo.getBabyID() 는 db 가 int 이므로 기본은 0
 
-                    Intent intent = new Intent(this, MybabyActivity.class);
+                    Intent intent = new Intent(this, MybabyDetailActivity.class);
                     intent.putExtra("email",loginInfo.getEmail() );
                     startActivityForResult(intent, 12);
                     replaceFragment(recordFragment);

@@ -23,7 +23,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,8 +53,6 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.company.jk.pcoordinator.MainActivity.bottomBar;
 
 public class MybabyDetailActivity extends MyActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
@@ -364,11 +361,21 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
     private void modifyResponse(String response){
         Log.i(TAG, "결과값은 " + response);
+
+        JSONObject jsonObject = JsonParse.getJsonObjectSingleFromString(response);
+        try {
+            String type = (String)jsonObject.get("type");
+            if(type.equals("new")){  // 신규 아기 등록시
+                int baby_id = (Integer)jsonObject.get("result");;
+                loginInfo.setBabyID(baby_id);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+
         super.onBackPressed();
-//        MybabyActivity mf = new MybabyActivity();
-//        }else{
-//            showToast(getString(R.string.savefail));
-//        }
+
     }
 
 

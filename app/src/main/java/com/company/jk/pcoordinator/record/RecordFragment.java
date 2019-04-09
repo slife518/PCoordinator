@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TimePicker;
 
 import com.android.volley.Request;
@@ -35,7 +34,7 @@ import com.company.jk.pcoordinator.common.sqlite.DatabaseHelper;
 import com.company.jk.pcoordinator.home.RecordHistoryinfo;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
-import com.company.jk.pcoordinator.mypage.mybaby.MybabyActivity;
+import com.company.jk.pcoordinator.mypage.mybaby.MybabyDetailActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -231,7 +230,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
         }else if(v == _save) {
             if(loginInfo.getBabyID() == 0) {   //선택된 또는 등록된 아기가 없으면
-                Intent intent = new Intent(getContext(), MybabyActivity.class);
+                Intent intent = new Intent(getContext(), MybabyDetailActivity.class);
                 intent.putExtra("email", loginInfo.getEmail());
                 startActivityForResult(intent, 12);
                 showToast(getResources().getString(R.string.message_warnning_register_baby));

@@ -23,6 +23,20 @@
         <!--app:layout_anchorGravity="top|right|end"-->
         <!--app:rippleColor="#FFFFFF"-->
         <!--/>-->
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="67dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/buttonColorAccent"
+        app:srcCompat="@drawable/ic_outline_chat_bubble_outline_24px" />
+
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
@@ -36,4 +50,6 @@
         app:bb_activeTabColor="@color/buttonColorAccent"
         app:bb_titleTypeFace="font/nanumsquarel.ttf"
         app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"/>
+
+
 </RelativeLayout>

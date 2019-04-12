@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -62,6 +63,7 @@ import java.util.Vector;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.company.jk.pcoordinator.MainActivity.fab;
 
 public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener,
         OnChartValueSelectedListener {
@@ -132,6 +134,24 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 startActivityForResult(intent, 2300);
             }
         });
+
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int newState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+                if(i > 3){
+                    fab.hide();
+                }else{
+                    fab.show();
+                }
+            }
+        });
+
 
         //리스트 새로고침
         mSwipeRefreshLayout = v.findViewById(R.id.swipe_layout);

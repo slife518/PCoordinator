@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.company.jk.pcoordinator.ParentsActivity;
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.board.talk.TalkActivity;
 import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.login.LoginActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
@@ -68,9 +67,6 @@ public class MypageFragment extends MyFragment {
         TextView btn_QnA = v.findViewById(R.id.tv_QnA);
         btn_QnA.setOnClickListener(onClickListener);
 
-        TextView btn_talk = v.findViewById(R.id.tv_talk);
-        btn_talk.setOnClickListener(onClickListener);
-
         TextView btn_review = v.findViewById(R.id.tv_review);
         btn_review.setOnClickListener(onClickListener);
 
@@ -110,10 +106,6 @@ public class MypageFragment extends MyFragment {
                     break;
                 case R.id.tv_QnA:
                     intent = new Intent(getActivity(), AskActivity.class);
-                    startActivityForResult(intent, 300);
-                    break;
-                case R.id.tv_talk:
-                    intent = new Intent(getActivity(), TalkActivity.class);
                     startActivityForResult(intent, 300);
                     break;
                 case R.id.tv_review:

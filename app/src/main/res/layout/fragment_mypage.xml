@@ -73,13 +73,6 @@
                             android:layout_marginTop="8dp"
                             style="@style/Mypagebutton"/>
                         <TextView
-                            android:id="@+id/tv_talk"
-                            android:text="@string/talklist"
-                            android:drawableStart="@drawable/ic_outline_question_answer_24px"
-                            android:layout_height="70dp"
-                            android:layout_marginTop="8dp"
-                            style="@style/Mypagebutton"/>
-                        <TextView
                             android:id="@+id/tv_review"
                             android:text="@string/review"
                             android:drawableStart="@drawable/ic_baseline_question_answer_24px"

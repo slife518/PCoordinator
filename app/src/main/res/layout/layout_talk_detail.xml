@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_margin_top"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="@dimen/boardlist_margin_bottom"
             android:orientation="vertical">
 
             <TextView
@@ -57,6 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:autoLink="all"
+                android:linksClickable="true"
                 android:textColor="@android:color/black"/>
 
             <ImageView
@@ -70,16 +73,21 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lineColor"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/app_margin_top">
+            android:layout_marginTop="@dimen/app_margin_top"
+            android:layout_marginBottom="8dp">
             <ImageView
                 android:id="@+id/iv_chatcount"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/board_like_size"
                 android:layout_marginStart="30dp"
                 android:src="@drawable/ic_baseline_chat_24px"
                 style="@style/imageviewcolor"/>
@@ -87,12 +95,13 @@
                 android:id="@+id/tv_chatcount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/board_number_size"
                 android:layout_marginStart="5dp"/>
 
             <ImageView
                 android:id="@+id/iv_good"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/board_like_size"
                 android:layout_marginStart="40dp"
                 android:src="@drawable/ic_baseline_thumb_up_24px"
                 style="@style/imageviewcolor"/>
@@ -100,6 +109,7 @@
                 android:id="@+id/tv_goodcount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/board_number_size"
                 android:layout_marginStart="5dp"/>
 
             <ImageView

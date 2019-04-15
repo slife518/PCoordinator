@@ -123,6 +123,7 @@
 
     <style name="imageviewcolor">
         <item name="android:tint">@color/lineColor</item>
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

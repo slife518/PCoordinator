@@ -47,7 +47,7 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
         manager= getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.addToBackStack(null);
-        ft.add(R.id.frame, homeFragment);
+        ft.add(R.id.frame, recordFragment);
         ft.commit();
 
         fab = findViewById(R.id.fab);

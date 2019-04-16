@@ -69,7 +69,7 @@ public class MyActivity extends AppCompatActivity  implements EditText.OnEditorA
 
     private void getLoginInfo(){
 
-        showToast("세션 종료로 재로그인 됨.");
+//        showToast("세션 종료로 재로그인 됨.");
         mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
         String id = mPreference.getString("Email", "");
         String pass = mPreference.getString("Password", "");

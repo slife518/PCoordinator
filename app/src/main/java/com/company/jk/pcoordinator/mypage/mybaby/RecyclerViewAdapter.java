@@ -22,7 +22,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     private String TAG = "RecyclerViewAdapter";
     private Context mContext;
     private UrlPath urlPath = new UrlPath();
-    private LoginInfo loginInfo = LoginInfo.getInstance();
+    private LoginInfo loginInfo;
     private ArrayList<Mybabyinfo> mItems;
 
     public RecyclerViewAdapter(ArrayList itemList) {
@@ -36,6 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_babycard, parent, false);
         mContext = parent.getContext();
+        loginInfo = LoginInfo.getInstance(mContext);
         RecyclerViewHolder holder = new RecyclerViewHolder(v);
 
         return holder;

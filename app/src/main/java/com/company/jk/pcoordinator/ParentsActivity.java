@@ -2,10 +2,8 @@ package com.company.jk.pcoordinator;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,10 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -50,12 +44,13 @@ public class ParentsActivity extends MyActivity{
     Toolbar myToolbar;
     String TAG = "ParentsActivity";
     Intent intent;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parents);
+        loginInfo = LoginInfo.getInstance(this);
         intent = getIntent(); //getIntent()로 받을준비
 //        if(intent.getStringExtra("baby_id") != null){
 //            baby_id = Integer.parseInt(intent.getStringExtra("baby_id"));

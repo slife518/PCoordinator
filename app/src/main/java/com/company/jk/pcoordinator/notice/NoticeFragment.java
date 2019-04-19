@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,9 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.company.jk.pcoordinator.common.MyFragment;
-import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.login.LoginService;
 
 import org.json.JSONArray;
@@ -32,7 +30,6 @@ public class NoticeFragment extends MyFragment {
     private static final String Controller = "Pc_BuyTransation";
     private static final String TAG = "NoticeFragment";
     StringBuffer sb = new StringBuffer();
-    LoginInfo loginInfo = LoginInfo.getInstance();
 
     private static final String TAG_RESULTS="posts";
     private static final String TAG_WRITER = "writer";

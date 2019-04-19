@@ -27,7 +27,7 @@ public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<Recyc
     private String TAG = "RecyclerDetailViewAdapter";
     private Context mContext;
     private UrlPath urlPath = new UrlPath();
-    private LoginInfo loginInfo = LoginInfo.getInstance();
+    private LoginInfo loginInfo;
     private ArrayList<Talkinfo> mItems;
     MyDataTransaction transaction;
     public RecyclerDetailRereplyViewAdapter(ArrayList itemList) {
@@ -60,6 +60,7 @@ public class RecyclerDetailRereplyViewAdapter extends RecyclerView.Adapter<Recyc
 
         mContext = parent.getContext();
 
+        loginInfo = LoginInfo.getInstance(mContext);
         RecyclerViewHolder holder = new RecyclerViewHolder(v);
         return holder;
     }

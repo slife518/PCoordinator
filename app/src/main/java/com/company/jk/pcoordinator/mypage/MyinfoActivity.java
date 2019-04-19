@@ -44,6 +44,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.Calendar;
 
+import static com.company.jk.pcoordinator.login.LoginInfo.APPLICATIONNAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.ISAUTO_LOGIN;
+
 
 //고객정보는 fragment 도 사용 가능하고 actvity 로도 사용 가능하여 둘 다 만들어 놓음.
 public class MyinfoActivity extends MyActivity implements View.OnClickListener {
@@ -53,7 +56,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
     private static final String TAG = "MyinfoFragment";
 
     Context mContext;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo ;
     SharedPreferences mPreference;
     private static String tcode;
 
@@ -77,6 +80,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myinfo);
 
+        loginInfo = LoginInfo.getInstance(this);
 //        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tcode = "select_customer_info";
@@ -112,14 +116,14 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 //        _btn_findaddress.setOnClickListener(this);
         _profile.setOnClickListener(this);
         _address1.setOnClickListener(this);
-        _cb_auto.setChecked(mPreference.getBoolean("AutoChecked", true));
+        _cb_auto.setChecked(mPreference.getBoolean(ISAUTO_LOGIN, true));
         _cb_auto.setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
+                        mPreference = getSharedPreferences(APPLICATIONNAME, MODE_PRIVATE);
                         SharedPreferences.Editor editor = mPreference.edit();
-                        editor.putBoolean("AutoChecked", _cb_auto.isChecked());
+                        editor.putBoolean(ISAUTO_LOGIN, _cb_auto.isChecked());
                         editor.commit();
                     }
                 }

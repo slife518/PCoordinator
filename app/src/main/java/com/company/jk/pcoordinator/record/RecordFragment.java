@@ -62,7 +62,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
     Context mContext;
     View v;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
     RecordHistoryinfo info;
 
     // 간격
@@ -81,6 +81,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         v = inflater.inflate(R.layout.activity_record, container, false);
         mContext = v.getContext();
 
+        loginInfo = LoginInfo.getInstance(mContext);
 
         // toolbar 설정1
 //        setHasOptionsMenu(true);   // toolbar 의 추가 메뉴

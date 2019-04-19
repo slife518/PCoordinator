@@ -1,6 +1,5 @@
 package com.company.jk.pcoordinator.mypage;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,13 +24,13 @@ public class AskActivity extends MyActivity {
     private final static String TAG = "AskActivity";
     private Toolbar myToolbar;
     EditText et_contents, et_fromEmail;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ask);
 
-
+        loginInfo = LoginInfo.getInstance(this);
         // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -43,6 +42,8 @@ public class AskActivity extends MyActivity {
         et_contents = findViewById(R.id.et_contents);
 
         et_fromEmail.setText(loginInfo.getEmail());
+
+
     }
 
 

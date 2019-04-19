@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -49,7 +48,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
             _btn_shortcut1, _btn_shortcut2,
             _btn_shortcut3, _btn_shortcut4,_btn_shortcut5, _btn_shortcutPlus;
     static final String TAG = "RecordActivity";
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
     RecordHistoryinfo info;
     Toolbar myToolbar;
     final static int mothermilk_num = 5;
@@ -63,6 +62,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
+        loginInfo = LoginInfo.getInstance(this);
         Log.i(TAG, "onCreateView 시작");
 
 // Toolbar를 생성한다.

@@ -2,7 +2,6 @@ package com.company.jk.pcoordinator.mypage.mybaby;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,22 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.company.jk.pcoordinator.InvitationActivity;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.VolleyCallback;
-import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
 import org.json.JSONArray;
@@ -50,7 +41,7 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
     Spinner mSpinner;
     Toolbar myToolbar;
     MyDataTransaction transaction;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
 
     String TAG = "MybabyFragment";
 
@@ -61,6 +52,7 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybaby);
 
+        loginInfo = LoginInfo.getInstance(this);
         transaction = new MyDataTransaction(getApplicationContext());
 // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);
@@ -143,7 +135,6 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
                         loginInfo.setBabyID(mybabyinfo.getId());
                         loginInfo.setBabybirthday(mybabyinfo.getBirthday());
                 }
-
             }
 
             @Override
@@ -155,6 +146,8 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
         transaction.queryExecute(1, params, "Pc_baby/set_main_baby", callback);  //결과값에 상관없이 진행하는 게 좀 문제 있어 보인다.
 
     }
+
+
 
 
     @Override

@@ -35,7 +35,7 @@ public class TalkActivity extends MyActivity{
     RecyclerViewAdapter mAdapter;
     Toolbar myToolbar;
     MyDataTransaction transaction;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
     String TAG = "MybabyFragment";
 
     @Override
@@ -43,6 +43,7 @@ public class TalkActivity extends MyActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_talk);
 
+        loginInfo = LoginInfo.getInstance(this);
         transaction = new MyDataTransaction(getApplicationContext());
 // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);

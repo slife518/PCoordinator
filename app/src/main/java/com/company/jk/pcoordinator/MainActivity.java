@@ -31,12 +31,14 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
     private HomeFragment homeFragment;
     private RecordFragment recordFragment;
     private MypageFragment mypageFragment;
-    private LoginInfo loginInfo = LoginInfo.getInstance();
+    private LoginInfo loginInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        loginInfo = LoginInfo.getInstance(this);
 
         homeFragment = new HomeFragment();
         recordFragment = new RecordFragment();

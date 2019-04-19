@@ -3,10 +3,8 @@ package com.company.jk.pcoordinator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.common.JsonParse;
@@ -14,7 +12,6 @@ import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.NetworkUtil;
-import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
 
@@ -24,13 +21,22 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.company.jk.pcoordinator.login.LoginInfo.APPLICATIONNAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.BABYBIRTHDAY;
+import static com.company.jk.pcoordinator.login.LoginInfo.BABYID;
+import static com.company.jk.pcoordinator.login.LoginInfo.BABYNAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.EMAIL;
+import static com.company.jk.pcoordinator.login.LoginInfo.ISAUTO_LOGIN;
+import static com.company.jk.pcoordinator.login.LoginInfo.NAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.PASSWORD;
+
 public class LauncherActivity extends MyActivity {
 
     final static String TAG = "LauncherActivity";
     StringBuffer sb = new StringBuffer();
     SharedPreferences mPreference;
     Boolean auto_boolean;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
 
     private WebView mWebView;
     private WebSettings mWebSettings;
@@ -42,6 +48,7 @@ public class LauncherActivity extends MyActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
+        loginInfo = LoginInfo.getInstance(this);
 //        mWebView = findViewById(R.id.webview);  //레이어와 연결
 //        mWebView.setWebViewClient(new WebViewClient());  // 클릭시 새창 안뜨게
 //        mWebSettings = mWebView.getSettings();   //세부세팅등록
@@ -59,11 +66,11 @@ public class LauncherActivity extends MyActivity {
 //            e.printStackTrace();
 //        }
 
-        mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
-        String id = mPreference.getString("Email", "");
-        String pass = mPreference.getString("Password", "");
+        mPreference = getSharedPreferences(APPLICATIONNAME, MODE_PRIVATE);
+        String id = mPreference.getString(EMAIL, "");
+        String pass = mPreference.getString(PASSWORD, "");
 
-        auto_boolean = mPreference.getBoolean("AutoChecked", false);
+        auto_boolean = mPreference.getBoolean(ISAUTO_LOGIN, false);
 
         if (NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())) {
 
@@ -90,10 +97,9 @@ public class LauncherActivity extends MyActivity {
 
     //자동로그인 구현
     private void setAutoLogin() {
-        mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
         SharedPreferences.Editor editor = mPreference.edit();
-        editor.putString("Email", loginInfo.getEmail());
-        editor.putString("Password", loginInfo.getPassword());
+        editor.putString(EMAIL, loginInfo.getEmail());
+        editor.putString(PASSWORD, loginInfo.getPassword());
         editor.commit();
     }
 
@@ -151,10 +157,13 @@ public class LauncherActivity extends MyActivity {
 
         //  String birthday = jsonObject.getString("birthday");
         if (name != null) {
-            loginInfo.setName(name);
-            loginInfo.setBabyID(babyID);
-            loginInfo.setBabybirthday(babyBirthday);
-            loginInfo.setBabyname(babyName);
+            SharedPreferences.Editor editor = mPreference.edit();
+            editor.putString(NAME, name);
+            editor.putInt(BABYID, babyID);
+            editor.putString(BABYBIRTHDAY, babyBirthday);
+            editor.putString(BABYNAME, babyName);
+            editor.commit();
+
             //  loginInfo.setLevel(level);
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("jsReserved", String.valueOf(sb));

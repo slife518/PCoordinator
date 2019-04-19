@@ -35,7 +35,7 @@
         android:layout_marginBottom="67dp"
         android:layout_marginEnd="20dp"
         android:backgroundTint="@color/buttonColorAccent"
-        app:srcCompat="@drawable/ic_outline_chat_bubble_outline_24px" />
+        app:srcCompat="@drawable/ic_outline_sms_24px" />
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"

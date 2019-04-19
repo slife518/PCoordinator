@@ -1,86 +1,88 @@
 package com.company.jk.pcoordinator.login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by 1202650 on 2016-07-30.
  */
-public class LoginInfo {
+public class LoginInfo{
 
     private static LoginInfo loginInfo = new LoginInfo();
+    static SharedPreferences mPreference;
+    SharedPreferences.Editor editor;
+    public static final String APPLICATIONNAME = "pcoordinator";
+    public static final String ISAUTO_LOGIN = "AutoChecked";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
+    public static final String BABYID = "babyID";
+    public static final String BABYBIRTHDAY = "babybirthday";
+    public static final String BABYNAME = "babyname";
+    public static final String NAME = "name";
 
-    public static LoginInfo getInstance(){
+
+    public static LoginInfo getInstance(Context mContext){
         Log.i("LoginInfo","객체호출");
+        mPreference = mContext.getSharedPreferences(APPLICATIONNAME, MODE_PRIVATE);
         return  loginInfo;
     }
-
-    private String email;
-    private String name;
-
-    private String age;
-    private String address1;
-    private String address2;
-
-    private int babyID;
-    private String babybirthday;  //아기 생일
-
-    public String getBabyname() {
-        return babyname;
-    }
-
-    public void setBabyname(String babyname) {
-        this.babyname = babyname;
-    }
-
-    private String babyname;
-
-    private String tel;
-    private String password;
 
     private String register_auth_code;   //이메일 인증 코드 ( 최초는 0, 인증은 1)
 
     public String getPassword() {
-        return password;
+        return mPreference.getString(PASSWORD, null);
     }
     public String getEmail() {
-        return email;
-    }
-    public  int getBabyID(){
-        return  babyID;
-    }
-    public String getBabyBirthday() {
-        return babybirthday;
+       return mPreference.getString(EMAIL, null);
     }
     public String getName() {
-        return name;
+        return mPreference.getString(NAME, null);
     }
-    public String getAge() {
-        return age;
+    public  int getBabyID(){
+        return mPreference.getInt(BABYID, 0);
     }
-    public String getAddress1() { return address1; }
-    public String getAddress2() { return address2; }
-    public String getTel() { return tel; }
-    public String getRegister_auth_code() {    return register_auth_code;  }
+    public String getBabyname() {
+        return mPreference.getString(BABYNAME, null);
+    }
+    public String getBabyBirthday() {
+        return mPreference.getString(BABYBIRTHDAY, null);
+    }
+
 
     public void setPassword(String password) {
-        this.password = password;
+        editor = mPreference.edit();
+        editor.putString(PASSWORD, password);
+        editor.commit();
     }
+
     public void setEmail(String email) {
-        this.email = email;
-    }
-    public void setBabyID(int babyID){ this.babyID = babyID;}
-    public void setBabybirthday(String birthday) {
-        this.babybirthday= birthday;
+        editor = mPreference.edit();
+        editor.putString(EMAIL, email);
+        editor.commit();
     }
     public void setName(String name) {
-        this.name = name;
+        editor = mPreference.edit();
+        editor.putString(NAME, name);
+        editor.commit();
     }
-    public void setAge(String age) {
-        this.age = age;
+
+    public void setBabyID(int babyID){
+        editor = mPreference.edit();
+        editor.putInt(BABYID, babyID);
+        editor.commit();
     }
-    public void setAddress1(String address) { this.address1 = address1; }
-    public void setAddress2(String address) { this.address2 = address2; }
-    public void setTel(String tel) { this.tel = tel; }
-    public void setRegister_auth_code(String register_auth_code) {    this.register_auth_code = register_auth_code; }
+    public  void setBabyname(String babyname){
+        editor = mPreference.edit();
+        editor.putString(BABYNAME, babyname);
+        editor.commit();
+    }
+    public void setBabybirthday(String birthday) {
+        editor = mPreference.edit();
+        editor.putString(BABYBIRTHDAY, birthday);
+        editor.commit();
+    }
 
 }

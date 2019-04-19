@@ -14,7 +14,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -72,7 +71,7 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
         if(intent.getStringExtra("baby_id") != null){
             _baby_id = Integer.parseInt(intent.getStringExtra("baby_id"));
         }else {
-            LoginInfo loginInfo = LoginInfo.getInstance();
+            LoginInfo loginInfo = LoginInfo.getInstance(this);
             _baby_id = loginInfo.getBabyID();
         }
 

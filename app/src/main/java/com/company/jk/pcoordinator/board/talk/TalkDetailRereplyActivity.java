@@ -45,7 +45,7 @@ public class TalkDetailRereplyActivity extends MyActivity implements View.OnClic
     BottomSheetDialog modalBottomSheet;
     Toolbar myToolbar;
     MyDataTransaction transaction;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
     String TAG = "TalkDetailRereplyActivity";
     TextView tv_register;
     EditText et_reply;
@@ -56,7 +56,7 @@ public class TalkDetailRereplyActivity extends MyActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_talk_detail);
-
+        loginInfo = LoginInfo.getInstance(this);
         transaction = new MyDataTransaction(getApplicationContext());
 // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);

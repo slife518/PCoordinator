@@ -1,12 +1,10 @@
 package com.company.jk.pcoordinator.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -24,46 +22,38 @@ import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.NetworkUtil;
-//import com.facebook.CallbackManager;
-//import com.facebook.FacebookCallback;
-//import com.facebook.FacebookException;
-//import com.facebook.login.LoginManager;
-//import com.facebook.login.LoginResult;
-//import com.facebook.login.widget.LoginButton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.company.jk.pcoordinator.login.LoginInfo.APPLICATIONNAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.BABYBIRTHDAY;
+import static com.company.jk.pcoordinator.login.LoginInfo.BABYID;
+import static com.company.jk.pcoordinator.login.LoginInfo.BABYNAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.EMAIL;
+import static com.company.jk.pcoordinator.login.LoginInfo.ISAUTO_LOGIN;
+import static com.company.jk.pcoordinator.login.LoginInfo.NAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.PASSWORD;
+
 public class LoginActivity extends MyActivity {
-    final static String TAG = "Login";
-    final static String Controller = "Pc_login";
-
-    private static final String EMAIL = "email";
-    private static final String USER_POSTS = "user_posts";
-    private static final String USER_BIRTHDAY = "user_birthday";
-
+    private static final String TAG = "Login";
 
     StringBuffer sb = new StringBuffer();
     SharedPreferences mPreference;
     Button btn_login;
     Button btn_signup;
-//    TextView txt_find_id;
     TextView txt_find_pw;
     EditText et_email;
     EditText et_pw;
 
     CheckBox cb_auto;
     Intent intent;
-    LoginInfo loginInfo = LoginInfo.getInstance();
-//    private LoginButton loginButton;
-//    private CallbackManager callbackManager;
+    LoginInfo loginInfo ;
 
 
     @Override
@@ -73,11 +63,12 @@ public class LoginActivity extends MyActivity {
         setContentView(R.layout.activity_login);
         findViewsById();
 
-        mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
-        String id = mPreference.getString("Email", "");
-        String pass = mPreference.getString("Password", "");
+        loginInfo = LoginInfo.getInstance(this);
+        mPreference = getSharedPreferences(APPLICATIONNAME, MODE_PRIVATE);
+        String id = mPreference.getString(EMAIL, "");
+        String pass = mPreference.getString(PASSWORD, "");
         //cb_auto.setChecked(true);
-        cb_auto.setChecked(mPreference.getBoolean("AutoChecked", false));
+        cb_auto.setChecked(mPreference.getBoolean(ISAUTO_LOGIN, false));
 
         Log.i(TAG, "아이디는 " + id);
         et_email.setText(id);
@@ -169,7 +160,7 @@ public class LoginActivity extends MyActivity {
             case R.id.btn_login:
                 loginInfo.setEmail(et_email.getText().toString());
                 loginInfo.setPassword(et_pw.getText().toString());
-                setAutoLogin();   //자동로그인
+
                 //ID 체크 후 회원이면 예약현황화면으로 이동
                 if (NetworkUtil.getConnectivityStatusBoolean(getApplicationContext())) {
                     MyDataTransaction dataTransaction = new MyDataTransaction(getApplicationContext());
@@ -224,19 +215,6 @@ public class LoginActivity extends MyActivity {
         cb_auto = findViewById(R.id.cb_Auto);
     }
 
-    //자동로그인 구현
-    private void setAutoLogin() {
-        mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
-        SharedPreferences.Editor editor = mPreference.edit();
-        if (cb_auto.isChecked()) {
-            editor.putString("Email", loginInfo.getEmail());
-            editor.putString("Password", loginInfo.getPassword());
-//            editor.putString("SiteCd", loginInfo.getSite());
-        }
-        editor.putBoolean("AutoChecked", cb_auto.isChecked());
-        editor.commit();
-    }
-
     private void success_login(String result) {
         Log.i(TAG, "로그인 결과 : " + result);
         String name = null, babyBirthday = null, babyName = null;
@@ -257,10 +235,19 @@ public class LoginActivity extends MyActivity {
 
             //  String birthday = jsonObject.getString("birthday");
             if (name !=  null) {
-                loginInfo.setName(name);
-                loginInfo.setBabyID(babyID);
-                loginInfo.setBabybirthday(babyBirthday);
-                loginInfo.setBabyname(babyName);
+                SharedPreferences.Editor editor = mPreference.edit();
+                editor.putString(EMAIL, et_email.getText().toString());
+                editor.putString(PASSWORD, et_pw.getText().toString());
+                editor.putString(NAME, name);
+                editor.putInt(BABYID, babyID);
+                editor.putString(BABYBIRTHDAY, babyBirthday);
+                editor.putString(BABYNAME, babyName);
+                if (cb_auto.isChecked()) {
+                    editor.putBoolean(ISAUTO_LOGIN, cb_auto.isChecked());
+                }
+                editor.commit();
+
+
                 //  loginInfo.setLevel(level);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("jsReserved", String.valueOf(sb));

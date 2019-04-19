@@ -69,7 +69,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     int baby_id;
     UrlPath urlPath = new UrlPath();
     Upload upload = new Upload();
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
     private DatePickerDialog.OnDateSetListener mDateSetListener ;
 
     @Override
@@ -81,6 +81,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
         setContentView(R.layout.activity_mybaby_detail);
 
+        loginInfo = LoginInfo.getInstance(this);
         // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -377,6 +378,8 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         super.onBackPressed();
 
     }
+
+
 
 
 

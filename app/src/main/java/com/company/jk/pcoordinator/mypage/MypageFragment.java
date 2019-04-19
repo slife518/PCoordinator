@@ -22,12 +22,13 @@ import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.mybaby.MybabyActivity;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.company.jk.pcoordinator.login.LoginInfo.APPLICATIONNAME;
 
 public class MypageFragment extends MyFragment {
 
     TextView txCustomerinfo;
     View v;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class MypageFragment extends MyFragment {
 
         v = inflater.inflate(R.layout.fragment_mypage, container, false);
 
+        loginInfo = LoginInfo.getInstance(this.getContext());
 
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = (Toolbar)v.findViewById(R.id.my_toolbar);
@@ -123,7 +125,7 @@ public class MypageFragment extends MyFragment {
         builder.setPositiveButton(R.string.logout,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences mPreference =  getActivity().getSharedPreferences("pcoordinator", MODE_PRIVATE);
+                        SharedPreferences mPreference =  getActivity().getSharedPreferences(APPLICATIONNAME, MODE_PRIVATE);
                         SharedPreferences.Editor editor = mPreference.edit();
                         editor.clear().commit();
 

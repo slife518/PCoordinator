@@ -27,7 +27,7 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
     private String TAG = "RecyclerDetailViewAdapter";
     private Context mContext;
     private UrlPath urlPath = new UrlPath();
-    private LoginInfo loginInfo = LoginInfo.getInstance();
+    private LoginInfo loginInfo;
     private ArrayList<Talkinfo> mItems;
     MyDataTransaction transaction;
     public RecyclerDetailViewAdapter(ArrayList itemList) {
@@ -49,6 +49,8 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
 
         View v;
 
+
+
         Log.i(TAG,mItems.get(viewType).contents + mItems.get(viewType).reply_level );
         if(viewType==0){
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_detail, parent, false);
@@ -59,6 +61,7 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
         }
         mContext = parent.getContext();
 
+        loginInfo = LoginInfo.getInstance(mContext);
         RecyclerViewHolder holder = new RecyclerViewHolder(v);
         return holder;
     }

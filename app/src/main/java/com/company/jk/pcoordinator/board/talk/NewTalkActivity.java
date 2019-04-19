@@ -41,7 +41,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
     private UrlPath urlPath = new UrlPath();
     MyDataTransaction transaction;
     String TAG = "NewTalkActivity";
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
     MyPhotoCrop photoCrop = new MyPhotoCrop();
     int id = 0, reply_id = 0, reply_level = 0;
 
@@ -50,6 +50,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_talk_new);
 
+        loginInfo = LoginInfo.getInstance(this);
         transaction = new MyDataTransaction(getApplicationContext());
 // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);

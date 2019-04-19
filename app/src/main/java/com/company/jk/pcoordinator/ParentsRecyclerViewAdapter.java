@@ -2,20 +2,13 @@ package com.company.jk.pcoordinator;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,13 +26,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecyclerViewHolder>{
     final static String TAG = "ParentsRecwAdapter";
     Context mContext;
     UrlPath urlPath = new UrlPath();
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
     private ArrayList<ParentsInfo> mItems;
 
     public ParentsRecyclerViewAdapter(ArrayList itemList) {
@@ -53,6 +44,7 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
     public ParentsRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_parentscard, parent, false);
         mContext = parent.getContext();
+        loginInfo = LoginInfo.getInstance(mContext);
         ParentsRecyclerViewHolder holder = new ParentsRecyclerViewHolder(v);
 
         return holder;

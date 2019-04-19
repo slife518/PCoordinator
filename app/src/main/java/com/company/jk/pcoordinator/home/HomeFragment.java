@@ -70,7 +70,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
     private Context mContext;
     private final String TAG = "HomeFragment";
-    private LoginInfo loginInfo = LoginInfo.getInstance();
+    private LoginInfo loginInfo ;
 
     private ArrayList<RecordChart1Info> chart1Items = new ArrayList();
     private ArrayList<RecordChart2Info> chart2Items = new ArrayList();
@@ -92,7 +92,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         mContext = v.getContext();
-
+        loginInfo = LoginInfo.getInstance(mContext);
         // toolbar 설정1
 //        setHasOptionsMenu(true);   // toolbar 의 추가 메뉴
         AppCompatActivity activity = (AppCompatActivity) v.getContext();

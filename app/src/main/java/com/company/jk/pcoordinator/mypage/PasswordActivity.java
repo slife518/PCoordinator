@@ -2,18 +2,15 @@ package com.company.jk.pcoordinator.mypage;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
@@ -23,11 +20,14 @@ import com.company.jk.pcoordinator.login.LoginService;
 
 import org.json.JSONObject;
 
+import static com.company.jk.pcoordinator.login.LoginInfo.APPLICATIONNAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.PASSWORD;
+
 public class PasswordActivity extends MyActivity implements View.OnClickListener {
 
     private static final String TAG = "PasswordFragment";
     Context mContext;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo;
     private static String tcode;
     private JSONObject jObject = null; //group들로 구성된 json
     private StringBuffer sb = new StringBuffer();
@@ -39,11 +39,13 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
     Button _btn_save_pw;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
 
+        loginInfo = LoginInfo.getInstance(this);
 // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -150,6 +152,7 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
                 switch (tcode) {
                     case "save_customer_pw":
                         if (result.equals("true")){
+                            setPassword();
                             toastMessage = getResources().getString(R.string.message_updated);
                             break;
                         }else{
@@ -165,4 +168,16 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
             onBackPressed();
         }
     }
+
+
+    //자동로그인 구현
+    private void setPassword() {
+        SharedPreferences mPreference;
+        mPreference = getSharedPreferences(APPLICATIONNAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = mPreference.edit();
+        editor.putString(PASSWORD, loginInfo.getPassword());
+        editor.commit();
+    }
+
+
 }

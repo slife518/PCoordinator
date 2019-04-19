@@ -18,7 +18,7 @@ public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<ItemHolder> 
     private List<DataVO> list;
     private Context mContext;
     BottomSheetListener mListener;
-    LoginInfo loginInfo = LoginInfo.getInstance();
+    LoginInfo loginInfo ;
 
 
     String TAG = "BottomRecyclerViewAdapter";
@@ -30,6 +30,7 @@ public class BottomRecyclerViewAdapter extends RecyclerView.Adapter<ItemHolder> 
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_bottom_sheet_row, parent, false);
         mContext = parent.getContext();
+        loginInfo = LoginInfo.getInstance(mContext);
         mListener = (BottomSheetListener)mContext;
         return new ItemHolder(root);
     }

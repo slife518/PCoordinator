@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="200dp"
             android:textColorHint="@color/white">
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/input_email"
@@ -104,6 +104,7 @@
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:background="@drawable/button_bg"
+            android:textColor="@color/buttonTextColor"
             android:onClick="OnClickMethod"
             android:text="@string/signin" />
 
@@ -123,8 +124,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginBottom="24dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="7dp"
                 android:onClick="OnClickMethod"
+                android:textColor="@color/buttonTextColor"
                 android:text="@string/find_password"
                 android:textSize="12dp" />
             <View

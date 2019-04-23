@@ -3,7 +3,6 @@ package com.company.jk.pcoordinator.home;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +16,13 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
+import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.MyFragment;
+import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.NetworkUtil;
-import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.record.RecordActivity;
 import com.github.mikephil.charting.charts.LineChart;
@@ -38,28 +39,15 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -82,7 +70,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private LineChart mChart1, mChart2;
     private ImageView iv_sample1, iv_sample2;
     private Boolean isChart1 = false, isChart2 = false;  // 차트를 보여줄 지 말지
-
+    MyDataTransaction transaction;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +80,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         mContext = v.getContext();
+        transaction = new MyDataTransaction(mContext);
         loginInfo = LoginInfo.getInstance(mContext);
         // toolbar 설정1
 //        setHasOptionsMenu(true);   // toolbar 의 추가 메뉴
@@ -206,111 +195,74 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     }
 
 
-    private void get_data_async(){  //데이터를 비 동기로 가져오기
+    private void get_data_async(){
         Log.i(TAG, "get_data_async 시작");
         if(loginInfo.getBabyID() != 0) {
             if (NetworkUtil.getConnectivityStatusBoolean(mContext.getApplicationContext())) {
-                new HttpTaskRecordList().execute();
+//                new HttpTaskRecordList().execute();
+
+                Map<String, String> params = new HashMap<>();
+                params.put("email", loginInfo.getEmail());
+
+                VolleyCallback callback = new VolleyCallback() {
+                    @Override
+                    public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
+
+                        Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                        responseSuccess(result);
+
+                      }
+                    @Override
+                    public void onFailResponse(VolleyError error) {
+                        Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+                    }
+                };
+
+                transaction.queryExecute(2, params, "Pc_record/record_list", callback);
+
             }
         }
     }
-    class HttpTaskRecordList extends AsyncTask<String, String, String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //사용자가 다운로드 중 파워 버튼을 누르더라도 CPU가 잠들지 않도록 해서
-            //다시 파워버튼 누르면 그동안 다운로드가 진행되고 있게 됩니다.
-//            PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-//            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
-//            mWakeLock.acquire();
 
-            //파일 다운로드를 시작하기 전에 프로그레스바를 화면에 보여줍니다.
-//            progressBar.show();
+    private void responseSuccess(String result) {
 
-        }
-
-        @Override
-        protected String doInBackground(String... args) {
-
-            String server_url = new UrlPath().getUrlPath() + "Pc_record/record_list";
-            Vector<NameValuePair> nameValue = new Vector<NameValuePair>();
-            nameValue.add(new BasicNameValuePair("email", loginInfo.getEmail()));//
-
-            try {
-                HttpPost request = new HttpPost(server_url);   //request객체에 URL SET
-                //웹 접속 - utf-8 방식으로
-                HttpEntity entity = new UrlEncodedFormEntity(nameValue, HTTP.UTF_8); //Vector 값을 HttpEntity 객체로 만든다.
-                request.setEntity(entity);  //HttpEntity 객체를 인자값으로 하는 HttpPost 객체 request에 담는다.
-                //웹 서버에서 값을 받기 위한 객체 생성
-                //HttpClient client = HttpClientBuilder.create().build();
-                HttpClient client = new DefaultHttpClient();
-                HttpResponse res = client.execute(request);   //URL 에 접속하고 넘겨준 인자로 실행
-                //웹 서버에서 값받기******************************
-                HttpEntity entityResponse = res.getEntity();   //전달받은 vector(?) 값 HttpEntity 객체에 담는다.
-                InputStream im = entityResponse.getContent();  // vector 값을 InputStream 에 담고 BufferedReader 객체에 담는다.
-                BufferedReader reader = new BufferedReader(new InputStreamReader(im, HTTP.UTF_8));
-                String line = null;
-                //readLine -> 파일내용을 줄 단위로 읽기
-                StringBuffer sb = new StringBuffer();
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line);
-                }
-
-                Log.i(TAG, "sb : " + sb.toString());
-                itemAppend(sb.toString());  // 조회 된 데이터 표현하기
-                im.close();
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        itemAppend(result);  // 조회 된 데이터 표현하기
 
 
-            return null;
-        }
+        mAdapter.refreshAdapter(listItems);
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-//            mAdapter.notifyDataSetChanged();
-            mAdapter.refreshAdapter(listItems);
-
-            // 수유차트
-            if(isChart1) {
-                mChart1.setVisibility(VISIBLE);
-                setChart1Data(chart1Items);   // add data
+        // 수유차트
+        if(isChart1) {
+            mChart1.setVisibility(VISIBLE);
+            setChart1Data(chart1Items);   // add data
 //                drawLineChart(mChart1, max_mothermilk, min_mothermilk);  //draw LineChart
-                drawLineChart(mChart1);  //draw LineChart
-            }else{  // 차트 안보이게 처리
-                mChart1.setVisibility(GONE);
-                mChart2.setPadding(20, 0, 0, 0);
-            }
-
-
-            //분유/이유식차트
-            if(isChart2) {
-                mChart2.setVisibility(VISIBLE);
-                setChart2Data(chart2Items);  // add data
-//                drawLineChart(mChart2, max_milk, min_milk);  //draw LineChart
-                drawLineChart(mChart2);  //draw LineChart
-            }else{  // 차트 안보이게 처리
-                mChart2.setVisibility(GONE);
-                mChart1.setPadding(20, 0, 0, 0);
-            }
-
-            if(!isChart1 && !isChart2){
-                iv_sample1.setVisibility(VISIBLE);
-                iv_sample2.setVisibility(VISIBLE);
-            }else{
-                iv_sample1.setVisibility(GONE);
-                iv_sample2.setVisibility(GONE);
-            }
+            drawLineChart(mChart1);  //draw LineChart
+        }else{  // 차트 안보이게 처리
+            mChart1.setVisibility(GONE);
+            mChart2.setPadding(20, 0, 0, 0);
         }
-    }
 
+
+        //분유/이유식차트
+        if(isChart2) {
+            mChart2.setVisibility(VISIBLE);
+            setChart2Data(chart2Items);  // add data
+//                drawLineChart(mChart2, max_milk, min_milk);  //draw LineChart
+            drawLineChart(mChart2);  //draw LineChart
+        }else{  // 차트 안보이게 처리
+            mChart2.setVisibility(GONE);
+            mChart1.setPadding(20, 0, 0, 0);
+        }
+
+        if(!isChart1 && !isChart2){
+            iv_sample1.setVisibility(VISIBLE);
+            iv_sample2.setVisibility(VISIBLE);
+        }else{
+            iv_sample1.setVisibility(GONE);
+            iv_sample2.setVisibility(GONE);
+        }
+
+    }
 
     private void drawLineChart(LineChart chart){
 
@@ -357,10 +309,13 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
-//        l.setYOffset(11f);
+//        l.setYOffset(15f);
 
         // X축
-//            XAxis xAxis = mChart.getXAxis();
+            XAxis xAxis = chart.getXAxis();
+            xAxis.setXOffset(11f);
+            xAxis.setGranularityEnabled(true);
+//
 //    //        xAxis.setTypeface(mTfLight);
 //            xAxis.setTextSize(11f);
 //            xAxis.setTextColor(Color.BLACK);
@@ -369,7 +324,10 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
 
         //Y축
-//        YAxis leftAxis = chart.getAxisLeft();
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setYOffset(11f);
+        leftAxis.setGranularityEnabled(true);
+
 //        //        leftAxis.setTypeface(mTfLight);
 //        leftAxis.setTextColor(Color.BLACK);
 //        leftAxis.setAxisMaximum(max);
@@ -450,18 +408,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             // 최대값 0 이상이면 차트를 보여준다.
             isChart1  = (max_mothermilk != null && max_mothermilk > 0) ? true : false;
             isChart2  = (max_milk != null && max_milk > 0) ? true : false;
-//            if (max_mothermilk != null && max_mothermilk > 0) {
-//                isChart1 = true;
-//            }else {
-//                isChart1 = false;
-////            }
-//            if (max_milk != null && max_milk > 0) {
-//                isChart2 = true;
-//            }else {
-//                isChart2 = false;
-//            }
         }
-
     }
 
 
@@ -477,8 +424,6 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         Log.i(TAG, "setData 시작 " + chartItems.size());
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
         final ArrayList<String> xVals = new ArrayList<String>();
-
-
         final int maxDay = 15;  // 해당 일 수 만큼만 보여줌
         final int visuableSize = (chartItems.size() >= maxDay) ? maxDay : chartItems.size();  // 데이터가 mayDay 개 보다 적으면 maxDay
 
@@ -487,7 +432,6 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             yVals1.add(new Entry(i, chartItems.get(n).getMothermilk()));
             xVals.add( chartItems.get(n).getDate());
         }
-
 
         LineDataSet set1;
 
@@ -530,8 +474,9 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
                     @Override
                     public String getFormattedValue(float value, AxisBase axis) {
-
-                        return xVals.get((int)value);
+                        if (xVals.size() > (int) value) {
+                            return xVals.get((int) value);
+                        } else return null;
                     }
 
                 });
@@ -610,8 +555,9 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
-
-                    return xVals.get((int)value);
+                    if (xVals.size() > (int) value) {
+                        return xVals.get((int) value);
+                    } else return null;
                 }
 
             });

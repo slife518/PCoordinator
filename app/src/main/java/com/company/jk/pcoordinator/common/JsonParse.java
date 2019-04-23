@@ -107,7 +107,7 @@ public class JsonParse {
 
     public static JSONArray getJsonArrayFromString(String rs, String group) {
 
-        JSONObject jsonObject = new JSONObject(); //group들로 구성된 json
+        JSONObject jsonObject;
         JSONArray jsonArray = new JSONArray();
         try {
             jsonObject = new JSONObject(rs);

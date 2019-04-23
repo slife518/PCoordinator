@@ -2,7 +2,7 @@
     <string name="app_name">Giant Baby</string>
     <string name="CheckUnit">Enter mandatory item.</string>
     <string name="no">no</string>
-    <string name="email">email</string>
+    <string name="email">Email address</string>
     <string name="name">name</string>
     <string name="hint_name">name</string>
     <string name="birthday">birthday</string>

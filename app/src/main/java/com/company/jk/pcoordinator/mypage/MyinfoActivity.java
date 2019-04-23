@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -27,22 +26,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
+import com.company.jk.pcoordinator.common.MyDataTransaction;
+import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.AddressPostActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
-import com.company.jk.pcoordinator.login.LoginService;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.company.jk.pcoordinator.login.LoginInfo.APPLICATIONNAME;
 import static com.company.jk.pcoordinator.login.LoginInfo.ISAUTO_LOGIN;
@@ -51,20 +56,17 @@ import static com.company.jk.pcoordinator.login.LoginInfo.ISAUTO_LOGIN;
 //고객정보는 fragment 도 사용 가능하고 actvity 로도 사용 가능하여 둘 다 만들어 놓음.
 public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
-
     private static final int ADDRESS_REQUEST = 1888;
     private static final String TAG = "MyinfoFragment";
 
     Context mContext;
-    LoginInfo loginInfo ;
+    LoginInfo loginInfo;
     SharedPreferences mPreference;
-    private static String tcode;
-
-    private static final String Controller = "Pc_login";
     private String toastMessage = " ";
-    private DatePickerDialog.OnDateSetListener mDateSetListener ;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
     TextView _address1, _birthday;
 
+    MyDataTransaction transaction;
     ImageView _profile;
     UrlPath urlPath = new UrlPath();
     Upload upload = new Upload();
@@ -81,11 +83,8 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         setContentView(R.layout.activity_myinfo);
 
         loginInfo = LoginInfo.getInstance(this);
+        transaction = new MyDataTransaction(this);
 //        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        tcode = "select_customer_info";
-        new HttpTaskSignIn().execute(loginInfo.getEmail());
-
 
         // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);
@@ -96,7 +95,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
 
         mContext = getApplicationContext();
-        mPreference = getSharedPreferences("pcoordinator", MODE_PRIVATE);
+        mPreference = getSharedPreferences(APPLICATIONNAME, MODE_PRIVATE);
 
         _profile = findViewById(R.id.iv_profile);
         _birthday = findViewById(R.id.et_birthday);
@@ -138,11 +137,11 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        MyinfoActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
+                        MyinfoActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
-                }
+            }
         });
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -153,6 +152,8 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                 _birthday.setText(year + "/" + month + "/" + day);
             }
         };
+
+        getCustomerInfo();
     }
 
     @Override
@@ -163,7 +164,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 //            case R.id.btn_exit:
 //                AppCompatActivity activity = (AppCompatActivity) view.getContext();
 //                MypageFragment myFragment = new MypageFragment();
@@ -176,9 +177,8 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                 break;
 
             case R.id.btn_save:  //고객정보 저장
-                if(check_validation_info()){
-                    tcode = "save_customer_info";
-                    new HttpTaskSignIn().execute(loginInfo.getEmail(), _name.getText().toString(),_birthday.getText().toString(), _tel.getText().toString(), _address1.getText().toString(), _address2.getText().toString());
+                if (check_validation_info()) {
+                    save_customer_info();
                 }
                 break;
 
@@ -188,8 +188,48 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         }
     }
 
+    private void save_customer_info() {
 
-    private  void insert_picture(){
+        Map<String, String> params = new HashMap<>();
+        params.put("email", loginInfo.getEmail());
+        params.put("name", _name.getText().toString());
+        params.put("birthday", _birthday.getText().toString());
+        params.put("tel", _tel.getText().toString());
+        params.put("address1", _address1.getText().toString());
+        params.put("address2", _address2.getText().toString());
+
+        VolleyCallback callback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
+
+             Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+             reponseSave(result);
+            }
+
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+            }
+        };
+        transaction.queryExecute(2, params, "Pc_login/save_customer_info", callback);
+    }
+
+
+    private void reponseSave(String response) {
+            String result = JsonParse.getResultFromJsonString(response);
+
+            if (result.equals("true")) {
+                toastMessage = "저장되었습니다.";
+            } else {
+                toastMessage = result;
+            }
+
+        showToast(toastMessage);
+
+    }
+
+
+    private void insert_picture() {
         Log.i(TAG, "이미지클릭");
 
         final AlertDialog.Builder build = new AlertDialog.Builder( // 다이얼로그
@@ -220,8 +260,8 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
     }
 
 
-    public boolean check_validation_info(){
-        return  true;
+    public boolean check_validation_info() {
+        return true;
     }
 
     @Override
@@ -237,7 +277,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                 default:
                     break;
             }
-        }else{
+        } else {
 
             //Intent x = getActivity().getIntent();
 //		if (requestCode == Crop.REQUEST_PICK && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
@@ -255,102 +295,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    /////// 여기서 부터 DB 쓰레드 작업
-    //  DB 쓰레드 작업
-    class HttpTaskSignIn extends AsyncTask<String, String, String> {
-        @Override
-        protected String doInBackground(String... args) {
-            int i = 0;
-            LoginService serviceHandler = null;
-            switch (tcode) {
-                case "save_customer_info":
-                    serviceHandler = new LoginService.Builder(Controller, tcode).email(args[i++]).name(args[i++]).birthday(args[i++]).tel(args[i++]).address1(args[i++]).address2(args[i++]).build();
-                    break;
-                case "select_customer_info":
-                    serviceHandler = new LoginService.Builder(Controller, tcode).email(args[i++]).build();
-                    break;
-            }
-            return serviceHandler.getData().toString();
-        }
-
-
-
-        @Override
-        protected void onPostExecute(String sb) {
-            super.onPostExecute(sb);
-            JSONObject jObject = null; //group들로 구성된 json
-            try {
-                jObject = new JSONObject(sb);
-                switch (tcode) {
-                    case("save_customer_info"):
-                        String result = jObject.getString("result");
-                        if (result.equals("true")){
-                            toastMessage = "저장되었습니다.";
-
-
-                            break;
-                        }else{
-                            toastMessage = result;
-                            break;
-                        }
-
-                    case("select_customer_info"):
-                        String imgUrl = urlPath.getUrlMemberImg() + loginInfo.getEmail() + ".jpg";  //확장자 대소문자 구별함.
-                        Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(_profile);  //image가 reload 되도록 하기 위하여 필요함
-                        _name.setText(jObject.getString("nickname"));
-                        _birthday.setText(jObject.getString("birthday"));
-                        _tel.setText(jObject.getString("tel"));
-                        Log.i(TAG, "주소는 ??" + (jObject.getString("address1")));
-                        _address1.setText(jObject.getString("address1"));
-                        _address2.setText(jObject.getString("address2"));
-                        toastMessage = "";
-                        break;
-                }
-
-                if(!toastMessage.isEmpty()) {
-                    showToast(toastMessage);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            tcode = "";   //초기화
-            toastMessage = "";   //초기화
-        }
-    }
-
     /////////////////////////////////////사진업로드 시작 //////////////////////////////////////////////
-//    public void onActivityResult(int requestCode, int resultCode,	Intent imageReturnedIntent) {
-//        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-//        //Intent x = getActivity().getIntent();
-////		if (requestCode == Crop.REQUEST_PICK && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
-//        if (requestCode == 4 && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
-////		if (resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
-//// 따라서, Activity에서 사용되는 RESULT_OK값을 가져와서 사용한다.
-//            Log.i("onActivityResult", "request pick");
-//            beginCrop(imageReturnedIntent.getData());
-//        } else if (requestCode == Crop.REQUEST_CROP) {   // Crop.REQUEST_CROP = 6709
-//            Log.i("onActivityResult", "request crop");
-//            handleCrop(resultCode, imageReturnedIntent, this);
-//        } else {
-//            Log.i("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
-//        }
-//    }
-
-
-    private void beginCrop(Uri source) {
-//        Log.d("beginCrop", "Start" +source.toString());
-        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
-        Crop.of(source, destination).asSquare().start(this);
-//        Log.d("beginCrop", "End");
-    }
 
     private void handleCrop(int resultCode, Intent result, Context ct) {
         if (resultCode == Activity.RESULT_OK) { // Activity 의 RESULT_OK값을 사용
@@ -364,7 +309,9 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
             new Thread(new Runnable() {
                 public void run() {
                     runOnUiThread(new Runnable() {
-                        public void run() {	}	});
+                        public void run() {
+                        }
+                    });
 //                    Log.i(TAG, "파일명은 " + loginInfo.getEmail() + " 업로드할 사진의 절대 경로 " + absolutePath);
                     upload.uploadFile(absolutePath, loginInfo.getEmail(), "memberprofile");
                     //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
@@ -378,6 +325,62 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         }
     }
 
+    private void beginCrop(Uri source) {
+//        Log.d("beginCrop", "Start" +source.toString());
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(this);
+//        Log.d("beginCrop", "End");
+    }
     /////////////////////////////////////사진업로드 끝 //////////////////////////////////////////////
 
-}
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+
+    private void getCustomerInfo() {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("email", loginInfo.getEmail());
+
+        VolleyCallback callback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
+
+                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+
+                switch (method) {
+                    case 2:  //get_data
+                        reponseCustomerInfo(result);
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailResponse(VolleyError error) {
+                Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
+            }
+        };
+        transaction.queryExecute(2, params, "Pc_login/select_customer_info", callback);
+    }
+
+    private void reponseCustomerInfo(String response) {
+            try {
+                JSONObject rs = JsonParse.getJsonObjectSingleFromString(response);
+
+                String imgUrl = urlPath.getUrlMemberImg() + loginInfo.getEmail() + ".jpg";  //확장자 대소문자 구별함.
+                Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(_profile);  //image가 reload 되도록 하기 위하여 필요함
+                _name.setText(rs.getString("nickname"));
+                _birthday.setText(rs.getString("birthday"));
+                _tel.setText(rs.getString("tel"));
+                Log.i(TAG, "주소는 ??" + (rs.getString("address1")));
+                _address1.setText(rs.getString("address1"));
+                _address2.setText(rs.getString("address2"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+

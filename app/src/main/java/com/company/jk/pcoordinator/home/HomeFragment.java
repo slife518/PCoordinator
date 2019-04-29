@@ -54,7 +54,7 @@ import static android.view.View.VISIBLE;
 import static com.company.jk.pcoordinator.MainActivity.fab;
 
 public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener,
-        OnChartValueSelectedListener {
+        OnChartValueSelectedListener{
 
     private Context mContext;
     private final String TAG = "HomeFragment";
@@ -297,8 +297,9 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
         chart.animateX(500);
 
+
         // get the legend (only possible after setting data)
-        Legend l = chart.getLegend();
+        Legend l = chart.getLegend();   // color & label setting
 
         // modify the legend ...
         l.setForm(Legend.LegendForm.LINE);
@@ -311,10 +312,10 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         l.setDrawInside(false);
 //        l.setYOffset(15f);
 
-        // X축
-            XAxis xAxis = chart.getXAxis();
-            xAxis.setXOffset(11f);
-            xAxis.setGranularityEnabled(true);
+//        // X축
+//            XAxis xAxis = chart.getXAxis();
+//            xAxis.setXOffset(11f);
+//            xAxis.setGranularityEnabled(true);
 //
 //    //        xAxis.setTypeface(mTfLight);
 //            xAxis.setTextSize(11f);
@@ -323,10 +324,10 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 //            xAxis.setDrawAxisLine(false);
 
 
-        //Y축
-        YAxis leftAxis = chart.getAxisLeft();
-        leftAxis.setYOffset(11f);
-        leftAxis.setGranularityEnabled(true);
+//        //Y축
+//        YAxis leftAxis = chart.getAxisLeft();
+//        leftAxis.setYOffset(11f);
+//        leftAxis.setGranularityEnabled(true);
 
 //        //        leftAxis.setTypeface(mTfLight);
 //        leftAxis.setTextColor(Color.BLACK);
@@ -456,7 +457,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                 set1.setFillColor(getResources().getColor(R.color.mothermilkcolor));
                 set1.setHighLightColor(Color.rgb(244, 117, 117));
                 set1.setDrawCircleHole(false);
-                //set1.setFillFormatter(new MyFillFormatter(0f));
+//                set1.setFillFormatter(new MyFillFormatter(0f));
                 //set1.setDrawHorizontalHighlightIndicator(false);
                 //set1.setVisible(false);
                 //set1.setCircleHoleColor(Color.WHITE);
@@ -467,8 +468,8 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
                 data1.setValueTextColor(Color.BLACK);
                 data1.setValueTextSize(9f);
-
-                // x축 label
+//
+//                // x축 label
                 XAxis xAxis1 = mChart1.getXAxis();
                 xAxis1.setValueFormatter(new IAxisValueFormatter() {
 

@@ -65,7 +65,6 @@
     <string name="mothermilk_list">수유</string>
     <string name="mypage">마이페이지</string>
     <string name="update">수정하기</string>
-    <string name="rereply">대댓글쓰기</string>
 
     <string name="chartTitle1">수유시간</string>
     <string name="chartTitle2">분유/이유식</string>
@@ -102,14 +101,13 @@
     <string name="autologin">자동로그인</string>
     <string name="already_baby">이미 등록된 아이가 있다면?</string>
     <string name="baby_register_method">최초등록자가 나를 아이의 보호자로 추가해 주어야 합니다.</string>
-    <string name="dummy_contents">청춘의 피는 끓는다 끓는 피에 뛰노는 심장은 거선의 기관과 같이 힘있다 이것이다 인류의 역사를 꾸며 내려온 동력은 바로 이것이다 이성은 투명하되 얼음과 같으며 지혜는 날카로우나 갑 속에 든 칼이다 청춘의 끓는 피가</string>
-    <string name="dummy_title">세상에 우리 아이가 천재네요..</string>
     <string name="talklist">엄마아빠의 수다</string>
-    <string name="reply_comment">댓글을 남겨주세요</string>
     <string name="register">등록</string>
     <string name="message_title">제목을 입력하세요</string>
     <string name="message_contents">내용을 입력하세요</string>
     <string name="now">방금</string>
+    <string name="reply_comment">댓글을 남겨주세요</string>
     <string name="delete">삭제하기</string>
+    <string name="rereply">대댓글 달기</string>
 
 </resources>

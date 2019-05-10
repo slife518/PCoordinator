@@ -25,6 +25,7 @@
 
     <string name="logout">Sign out</string>
     <string name="record">Record</string>
+    <string name="chart">Chart</string>
     <string name="title_record">Record</string>
     <string name="mybabyinfo">Babyinfo</string>
     <string name="date">Date</string>
@@ -66,6 +67,7 @@
 
     <string name="mypage">My Page</string>
     <string name="update">Modify</string>
+    <string name="chartTitle">Eating history</string>
     <string name="chartTitle1">breast feeding time</string>
     <string name="chartTitle2">milk powder/babyfood</string>
     <string name="logout_message">Are you sure you want to log out?</string>

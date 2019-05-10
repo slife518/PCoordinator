@@ -53,7 +53,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.company.jk.pcoordinator.MainActivity.fab;
 
-public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener,
+public class BarHomeFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener,
         OnChartValueSelectedListener{
 
     private Context mContext;

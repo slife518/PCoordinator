@@ -12,6 +12,7 @@ public class MyAxisValueFormatter implements IAxisValueFormatter
 
     public MyAxisValueFormatter() {
         mFormat = new DecimalFormat("###,###,###,##0");
+
     }
 
     @Override
@@ -19,4 +20,5 @@ public class MyAxisValueFormatter implements IAxisValueFormatter
         return mFormat.format(value) + " ml";
 
     }
+
 }

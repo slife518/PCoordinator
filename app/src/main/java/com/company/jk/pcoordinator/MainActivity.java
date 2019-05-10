@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.company.jk.pcoordinator.board.talk.TalkActivity;
+import com.company.jk.pcoordinator.chart.ChartFragment;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.home.HomeFragment;
 import com.company.jk.pcoordinator.login.LoginInfo;
@@ -30,6 +31,7 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
 
     private HomeFragment homeFragment;
     private RecordFragment recordFragment;
+    private ChartFragment chartFragment;
     private MypageFragment mypageFragment;
     private LoginInfo loginInfo;
 
@@ -42,6 +44,7 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
 
         homeFragment = new HomeFragment();
         recordFragment = new RecordFragment();
+        chartFragment = new ChartFragment();
         mypageFragment = new MypageFragment();
 
         FragmentManager manager;
@@ -92,6 +95,10 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
 
                     replaceFragment(recordFragment);
                 }
+                break;
+            case R.id.bottomBarItemChart:
+                fab.hide();
+                replaceFragment(chartFragment);
                 break;
             case R.id.bottomBarItemPerson:
                 fab.hide();

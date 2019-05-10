@@ -25,6 +25,7 @@
 
     <string name="logout">로그아웃</string>
     <string name="record">기록하기</string>
+    <string name="chart">통계</string>
     <string name="title_record">기록하기</string>
     <string name="mybabyinfo">아기정보</string>
     <string name="date">날짜</string>
@@ -66,6 +67,7 @@
     <string name="mypage">마이페이지</string>
     <string name="update">수정하기</string>
 
+    <string name="chartTitle">우리아기식사량</string>
     <string name="chartTitle1">수유시간</string>
     <string name="chartTitle2">분유/이유식</string>
     <string name="logout_message">로그아웃하시겠습니까?</string>

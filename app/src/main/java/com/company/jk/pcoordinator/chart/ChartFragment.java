@@ -52,8 +52,9 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
     private final String TAG = "ChartFragment";
     private LoginInfo loginInfo ;
     MyDataTransaction transaction;
-    private Integer max_milk, max_mothermilk, min_milk,  min_mothermilk;
+//    private Integer max_milk, max_mothermilk, min_milk,  min_mothermilk;
     JSONArray jsonArray;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,12 +67,18 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         transaction = new MyDataTransaction(mContext);
 
         tvY = v.findViewById(R.id.tvYMax);
-
         mSeekBarY = v.findViewById(R.id.seekBar1);
+
         mSeekBarY.setOnSeekBarChangeListener(this);
 
         mChart = v.findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
+        setingChart();
+
+        return v;
+    }
+
+    private void setingChart(){
 
         mChart.getDescription().setEnabled(false);
 
@@ -95,15 +102,15 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         mChart.getAxisRight().setEnabled(false);
 
         XAxis xLabels = mChart.getXAxis();
-        xLabels.setPosition(XAxis.XAxisPosition.TOP);
+        xLabels.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         // mChart.setDrawXLabels(false);
         // mChart.setDrawYLabels(false);
 //
 //        // setting data
 //        mSeekBarX.setProgress(12);
-//        mSeekBarY.setProgress(100);
-
+//        mSeekBarY.setProgress(7);
+//
         Legend l = mChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
@@ -112,9 +119,8 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         l.setFormSize(8f);
         l.setFormToTextSpace(4f);
         l.setXEntrySpace(6f);
-        return v;
-    }
 
+    }
 
 
     @Override
@@ -156,7 +162,10 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
     }
 
     private void responseSuccess(String result) {
+
+
         itemAppend(result);  // 조회 된 데이터 표현하기
+
     }
 
 
@@ -165,46 +174,54 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
             //최대값 최소값 가져오기
             //차트 데이터 가져오기
-            jsonArray = JsonParse.getJsonArrayFromString(response, "max_value");
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                try {
-                    JSONObject rs = (JSONObject) jsonArray.get(i);
-
-                    max_mothermilk = rs.getInt("max_mothermilk");
-                    min_mothermilk = 0;
-                    max_milk = rs.getInt("max_milk");
-                    min_milk = 0;
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+//            jsonArray = JsonParse.getJsonArrayFromString(response, "max_value");
+//
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                try {
+//                    JSONObject rs = (JSONObject) jsonArray.get(i);
+//
+//                    max_mothermilk = rs.getInt("max_mothermilk");
+//                    min_mothermilk = 0;
+//                    max_milk = rs.getInt("max_milk");
+//                    min_milk = 0;
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
             // setting data
             jsonArray = JsonParse.getJsonArrayFromString(response, "chartData");
 
-            mSeekBarY.setProgress(30);
+            mSeekBarY.setMax(jsonArray.length());
+            if(mSeekBarY.getProgress() == 0){
+                mSeekBarY.setProgress(7);
+            }
+
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (mSeekBarY.getProgress() ==0){
+            return;
+        }
 
-        tvY.setText("" + (mSeekBarY.getProgress()));
+        tvY.setText(getResources().getString(R.string.lastest) + " " + (mSeekBarY.getProgress()) + "일");
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
-        float val1, val2, val3;
-        for (int i = 0; i < mSeekBarY.getProgress() + 1; i++) {
+
+        for (int i = 1; i < mSeekBarY.getProgress() + 1; i++) {
 
             try {
-                JSONObject rs = (JSONObject) jsonArray.get(i);
+                JSONObject rs = (JSONObject) jsonArray.get(jsonArray.length()-i);
 
-                val1 = (float) rs.getInt("mothermilk");
-                val2 = (float) rs.getInt("milk");
-                val3 = (float) rs.getInt("rice");
+                float val1 = (float) rs.getInt("mothermilk");
+                float val2 = (float) rs.getInt("milk");
+                float val3 = (float) rs.getInt("rice");
 
+                Log.i(TAG, "모유는 " + val1 + " 분유는 " + val2 + " 이유식은 " + val3);
                 yVals1.add(new BarEntry(
-                        i,
+                        jsonArray.length()-i,
                         new float[]{val1, val2, val3}));
 
             } catch (JSONException e) {
@@ -213,28 +230,29 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
         }
 
+
         BarDataSet set1;
 
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
+
+        if (mChart.getData() != null && mChart.getData().getDataSetCount() > 0) {
             set1 = (BarDataSet) mChart.getData().getDataSetByIndex(0);
             set1.setValues(yVals1);
+
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         } else {
             set1 = new BarDataSet(yVals1, getResources().getString(R.string.chartTitle));
+            //set1-mValue 값이 처음에 안들어감. 다른 화면 갔다 오면 들어가 있음. yVals1 의 값이 없음.
 //            set1.setDrawIcons(false);
             set1.setColors(getColors());
             set1.setStackLabels(new String[]{getResources().getString(R.string.mothermilk), getResources().getString(R.string.milk), getResources().getString(R.string.rice)});
+
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
             dataSets.add(set1);
 
             BarData data = new BarData(dataSets);
             data.setValueFormatter(new MyValueFormatter());
-
-
-
             data.setValueTextColor(Color.WHITE);
 
             mChart.setData(data);

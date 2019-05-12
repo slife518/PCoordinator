@@ -111,5 +111,6 @@
     <string name="reply_comment">take a message</string>
     <string name="delete">delete</string>
     <string name="rereply">take a reply</string>
+    <string name="lastest">Last</string>
 
 </resources>

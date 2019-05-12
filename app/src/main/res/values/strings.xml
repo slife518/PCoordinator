@@ -111,5 +111,6 @@
     <string name="reply_comment">댓글을 남겨주세요</string>
     <string name="delete">삭제하기</string>
     <string name="rereply">대댓글 달기</string>
+    <string name="lastest">최근</string>
 
 </resources>

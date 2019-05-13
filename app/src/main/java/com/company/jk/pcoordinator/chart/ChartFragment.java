@@ -54,6 +54,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
     MyDataTransaction transaction;
 //    private Integer max_milk, max_mothermilk, min_milk,  min_mothermilk;
     JSONArray jsonArray;
+    final ArrayList<String> xVals = new ArrayList<String>();
 
 
     @Override
@@ -72,7 +73,8 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         mSeekBarY.setOnSeekBarChangeListener(this);
 
         mChart = v.findViewById(R.id.chart1);
-        mChart.setOnChartValueSelectedListener(this);
+
+//        mChart.setOnChartValueSelectedListener(this);
         setingChart();
 
         return v;
@@ -210,10 +212,12 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
 
+
         for (int i = 1; i < mSeekBarY.getProgress() + 1; i++) {
 
+            int k = jsonArray.length()-i;
             try {
-                JSONObject rs = (JSONObject) jsonArray.get(jsonArray.length()-i);
+                JSONObject rs = (JSONObject) jsonArray.get(k);
 
                 float val1 = (float) rs.getInt("mothermilk");
                 float val2 = (float) rs.getInt("milk");
@@ -221,8 +225,9 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
                 Log.i(TAG, "모유는 " + val1 + " 분유는 " + val2 + " 이유식은 " + val3);
                 yVals1.add(new BarEntry(
-                        jsonArray.length()-i,
+                        k ,
                         new float[]{val1, val2, val3}));
+                xVals.add( rs.getString("record_date"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -253,7 +258,21 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
             BarData data = new BarData(dataSets);
             data.setValueFormatter(new MyValueFormatter());
+            data.setHighlightEnabled(true);
             data.setValueTextColor(Color.WHITE);
+
+//            // x축 label
+//            XAxis xAxis1 = mChart.getXAxis();
+//            xAxis1.setValueFormatter(new IAxisValueFormatter() {
+//
+//                @Override
+//                public String getFormattedValue(float value, AxisBase axis) {
+//                    if (xVals.size() > (int) value) {
+//                        return xVals.get((int) value);
+//                    } else return null;
+//                }
+//
+//            });
 
             mChart.setData(data);
         }
@@ -279,10 +298,12 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
         BarEntry entry = (BarEntry) e;
 
-        if (entry.getYVals() != null)
+        if (entry.getYVals() != null) {
             Log.i("VAL SELECTED", "Value: " + entry.getYVals()[h.getStackIndex()]);
-        else
+            showToast(xVals.get(jsonArray.length()-(int)h.getX()-1) + " " + entry.getYVals()[h.getStackIndex()]);
+        }else {
             Log.i("VAL SELECTED", "Value: " + entry.getY());
+        }
     }
 
     @Override

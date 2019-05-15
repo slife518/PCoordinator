@@ -70,7 +70,7 @@ public class LoginActivity extends MyActivity {
         //cb_auto.setChecked(true);
         cb_auto.setChecked(mPreference.getBoolean(ISAUTO_LOGIN, false));
 
-        Log.i(TAG, "아이디는 " + id);
+        Log.d(TAG, "아이디는 " + id);
         et_email.setText(id);
         et_pw.setText(pass);
 //        if (!mPreference.getBoolean("AutoChecked", false)) {
@@ -111,7 +111,7 @@ public class LoginActivity extends MyActivity {
 //
 //            @Override
 //            public void onError(FacebookException exception) {
-//                Log.i(TAG,exception.toString());
+//                Log.d(TAG,exception.toString());
 //                // App code
 //            }
 //        });
@@ -155,7 +155,7 @@ public class LoginActivity extends MyActivity {
 
     public void OnClickMethod(View v) {      // TODO Auto-generated method stub
 
-        Log.i(TAG, "버튼클릭" + v.getId());
+        Log.d(TAG, "버튼클릭" + v.getId());
         switch (v.getId()) {
             case R.id.btn_login:
                 loginInfo.setEmail(et_email.getText().toString());
@@ -196,7 +196,7 @@ public class LoginActivity extends MyActivity {
                 break;
 
             case R.id.find_password:
-                Log.i(TAG, "버튼클릭 find_password" + v.getId());
+                Log.d(TAG, "버튼클릭 find_password" + v.getId());
                 intent = new Intent(LoginActivity.this, FindPwActivity.class);
                 startActivityForResult(intent, 1001);
                 break;
@@ -216,7 +216,7 @@ public class LoginActivity extends MyActivity {
     }
 
     private void success_login(String result) {
-        Log.i(TAG, "로그인 결과 : " + result);
+        Log.d(TAG, "로그인 결과 : " + result);
         String name = null, babyBirthday = null, babyName = null;
         int babyID = 0;
             //

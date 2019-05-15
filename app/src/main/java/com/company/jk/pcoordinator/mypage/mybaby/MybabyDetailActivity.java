@@ -130,7 +130,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             _btn_delete.setVisibility(View.GONE);
         }
 
-        Log.i(TAG, "이메일은 " + email + " id는 " + baby_id);
+        Log.d(TAG, "이메일은 " + email + " id는 " + baby_id);
 
 
     }
@@ -142,7 +142,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i(TAG, "2");
+                Log.d(TAG, "2");
                 responseReceiveData(response);    // 결과값 받아와서 처리하는 부분
             }
         }, new Response.ErrorListener() {
@@ -159,7 +159,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
                 return params;
             }
         };
-        Log.i(TAG, "1");
+        Log.d(TAG, "1");
         postRequestQueue.add(postStringRequest);
 
         //data binding end
@@ -167,7 +167,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     }
 
     private void responseReceiveData(String response) {
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
 
         try {
             JSONObject rs = JsonParse.getJsonObjectFromString(response, "result");
@@ -180,7 +180,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             String sex = rs.getString("sex");
 
             String imgUrl = urlPath.getUrlBabyImg() + id + ".jpg";  //확장자 대소문자 구별함.
-            Log.i(TAG, imgUrl);
+            Log.d(TAG, imgUrl);
             Picasso.with(this).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(_profile);  //image가 reload 되도록 하기 위하여 필요함
             _name.setText(name);
 //            _birthday.setText(birthday);
@@ -208,7 +208,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Log.i("onClick", v.toString() + _birthday.toString());
+        Log.d("onClick", v.toString() + _birthday.toString());
         if(v==_btn_save) {
 //            save_data();
             modify_data();
@@ -274,7 +274,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
     @Override
     public void onFocusChange(View v, boolean b) {
-        Log.i(TAG, "포커스가 변경 되었습니다.");
+        Log.d(TAG, "포커스가 변경 되었습니다.");
         if(!b){   //포커스아웃이면
             if(v ==  _name){
                 if(TextUtils.isEmpty(_name.getText().toString())) {
@@ -288,7 +288,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     }
 
     private  void insert_picture(){
-        Log.i(TAG, "이미지클릭");
+        Log.d(TAG, "이미지클릭");
 
         final AlertDialog.Builder build = new AlertDialog.Builder( // 다이얼로그
                 this);
@@ -303,9 +303,9 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
                                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                                 intent.setType("image/*");
-                                Log.i(TAG, "사진선택1");
+                                Log.d(TAG, "사진선택1");
                                 startActivityForResult(intent, 4);
-                                Log.i(TAG, "사진선택완료2");
+                                Log.d(TAG, "사진선택완료2");
 
                             }
                         })
@@ -321,7 +321,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
 
 
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/modifyBaby";
-        Log.i(TAG, server_url);
+        Log.d(TAG, server_url);
 
         RequestQueue postRequestQueue = Volley.newRequestQueue(this);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
@@ -332,7 +332,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "아기아이디는 " + baby_id);
+                Log.d(TAG, "아기아이디는 " + baby_id);
                 Log.e(TAG, error.getLocalizedMessage());
             }
         }){
@@ -343,10 +343,10 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
                     params.put("baby_id", String.valueOf(baby_id));
                 }
                 params.put("owner", email);
-                Log.i(TAG, "owner 는  " + email);
+                Log.d(TAG, "owner 는  " + email);
                 params.put("babyname", _name.getText().toString());
-//        Log.i(TAG, _birthday.getText().toString());
-//        Log.i(TAG, _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(5, 7)+_birthday.getText().toString().substring(8, 10));
+//        Log.d(TAG, _birthday.getText().toString());
+//        Log.d(TAG, _birthday.getText().toString().substring(0, 4)+_birthday.getText().toString().substring(5, 7)+_birthday.getText().toString().substring(8, 10));
                 params.put("birthday", _birthday.getText().toString());
                 if(_boy.isChecked()){
                     params.put("sex", "1");
@@ -361,7 +361,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     }
 
     private void modifyResponse(String response){
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
 
         JSONObject jsonObject = JsonParse.getJsonObjectSingleFromString(response);
         try {
@@ -387,7 +387,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     private  void delete_data(){
 
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/deleteBaby";
-        Log.i(TAG, server_url);
+        Log.d(TAG, server_url);
 
         RequestQueue postRequestQueue = Volley.newRequestQueue(this);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
@@ -398,7 +398,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "아기아이디는 " + baby_id);
+                Log.d(TAG, "아기아이디는 " + baby_id);
                 Log.e(TAG, error.getLocalizedMessage());
             }
         }){
@@ -416,7 +416,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     }
 
     private void deleteResponse(String response){
-        Log.i(TAG, "deleteResponse 결과값은 " + response);
+        Log.d(TAG, "deleteResponse 결과값은 " + response);
         if(response.equals("true")) {
             if(loginInfo.getBabyID() == baby_id){
                 update_user_babyid(baby_id);
@@ -436,7 +436,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         VolleyCallback callback = new VolleyCallback() {
             @Override
             public void onSuccessResponse(String result, int method) {
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
             }
             @Override
             public void onFailResponse(VolleyError error) {
@@ -454,13 +454,13 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         if (requestCode == 4 && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
 //		if (resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
 // 따라서, Activity에서 사용되는 RESULT_OK값을 가져와서 사용한다.
-            Log.i("onActivityResult", "request pick");
+            Log.d("onActivityResult", "request pick");
             beginCrop(imageReturnedIntent.getData());
         } else if (requestCode == Crop.REQUEST_CROP) {   // Crop.REQUEST_CROP = 6709
-            Log.i("onActivityResult", "request crop");
+            Log.d("onActivityResult", "request crop");
             handleCrop(resultCode, imageReturnedIntent, this);
         } else {
-            Log.i("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
+            Log.d("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
         }
     }
 
@@ -485,7 +485,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
                 public void run() {
                     runOnUiThread(new Runnable() {
                         public void run() {	}	});
-                    Log.i(TAG, "파일명은 " + baby_id + " 업로드할 사진의 절대 경로 " + absolutePath);
+                    Log.d(TAG, "파일명은 " + baby_id + " 업로드할 사진의 절대 경로 " + absolutePath);
                     upload.uploadFile(absolutePath, String.valueOf(baby_id), "babyprofile");
                     //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
                 }

@@ -98,7 +98,7 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        Log.i(TAG, String.valueOf(i));
+        Log.d(TAG, String.valueOf(i));
         _find_user.setText("");
         if(_btn_email.isChecked()){
             _find_user.setHint(R.string.letsEmail );
@@ -151,15 +151,15 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
                 Map<String, String> params = new HashMap<>();
                 if(_btn_email.isChecked()){
                     params.put("email", _find_user.getText().toString());
-                    Log.i(TAG,  "email은 "+_find_user.getText().toString());
+                    Log.d(TAG,  "email은 "+_find_user.getText().toString());
                 }else {
                     params.put("tel", _find_user.getText().toString());
-                    Log.i(TAG,  "연락처는 "+_find_user.getText().toString());
+                    Log.d(TAG,  "연락처는 "+_find_user.getText().toString());
                 }
                 return params;
             }
         };
-        Log.i(TAG, "1");
+        Log.d(TAG, "1");
         postRequestQueue.add(postStringRequest);
 
         //data binding end
@@ -167,7 +167,7 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
     }
 
     private void responseReceiveData(String response) {
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
 
         try {
             JSONObject rs = JsonParse.getJsonObjectFromString(response, "result");
@@ -176,7 +176,7 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
             String name = rs.getString("nickname");
             if(email != null){
                 String imgUrl = new UrlPath().getUrlMemberImg() + email + ".jpg";  //확장자 대소문자 구별함.
-                Log.i(TAG, imgUrl);
+                Log.d(TAG, imgUrl);
                 Picasso.with(getApplicationContext()).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(_iv_profile);  //image가 reload 되도록 하기 위하여 필요함
 
                 _iv_profile.setVisibility(View.VISIBLE);
@@ -218,17 +218,17 @@ public class InvitationActivity extends MyActivity implements View.OnClickListen
                 params.put("email", _email);
                 params.put("baby_id",String.valueOf(_baby_id));
 
-                Log.i(TAG, "email는 " + _email);
-                Log.i(TAG, "baby_id는 " +_baby_id);
+                Log.d(TAG, "email는 " + _email);
+                Log.d(TAG, "baby_id는 " +_baby_id);
                 return params;
             }
         };
-        Log.i(TAG, "1");
+        Log.d(TAG, "1");
         postRequestQueue.add(postStringRequest);
     }
 
     private void  response_invite_person(String response){
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
         if(response.equals("1")){
 //            onBackPressed();
 //            finish();

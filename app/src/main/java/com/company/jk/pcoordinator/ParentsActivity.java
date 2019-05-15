@@ -114,7 +114,7 @@ public class ParentsActivity extends MyActivity{
     }
 
     private void responseSuccess(String response) {
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
         String id = null;
         String name = null;
         String birthday = null;
@@ -191,16 +191,16 @@ public class ParentsActivity extends MyActivity{
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.i(TAG, "재시작합니다."+ requestCode);
+        Log.d(TAG, "재시작합니다."+ requestCode);
         if (requestCode == 2000) {
             if(resultCode == Activity.RESULT_OK){
 //                String result=data.getStringExtra("email");
-                Log.i(TAG, "재시작합니다." + requestCode);
+                Log.d(TAG, "재시작합니다." + requestCode);
                recreate();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //만약 반환값이 없을 경우의 코드를 여기에 작성하세요.
-                Log.i(TAG, "취소되었습니다.");
+                Log.d(TAG, "취소되었습니다.");
             }
         }
     }

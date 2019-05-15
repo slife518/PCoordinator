@@ -37,7 +37,7 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
     BottomSheetCallListener  mBottomSheetCall;
 
     public int getItemViewType(int position) {
-//        Log.i(TAG, "recyclerviewDetailholder" + position);
+//        Log.d(TAG, "recyclerviewDetailholder" + position);
         return position;
     }
 
@@ -45,13 +45,13 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i(TAG, "recyclerviewDetailholder_ viewType_ " + viewType);
+        Log.d(TAG, "recyclerviewDetailholder_ viewType_ " + viewType);
 
         View v;
 
 
 
-        Log.i(TAG,mItems.get(viewType).contents + mItems.get(viewType).reply_level );
+        Log.d(TAG,mItems.get(viewType).contents + mItems.get(viewType).reply_level );
         if(viewType==0){
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_talk_detail, parent, false);
 //        }else if( mItems.get(viewType).reply_level > 0) {
@@ -164,13 +164,13 @@ public class RecyclerDetailViewAdapter extends RecyclerView.Adapter<RecyclerView
         params.put("reply_id", String.valueOf(reply_id));
         params.put("reply_level", String.valueOf(reply_level));
 
-        Log.i(TAG, "reply_id = "+String.valueOf(reply_id));
+        Log.d(TAG, "reply_id = "+String.valueOf(reply_id));
 
         VolleyCallback callback = new VolleyCallback() {
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
                     case 2:  //get_data
                         break;

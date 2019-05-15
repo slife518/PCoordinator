@@ -28,7 +28,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     }
     @Override
     public int getCount(){
-        Log.i(TAG, "데이터사이즈는 " + data.size());
+        Log.d(TAG, "데이터사이즈는 " + data.size());
         return data.size();
     }
     @Override
@@ -51,7 +51,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
             itemView.setTag(holder);
         }
 
-//        Log.i("Adapter", listviewitem.getTime());
+//        Log.d("Adapter", listviewitem.getTime());
 
         DriveHolder holder = (DriveHolder)itemView.getTag();
 
@@ -66,7 +66,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
 
         String day = listviewitem.getDate().substring(3,5);
 
-//        Log.i(TAG, day);
+//        Log.d(TAG, day);
         itemView.setBackgroundColor(COLOR[Integer.parseInt(day) % 3]);
 
         return itemView;

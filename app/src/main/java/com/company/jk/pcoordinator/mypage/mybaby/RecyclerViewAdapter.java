@@ -54,7 +54,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 //
         String imgUrl = urlPath.getUrlBabyImg() + mItems.get(position).id + ".jpg";  //확장자 대소문자 구별함.
 
-        Log.i(TAG, imgUrl);
+        Log.d(TAG, imgUrl);
 
         Picasso.with(mContext).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
         Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.mPicture);;  //image가 reload 되도록 하기 위하여 필요함.
@@ -76,7 +76,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     // 필수 오버라이드 : 데이터 갯수 반환
     @Override
     public int getItemCount() {
-        Log.i(TAG, "아기는 " + mItems.size());
+        Log.d(TAG, "아기는 " + mItems.size());
         return mItems.size();
     }
 }

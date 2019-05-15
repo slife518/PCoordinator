@@ -13,7 +13,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
 //
 //        String status = NetworkUtil.getConnectivityStatusString(context);
-//        Log.i(TAG, "onReceive:  status " + status );
+//        Log.d(TAG, "onReceive:  status " + status );
 //        Toast.makeText(context, status, Toast.LENGTH_LONG).show();
     }
 

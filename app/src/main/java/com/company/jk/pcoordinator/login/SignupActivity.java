@@ -107,7 +107,7 @@ public class SignupActivity extends MyActivity {
     private void register_member(){
 
         String server_url = new UrlPath().getUrlPath() + "Pc_login/register_Member";
-        Log.i(TAG, server_url);
+        Log.d(TAG, server_url);
         RequestQueue postRequestQueue = Volley.newRequestQueue(this);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
@@ -142,7 +142,7 @@ public class SignupActivity extends MyActivity {
             switch (resultCode) {
                 case 1:
                     String result = data.getStringExtra("result");
-                    Log.i(TAG, "result는 " + result);
+                    Log.d(TAG, "result는 " + result);
                     _addressText.setText(result);
                     break;
                 default:
@@ -152,7 +152,7 @@ public class SignupActivity extends MyActivity {
     }
 
     private void saveSuccess(String response){
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
         if("1".equals(response)){
             String toastMessage = getString(R.string.RegisterNewMember);
             showToast(toastMessage);
@@ -202,8 +202,8 @@ public class SignupActivity extends MyActivity {
 //
 //        @Override
 //        protected void onPostExecute(String value) {
-//            Log.i(TAG, "onPostExecute: tcode) " + tcode);
-//            Log.i(TAG, "onPostExecute: value " + value);
+//            Log.d(TAG, "onPostExecute: tcode) " + tcode);
+//            Log.d(TAG, "onPostExecute: value " + value);
 //            super.onPostExecute(value);
 //            try {
 //                switch (tcode) {

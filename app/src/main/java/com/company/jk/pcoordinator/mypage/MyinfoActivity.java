@@ -202,7 +202,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-             Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+             Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
              reponseSave(result);
             }
 
@@ -230,7 +230,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
 
     private void insert_picture() {
-        Log.i(TAG, "이미지클릭");
+        Log.d(TAG, "이미지클릭");
 
         final AlertDialog.Builder build = new AlertDialog.Builder( // 다이얼로그
                 this);
@@ -245,9 +245,9 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                                 intent.setType("image/*");
-                                Log.i(TAG, "사진선택1");
+                                Log.d(TAG, "사진선택1");
                                 startActivityForResult(intent, 4);
-                                Log.i(TAG, "사진선택완료2");
+                                Log.d(TAG, "사진선택완료2");
 
                             }
                         })
@@ -271,7 +271,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
             switch (resultCode) {
                 case 1:
                     String result = data.getStringExtra("result");
-                    Log.i(TAG, "result는 " + result);
+                    Log.d(TAG, "result는 " + result);
                     _address1.setText(result);
                     break;
                 default:
@@ -284,13 +284,13 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
             if (requestCode == 4 && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
 //		if (resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
 // 따라서, Activity에서 사용되는 RESULT_OK값을 가져와서 사용한다.
-                Log.i("onActivityResult", "request pick");
+                Log.d("onActivityResult", "request pick");
                 beginCrop(data.getData());
             } else if (requestCode == Crop.REQUEST_CROP) {   // Crop.REQUEST_CROP = 6709
-                Log.i("onActivityResult", "request crop");
+                Log.d("onActivityResult", "request crop");
                 handleCrop(resultCode, data, this);
             } else {
-                Log.i("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
+                Log.d("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
             }
 
         }
@@ -312,7 +312,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                         public void run() {
                         }
                     });
-//                    Log.i(TAG, "파일명은 " + loginInfo.getEmail() + " 업로드할 사진의 절대 경로 " + absolutePath);
+//                    Log.d(TAG, "파일명은 " + loginInfo.getEmail() + " 업로드할 사진의 절대 경로 " + absolutePath);
                     upload.uploadFile(absolutePath, loginInfo.getEmail(), "memberprofile");
                     //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
                 }
@@ -348,7 +348,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
 
                 switch (method) {
                     case 2:  //get_data
@@ -374,7 +374,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                 _name.setText(rs.getString("nickname"));
                 _birthday.setText(rs.getString("birthday"));
                 _tel.setText(rs.getString("tel"));
-                Log.i(TAG, "주소는 ??" + (rs.getString("address1")));
+                Log.d(TAG, "주소는 ??" + (rs.getString("address1")));
                 _address1.setText(rs.getString("address1"));
                 _address2.setText(rs.getString("address2"));
             } catch (JSONException e) {

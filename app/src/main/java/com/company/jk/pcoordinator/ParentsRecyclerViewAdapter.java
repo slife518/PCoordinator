@@ -76,16 +76,16 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "click 클릭되었습니다.");
+                Log.d(TAG, "click 클릭되었습니다.");
                 popup_to_confirm_delete( mItems.get(position).email, mItems.get(position).baby_id, position);
-                Log.i(TAG, "삭제");
+                Log.d(TAG, "삭제");
 
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "아이템클릭");
+                Log.d(TAG, "아이템클릭");
             }
         });
     }
@@ -118,12 +118,12 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
 
     private  void  delete_parents(final String email, final int baby_id, final int position){
         String server_url = new UrlPath().getUrlPath() + "Pc_baby/delete_relation";
-        Log.i(TAG, server_url);
+        Log.d(TAG, server_url);
         RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i(TAG, "결과값은 " + response);
+                Log.d(TAG, "결과값은 " + response);
                 mItems.remove(position);
                 notifyItemChanged(position);
 
@@ -132,7 +132,7 @@ public class ParentsRecyclerViewAdapter extends RecyclerView.Adapter<ParentsRecy
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "아기아이디는 " + baby_id);
+                Log.d(TAG, "아기아이디는 " + baby_id);
                 Log.e(TAG, error.getLocalizedMessage());
             }
         }){

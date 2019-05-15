@@ -57,7 +57,7 @@ public class LoginService {
         public  Builder(String controller , String mode){
             urlPath =  url.getUrlPath() + controller + '/' + mode;
             this.mode = mode;
-            Log.i(TAG, urlPath);
+            Log.d(TAG, urlPath);
         }
         public  Builder email(String val){ this.email = val;  return  this; }
         public  Builder name(String val){ this.name = val;  return  this; }
@@ -97,7 +97,7 @@ public class LoginService {
 
     public StringBuffer getData() {
         StringBuffer sb = new StringBuffer();
-        Log.i(TAG, "getData: 데이터검색시작" );
+        Log.d(TAG, "getData: 데이터검색시작" );
         try {
             HttpPost request = new HttpPost(urlPath);   //request객체에 URL SET
             //웹 접속 - utf-8 방식으로
@@ -116,7 +116,7 @@ public class LoginService {
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            Log.i(TAG, "sb : " + sb.toString());
+            Log.d(TAG, "sb : " + sb.toString());
             im.close();
 
         } catch (UnsupportedEncodingException e) {

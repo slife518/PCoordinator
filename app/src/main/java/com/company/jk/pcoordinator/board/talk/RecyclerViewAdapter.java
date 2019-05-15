@@ -60,7 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
       //  holder.goodChecked.setText(mItems.get(position).goodChecked);
 
         final String imgUrl = urlPath.getUrlTalkImg() + mItems.get(position).id + "_" + mItems.get(position).reply_id + "_" + mItems.get(position).reply_level +  ".jpg";  //확장자 대소문자 구별함(무조건 소문자 jpg 사용할 것.
-//        Log.i(TAG, imgUrl);
+//        Log.d(TAG, imgUrl);
 
         Picasso.with(mContext).invalidate(imgUrl);   //image가 reload 되도록 하기 위하여 필요함.
 //        Picasso.with(mContext).load(imgUrl).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.mPicture);  //image가 reload 되도록 하기 위하여 필요함.
@@ -132,7 +132,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
                     case 2:  //get_data
                         break;

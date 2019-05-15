@@ -49,7 +49,7 @@ public class WebviewFragment extends Fragment {
 
         mWebSettings.setJavaScriptEnabled(true);  //자바스크립트 사용 허용
 
-        Log.i(TAG, url);
+        Log.d(TAG, url);
 
         mWebView.loadUrl(url);   //원하는 url 입력
 //        mWebView.loadUrl("https://www.google.com");

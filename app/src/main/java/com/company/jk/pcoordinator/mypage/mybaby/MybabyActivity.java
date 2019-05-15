@@ -79,7 +79,7 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
 
                 switch (method){
                     case 2:  //get_baby_data
@@ -115,7 +115,7 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         final int selectedVal = target_baby_list_value.get(mSpinner.getSelectedItemPosition());
-        Log.i(TAG, "선택된 아기의 아이디는 " + selectedVal);
+        Log.d(TAG, "선택된 아기의 아이디는 " + selectedVal);
 
         //data binding start
         Map<String, String> params = new HashMap<>();
@@ -126,7 +126,7 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
 
                 switch (method){
                     case 1 :
@@ -152,11 +152,11 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        Log.i(TAG, "선택된 아기의 아이디는 없습니다. ");
+        Log.d(TAG, "선택된 아기의 아이디는 없습니다. ");
     }
 
     private void responseSuccess(String response) {
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
         int id = 0;
         String name = null;
         String birthday = null;

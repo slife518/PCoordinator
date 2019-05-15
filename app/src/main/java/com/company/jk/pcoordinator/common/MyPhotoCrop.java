@@ -41,7 +41,7 @@ public class MyPhotoCrop extends AppCompatActivity {
                 public void run() {
                     runOnUiThread(new Runnable() {
                         public void run() {	}	});
-                    Log.i(TAG, "파일명은 " + " 업로드할 사진의 절대 경로 " + absolutePath);
+                    Log.d(TAG, "파일명은 " + " 업로드할 사진의 절대 경로 " + absolutePath);
                     upload.uploadFile(absolutePath, fileName, folderName);
                     //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
                 }
@@ -71,7 +71,7 @@ public class MyPhotoCrop extends AppCompatActivity {
                 public void run() {
                     runOnUiThread(new Runnable() {
                         public void run() {	}	});
-//                    Log.i(TAG, "파일명은 " + loginInfo.getEmail() + " 업로드할 사진의 절대 경로 " + absolutePath);
+//                    Log.d(TAG, "파일명은 " + loginInfo.getEmail() + " 업로드할 사진의 절대 경로 " + absolutePath);
                     upload.uploadFile(absolutePath, fileName, folderName);
                     //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
                 }

@@ -21,12 +21,12 @@ import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.MyFragment;
+import com.company.jk.pcoordinator.common.MyValueFormatter;
 import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.NetworkUtil;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.record.RecordActivity;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -34,7 +34,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -82,24 +82,21 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         mContext = v.getContext();
         transaction = new MyDataTransaction(mContext);
         loginInfo = LoginInfo.getInstance(mContext);
-        // toolbar 설정1
+        // toolbar 설정 시작
 //        setHasOptionsMenu(true);   // toolbar 의 추가 메뉴
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
-        activity.setSupportActionBar(myToolbar);
-
-        if(loginInfo.getBabyID() == 0){   //매핑된 아이가 없을 경우
+        if(loginInfo.getBabyID() == 0 ){   //매핑된 아이가 없을 경우
             myToolbar.setTitle(getResources().getString(R.string.app_name));
         }else{   //매핑된 아이가 있을 경우
             myToolbar.setTitle(loginInfo.getBabyname());
         }
-
         if(loginInfo.getBabyBirthday() != null){
             myToolbar.setSubtitle(make_subtitle());
         }
-
         myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
-
+        activity.setSupportActionBar(myToolbar);
+        // toolbar 설정 끝
 
         //listview layout
         mListView = v.findViewById(R.id.listView_main);
@@ -196,30 +193,24 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
 
     private void get_data_async(){
-        Log.i(TAG, "get_data_async 시작");
+        Log.d(TAG, "get_data_async 시작");
         if(loginInfo.getBabyID() != 0) {
             if (NetworkUtil.getConnectivityStatusBoolean(mContext.getApplicationContext())) {
-//                new HttpTaskRecordList().execute();
-
                 Map<String, String> params = new HashMap<>();
                 params.put("email", loginInfo.getEmail());
 
                 VolleyCallback callback = new VolleyCallback() {
                     @Override
                     public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
-
-                        Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                        Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
                         responseSuccess(result);
-
                     }
                     @Override
                     public void onFailResponse(VolleyError error) {
                         Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
                     }
                 };
-
                 transaction.queryExecute(2, params, "Pc_record/record_list", callback);
-
             }
         }
     }
@@ -295,7 +286,11 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         chart.setBackgroundColor(Color.TRANSPARENT);
 
 
-        chart.animateX(500);
+//        chart.animateX(500);
+
+
+        XAxis xLabels = chart.getXAxis();
+        xLabels.setPosition(XAxis.XAxisPosition.BOTTOM);
 
 
         // get the legend (only possible after setting data)
@@ -341,7 +336,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     }
 
     private void itemAppend(String response) {
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
         listItems.clear();
 
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
@@ -422,7 +417,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
 
     private void setChart1Data(ArrayList<RecordChart1Info> chartItems) {  //날짜, 모유수유, 분유, 이유식
-        Log.i(TAG, "setData 시작 " + chartItems.size());
+        Log.d(TAG, "setData 시작 " + chartItems.size());
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
         final ArrayList<String> xVals = new ArrayList<String>();
         final int maxDay = 15;  // 해당 일 수 만큼만 보여줌
@@ -468,13 +463,14 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
             data1.setValueTextColor(Color.BLACK);
             data1.setValueTextSize(9f);
+            data1.setValueFormatter(new MyValueFormatter());   //차트 내의 데이터 표현형식
 //
 //                // x축 label
             XAxis xAxis1 = mChart1.getXAxis();
-            xAxis1.setValueFormatter(new IAxisValueFormatter() {
+            xAxis1.setValueFormatter(new ValueFormatter() {
 
                 @Override
-                public String getFormattedValue(float value, AxisBase axis) {
+                public String getFormattedValue(float value) {
                     if (xVals.size() > (int) value) {
                         return xVals.get((int) value);
                     } else return null;
@@ -487,7 +483,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     }
 
     private void setChart2Data(ArrayList<RecordChart2Info> chartItems) {  //날짜, 모유수유, 분유, 이유식
-        Log.i(TAG, "setData 시작 " + chartItems.size());
+        Log.d(TAG, "setData 시작 " + chartItems.size());
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
         ArrayList<Entry> yVals3 = new ArrayList<Entry>();
         final ArrayList<String> xVals = new ArrayList<String>();
@@ -549,13 +545,14 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
             data2.setValueTextColor(Color.GRAY);
             data2.setValueTextSize(9f);
+            data2.setValueFormatter(new MyValueFormatter());
 
             // x축 label
             XAxis xAxis1 = mChart2.getXAxis();
-            xAxis1.setValueFormatter(new IAxisValueFormatter() {
+            xAxis1.setValueFormatter(new ValueFormatter() {
 
                 @Override
-                public String getFormattedValue(float value, AxisBase axis) {
+                public String getFormattedValue(float value ){
                     if (xVals.size() > (int) value) {
                         return xVals.get((int) value);
                     } else return null;
@@ -582,7 +579,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     }
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-        Log.i("Entry selected", e.toString());
+        Log.d("Entry selected", e.toString());
 
 //        mChart1.centerViewToAnimated(e.getX(), e.getY(), mChart1.getData().getDataSetByIndex(h.getDataSetIndex())
 //                .getAxisDependency(), 500);
@@ -594,7 +591,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onNothingSelected() {
-        Log.i("Nothing selected", "Nothing selected.");
+        Log.d("Nothing selected", "Nothing selected.");
     }
 
 }

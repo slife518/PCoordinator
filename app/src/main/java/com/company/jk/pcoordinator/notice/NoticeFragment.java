@@ -76,14 +76,14 @@ public class NoticeFragment extends MyFragment {
     public void makeList(String myJSON) {
         try {
 
-            Log.i(TAG, "여기" + myJSON);
+            Log.d(TAG, "여기" + myJSON);
 
             JSONObject jsonObj = new JSONObject(myJSON);
             JSONArray  posts = jsonObj.getJSONArray("rs");
 
             for(int i=0; i<posts.length(); i++) {
 
-                Log.i(TAG, "makeList" + posts.length());
+                Log.d(TAG, "makeList" + posts.length());
                 //JSON에서 각각의 요소를 뽑아옴
                 JSONObject c = posts.getJSONObject(i);
                 String title = c.getString(TAG_TITLE);
@@ -131,7 +131,7 @@ public class NoticeFragment extends MyFragment {
 
             sb = httpHandler.getData();
 
-            Log.i(TAG, sb.toString());
+            Log.d(TAG, sb.toString());
             try {
 
                 result = sb.toString();

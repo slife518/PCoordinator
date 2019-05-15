@@ -12,7 +12,7 @@ import android.view.View;
 import com.company.jk.pcoordinator.board.talk.TalkActivity;
 import com.company.jk.pcoordinator.chart.ChartFragment;
 import com.company.jk.pcoordinator.common.MyActivity;
-import com.company.jk.pcoordinator.home.HomeFragment;
+import com.company.jk.pcoordinator.home.MainFragment;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
 import com.company.jk.pcoordinator.mypage.mybaby.MybabyDetailActivity;
@@ -29,7 +29,8 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
     public static BottomBar  bottomBar;
     public static FloatingActionButton fab;
 
-    private HomeFragment homeFragment;
+//    private HomeFragment homeFragment;
+    private MainFragment mainFragment;
     private RecordFragment recordFragment;
     private ChartFragment chartFragment;
     private MypageFragment mypageFragment;
@@ -42,7 +43,7 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
 
         loginInfo = LoginInfo.getInstance(this);
 
-        homeFragment = new HomeFragment();
+        mainFragment = new MainFragment();
         recordFragment = new RecordFragment();
         chartFragment = new ChartFragment();
         mypageFragment = new MypageFragment();
@@ -67,23 +68,23 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
         bottomBar = findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(this);
 
-        Log.i(TAG, "아기정보는 " + loginInfo.getBabyID() );
+        Log.d(TAG, "아기정보는 " + loginInfo.getBabyID() );
     }
 
 
     @Override
     public void onTabSelected(int tabId) {
 
-        Log.i(TAG, "이번클릭한 메뉴id 는 " + tabId);
+        Log.d(TAG, "이번클릭한 메뉴id 는 " + tabId);
         switch (tabId){
             case R.id.bottomBarItemHome:
-                if (!homeFragment.isVisible()){
-                    replaceFragment(homeFragment);
+                if (!mainFragment.isVisible()){
+                    replaceFragment(mainFragment);
                 }
                 break;
             case R.id.bottomBarItemRecord:
                 fab.show();
-                Log.i(TAG, "베이비아이디는 " + loginInfo.getBabyID() );
+                Log.d(TAG, "베이비아이디는 " + loginInfo.getBabyID() );
                 if(loginInfo.getBabyID() == 0){  //loginInfo.getBabyID() 는 db 가 int 이므로 기본은 0
 
                     Intent intent = new Intent(this, MybabyDetailActivity.class);

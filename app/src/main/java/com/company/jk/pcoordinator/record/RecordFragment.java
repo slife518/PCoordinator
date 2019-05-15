@@ -77,7 +77,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.i(TAG, "onCreateView 시작");
+        Log.d(TAG, "onCreateView 시작");
         v = inflater.inflate(R.layout.activity_record, container, false);
         mContext = v.getContext();
 
@@ -96,7 +96,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
         db =  new DatabaseHelper(v.getContext());
         select_comment_btn();
-        Log.i(TAG , "loginInfo.getBabyID() " + loginInfo.getBabyID());
+        Log.d(TAG , "loginInfo.getBabyID() " + loginInfo.getBabyID());
         return v;
     }
 
@@ -330,7 +330,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     }
     @Override
     public void onFocusChange(View v, boolean b) {
-        Log.i("포커스가 변경 되었습니다.", String.valueOf(b) + _mothermilk.getText().toString());
+        Log.d("포커스가 변경 되었습니다.", String.valueOf(b) + _mothermilk.getText().toString());
         if(!b){   //포커스아웃이면
                 if(v ==  _mothermilk &&  _mothermilk.getText().toString().isEmpty()){
                     _mothermilk.setText("0" );
@@ -354,7 +354,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         if(n.isEmpty()){
             n = "0";
         }
-        Log.i("n은" , n);
+        Log.d("n은" , n);
         return String.valueOf(Integer.parseInt(n) + i );
     }
 //
@@ -408,7 +408,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     }
 
     private void saveSuccess(String response){
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
 
         showToast(getString(R.string.save));
         bottomBar.selectTabAtPosition(0, false);
@@ -417,7 +417,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     }
     private  void save_data(){
         String server_url = new UrlPath().getUrlPath() + "Pc_record/save_record";
-        Log.i(TAG, server_url);
+        Log.d(TAG, server_url);
         RequestQueue postRequestQueue = Volley.newRequestQueue(mContext);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
@@ -427,7 +427,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "아기아이디는 " +loginInfo.getBabyID());
+                Log.d(TAG, "아기아이디는 " +loginInfo.getBabyID());
                 Log.e(TAG, " " + error.getLocalizedMessage());
             }
         }){
@@ -466,7 +466,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Log.i(TAG, "클릭" + item.getItemId());
+        Log.d(TAG, "클릭" + item.getItemId());
         if(item.getItemId()==android.R.id.home){
             bottomBar.selectTabAtPosition(0, false);
         }

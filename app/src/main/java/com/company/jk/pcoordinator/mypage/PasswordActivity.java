@@ -146,7 +146,7 @@ public class PasswordActivity extends MyActivity implements View.OnClickListener
 
         @Override
         protected void onPostExecute(String result) {
-            Log.i(TAG, "onPostExecute: result "+ result + " ,tcode) " + tcode);
+            Log.d(TAG, "onPostExecute: result "+ result + " ,tcode) " + tcode);
             super.onPostExecute(result);
             try {
                 switch (tcode) {

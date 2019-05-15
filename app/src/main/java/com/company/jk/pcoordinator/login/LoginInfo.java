@@ -25,7 +25,7 @@ public class LoginInfo{
 
 
     public static LoginInfo getInstance(Context mContext){
-        Log.i("LoginInfo","객체호출");
+        Log.d("LoginInfo","객체호출");
         mPreference = mContext.getSharedPreferences(APPLICATIONNAME, MODE_PRIVATE);
         return  loginInfo;
     }

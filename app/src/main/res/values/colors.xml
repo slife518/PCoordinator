@@ -22,9 +22,10 @@
     <color name="reply_background">#FFFFFF</color>
 
     //차트 선 색상
-    <color name="mothermilkcolor">#9ae1ef</color>
-    <color name="milkcolor">#EF9A9A</color>
-    <color name="ricecolor">#a8f4a9</color>
+    <!--<color name="mothermilkcolor">#9ae1ef</color>-->
+    <color name="mothermilkcolor">#FFF176</color>
+    <color name="milkcolor">#B2EBF2</color>
+    <color name="ricecolor">#E1BEE7</color>
 
     <color name="dark_blue">#3023AE</color>
     <color name="purple">#c86dd7</color>

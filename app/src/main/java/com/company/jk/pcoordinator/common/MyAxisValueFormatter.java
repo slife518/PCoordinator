@@ -1,12 +1,10 @@
 package com.company.jk.pcoordinator.common;
 
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.DecimalFormat;
 
-public class MyAxisValueFormatter implements IAxisValueFormatter
-{
+public class MyAxisValueFormatter extends ValueFormatter {
 
     private DecimalFormat mFormat;
 
@@ -16,8 +14,9 @@ public class MyAxisValueFormatter implements IAxisValueFormatter
     }
 
     @Override
-    public String getFormattedValue(float value, AxisBase axis) {
-        return mFormat.format(value) + " ml";
+    public String getFormattedValue(float value) {
+//        return mFormat.format(value) + " ml";
+        return mFormat.format(value);
 
     }
 

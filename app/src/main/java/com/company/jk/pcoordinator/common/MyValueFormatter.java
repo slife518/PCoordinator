@@ -1,12 +1,10 @@
 package com.company.jk.pcoordinator.common;
 
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.DecimalFormat;
 
-public class MyValueFormatter implements IValueFormatter
+public class MyValueFormatter extends ValueFormatter
 {
 
     private DecimalFormat mFormat;
@@ -16,8 +14,14 @@ public class MyValueFormatter implements IValueFormatter
     }
 
     @Override
-    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+    public String getFormattedValue(float value) {
 
-        return mFormat.format(value) + " ml";
+        if(value==0){
+            return "";
+        }else {
+            return mFormat.format(value);
+        }
+//        return mFormat.format(value) + " ml";
+
     }
 }

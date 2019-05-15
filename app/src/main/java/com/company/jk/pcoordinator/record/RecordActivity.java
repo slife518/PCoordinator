@@ -63,7 +63,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         loginInfo = LoginInfo.getInstance(this);
-        Log.i(TAG, "onCreateView 시작");
+        Log.d(TAG, "onCreateView 시작");
 
 // Toolbar를 생성한다.
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -103,7 +103,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
 
         Bundle loadInfo = getIntent().getExtras();
          info = (RecordHistoryinfo)loadInfo.getSerializable("RecordHistoryinfo");
-        Log.i(TAG, info.getDate());
+        Log.d(TAG, info.getDate());
         id = info.getId();
         _date.setText(info.getYearDate());
         _time.setText(info.getTime());
@@ -207,7 +207,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
 
     @Override
     public void onFocusChange(View v, boolean b) {
-        Log.i("포커스가 변경 되었습니다.", String.valueOf(b) + _mothermilk.getText().toString());
+        Log.d("포커스가 변경 되었습니다.", String.valueOf(b) + _mothermilk.getText().toString());
         if(!b){   //포커스아웃이면
             if(v ==  _mothermilk &&  _mothermilk.getText().toString().isEmpty()){
                 _mothermilk.setText("0" );
@@ -228,11 +228,11 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
     }
 
     private String calNumber(String n, int i){
-        Log.i("n은" , n);
+        Log.d("n은" , n);
         if(n.isEmpty()){
             n = "0";
         }
-        Log.i("n은~" , n);
+        Log.d("n은~" , n);
         return String.valueOf(Integer.parseInt(n) + i );
     }
     private void deleteAelrtDialog(){
@@ -292,13 +292,13 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
     }
 
     private void saveSuccess(String response){
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
             showToast(getString(R.string.save));
             onBackPressed();
     }
     private  void save_data(){
         String server_url = new UrlPath().getUrlPath() + "Pc_record/save_record";
-        Log.i(TAG, server_url);
+        Log.d(TAG, server_url);
         RequestQueue postRequestQueue = Volley.newRequestQueue(this);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
@@ -308,7 +308,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "아기아이디는 " +loginInfo.getBabyID());
+                Log.d(TAG, "아기아이디는 " +loginInfo.getBabyID());
                 Log.e(TAG, error.getLocalizedMessage());
             }
         }){
@@ -336,7 +336,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
 
     private  void delete_data(){
         String server_url = new UrlPath().getUrlPath() + "Pc_record/delete_record";
-        Log.i(TAG, server_url);
+        Log.d(TAG, server_url);
         RequestQueue postRequestQueue = Volley.newRequestQueue(this);
         StringRequest postStringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
             @Override
@@ -346,7 +346,7 @@ public class RecordActivity extends MyActivity implements View.OnClickListener, 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "아기아이디는 " +loginInfo.getBabyID());
+                Log.d(TAG, "아기아이디는 " +loginInfo.getBabyID());
                 Log.e(TAG, error.getLocalizedMessage());
             }
         }){

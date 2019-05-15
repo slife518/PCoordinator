@@ -23,7 +23,7 @@ public class ImageDownloader {
         Bitmap bitmap = null;
 
         try{
-            Log.i(TAG, "이미지다운로드 시작 " + url);
+            Log.d(TAG, "이미지다운로드 시작 " + url);
             profileImgUrl = new URL(url);
 
             //주어진 url 에 연결한다.
@@ -33,7 +33,7 @@ public class ImageDownloader {
             //이미지를 가지고 와서 decodeStream()메소드로 Bitmap 이미지를 만든다.
             BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
             bitmap = BitmapFactory.decodeStream(bis);
-            Log.i(TAG, "이미지다운로드 끝");
+            Log.d(TAG, "이미지다운로드 끝");
             bis.close();
 
 

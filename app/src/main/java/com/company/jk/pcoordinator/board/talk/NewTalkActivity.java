@@ -81,7 +81,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
 
                 switch (method){
                     case 2:  //get_data
@@ -99,7 +99,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
 
 
     private void responseSuccess(String response) {
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
 
             try {
@@ -144,7 +144,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
                 return true;
 
             case R.id.ib_camera:
-                Log.i(TAG, "사진업로드 준비");
+                Log.d(TAG, "사진업로드 준비");
                 insert_picture();
             default:
                 onBackPressed();
@@ -173,7 +173,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
                     case 1:  //get_data
                         result = result + "_0_0";
@@ -207,9 +207,9 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
         intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
-        Log.i(TAG, "사진선택1");
+        Log.d(TAG, "사진선택1");
         startActivityForResult(intent, 4);
-        Log.i(TAG, "사진선택2");
+        Log.d(TAG, "사진선택2");
 
 
         return true;
@@ -225,19 +225,19 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
             if (requestCode == 4 && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
 //		if (resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
 // 따라서, Activity에서 사용되는 RESULT_OK값을 가져와서 사용한다.
-                Log.i("onActivityResult", "request pick");
+                Log.d("onActivityResult", "request pick");
 
                 photoCrop.beginCrop(data.getData(), getApplicationContext(), this);
             } else if (requestCode == Crop.REQUEST_CROP) {   // Crop.REQUEST_CROP = 6709
-                Log.i("onActivityResult", "request crop");
+                Log.d("onActivityResult", "request crop");
                 if(data !=null) {
-                    Log.i("onActivityResult", "handle crop 에서 발생 ");
+                    Log.d("onActivityResult", "handle crop 에서 발생 ");
                     iv_insertPhoto1.setImageURI(photoCrop.handleCrop(data));
                     iv_insertPhoto1.setTag(photoCrop.handleCrop(data).getPath());
                     iv_insertPhoto1.setVisibility(View.VISIBLE);
                 }
             } else {
-                Log.i("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
+                Log.d("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
             }
 
         }

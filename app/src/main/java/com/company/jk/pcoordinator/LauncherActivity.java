@@ -56,7 +56,7 @@ public class LauncherActivity extends MyActivity {
 //        mWebSettings.setJavaScriptEnabled(true);  //자바스크립트
 //
 //        url = new UrlPath().getUrlPath()  + "Pc_login/preview";
-//        Log.i(TAG, url);
+//        Log.d(TAG, url);
 //
 //        mWebView.loadUrl(url);   //원하는 url 입력
 //

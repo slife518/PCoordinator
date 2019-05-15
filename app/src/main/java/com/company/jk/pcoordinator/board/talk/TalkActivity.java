@@ -81,7 +81,7 @@ public class TalkActivity extends MyActivity{
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
 
                 switch (method){
                     case 2:  //get_data
@@ -106,7 +106,7 @@ public class TalkActivity extends MyActivity{
     }
 
     private void responseSuccess(String response) {
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
         int id = 0, reply_id = 0, reply_level = 0, eyes = 0, talks = 0, good = 0;
         String title = null;
         String author = null;

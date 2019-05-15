@@ -3,6 +3,8 @@ package com.company.jk.pcoordinator.chart;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,16 +30,17 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,16 +67,23 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         v = inflater.inflate(R.layout.fragment_chart, container, false);
         mContext = v.getContext();
 
+        // toolbar 설정1
+//        setHasOptionsMenu(true);   // toolbar 의 추가 메뉴
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+        Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
+        myToolbar.setTitle(getResources().getString(R.string.chartTitle));
+        myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
+        activity.setSupportActionBar(myToolbar);
+
+
         loginInfo = LoginInfo.getInstance(mContext);
         transaction = new MyDataTransaction(mContext);
 
         tvY = v.findViewById(R.id.tvYMax);
         mSeekBarY = v.findViewById(R.id.seekBar1);
-
         mSeekBarY.setOnSeekBarChangeListener(this);
 
         mChart = v.findViewById(R.id.chart1);
-
 //        mChart.setOnChartValueSelectedListener(this);
         setingChart();
 
@@ -135,7 +145,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
     }
 
     private void get_data_async() {
-        Log.i(TAG, "get_data_async 시작");
+        Log.d(TAG, "get_data_async 시작");
         if(loginInfo.getBabyID() != 0) {
             if (NetworkUtil.getConnectivityStatusBoolean(mContext.getApplicationContext())) {
 //                new HttpTaskRecordList().execute();
@@ -147,7 +157,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
                     @Override
                     public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                        Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                        Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
                         responseSuccess(result);
 
                     }
@@ -172,7 +182,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
 
     private void itemAppend(String response) {
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
 
             //최대값 최소값 가져오기
             //차트 데이터 가져오기
@@ -211,11 +221,8 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
-
-
-        for (int i = 1; i < mSeekBarY.getProgress() + 1; i++) {
-
-            int k = jsonArray.length()-i;
+        for (int i = 0; i < mSeekBarY.getProgress() + 1; i++) {
+            int k = jsonArray.length() - i - 1;
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(k);
 
@@ -223,18 +230,17 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
                 float val2 = (float) rs.getInt("milk");
                 float val3 = (float) rs.getInt("rice");
 
-                Log.i(TAG, "모유는 " + val1 + " 분유는 " + val2 + " 이유식은 " + val3);
+                Log.d(TAG, "모유는 " + val1 + " 분유는 " + val2 + " 이유식은 " + val3);
                 yVals1.add(new BarEntry(
-                        k ,
+                        mSeekBarY.getProgress() - i ,
                         new float[]{val1, val2, val3}));
                 xVals.add( rs.getString("record_date"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
+        Collections.reverse(xVals);
 
         BarDataSet set1;
 
@@ -246,33 +252,34 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         } else {
-            set1 = new BarDataSet(yVals1, getResources().getString(R.string.chartTitle));
-            //set1-mValue 값이 처음에 안들어감. 다른 화면 갔다 오면 들어가 있음. yVals1 의 값이 없음.
-//            set1.setDrawIcons(false);
-            set1.setColors(getColors());
-            set1.setStackLabels(new String[]{getResources().getString(R.string.mothermilk), getResources().getString(R.string.milk), getResources().getString(R.string.rice)});
+            set1 = new BarDataSet(yVals1, "");  //타이틀 표시
+//            set1.setDrawIcons(false);  //아이콘
+            set1.setColors(getColors());  //바차트 색상 설정
+            set1.setStackLabels(new String[]{getResources().getString(R.string.mothermilk), getResources().getString(R.string.milk), getResources().getString(R.string.rice)});   //라벨명
 
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
             dataSets.add(set1);
 
             BarData data = new BarData(dataSets);
-            data.setValueFormatter(new MyValueFormatter());
+            data.setValueFormatter(new MyValueFormatter()); //차트 안의 값의 표현형식
             data.setHighlightEnabled(true);
-            data.setValueTextColor(Color.WHITE);
+            data.setValueTextColor(Color.GRAY); //글자색
+            data.setValueTextSize(11f);  //차트 안의 값 글씨크기
 
-//            // x축 label
-//            XAxis xAxis1 = mChart.getXAxis();
-//            xAxis1.setValueFormatter(new IAxisValueFormatter() {
-//
-//                @Override
-//                public String getFormattedValue(float value, AxisBase axis) {
-//                    if (xVals.size() > (int) value) {
-//                        return xVals.get((int) value);
-//                    } else return null;
-//                }
-//
-//            });
+            // x축 label
+            XAxis xAxis1 = mChart.getXAxis();
+            xAxis1.setValueFormatter(new ValueFormatter() {
+
+                @Override
+                public String getFormattedValue(float value) {
+                    if (xVals.size() > (int) value) {
+
+                        return xVals.get((int) value).substring(5,10);
+                    } else return null;
+                }
+
+            });
 
             mChart.setData(data);
         }
@@ -299,10 +306,10 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         BarEntry entry = (BarEntry) e;
 
         if (entry.getYVals() != null) {
-            Log.i("VAL SELECTED", "Value: " + entry.getYVals()[h.getStackIndex()]);
+            Log.d("VAL SELECTED", "Value: " + entry.getYVals()[h.getStackIndex()]);
             showToast(xVals.get(jsonArray.length()-(int)h.getX()-1) + " " + entry.getYVals()[h.getStackIndex()]);
         }else {
-            Log.i("VAL SELECTED", "Value: " + entry.getY());
+            Log.d("VAL SELECTED", "Value: " + entry.getY());
         }
     }
 
@@ -313,15 +320,15 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
     }
 
     private int[] getColors() {
+//        int stacksize = 3;
+////         have as many colors as stack-values per entry
+//        int[] colors = new int[stacksize];
+//        for (int i = 0; i < colors.length; i++) {
+////            colors[i] = ColorTemplate.MATERIAL_COLORS[i];
+//            colors[i] = getResources().getColor(R.color.mothermilkcolor);
+//        }
 
-        int stacksize = 3;
-
-        // have as many colors as stack-values per entry
-        int[] colors = new int[stacksize];
-
-        for (int i = 0; i < colors.length; i++) {
-            colors[i] = ColorTemplate.MATERIAL_COLORS[i];
-        }
+        int[] colors = new int[]{ getResources().getColor(R.color.mothermilkcolor),  getResources().getColor(R.color.milkcolor),  getResources().getColor(R.color.ricecolor)};
 
         return colors;
     }

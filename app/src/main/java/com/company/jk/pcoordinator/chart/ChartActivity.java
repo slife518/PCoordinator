@@ -62,7 +62,7 @@ public class ChartActivity extends AppCompatActivity  implements View.OnClickLis
                 if(i<13) buffer.append(",");
             }
             buffer.append("]");
-            Log.i("data는 ", buffer.toString());
+            Log.d("data는 ", buffer.toString());
             return buffer.toString();
         }
     }

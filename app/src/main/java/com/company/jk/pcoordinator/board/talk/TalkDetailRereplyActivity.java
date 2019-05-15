@@ -103,7 +103,7 @@ public class TalkDetailRereplyActivity extends MyActivity implements View.OnClic
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
 
                 switch (method){
                     case 2:  //get_data
@@ -137,7 +137,7 @@ public class TalkDetailRereplyActivity extends MyActivity implements View.OnClic
     }
 
     private void responseSuccess(String response) {
-        Log.i(TAG, "결과값은 " + response);
+        Log.d(TAG, "결과값은 " + response);
         items.clear();
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
         set_recyclerview(jsonArray);
@@ -205,7 +205,7 @@ public class TalkDetailRereplyActivity extends MyActivity implements View.OnClic
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
                     case 2:  //댓글추가 완료
 //                        items.add(new Talkinfo(id, reply_id, reply_level,"", loginInfo.getName(), loginInfo.getEmail(),et_reply.getText().toString(), 0, 0, 0, false, getResources().getString(R.string.now)));
@@ -297,7 +297,7 @@ public class TalkDetailRereplyActivity extends MyActivity implements View.OnClic
             @Override
             public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
 
-                Log.i(TAG, "onSuccessResponse 결과값은" + result + method);
+                Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
                 switch (method){
                     case 1:  //get_data
 

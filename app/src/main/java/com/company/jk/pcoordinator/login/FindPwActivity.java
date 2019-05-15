@@ -38,7 +38,7 @@ public class FindPwActivity extends MyActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Log.i(TAG, "버튼클릭" + v.getId());
+        Log.d(TAG, "버튼클릭" + v.getId());
         switch (v.getId()) {
             case R.id.btn_find_pw:
                 confirm_email_send_pw();
@@ -54,7 +54,7 @@ public class FindPwActivity extends MyActivity implements View.OnClickListener {
        VolleyCallback callback = new VolleyCallback() {
             @Override
             public void onSuccessResponse(String result, int method) {
-                Log.i(TAG, "패스워드 조회 메일 발송 결과 : " + result);
+                Log.d(TAG, "패스워드 조회 메일 발송 결과 : " + result);
             }
            @Override
            public void onFailResponse(VolleyError error) {
@@ -78,7 +78,7 @@ public class FindPwActivity extends MyActivity implements View.OnClickListener {
         VolleyCallback callback_mailid = new VolleyCallback() {
             @Override
             public void onSuccessResponse(String result, int method) {
-                Log.i(TAG, "메일 id 확인 결과 : " + result);
+                Log.d(TAG, "메일 id 확인 결과 : " + result);
 
                 try {
                     JSONObject jObject = JsonParse.getJsonObjectSingleFromString(result);

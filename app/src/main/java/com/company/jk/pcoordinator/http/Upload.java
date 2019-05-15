@@ -23,7 +23,7 @@ public class Upload{
     // (업로드 절대경로, 신규파일명, 신규파일이 위치할 폴더명)
     public int uploadFile(String sourceFileUri, String newFileName, String folderName) {
 
-        Log.i(TAG, "업로드 시작 ");
+        Log.d(TAG, "업로드 시작 ");
 
         HttpURLConnection conn = null;
         DataOutputStream dos = null;
@@ -47,7 +47,7 @@ public class Upload{
             try {
                 // open a URL connection to the Servlet
                 FileInputStream fileInputStream = new FileInputStream(sourceFile);
-                Log.i(TAG, "업로드할 서버패스는 " + upLoadServerUrl);
+                Log.d(TAG, "업로드할 서버패스는 " + upLoadServerUrl);
 
                 String filename = newFileName + ".jpg";  // jpg 로 저장(png, jpg, gif 는 서로 호완 됨
 
@@ -64,7 +64,7 @@ public class Upload{
                 conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
                 conn.setRequestProperty("uploaded_file", sourceFileUri);
                 conn.setRequestProperty("newFileName", filename);
-                Log.i(TAG, "업로드 파일명은 " + filename);
+                Log.d(TAG, "업로드 파일명은 " + filename);
 
                 /// 변수 전달
                 dos = new DataOutputStream(conn.getOutputStream());
@@ -87,7 +87,7 @@ public class Upload{
                 dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\"" + sourceFileUri + "\"" + lineEnd);
                 dos.writeBytes(lineEnd);
 
-                Log.i(TAG, "sourceFileUri  은 " + sourceFileUri);
+                Log.d(TAG, "sourceFileUri  은 " + sourceFileUri);
 
                 // create a buffer of  maximum size
                 bytesAvailable = fileInputStream.available();
@@ -115,7 +115,7 @@ public class Upload{
                 serverResponseCode = conn.getResponseCode();
                 String serverResponseMessage = conn.getResponseMessage();
 
-                Log.i("uploadFile", "HTTP Response is : "
+                Log.d("uploadFile", "HTTP Response is : "
                         + serverResponseMessage + ": " + serverResponseCode);
 
                 if(serverResponseCode == 200){

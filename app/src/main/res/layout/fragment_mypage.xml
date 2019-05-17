@@ -29,14 +29,12 @@
                             android:id="@+id/tv_myinfo"
                             android:text="@string/txCustomerinfo"
                             android:layout_height="70dp"
-                            android:drawableStart="@drawable/ic_baseline_insert_drive_file_24px"
                             android:layout_marginTop="@dimen/app_margin_top"
                             style="@style/Mypagebutton"/>
 
                         <TextView
                             android:id="@+id/tv_mybabyinfo"
                             android:text="@string/mybabyinfo"
-                            android:drawableStart="@drawable/ic_baseline_accessibility_24px"
                             android:layout_height="70dp"
                             android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>
@@ -44,7 +42,6 @@
                         <TextView
                             android:id="@+id/tv_parentslist"
                             android:text="@string/parentlist"
-                            android:drawableStart="@drawable/ic_baseline_group_24px"
                             android:layout_height="70dp"
                             android:layout_marginTop="@dimen/app_margin_top"
                             style="@style/Mypagebutton"/>
@@ -52,7 +49,6 @@
                         <TextView
                             android:id="@+id/tv_password"
                             android:text="@string/txPassword"
-                            android:drawableStart="@drawable/ic_baseline_phonelink_lock_24px"
                             android:layout_height="70dp"
                             android:layout_marginTop="@dimen/app_margin_top"
                             style="@style/Mypagebutton"/>
@@ -60,7 +56,6 @@
                         <TextView
                             android:id="@+id/tv_Logout"
                             android:text="@string/logout"
-                            android:drawableStart="@drawable/ic_baseline_clear_24px"
                             android:layout_height="70dp"
                             android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>
@@ -68,14 +63,12 @@
                         <TextView
                             android:id="@+id/tv_QnA"
                             android:text="@string/QnA"
-                            android:drawableStart="@drawable/ic_outline_question_answer_24px"
                             android:layout_height="70dp"
                             android:layout_marginTop="8dp"
                             style="@style/Mypagebutton"/>
                         <TextView
                             android:id="@+id/tv_review"
                             android:text="@string/review"
-                            android:drawableStart="@drawable/ic_baseline_question_answer_24px"
                             android:layout_height="70dp"
                             android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>

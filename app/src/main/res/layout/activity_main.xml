@@ -34,7 +34,8 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="67dp"
         android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/buttonColorAccent"
+        android:backgroundTint="@color/fabbackgroundtint"
+        android:background="@color/fabbackground"
         app:srcCompat="@drawable/ic_outline_sms_24px" />
 
     <com.roughike.bottombar.BottomBar
@@ -43,7 +44,7 @@
         android:layout_marginTop="3dp"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="@color/bottombarbackground"
         app:bb_tabXmlResource="@xml/bottombar_tabs"
         app:bb_inActiveTabAlpha="0.3"
         app:bb_inActiveTabColor="@color/inActivebuttonColor"

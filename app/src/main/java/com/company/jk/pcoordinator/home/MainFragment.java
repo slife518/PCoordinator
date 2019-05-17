@@ -74,6 +74,7 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             myToolbar.setTitle(loginInfo.getBabyname());
         }
         if(loginInfo.getBabyBirthday() != null){
+            myToolbar.setSubtitleTextAppearance(activity.getApplicationContext(), R.style.toolbarsubTitle);
             myToolbar.setSubtitle(make_subtitle());
         }
         myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);

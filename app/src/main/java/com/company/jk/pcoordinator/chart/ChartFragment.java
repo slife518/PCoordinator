@@ -206,7 +206,11 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
             mSeekBarY.setMax(jsonArray.length());
             if(mSeekBarY.getProgress() == 0){
-                mSeekBarY.setProgress(7);
+                if(jsonArray.length() > 7) {
+                    mSeekBarY.setProgress(7);
+                }else {
+                    mSeekBarY.setProgress(jsonArray.length());
+                }
             }
 
     }
@@ -221,8 +225,8 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
-        for (int i = 0; i < mSeekBarY.getProgress() + 1; i++) {
-            int k = jsonArray.length() - i - 1;
+        for (int i = 1; i < mSeekBarY.getProgress() + 1; i++) {
+            int k = jsonArray.length() - i;
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(k);
 

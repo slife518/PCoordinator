@@ -93,7 +93,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawableEnd">@drawable/ic_baseline_keyboard_arrow_right_24px</item>
-        <item name="android:textSize">@dimen/btn_bigsize</item>
+        <item name="android:textSize">@dimen/btn_middlesize</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:background">@android:color/white</item>
@@ -102,7 +102,10 @@
     </style>
 
     <style name="toolbarTitle">
-        <item name="android:fontFamily">@font/nanumsquareeb</item>
+        <item name="android:fontFamily">@font/nanumsquareb</item>
+    </style>
+    <style name="toolbarsubTitle">
+        <item name="android:fontFamily">@font/nanumsquarel</item>
     </style>
 
 <!---->

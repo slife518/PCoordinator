@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimaryDark">#0B6623</color>
-
-
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#ed0404</color>
     <color name="transparent">#00000000</color>
+    <color name="dark_blue">#3023AE</color>
+    <color name="purple">#c86dd7</color>
 
     <color name="searchBackground">#e0e0e0</color>
-    <color name="buttonColorAccent">#C519E0</color>
+    <color name="buttonColorAccent">#AB47BC</color>
     <color name="buttonColor1">#e0e0e0</color>
     <color name="buttonTextColor">#FFFFFF</color>
     <color name="lineColor">#e0e0e0</color>
 
 
     //BottomBar /댓글 바탕색 상
+    <color name="bottombarbackground">#ffffff</color>  //bottombarbackground
     <color name="inActivebuttonColor">#000000</color>
     <color name="rereply_background">#d7d4d4</color>
     <color name="reply_point">#9b9898</color>
@@ -27,7 +28,18 @@
     <color name="milkcolor">#B2EBF2</color>
     <color name="ricecolor">#E1BEE7</color>
 
-    <color name="dark_blue">#3023AE</color>
-    <color name="purple">#c86dd7</color>
+
+    //home화면 테이블
+    <color name="maintablehader">#AB47BC</color>   //header
+     <color name="maintabledetail1">#FFF176</color>   //header
+    <color name="maintabledetail2">#B2EBF2</color>   //header
+    <color name="maintabledetail3">#E1BEE7</color>
+
+    //fab
+    <color name="fabbackground">#AB47BC</color>
+    <color name="fabbackgroundtint">#AB47BC</color>
+
+
+
 
 </resources>

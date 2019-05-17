@@ -1,13 +1,13 @@
 package com.company.jk.pcoordinator.home;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.company.jk.pcoordinator.R;
 
 import java.util.ArrayList;
 public class MilkRiceListViewAdapter extends BaseAdapter {
@@ -17,7 +17,8 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     private String TAG = "MilkRiceListViewAdapter";
     Context context;
 
-    int COLOR[] = { Color.rgb(255,199,125), Color.rgb(242,188,248), Color.rgb(210,194,253), Color.rgb(222,250,187) };
+//    int COLOR[] = { Color.rgb(255,199,125), Color.rgb(242,188,248), Color.rgb(210,194,253), Color.rgb(222,250,187) };
+    int COLOR[];
 
 
     public MilkRiceListViewAdapter(Context mContext, int layout, ArrayList<RecordHistoryinfo> data){
@@ -25,6 +26,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
         this.data=data;
         this.layout=layout;
         context = mContext;
+        COLOR = new int[]{ context.getResources().getColor(R.color.maintabledetail1),  context.getResources().getColor(R.color.maintabledetail2),  context.getResources().getColor(R.color.maintabledetail3)};
     }
     @Override
     public int getCount(){

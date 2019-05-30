@@ -71,6 +71,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     Upload upload = new Upload();
     LoginInfo loginInfo;
     private DatePickerDialog.OnDateSetListener mDateSetListener ;
+    String absolutePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -369,6 +370,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             if(type.equals("new")){  // 신규 아기 등록시
                 int baby_id = (Integer)jsonObject.get("result");;
                 loginInfo.setBabyID(baby_id);
+                upload_baby_image(baby_id);
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -418,6 +420,8 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
     private void deleteResponse(String response){
         Log.d(TAG, "deleteResponse 결과값은 " + response);
         if(response.equals("true")) {
+            String imgUrl = urlPath.getUrlBabyImg() + baby_id + ".jpg";  //확장자 대소문자 구별함.
+            upload.deleteFile(imgUrl);
             if(loginInfo.getBabyID() == baby_id){
                 update_user_babyid(baby_id);
                 loginInfo.setBabyID(0);}  //선택하고 있는 아기를 삭제 할 경우 선택된 아기가 없도록 처리
@@ -479,17 +483,7 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
             _profile.setImageURI(Crop.getOutput(result));
             _profile.invalidate();
 
-            final String absolutePath = Crop.getOutput(result).getPath();   // 쓰레드 내에서 사용할 변수는 final 로 정의 되어야 함.  uri 의 절대 경로는 uri.getPath()
-            //파일 업로드 시작! 파일 업로드 call 할 때는 반드시 쓰레드 이용해야 함.
-            new Thread(new Runnable() {
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        public void run() {	}	});
-                    Log.d(TAG, "파일명은 " + baby_id + " 업로드할 사진의 절대 경로 " + absolutePath);
-                    upload.uploadFile(absolutePath, String.valueOf(baby_id), "babyprofile");
-                    //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
-                }
-            }).start();
+            absolutePath = Crop.getOutput(result).getPath();   // 쓰레드 내에서 사용할 변수는 final 로 정의 되어야 함.  uri 의 절대 경로는 uri.getPath()
 
         } else if (resultCode == Crop.RESULT_ERROR) {
             Log.d("handleCrop", "RESULT_ERROR");
@@ -498,6 +492,24 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         }
     }
 
+    private void upload_baby_image(final int baby){
+
+        if(absolutePath != "") {  //사진이 첨부된 적이 있으면 업로드
+            //파일 업로드 시작! 파일 업로드 call 할 때는 반드시 쓰레드 이용해야 함.
+            new Thread(new Runnable() {
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                        }
+                    });
+                    Log.d(TAG, "파일명은 " + baby + " 업로드할 사진의 절대 경로 " + absolutePath);
+                    upload.uploadFile(absolutePath, String.valueOf(baby), "babyprofile");
+                    //			saveBitmaptoJpeg(bitmap, "",loginInfo.getEmail());
+                }
+            }).start();
+
+        }
+    }
     /////////////////////////////////////사진업로드 끝 //////////////////////////////////////////////
 
 

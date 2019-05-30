@@ -137,4 +137,11 @@ public class Upload{
 
         } // End else block
     }
+
+    public boolean deleteFile(String sourceFileUri) {
+        Log.d(TAG, "deleteFile sourceFileUri  은 " + sourceFileUri);
+        File sourceFile = new File(sourceFileUri);
+        return sourceFile.delete();
+
+    }
 }

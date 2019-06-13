@@ -273,6 +273,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
             // x축 label
             XAxis xAxis1 = mChart.getXAxis();
+            xAxis1.setGranularity(1f);  // x레이블의 중복 방지
             xAxis1.setValueFormatter(new ValueFormatter() {
 
                 @Override

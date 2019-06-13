@@ -18,7 +18,8 @@ public class RecordHistoryinfo implements Serializable {
     public RecordHistoryinfo(String id, String date, String time, int milk,int mothermilk, int rice,  String author, String comments){
         this.id = id;
         this.yearDate = date;
-        this.date = date.substring(5,10);
+//        this.date = date.substring(5,10);
+        this.date = date;
         this.milk = milk;
         this.mothermilk = mothermilk;
         this.rice = rice;
@@ -41,19 +42,56 @@ public class RecordHistoryinfo implements Serializable {
     }
 
     public String getTime() {
-        return time;
+        int hh = Integer.parseInt(time.substring(0,2));
+        if(hh > 12){
+            hh = hh - 12;
+            return "pm " + String.valueOf(hh) + time.substring(2,5);
+        }else {
+            return "am " + String.valueOf(hh) + time.substring(2,5);
+        }
     }
 
-    public int getMilk() {
-        return milk;
+    public String getMilk() {
+        return String.valueOf(milk);
     }
 
-    public int getMothermilk() {
-        return mothermilk;
+    public String getMothermilk() {
+        return String.valueOf(mothermilk);
     }
 
-    public int getRice() {
-        return rice;
+    public String getRice() {
+        return String.valueOf(rice);
+    }
+
+    public String getEat(){
+        String _mlik ="";
+
+        if(milk==0){
+            _mlik = "";
+        }else {
+
+            _mlik = "  분유: " + String.valueOf(milk) + "ml";
+        }
+
+        String _rice ="";
+
+        if(rice==0){
+            _rice = "";
+        }else {
+
+            _rice = "  이유식: " + String.valueOf(rice) + "mg";
+        }
+
+        String _mothermilk ="";
+
+        if(mothermilk==0){
+            _mothermilk = "";
+        }else {
+
+            _mothermilk = "  수유: " + String.valueOf(mothermilk) + "분";
+        }
+
+        return _mothermilk + _mlik + _rice  ;
     }
 
     public String getAuthor() {

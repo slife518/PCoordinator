@@ -21,10 +21,10 @@ import com.company.jk.pcoordinator.common.MyPhotoCrop;
 import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
-import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.yalantis.ucrop.UCrop;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +44,7 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
     LoginInfo loginInfo;
     MyPhotoCrop photoCrop = new MyPhotoCrop();
     int id = 0, reply_id = 0, reply_level = 0;
+    private final  int CODE_IMG_GALLERY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,47 +201,26 @@ public class NewTalkActivity extends MyActivity implements View.OnClickListener 
         insert_picture();
     }
 
+    // 사진 업로드 시작
     private boolean insert_picture(){
-
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_PICK);
-        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*");
-        Log.d(TAG, "사진선택1");
-        startActivityForResult(intent, 4);
-        Log.d(TAG, "사진선택2");
-
-
+        startActivityForResult(new Intent().setAction(Intent.ACTION_GET_CONTENT)
+                .setType("image/*"), CODE_IMG_GALLERY);
         return true;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-            //Intent x = getActivity().getIntent();
-//		if (requestCode == Crop.REQUEST_PICK && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
-            if (requestCode == 4 && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
-//		if (resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
-// 따라서, Activity에서 사용되는 RESULT_OK값을 가져와서 사용한다.
-                Log.d("onActivityResult", "request pick");
-
-                photoCrop.beginCrop(data.getData(), getApplicationContext(), this);
-            } else if (requestCode == Crop.REQUEST_CROP) {   // Crop.REQUEST_CROP = 6709
-                Log.d("onActivityResult", "request crop");
+        if (requestCode == CODE_IMG_GALLERY && resultCode == Activity.RESULT_OK) {
+                photoCrop.beginCrop(data.getData(), getApplicationContext(), this, getResources().getString(R.string.choicepicture));
+            } else if (requestCode == UCrop.REQUEST_CROP) {   // Crop.REQUEST_CROP = 6709
                 if(data !=null) {
-                    Log.d("onActivityResult", "handle crop 에서 발생 ");
                     iv_insertPhoto1.setImageURI(photoCrop.handleCrop(data));
                     iv_insertPhoto1.setTag(photoCrop.handleCrop(data).getPath());
                     iv_insertPhoto1.setVisibility(View.VISIBLE);
                 }
-            } else {
-                Log.d("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
             }
-
         }
 
-
+        // 사진업로드 끝
 }

@@ -112,5 +112,7 @@
     <string name="delete">삭제하기</string>
     <string name="rereply">대댓글 달기</string>
     <string name="lastest">최근</string>
+    <string name="choicebabypicture">아기사진선택</string>
+    <string name="choicepicture">사진선택</string>
 
 </resources>

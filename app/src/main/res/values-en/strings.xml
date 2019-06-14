@@ -112,5 +112,7 @@
     <string name="delete">delete</string>
     <string name="rereply">take a reply</string>
     <string name="lastest">Last</string>
+    <string name="choicebabypicture">Choice picture of baby</string>
+    <string name="choicepicture">Choice picture</string>
 
 </resources>

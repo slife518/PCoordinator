@@ -97,6 +97,11 @@
         <!-- android:label="@string/title_activity_board"></activity> -->
         <activity android:name=".board.talk.NewTalkActivity"
                     android:label=""/>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
     </application>
 
 </manifest>

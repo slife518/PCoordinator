@@ -36,10 +36,10 @@ import com.company.jk.pcoordinator.http.Upload;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.AddressPostActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
-import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.yalantis.ucrop.UCrop;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +58,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
     private static final int ADDRESS_REQUEST = 1888;
     private static final String TAG = "MyinfoFragment";
-
+    private final  int CODE_IMG_GALLERY = 1;
     Context mContext;
     LoginInfo loginInfo;
     SharedPreferences mPreference;
@@ -240,15 +240,8 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                                Intent intent = new Intent();
-                                intent.setAction(Intent.ACTION_PICK);
-                                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-                                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                intent.setType("image/*");
-                                Log.d(TAG, "사진선택1");
-                                startActivityForResult(intent, 4);
-                                Log.d(TAG, "사진선택완료2");
-
+                                startActivityForResult(new Intent().setAction(Intent.ACTION_GET_CONTENT)
+                                        .setType("image/*"), CODE_IMG_GALLERY);
                             }
                         })
                 .setNegativeButton("취소",
@@ -264,47 +257,56 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         return true;
     }
 
+    /////////////////////////////////////사진업로드 시작 //////////////////////////////////////////////
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ADDRESS_REQUEST) {
-            switch (resultCode) {
-                case 1:
-                    String result = data.getStringExtra("result");
-                    Log.d(TAG, "result는 " + result);
-                    _address1.setText(result);
-                    break;
-                default:
-                    break;
-            }
-        } else {
-
-            //Intent x = getActivity().getIntent();
-//		if (requestCode == Crop.REQUEST_PICK && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
-            if (requestCode == 4 && resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
-//		if (resultCode == Activity.RESULT_OK) { // RESULT_OK 는 동작 성공을 의미하며 수치는 -1 인데, Fragment에는 없다.
-// 따라서, Activity에서 사용되는 RESULT_OK값을 가져와서 사용한다.
-                Log.d("onActivityResult", "request pick");
-                beginCrop(data.getData());
-            } else if (requestCode == Crop.REQUEST_CROP) {   // Crop.REQUEST_CROP = 6709
-                Log.d("onActivityResult", "request crop");
-                handleCrop(resultCode, data, this);
-            } else {
-                Log.d("onActivityResult", "Activity.requestCode 는 " + String.valueOf(requestCode) + " resultCode는 " + String.valueOf(resultCode));
-            }
-
+        if (requestCode == CODE_IMG_GALLERY && resultCode == Activity.RESULT_OK) {
+            beginCrop(data.getData());
+        } else if (requestCode == UCrop.REQUEST_CROP) {
+            handleCrop(resultCode, data, this);
         }
     }
-    /////////////////////////////////////사진업로드 시작 //////////////////////////////////////////////
+
+
+    private void beginCrop(Uri uri) {
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        UCrop uCrop = UCrop.of(uri, destination);
+        uCrop.withAspectRatio(1, 1);
+        uCrop.withMaxResultSize(450, 450);
+        uCrop.withOptions(getCropOptions());
+        uCrop.start(this);
+    }
+
+    private  UCrop.Options getCropOptions(){
+        UCrop.Options options = new UCrop.Options();
+        options.setCompressionQuality(70);
+
+        //CompressType
+        //options.setCompressionFormat(Bitmap.CompressFormat.PNG);
+        //options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+
+        //UI
+        options.setHideBottomControls(false);
+        options.setFreeStyleCropEnabled(true);
+
+        //Colors
+        options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+
+        options.setToolbarTitle(getResources().getString(R.string.choicebabypicture));  //title
+
+        return options;
+    }
 
     private void handleCrop(int resultCode, Intent result, Context ct) {
         if (resultCode == Activity.RESULT_OK) { // Activity 의 RESULT_OK값을 사용
 //            Log.d("handleCrop", "RESULT_OK" + (Crop.getOutput(result).toString()));
             _profile.setImageDrawable(null);
-            _profile.setImageURI(Crop.getOutput(result));
+            _profile.setImageURI(UCrop.getOutput(result));
             _profile.invalidate();
 
-            final String absolutePath = Crop.getOutput(result).getPath();   // 쓰레드 내에서 사용할 변수는 final 로 정의 되어야 함.  uri 의 절대 경로는 uri.getPath()
+            final String absolutePath = UCrop.getOutput(result).getPath();   // 쓰레드 내에서 사용할 변수는 final 로 정의 되어야 함.  uri 의 절대 경로는 uri.getPath()
             //파일 업로드 시작! 파일 업로드 call 할 때는 반드시 쓰레드 이용해야 함.
             new Thread(new Runnable() {
                 public void run() {
@@ -318,19 +320,13 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                 }
             }).start();
 
-        } else if (resultCode == Crop.RESULT_ERROR) {
+        } else if (resultCode == UCrop.RESULT_ERROR) {
 //            Log.d("handleCrop", "RESULT_ERROR");
-            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, UCrop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
 //Activity에서 사용되던 this는 Fragment에서 보통 getActivity() 또는 getContext() 로 변경해서 사용한다.
         }
     }
 
-    private void beginCrop(Uri source) {
-//        Log.d("beginCrop", "Start" +source.toString());
-        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
-        Crop.of(source, destination).asSquare().start(this);
-//        Log.d("beginCrop", "End");
-    }
     /////////////////////////////////////사진업로드 끝 //////////////////////////////////////////////
 
     @Override

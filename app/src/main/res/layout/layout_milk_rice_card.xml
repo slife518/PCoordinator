@@ -19,7 +19,12 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+        <com.company.jk.pcoordinator.common.DayTextView
+            android:id="@+id/tv_day"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.8"/>
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="0dp"

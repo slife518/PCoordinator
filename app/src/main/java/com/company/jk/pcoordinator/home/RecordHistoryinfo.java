@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class RecordHistoryinfo implements Serializable {
     String id;
     String date;
+    String day;
     String yearDate;
     String time;
     int milk;
@@ -41,6 +42,9 @@ public class RecordHistoryinfo implements Serializable {
         return date;
     }
 
+    public String getDay(){
+        return  date.substring(7,10);
+    }
     public String getTime() {
         int hh = Integer.parseInt(time.substring(0,2));
         if(hh > 12){

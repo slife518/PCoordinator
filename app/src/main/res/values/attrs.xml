@@ -3,4 +3,8 @@
         <attr name="mask" format="string" />
         <attr name="placeholder" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="MyView">
+        <attr name="customTextColor" format="color"/>
+    </declare-styleable>
 </resources>

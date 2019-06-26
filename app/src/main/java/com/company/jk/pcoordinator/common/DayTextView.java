@@ -1,23 +1,30 @@
 package com.company.jk.pcoordinator.common;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+
+import com.company.jk.pcoordinator.R;
 
 
 public class DayTextView extends View {
     Context context;
     String value;
     int textColor;
+    Bitmap minusBitmap;
+    Rect minusRectDst;
 
     public DayTextView(Context context){
         super(context);
         this.context=context;
         init(null);
-        value = "31";
     }
     public DayTextView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -31,18 +38,12 @@ public class DayTextView extends View {
     }
 
     private void init(AttributeSet attrs){
-//        plusBitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.plus);
-//        minusBitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.minus);
-//
-//        plusRectDst=new Rect(10, 10, 210, 210);
-//        minusRectDst=new Rect(400, 10, 600, 210);
-//
-//        if(attrs != null){
-//            TypedArray a=context.obtainStyledAttributes(attrs, R.styleable.MyView);
-//            textColor=a.getColor(R.styleable.MyView_customTextColor, Color.RED);
-//        }
-//
-//        listeners=new ArrayList<>();
+
+        if(attrs != null){
+            TypedArray a=context.obtainStyledAttributes(attrs, R.styleable.MyView);
+            textColor=a.getColor(R.styleable.MyView_customTextColor, Color.RED);
+        }
+
     }
 
     @Override
@@ -74,12 +75,23 @@ public class DayTextView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-
         Paint paint=new Paint();
+        paint.setColor(Color.WHITE);
+        canvas.drawCircle(67, 50, 50, paint);
 
-        paint.setTextSize(80);
+        paint.setTextSize(60);
         paint.setColor(textColor);
-        canvas.drawText(String.valueOf(value), 260, 150, paint);
+
+
+        if (value.substring(0,1).equals("0")){
+            value = value.substring(1,2);
+        }
+
+        if (value.length() > 1){
+            canvas.drawText(value, 32, 70, paint);
+        }else {
+            canvas.drawText(value, 49, 70, paint);
+        }
 
     }
 

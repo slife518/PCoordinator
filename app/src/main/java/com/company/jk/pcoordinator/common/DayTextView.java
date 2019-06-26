@@ -20,6 +20,7 @@ public class DayTextView extends View {
     int textColor;
     Bitmap minusBitmap;
     Rect minusRectDst;
+    int COLOR[];
 
     public DayTextView(Context context){
         super(context);
@@ -38,6 +39,7 @@ public class DayTextView extends View {
     }
 
     private void init(AttributeSet attrs){
+        COLOR = new int[]{ context.getResources().getColor(R.color.maintabledetail1),  context.getResources().getColor(R.color.maintabledetail2),  context.getResources().getColor(R.color.maintabledetail3)};
 
         if(attrs != null){
             TypedArray a=context.obtainStyledAttributes(attrs, R.styleable.MyView);
@@ -80,12 +82,14 @@ public class DayTextView extends View {
         canvas.drawCircle(67, 50, 50, paint);
 
         paint.setTextSize(60);
-        paint.setColor(textColor);
+
 
 
         if (value.substring(0,1).equals("0")){
             value = value.substring(1,2);
         }
+
+        paint.setColor(COLOR[Integer.parseInt(value) % 3]);
 
         if (value.length() > 1){
             canvas.drawText(value, 32, 70, paint);

@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.DayTextView;
 
-public class DriveHolder {
+public class ViewHolder {
 
     //view 획득
     public TextView mDate;
@@ -21,7 +21,7 @@ public class DriveHolder {
 
 
 
-    public DriveHolder(View root){
+    public ViewHolder(View root){
 
         //view 획득
         mDate = (TextView) root.findViewById(R.id.tv_date);

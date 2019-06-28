@@ -43,10 +43,6 @@ public class RecordHistoryinfo implements Serializable {
     }
 
     public String getDay(){
-//        String day = date.substring(8,10);
-//        if (day.substring(0,1).equals("0")){
-//            day = date.substring(9,10);
-//        }
         return  date.substring(8,10);
     }
     public String getTime() {

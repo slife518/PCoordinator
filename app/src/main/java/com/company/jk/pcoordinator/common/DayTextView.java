@@ -2,11 +2,9 @@ package com.company.jk.pcoordinator.common;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +16,6 @@ public class DayTextView extends View {
     Context context;
     String value;
     int textColor;
-    Bitmap minusBitmap;
-    Rect minusRectDst;
     int COLOR[];
 
     public DayTextView(Context context){
@@ -78,24 +74,24 @@ public class DayTextView extends View {
     protected void onDraw(Canvas canvas) {
 
         Paint paint=new Paint();
-        paint.setColor(Color.WHITE);
+        paint.setColor(COLOR[Integer.parseInt(value) % 3]);
         canvas.drawCircle(67, 50, 50, paint);
 
         paint.setTextSize(60);
 
-
-
         if (value.substring(0,1).equals("0")){
             value = value.substring(1,2);
         }
-
-        paint.setColor(COLOR[Integer.parseInt(value) % 3]);
+//        paint.setColor(COLOR[Integer.parseInt(value) % 3]);
+        paint.setColor(Color.WHITE);
 
         if (value.length() > 1){
             canvas.drawText(value, 32, 70, paint);
         }else {
             canvas.drawText(value, 49, 70, paint);
         }
+
+        Log.i("onDraw 날짜는 ",  value);
 
     }
 

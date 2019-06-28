@@ -218,9 +218,7 @@ public class HomeFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private void responseSuccess(String result) {
 
         itemAppend(result);  // 조회 된 데이터 표현하기
-
-
-        mAdapter.refreshAdapter(listItems);
+        mAdapter.notifyDataSetChanged();
 
         // 수유차트
         if(isChart1) {

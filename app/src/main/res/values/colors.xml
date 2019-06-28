@@ -32,7 +32,7 @@
 
     //home화면 테이블
     <color name="maintablehader">#AB47BC</color>   //header
-     <color name="maintabledetail1">#FFF176</color>   //header
+     <color name="maintabledetail1">#7F76FF</color>   //header
     <color name="maintabledetail2">#B2EBF2</color>   //header
     <color name="maintabledetail3">#E1BEE7</color>
 

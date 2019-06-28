@@ -21,9 +21,9 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     int COLOR[];
 
 
-    public MilkRiceListViewAdapter(Context mContext, int layout, ArrayList<RecordHistoryinfo> data){
+    public MilkRiceListViewAdapter(Context mContext, int layout, ArrayList<RecordHistoryinfo> arrayList){
 
-        this.data=data;
+        this.data=arrayList;
         this.layout=layout;
         context = mContext;
         COLOR = new int[]{ context.getResources().getColor(R.color.maintabledetail1),  context.getResources().getColor(R.color.maintabledetail2),  context.getResources().getColor(R.color.maintabledetail3)};
@@ -41,22 +41,22 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
     public long getItemId(int position){return position;}
 
     @Override
-    public View getView(int position, View itemView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent){
 
         //항목 데이터 획득
         RecordHistoryinfo listviewitem=data.get(position);
-        if(itemView==null){
+        ViewHolder holder;
+        if(convertView==null){
             // 항목 layout 초기화
             LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            itemView=inflater.inflate(layout,parent,false);
-            DriveHolder holder = new DriveHolder(itemView);
-            itemView.setTag(holder);
+            convertView=inflater.inflate(layout,parent,false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder)convertView.getTag();
         }
 
-//        Log.d("Adapter", listviewitem.getTime());
-
-        DriveHolder holder = (DriveHolder)itemView.getTag();
-
+//        Log.d(TAG, "getView" + listviewitem.getDay());
         //view에 데이터 바인딩
         holder.mDate.setText(listviewitem.getDate());
         holder.mDay.setText(listviewitem.getDay());
@@ -68,20 +68,16 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
         holder.mComments.setText(listviewitem.getComments());
         holder.mAuthor.setText(listviewitem.getAuthor());
 
-//        String day = listviewitem.getDate().substring(3,5);
-        String day = listviewitem.getDate().substring(8,10);
+//        convertView.setBackgroundColor(COLOR[Integer.parseInt(listviewitem.getDay()) % 3]);
 
-//        Log.d(TAG, day);
-        itemView.setBackgroundColor(COLOR[Integer.parseInt(day) % 3]);
-
-        return itemView;
+        return convertView;
     }
 
-
-    public void refreshAdapter(ArrayList<RecordHistoryinfo> newItems) {
-
-        this.data.clear();
-        this.data.addAll(newItems);
-        notifyDataSetChanged();
-    }
+//
+//    public void refreshAdapter(ArrayList<RecordHistoryinfo> newItems) {
+//
+//        this.data.clear();
+//        this.data.addAll(newItems);
+//        notifyDataSetChanged();
+//    }
 }

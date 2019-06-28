@@ -45,20 +45,20 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private final String TAG = "HomeFragment";
     private LoginInfo loginInfo ;
 
-    private ArrayList<RecordHistoryinfo> listItems = new ArrayList();
     private ArrayList<RecordHistoryinfo> items = new ArrayList();
-    private MilkRiceListViewAdapter mAdapter = null;
+    private MilkRiceListViewAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private Integer max_milk, max_mothermilk, min_milk,  min_mothermilk;
+//    private Integer max_milk, max_mothermilk, min_milk,  min_mothermilk;
     private ImageView iv_sample1, iv_sample2;
     private Boolean isValue = false;  // 차트를 보여줄 지 말지
     MyDataTransaction transaction;
+    ListView mListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ListView mListView;
+
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         mContext = v.getContext();
@@ -81,14 +81,13 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         activity.setSupportActionBar(myToolbar);
         // toolbar 설정 끝
 
-        //listview layout
-        mListView = v.findViewById(R.id.listView_main);
+
         iv_sample1 = v.findViewById(R.id.sample1);
         iv_sample2 = v.findViewById(R.id.sample2);
 
+        //listview layout
+        mListView = v.findViewById(R.id.listView_main);
 
-        mAdapter = new MilkRiceListViewAdapter(mContext, R.layout.layout_milk_rice_card, items);
-        mListView.setAdapter(mAdapter);
 //        setListViewHeightBasedOnChildren(mListView);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,9 +104,7 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int newState) {
-
             }
-
             @Override
             public void onScroll(AbsListView absListView, int i, int i1, int i2) {
 
@@ -136,6 +133,8 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onStart() {
         super.onStart();
+
+        Log.d(TAG, "onStart 시작");
         //data binding start
         if(loginInfo.getBabyID() != 0) {   //매핑된 아이가 있을 경우
             get_data_async();
@@ -174,6 +173,7 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
 
     private void get_data_async(){
         Log.d(TAG, "get_data_async 시작");
+
         if(loginInfo.getBabyID() != 0) {
             if (NetworkUtil.getConnectivityStatusBoolean(mContext.getApplicationContext())) {
                 Map<String, String> params = new HashMap<>();
@@ -183,7 +183,9 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
                     @Override
                     public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
                         Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
-                        responseSuccess(result);
+                        itemAppend(result);
+                        afterResponse(result);
+
                     }
                     @Override
                     public void onFailResponse(VolleyError error) {
@@ -195,11 +197,7 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         }
     }
 
-    private void responseSuccess(String result) {
-
-        itemAppend(result);  // 조회 된 데이터 표현하기
-
-        mAdapter.refreshAdapter(listItems);
+    private void afterResponse(String result) {
 
         if(!isValue){
             iv_sample1.setVisibility(VISIBLE);
@@ -207,20 +205,25 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         }else{
             iv_sample1.setVisibility(GONE);
             iv_sample2.setVisibility(GONE);
+
+            mAdapter = new MilkRiceListViewAdapter(mContext, R.layout.layout_milk_rice_card, items);
+            mListView.setAdapter(mAdapter);
+
+//            mAdapter.notifyDataSetChanged();
         }
 
     }
 
     private void itemAppend(String response) {
         Log.d(TAG, "결과값은 " + response);
-        listItems.clear();
+        items.clear();
 
         JSONArray jsonArray = JsonParse.getJsonArrayFromString(response, "result");
         for (int i = 0; i < jsonArray.length(); i++) {
 
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(i);
-                listItems.add(new RecordHistoryinfo(
+                items.add(new RecordHistoryinfo(
                         rs.getString("id"),
                         rs.getString("record_date"),
                         rs.getString("record_time"),

@@ -32,10 +32,37 @@
 
     //home화면 테이블
     <color name="maintablehader">#AB47BC</color>   //header
-     <color name="maintabledetail1">#7F76FF</color>   //header
+    <color name="maintabledetail1">#7F76FF</color>   //header
     <color name="maintabledetail2">#B2EBF2</color>   //header
     <color name="maintabledetail3">#E1BEE7</color>
-
+    <color name="maintabledetail4">#7F76FF</color>   //header
+    <color name="maintabledetail5">#57B9C5</color>   //header
+    <color name="maintabledetail6">#C15BD3</color>
+    <color name="maintabledetail7">#6159D8</color>   //header
+    <color name="maintabledetail8">#327680</color>   //header
+    <color name="maintabledetail9">#73377E</color>
+    <color name="maintabledetail10">#221D70</color>   //header
+    <color name="maintabledetail11">#141F20</color>   //header
+    <color name="maintabledetail12">#A51EBD</color>
+    <color name="maintabledetail13">#3429CF</color>   //header
+    <color name="maintabledetail14">#21C2D6</color>   //header
+    <color name="maintabledetail15">#E1BEE7</color>
+    <color name="maintabledetail16">#1B11AF</color>   //header
+    <color name="maintabledetail17">#35828B</color>   //header
+    <color name="maintabledetail18">#753F7E</color>
+    <color name="maintabledetail19">#1A0BF1</color>   //header
+    <color name="maintabledetail20">#0E272B</color>   //header
+    <color name="maintabledetail21">#3E1046</color>
+    <color name="maintabledetail22">#04021D</color>   //header
+    <color name="maintabledetail23">#2CB0C0</color>   //header
+    <color name="maintabledetail24">#903D9E</color>
+    <color name="maintabledetail25">#3B3774</color>   //header
+    <color name="maintabledetail26">#61A7AF</color>   //header
+    <color name="maintabledetail27">#946E9B</color>
+    <color name="maintabledetail28">#816386</color>
+    <color name="maintabledetail29">#5A596D</color>   //header
+    <color name="maintabledetail30">#407279</color>   //header
+    <color name="maintabledetail31">#D74BF0</color>
     //fab
     <color name="fabbackground">#AB47BC</color>
     <color name="fabbackgroundtint">#AB47BC</color>

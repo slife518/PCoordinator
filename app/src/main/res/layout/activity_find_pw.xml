@@ -19,8 +19,9 @@
             android:text="@string/find_password"
             android:textAllCaps="true"
             android:textSize="20dp"
-            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
+            <!--android:textColor="@color/TitleTextColorinWhiteBackground"-->
+
         <!--  Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"

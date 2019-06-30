@@ -78,9 +78,18 @@ public class MainActivity extends MyActivity implements OnTabSelectListener {
         Log.d(TAG, "이번클릭한 메뉴id 는 " + tabId);
         switch (tabId){
             case R.id.bottomBarItemHome:
-                if (!mainFragment.isVisible()){
+                if(loginInfo.getBabyID() == 0){  //loginInfo.getBabyID() 는 db 가 int 이므로 기본은 0
+
+                    Intent intent = new Intent(this, MybabyDetailActivity.class);
+                    intent.putExtra("email",loginInfo.getEmail() );
+                    startActivityForResult(intent, 12);
+                    replaceFragment(recordFragment);
+                    showToast( getResources().getString(R.string.message_warnning_register_baby));
+                }else if (!mainFragment.isVisible()) {
+
                     replaceFragment(mainFragment);
                 }
+
                 break;
             case R.id.bottomBarItemRecord:
                 fab.show();

@@ -15,33 +15,67 @@ import com.company.jk.pcoordinator.R;
 public class DayTextView extends View {
     Context context;
     String value;
-    int textColor;
     int COLOR[];
 
     public DayTextView(Context context){
         super(context);
         this.context=context;
+        this.setWillNotDraw(false);
         init(null);
     }
     public DayTextView(Context context, AttributeSet attrs){
         super(context, attrs);
         this.context=context;
+        this.setWillNotDraw(false);
         init(attrs);
     }
     public DayTextView(Context context, AttributeSet attrs, int defStyleAttr){
         super(context, attrs, defStyleAttr);
         this.context=context;
+        this.setWillNotDraw(false);
         init(attrs);
     }
 
     private void init(AttributeSet attrs){
-        COLOR = new int[]{ context.getResources().getColor(R.color.maintabledetail1),  context.getResources().getColor(R.color.maintabledetail2),  context.getResources().getColor(R.color.maintabledetail3)};
+
+        COLOR = new int[]{
+                context.getResources().getColor(R.color.maintabledetail1),
+                context.getResources().getColor(R.color.maintabledetail2),
+                context.getResources().getColor(R.color.maintabledetail3),
+                context.getResources().getColor(R.color.maintabledetail4),
+                context.getResources().getColor(R.color.maintabledetail5),
+                context.getResources().getColor(R.color.maintabledetail6),
+                context.getResources().getColor(R.color.maintabledetail7),
+                context.getResources().getColor(R.color.maintabledetail8),
+                context.getResources().getColor(R.color.maintabledetail9),
+                context.getResources().getColor(R.color.maintabledetail10),
+                context.getResources().getColor(R.color.maintabledetail11),
+                context.getResources().getColor(R.color.maintabledetail12),
+                context.getResources().getColor(R.color.maintabledetail13),
+                context.getResources().getColor(R.color.maintabledetail14),
+                context.getResources().getColor(R.color.maintabledetail15),
+                context.getResources().getColor(R.color.maintabledetail16),
+                context.getResources().getColor(R.color.maintabledetail17),
+                context.getResources().getColor(R.color.maintabledetail18),
+                context.getResources().getColor(R.color.maintabledetail19),
+                context.getResources().getColor(R.color.maintabledetail20),
+                context.getResources().getColor(R.color.maintabledetail21),
+                context.getResources().getColor(R.color.maintabledetail22),
+                context.getResources().getColor(R.color.maintabledetail23),
+                context.getResources().getColor(R.color.maintabledetail25),
+                context.getResources().getColor(R.color.maintabledetail26),
+                context.getResources().getColor(R.color.maintabledetail24),
+                context.getResources().getColor(R.color.maintabledetail27),
+                context.getResources().getColor(R.color.maintabledetail28),
+                context.getResources().getColor(R.color.maintabledetail29),
+                context.getResources().getColor(R.color.maintabledetail30),
+                context.getResources().getColor(R.color.maintabledetail31),
+        };
 
         if(attrs != null){
-            TypedArray a=context.obtainStyledAttributes(attrs, R.styleable.MyView);
-            textColor=a.getColor(R.styleable.MyView_customTextColor, Color.RED);
+//            TypedArray a=context.obtainStyledAttributes(attrs, R.styleable.MyView);
+//            textColor=a.getColor(R.styleable.MyView_customTextColor, Color.RED);
         }
-
     }
 
     @Override
@@ -74,7 +108,7 @@ public class DayTextView extends View {
     protected void onDraw(Canvas canvas) {
 
         Paint paint=new Paint();
-        paint.setColor(COLOR[Integer.parseInt(value) % 3]);
+        paint.setColor(COLOR[Integer.parseInt(value)]);
         canvas.drawCircle(67, 50, 50, paint);
 
         paint.setTextSize(60);
@@ -91,12 +125,13 @@ public class DayTextView extends View {
             canvas.drawText(value, 49, 70, paint);
         }
 
-        Log.i("onDraw 날짜는 ",  value);
+//        Log.i("onDraw 날짜는 ",  value);
 
     }
 
     public void setText(String s){
+        invalidate();   // onDraw 를 항상 콜 하기 위해서 반드시 해 줘야 함.
         value = s;
-        Log.i("날짜는 ",  value);
+//        Log.i("날짜는 ",  value);
     }
 }

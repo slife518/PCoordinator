@@ -38,7 +38,9 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
         return data.get(position).id;
     }
     @Override
-    public long getItemId(int position){return position;}
+    public long getItemId(int position){
+        return position;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
@@ -70,6 +72,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
 
 //        convertView.setBackgroundColor(COLOR[Integer.parseInt(listviewitem.getDay()) % 3]);
 
+//        Log.d(TAG, "holder.day : "+ listviewitem.getDay());
         return convertView;
     }
 

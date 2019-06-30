@@ -1,5 +1,7 @@
 package com.company.jk.pcoordinator.home;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
@@ -46,6 +48,9 @@ public class RecordHistoryinfo implements Serializable {
         return  date.substring(8,10);
     }
     public String getTime() {
+        return time;
+    }
+    public String getAPTime(){
         int hh = Integer.parseInt(time.substring(0,2));
         if(hh > 12){
             hh = hh - 12;

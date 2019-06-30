@@ -19,8 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signin"
-            android:textSize="20dp"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textSize="20dp"/>
+            <!--android:textColor="@color/TitleTextColorinWhiteBackground"-->
+
 
         <!-- Name Label -->
         <android.support.design.widget.TextInputLayout

@@ -8,6 +8,7 @@
     <string name="birthday">birthday</string>
     <string name="hint_birthday">birthday</string>
     <string name="tel">Cell phone</string>
+    <string name="sex">Sex</string>
     <string name="txCustomerinfo">My infomation</string>
     <string name="btn_save">save</string>
     <string name="address">find address</string>
@@ -31,12 +32,12 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="milk">milk powder(ml)</string>
-    <string name="rice">babyfood(mg)</string>
+    <string name="rice">babyfood(ml)</string>
     <string name="milk_list">milk powder</string>
     <string name="rice_list">babyfood</string>
     <string name="mothermilk_list">breast-feed</string>
     <string name="remain_contents">Leave the message</string>
-    <string name="baby_picture">attach a picture of the baby</string>
+    <string name="baby_picture">attach a baby picture</string>
     <string name="home">home</string>
     <string name="author">Author</string>
     <string name="comments">Description</string>

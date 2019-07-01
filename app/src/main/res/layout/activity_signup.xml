@@ -15,7 +15,7 @@
         android:focusableInTouchMode="true"
         android:paddingTop="56dp">
 
-        <com.company.jk.pcoordinator.common.Textview_ygotjalnanfont
+        <com.company.jk.pcoordinator.common.customview.Textview_ygotjalnanfont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signin"

@@ -12,7 +12,7 @@
         android:paddingRight="24dp"
         android:paddingTop="56dp">
 
-        <com.company.jk.pcoordinator.common.Textview_ygotjalnanfont
+        <com.company.jk.pcoordinator.common.customview.Textview_ygotjalnanfont
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

@@ -1,7 +1,5 @@
 package com.company.jk.pcoordinator.home;
 
-import android.util.Log;
-
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
@@ -54,9 +52,9 @@ public class RecordHistoryinfo implements Serializable {
         int hh = Integer.parseInt(time.substring(0,2));
         if(hh > 12){
             hh = hh - 12;
-            return "pm " + String.valueOf(hh) + time.substring(2,5);
+            return String.valueOf(hh) + time.substring(2,5) + " PM" ;
         }else {
-            return "am " + String.valueOf(hh) + time.substring(2,5);
+            return String.valueOf(hh) + time.substring(2,5) +  " AM";
         }
     }
 
@@ -88,7 +86,7 @@ public class RecordHistoryinfo implements Serializable {
             _rice = "";
         }else {
 
-            _rice = "  이유식: " + String.valueOf(rice) + "mg";
+            _rice = "  이유식: " + String.valueOf(rice) + "ml";
         }
 
         String _mothermilk ="";

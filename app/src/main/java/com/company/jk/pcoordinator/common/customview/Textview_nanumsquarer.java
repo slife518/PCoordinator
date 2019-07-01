@@ -1,4 +1,4 @@
-package com.company.jk.pcoordinator.common;
+package com.company.jk.pcoordinator.common.customview;
 
 import android.content.Context;
 import android.graphics.Typeface;

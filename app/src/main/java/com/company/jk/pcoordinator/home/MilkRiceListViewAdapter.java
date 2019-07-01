@@ -62,7 +62,7 @@ public class MilkRiceListViewAdapter extends BaseAdapter {
         //view에 데이터 바인딩
         holder.mDate.setText(listviewitem.getDate());
         holder.mDay.setText(listviewitem.getDay());
-        holder.mTime.setText(listviewitem.getTime());
+        holder.mTime.setText(listviewitem.getAPTime());
 //        holder.mRice.setText(listviewitem.getRice());
 //        holder.mMilk.setText(listviewitem.getMilk());
 //        holder.mMotherMilk.setText(listviewitem.getMothermilk());

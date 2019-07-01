@@ -23,7 +23,7 @@
             <!--android:layout_marginBottom="12dp"-->
             <!--android:src="@drawable/baby"/>-->
 
-        <com.company.jk.pcoordinator.common.Textview_nanumsquareeb
+        <com.company.jk.pcoordinator.common.customview.Textview_nanumsquareeb
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"

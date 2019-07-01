@@ -1,12 +1,10 @@
-package com.company.jk.pcoordinator.common;
+package com.company.jk.pcoordinator.common.customview;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.company.jk.pcoordinator.R;

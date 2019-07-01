@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.common.DayTextView;
+import com.company.jk.pcoordinator.common.customview.DayTextView;
 
 public class ViewHolder {
 

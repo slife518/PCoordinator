@@ -65,13 +65,15 @@
                 android:textColor="@color/white"
                 android:inputType="textPassword" />
 
-           <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/autologin"
-               android:textColor="@color/white"
-            android:id="@+id/cb_Auto"
-            android:checked="true"/>
+           <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/autologin"
+                android:textColor="@color/white"
+                android:background="@drawable/checkbox_background"
+               android:buttonTint="@color/buttonColor"
+                android:id="@+id/cb_Auto"
+                android:checked="true"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -82,8 +84,8 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="24dp"
             android:padding="12dp"
-            android:background="@drawable/button_bg_accent"
-            android:textColor="@color/buttonTextColor"
+            android:background="@drawable/button_bg_transparent"
+            android:textColor="@color/buttonColorPressed"
             android:onClick="OnClickMethod"
             android:text="@string/login" />
 

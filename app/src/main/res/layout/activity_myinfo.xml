@@ -199,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/autologin"
                 android:layout_marginTop="8dp"
-                android:buttonTint="@color/buttonColorAccent"
+                android:buttonTint="@color/buttonColor"
                 android:checked="true"/>
 
         </LinearLayout>

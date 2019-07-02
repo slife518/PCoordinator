@@ -77,8 +77,8 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@color/buttonColorAccent</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
         <item name="android:textSize">@dimen/btn_middlesize</item>
     </style>
 
@@ -86,6 +86,15 @@
         <item name="android:background">@drawable/button_bg</item>
         <item name="android:minHeight">46dp</item>
         <item name="android:textSize">@dimen/btn_middlesize</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
+        <item name="android:paddingLeft">16dp</item>
+    </style>
+
+    <style name="btn_number_style">
+        <item name="android:background">@drawable/button_bg_transparent</item>
+        <item name="android:minHeight">46dp</item>
+        <item name="android:textSize">@dimen/btn_middlesize</item>
+        <item name="android:textColor">@color/buttonColorPressed</item>
         <item name="android:paddingLeft">16dp</item>
     </style>
 

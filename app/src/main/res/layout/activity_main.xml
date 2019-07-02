@@ -18,7 +18,8 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="67dp"
         android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/fabbackground"
+        app:borderWidth="0dp"
+        android:backgroundTint="@color/buttonColor"
         android:src="@drawable/ic_outline_sms_24px" />
 
     <com.roughike.bottombar.BottomBar
@@ -31,7 +32,7 @@
         app:bb_tabXmlResource="@xml/bottombar_tabs"
         app:bb_inActiveTabAlpha="0.3"
         app:bb_inActiveTabColor="@color/inActivebuttonColor"
-        app:bb_activeTabColor="@color/buttonColorAccent"
+        app:bb_activeTabColor="@color/activebuttonColor"
         app:bb_titleTypeFace="font/nanumsquarel.ttf"
         app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"/>
 </RelativeLayout>

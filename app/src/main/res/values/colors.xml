@@ -12,13 +12,30 @@
     <color name="searchBackground">#e0e0e0</color>
     <color name="buttonColorAccent">#AB47BC</color>
     <color name="buttonColor1">#e0e0e0</color>
-    <color name="buttonTextColor">#FFFFFF</color>
     <color name="lineColor">#e0e0e0</color>
+
+
+    //로그인화면
+    //<color name="loginStartColor">#9752EC</color>
+    //<color name="loginEndColor">#4A148C</color>
+
+    //버튼 컬러
+    <color name="buttonColor">#9752EC</color>
+    <color name="buttonColorPressed">#842BF1</color>
+    <color name="buttonColorGradation">#9752EC</color>
+    <color name="buttonColorStroke">#9752EC</color>
+    <color name="buttonColorTransparent">#ffffff</color>
+    <color name="buttonColorPressedTransparent">#e0e0e0</color>
+    <color name="buttonTextColor">#ffffff</color>
+    <color name="buttonTextColorPressed">#1F1E1E</color>
+
+
 
 
     //BottomBar /댓글 바탕색 상
     <color name="bottombarbackground">#ffffff</color>  //bottombarbackground
-    <color name="inActivebuttonColor">#000000</color>
+    <color  name="inActivebuttonColor">#AFAAAA</color>
+    <color name="activebuttonColor">#842BF1</color>
     <color name="rereply_background">#d7d4d4</color>
     <color name="reply_point">#9b9898</color>
     <color name="reply_background">#FFFFFF</color>

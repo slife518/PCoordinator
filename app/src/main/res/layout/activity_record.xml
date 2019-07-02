@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/btn_style"
+                    style="@style/btn_number_style"
                     android:drawableLeft="@drawable/ic_baseline_arrow_upward_24px"/>
 
                 <Button
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/btn_style"
+                    style="@style/btn_number_style"
                     android:drawableLeft="@drawable/ic_baseline_arrow_downward_24px"
                     android:layout_marginLeft="5dp"
                     android:text="5"/>
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/btn_style"
+                    style="@style/btn_number_style"
                     android:drawableLeft="@drawable/ic_baseline_arrow_upward_24px"
                     android:layout_marginLeft="5dp"
                     android:text="10"/>
@@ -139,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/btn_style"
+                    style="@style/btn_number_style"
                     android:drawableLeft="@drawable/ic_baseline_arrow_downward_24px"
                     android:layout_marginLeft="5dp"
                     android:text="10"/>
@@ -170,7 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/btn_style"
+                    style="@style/btn_number_style"
                     android:drawableLeft="@drawable/ic_baseline_arrow_upward_24px"
                     android:layout_marginLeft="5dp"
                     android:text="10"/>
@@ -180,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/btn_style"
+                    style="@style/btn_number_style"
                     android:drawableLeft="@drawable/ic_baseline_arrow_downward_24px"
                     android:layout_marginLeft="5dp"
                     android:text="10"/>
@@ -239,12 +239,14 @@
                     android:id="@+id/btn_delete"
                     style="@style/MyWideButton"
                     android:text="@string/btn_delete"
-                    android:background="@drawable/button_bg"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/buttonColorPressed"
+                    android:background="@drawable/button_bg_transparent"/>
 
                 <Button
                     android:id="@+id/btn_save"
                     style="@style/MyWideButton"
+                    android:background="@drawable/button_bg"
+                    android:layout_marginLeft="3dp"
                     android:text="@string/btn_update" />
 
             </LinearLayout>

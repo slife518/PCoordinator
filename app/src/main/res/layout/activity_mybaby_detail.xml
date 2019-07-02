@@ -122,14 +122,13 @@
                 <Button android:id="@+id/btn_delete"
                     style="@style/MyWideButton"
                     android:text="@string/btn_delete"
-                    android:background="@drawable/button_bg"
-                    android:textColor="@color/black"
-                    />
+                    android:background="@drawable/button_bg_transparent"
+                    android:textColor="@color/buttonColorPressed"/>
 
                 <Button android:id="@+id/btn_save"
+                    android:layout_marginLeft="2dp"
                     style="@style/MyWideButton"
                     android:text="@string/btn_save"/>
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

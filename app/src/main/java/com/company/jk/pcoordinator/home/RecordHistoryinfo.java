@@ -52,9 +52,9 @@ public class RecordHistoryinfo implements Serializable {
         int hh = Integer.parseInt(time.substring(0,2));
         if(hh > 12){
             hh = hh - 12;
-            return String.valueOf(hh) + time.substring(2,5) + " PM" ;
+            return String.valueOf(hh) + time.substring(2,5) + " pm" ;
         }else {
-            return String.valueOf(hh) + time.substring(2,5) +  " AM";
+            return String.valueOf(hh) + time.substring(2,5) +  " am";
         }
     }
 

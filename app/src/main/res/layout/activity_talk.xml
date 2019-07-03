@@ -8,13 +8,7 @@
 
 
     <!-- 툴바 -->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    <include layout="@layout/layout_toolbar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listView_main"

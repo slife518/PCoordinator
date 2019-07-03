@@ -5,15 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- 툴바, 추가된 소스 -->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:layout_alignParentTop="true"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    <include layout="@layout/layout_toolbar"/>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart1"

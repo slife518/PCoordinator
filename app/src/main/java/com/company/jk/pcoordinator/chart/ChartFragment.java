@@ -67,8 +67,8 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         v = inflater.inflate(R.layout.fragment_chart, container, false);
         mContext = v.getContext();
 
-        // toolbar 설정1
-//        setHasOptionsMenu(true);   // toolbar 의 추가 메뉴
+        // layout_toolbar 설정1
+//        setHasOptionsMenu(true);   // layout_toolbar 의 추가 메뉴
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
         myToolbar.setTitle(getResources().getString(R.string.chartTitle));

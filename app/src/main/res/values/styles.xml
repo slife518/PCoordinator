@@ -59,6 +59,11 @@
 
     <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
+    <style name="toolbar">
+        <item name="background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
+    </style>
+
     <style name="CustomTitleTextAppearance">
         <item name="android:textSize">12dp</item>
         <item name="android:textStyle">bold</item>
@@ -103,6 +108,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawableEnd">@drawable/ic_baseline_keyboard_arrow_right_24px</item>
         <item name="android:textSize">@dimen/btn_middlesize</item>
+        <item name="android:textColor">@color/buttonColorPressed</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:background">@android:color/white</item>

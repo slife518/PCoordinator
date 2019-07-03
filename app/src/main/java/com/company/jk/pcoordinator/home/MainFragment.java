@@ -64,8 +64,8 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         mContext = v.getContext();
         transaction = new MyDataTransaction(mContext);
         loginInfo = LoginInfo.getInstance(mContext);
-        // toolbar 설정 시작
-//        setHasOptionsMenu(true);   // toolbar 의 추가 메뉴
+        // layout_toolbar 설정 시작
+//        setHasOptionsMenu(true);   // layout_toolbar 의 추가 메뉴
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
         if(loginInfo.getBabyID() == 0 ){   //매핑된 아이가 없을 경우
@@ -79,7 +79,7 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         }
         myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
         activity.setSupportActionBar(myToolbar);
-        // toolbar 설정 끝
+        // layout_toolbar 설정 끝
 
 
         iv_sample1 = v.findViewById(R.id.sample1);

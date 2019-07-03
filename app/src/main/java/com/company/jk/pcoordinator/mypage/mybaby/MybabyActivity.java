@@ -14,9 +14,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.RequestBabyActivity;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
@@ -32,13 +34,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MybabyActivity extends MyActivity implements AdapterView.OnItemSelectedListener{
+public class MybabyActivity extends MyActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     RecyclerView mRecyclerView;
     ArrayList<Mybabyinfo> items = new ArrayList();
     LinearLayoutManager mLayoutManager;
     RecyclerViewAdapter mAdapter;
     Spinner mSpinner;
+    TextView tv_requestbaby;
     Toolbar myToolbar;
     MyDataTransaction transaction;
     LoginInfo loginInfo;
@@ -56,6 +59,7 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
         transaction = new MyDataTransaction(getApplicationContext());
 // Toolbar를 생성한다.
         myToolbar = findViewById(R.id.my_toolbar);
+        tv_requestbaby = findViewById(R.id.tv_requestbaby);
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle(getResources().getString(R.string.mybabyinfo));
@@ -69,6 +73,7 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
         // mRecyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
         mAdapter = new RecyclerViewAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
+        tv_requestbaby.setOnClickListener(this);
     }
     public void get_baby_data(){
 
@@ -245,29 +250,17 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
 //        return  fragment;
 //    }
 
-//    @Override
-//    public void onClick(View view) {
-//        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-//
-//        switch (view.getId()) {
-////            case R.id.btn_exit:
-////                MypageFragment myFragment = new MypageFragment();
-////                //왼쪽에서 오른쪽 슬라이드
-////                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).replace(R.id.frame, myFragment).addToBackStack(null).commit();
-////                break;
-//            case R.id.btn_add:
-////                MybabyDetailFragment mybabyDetailFragment = new MybabyDetailFragment();
-//                //왼쪽에서 오른쪽 슬라이드
-//                Intent intent = new Intent(this, MybabyDetailActivity.class);
-//                intent.putExtra("email",loginInfo.getEmail() );
-//                startActivityForResult(intent, 300);
-//
-//
-////                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, mybabyDetailFragment).addToBackStack(null).commit();
-////                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.frame, newInstance(loginInfo.getEmail())).addToBackStack(null).commit();
-//
-//        }
-//    }
+    @Override
+    public void onClick(View view) {
+        Log.d(TAG, "클릭 요청 ");
+        switch (view.getId()) {
+            case R.id.tv_requestbaby:
+                Log.d(TAG, "클릭 요청2");
+                Intent intent = new Intent(this, RequestBabyActivity.class);
+                startActivityForResult(intent, 300);
+                break;
+        }
+    }
 
 
 

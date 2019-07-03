@@ -83,8 +83,8 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
         loginInfo = LoginInfo.getInstance(mContext);
 
-        // toolbar 설정1
-//        setHasOptionsMenu(true);   // toolbar 의 추가 메뉴
+        // layout_toolbar 설정1
+//        setHasOptionsMenu(true);   // layout_toolbar 의 추가 메뉴
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         Toolbar myToolbar = v.findViewById(R.id.my_toolbar);
         myToolbar.setTitle(R.string.title_record);

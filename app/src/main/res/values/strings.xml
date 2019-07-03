@@ -21,6 +21,10 @@
     <string name="txPassword">비밀번호관리</string>
     <string name="save">처리되었습니다.</string>
     <string name="parent_yes">관계끊기</string>
+    <string name="requestbaby">최초 아이 등록자가 아래 경로에서 등록</string>
+    <string name="requestbabypath">( 마이페이지 - 보호자명단 )</string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
 
@@ -103,7 +107,6 @@
     <!--//oauth -->
     <string name="autologin">자동로그인</string>
     <string name="already_baby">이미 등록된 아이가 있다면?</string>
-    <string name="baby_register_method">최초등록자가 나를 아이의 보호자로 추가해 주어야 합니다.</string>
     <string name="talklist">엄마아빠의 수다</string>
     <string name="register">등록</string>
     <string name="message_title">제목을 입력하세요</string>

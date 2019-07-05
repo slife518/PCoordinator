@@ -30,6 +30,7 @@
 
 
         <EditText
+            style="@style/EditText"
             android:id="@+id/tv_reply"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,6 +38,7 @@
             android:hint="@string/reply_comment" />
 
         <TextView
+            style="@style/TextView"
             android:id="@+id/tv_register"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

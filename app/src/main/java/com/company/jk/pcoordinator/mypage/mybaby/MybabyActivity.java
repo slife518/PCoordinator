@@ -1,6 +1,8 @@
 package com.company.jk.pcoordinator.mypage.mybaby;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -114,6 +116,14 @@ public class MybabyActivity extends MyActivity implements AdapterView.OnItemSele
 
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_mybaby, menu);
+        for(int i = 0; i < menu.size(); i++){
+            Drawable drawable = menu.getItem(i).getIcon();
+            if(drawable != null) {
+                drawable.mutate();
+                drawable.setColorFilter(getResources().getColor(R.color.iconColorDarkBackground), PorterDuff.Mode.SRC_ATOP);
+            }
+        }
+
         return true;
     }
 

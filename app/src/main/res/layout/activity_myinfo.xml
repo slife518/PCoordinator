@@ -60,7 +60,9 @@
                         android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        style="@style/EditText"
+                        />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -73,7 +75,8 @@
                             android:id="@+id/et_tel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="phone" />
+                            android:inputType="phone"
+                            style="@style/EditText"/>
                     </android.support.design.widget.TextInputLayout>
 
 
@@ -88,6 +91,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="true"
+                            style="@style/EditText"
                             android:editable="false"/>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -111,6 +115,7 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:editable="false"
+                        style="@style/EditText"
                         android:focusableInTouchMode="false"/>
 
                 </android.support.design.widget.TextInputLayout>
@@ -170,7 +175,8 @@
                     android:id="@+id/et_address_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    style="@style/EditText"/>
             </android.support.design.widget.TextInputLayout>
 
 
@@ -180,12 +186,7 @@
                 android:layout_marginTop="32dp"
                 android:text="@string/btn_save"
                 android:layout_width="match_parent" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@android:color/black"/>
+
             <CheckBox
                 android:id="@+id/cb_Auto"
                 android:layout_width="wrap_content"

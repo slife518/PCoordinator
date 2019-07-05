@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -475,8 +477,8 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         options.setFreeStyleCropEnabled(true);
 
         //Colors
-        options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+        options.setStatusBarColor(getResources().getColor(R.color.primaryColorDark));
+        options.setToolbarColor(getResources().getColor(R.color.primaryColor));
 
         options.setToolbarTitle(getResources().getString(R.string.choicebabypicture));  //title
 
@@ -522,6 +524,14 @@ public class MybabyDetailActivity extends MyActivity implements View.OnClickList
         if(baby_id != 0) {
             MenuInflater menuInflater = getMenuInflater();
             menuInflater.inflate(R.menu.menu_babydetail, menu);
+        }
+
+        for(int i = 0; i < menu.size(); i++){
+            Drawable drawable = menu.getItem(i).getIcon();
+            if(drawable != null) {
+                drawable.mutate();
+                drawable.setColorFilter(getResources().getColor(R.color.iconColorDarkBackground), PorterDuff.Mode.SRC_ATOP);
+            }
         }
         return true;
     }

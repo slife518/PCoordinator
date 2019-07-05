@@ -3,6 +3,8 @@ package com.company.jk.pcoordinator.board.talk;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
@@ -150,6 +152,14 @@ public class TalkDetailActivity extends MyActivity implements View.OnClickListen
         if(loginInfo.getEmail().equals(intent.getExtras().getString("author_email"))){
             MenuInflater menuInflater = getMenuInflater();
             menuInflater.inflate(R.menu.menu_talk, menu);
+        }
+
+        for(int i = 0; i < menu.size(); i++){
+            Drawable drawable = menu.getItem(i).getIcon();
+            if(drawable != null) {
+                drawable.mutate();
+                drawable.setColorFilter(getResources().getColor(R.color.iconColorDarkBackground), PorterDuff.Mode.SRC_ATOP);
+            }
         }
 
         return true;

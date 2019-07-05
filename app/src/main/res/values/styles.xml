@@ -48,19 +48,24 @@
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
 
+    <style name="FontFamily">
+        <item name="android:fontFamily">@font/nanumsquarer</item>
+    </style>
 
-    <!--<style name="AppTheme.NoActionBar.White" parent="AppTheme.NoActionBar" >-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-    <!--</style>-->
-    <!--<style name="AppTheme.NoActionBar.Purple" parent="AppTheme.NoActionBar" >-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-    <!--</style>-->
-    <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryColorDark</item>
+        <item name="colorAccent">@color/accentcolor</item>
+    </style>
 
-    <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+    <style name="EditText" parent="FontFamily">
+    </style>
+
+    <style name="TextView" parent="FontFamily">
+    </style>
 
     <style name="toolbar">
-        <item name="background">@color/colorPrimaryDark</item>
+        <item name="background">@color/primaryColorDark</item>
         <item name="android:textColor">@color/buttonTextColor</item>
     </style>
 
@@ -78,7 +83,7 @@
         <item name="android:layout_marginTop">16dp</item>
     </style>
 
-    <style name="MyWideButton">
+    <style name="MyWideButton" parent="FontFamily">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
@@ -87,7 +92,7 @@
         <item name="android:textSize">@dimen/btn_middlesize</item>
     </style>
 
-    <style name="btn_style">
+    <style name="btn_style"  parent="FontFamily">
         <item name="android:background">@drawable/button_bg</item>
         <item name="android:minHeight">46dp</item>
         <item name="android:textSize">@dimen/btn_middlesize</item>
@@ -95,24 +100,25 @@
         <item name="android:paddingLeft">16dp</item>
     </style>
 
-    <style name="btn_number_style">
+    <style name="btn_number_style"  parent="FontFamily">
         <item name="android:background">@drawable/button_bg_transparent</item>
-        <item name="android:minHeight">46dp</item>
+        <item name="android:minHeight">30dp</item>
         <item name="android:textSize">@dimen/btn_middlesize</item>
         <item name="android:textColor">@color/buttonColorPressed</item>
         <item name="android:paddingLeft">16dp</item>
     </style>
 
-    <style name="Mypagebutton">
+    <style name="Mypagebutton"  parent="FontFamily">
         <item name="android:layout_width">match_parent</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawableEnd">@drawable/ic_baseline_keyboard_arrow_right_24px</item>
         <item name="android:textSize">@dimen/btn_middlesize</item>
         <item name="android:textColor">@color/buttonColorPressed</item>
+        <item name="android:layout_height">55dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:background">@android:color/white</item>
-        <item name="android:fontFamily">@font/nanumsquarer</item>
+        <item name="android:tint">@color/iconColorLightBackground</item>
         <item name="android:drawablePadding">@dimen/appbar_padding_left</item>
     </style>
 
@@ -139,9 +145,18 @@
 
     </style>
 
-    <style name="imageviewcolor">
-        <item name="android:tint">@color/lineColor</item>
+    <style name="iconColorWithLightBackground">
+        <item name="android:tint">@color/iconColorLightBackground</item>
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="iconColorWithDarkBackground">
+        <item name="android:tint">@color/iconColorDarkBackground</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="MyToolbarStyle" parent="AppTheme">
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
+    </style>
 </resources>

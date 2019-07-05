@@ -16,7 +16,8 @@ public class RecordHistoryinfo implements Serializable {
     String comments;
 
 
-    public RecordHistoryinfo(String id, String date, String time, int milk,int mothermilk, int rice,  String author, String comments){
+
+    public RecordHistoryinfo(String id, String date, String time, int milk, int mothermilk, int rice, String author, String comments){
         this.id = id;
         this.yearDate = date;
 //        this.date = date.substring(5,10);
@@ -27,6 +28,7 @@ public class RecordHistoryinfo implements Serializable {
         this.time = time.substring(0,5);
         this.author = author;
         this.comments = comments;
+
     }
 
 
@@ -77,7 +79,7 @@ public class RecordHistoryinfo implements Serializable {
             _mlik = "";
         }else {
 
-            _mlik = "  분유: " + String.valueOf(milk) + "ml";
+            _mlik = " [img src=ic_baby_bottle/]: " + String.valueOf(milk) + "ml";
         }
 
         String _rice ="";
@@ -86,7 +88,7 @@ public class RecordHistoryinfo implements Serializable {
             _rice = "";
         }else {
 
-            _rice = "  이유식: " + String.valueOf(rice) + "ml";
+            _rice = "  [img src=ic_meal/]: " + String.valueOf(rice) + "ml";
         }
 
         String _mothermilk ="";
@@ -95,7 +97,7 @@ public class RecordHistoryinfo implements Serializable {
             _mothermilk = "";
         }else {
 
-            _mothermilk = "  수유: " + String.valueOf(mothermilk) + "분";
+            _mothermilk = " [img src=ic_breast/]: " + String.valueOf(mothermilk) + "분";
         }
 
         return _mothermilk + _mlik + _rice  ;

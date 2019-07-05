@@ -41,8 +41,8 @@ public class MyPhotoCrop extends AppCompatActivity {
         options.setFreeStyleCropEnabled(true);
 
         //Colors
-        options.setStatusBarColor(context.getResources().getColor(R.color.colorPrimaryDark));
-        options.setToolbarColor(context.getResources().getColor(R.color.colorPrimary));
+        options.setStatusBarColor(context.getResources().getColor(R.color.primaryColorDark));
+        options.setToolbarColor(context.getResources().getColor(R.color.primaryColor));
 
         options.setToolbarTitle(title);  //title
 

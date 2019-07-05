@@ -1,8 +1,8 @@
 package com.company.jk.pcoordinator.chart;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -255,6 +255,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
+            mChart.setScaleEnabled(false);  //확대 안되게
         } else {
             set1 = new BarDataSet(yVals1, "");  //타이틀 표시
 //            set1.setDrawIcons(false);  //아이콘
@@ -268,12 +269,15 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
             BarData data = new BarData(dataSets);
             data.setValueFormatter(new MyValueFormatter()); //차트 안의 값의 표현형식
             data.setHighlightEnabled(true);
-            data.setValueTextColor(Color.GRAY); //글자색
+            data.setValueTextColor(getResources().getColor(R.color.primaryColor )); //글자색
             data.setValueTextSize(11f);  //차트 안의 값 글씨크기
 
             // x축 label
             XAxis xAxis1 = mChart.getXAxis();
             xAxis1.setGranularity(1f);  // x레이블의 중복 방지
+            xAxis1.setGridColor(ContextCompat.getColor(getContext(), R.color.transparent)); // X축 줄의 컬러 설정
+
+
             xAxis1.setValueFormatter(new ValueFormatter() {
 
                 @Override

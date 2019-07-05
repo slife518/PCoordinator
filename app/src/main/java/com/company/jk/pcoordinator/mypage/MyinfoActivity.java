@@ -261,7 +261,7 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CODE_IMG_GALLERY && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CODE_IMG_GALLERY){ //   && resultCode == Activity.RESULT_OK) {
             beginCrop(data.getData());
         } else if (requestCode == UCrop.REQUEST_CROP) {
             handleCrop(resultCode, data, this);
@@ -291,8 +291,8 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
         options.setFreeStyleCropEnabled(true);
 
         //Colors
-        options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+        options.setStatusBarColor(getResources().getColor(R.color.primaryColorDark));
+        options.setToolbarColor(getResources().getColor(R.color.primaryColor));
 
         options.setToolbarTitle(getResources().getString(R.string.choicebabypicture));  //title
 

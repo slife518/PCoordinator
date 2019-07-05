@@ -26,6 +26,7 @@
             <FrameLayout style="@style/EditIcon">
 
                 <TextView
+                    style="@style/TextView"
                     android:text="@string/baby_picture"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -47,6 +48,7 @@
                 android:layout_marginTop="8dp">
 
                 <EditText
+                    style="@style/EditText"
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,6 +64,7 @@
 
 
                 <EditText
+                    style="@style/EditText"
                     android:id="@+id/et_birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,6 +82,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp">
                 <TextView
+                    style="@style/TextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"

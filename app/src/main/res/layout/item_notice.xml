@@ -48,6 +48,7 @@
                         android:layout_marginRight="10dp">
 
                         <TextView
+                            style="@style/TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -56,6 +57,7 @@
                             android:textSize="16dp" />
 
                         <TextView
+                            style="@style/TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -99,6 +101,7 @@
                     android:layout_marginBottom="1dp">
 
                     <TextView
+                        style="@style/TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Text"
@@ -127,6 +130,7 @@
                         android:layout_centerVertical="true" />
 
                     <TextView
+                        style="@style/TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -137,6 +141,7 @@
                         android:layout_marginLeft="5dp" />
 
                     <TextView
+                        style="@style/TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"

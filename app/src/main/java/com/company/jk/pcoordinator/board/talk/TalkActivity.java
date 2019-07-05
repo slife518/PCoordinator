@@ -1,6 +1,8 @@
 package com.company.jk.pcoordinator.board.talk;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -102,6 +104,13 @@ public class TalkActivity extends MyActivity{
 
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_talk, menu);
+        for(int i = 0; i < menu.size(); i++){
+            Drawable drawable = menu.getItem(i).getIcon();
+            if(drawable != null) {
+                drawable.mutate();
+                drawable.setColorFilter(getResources().getColor(R.color.iconColorDarkBackground), PorterDuff.Mode.SRC_ATOP);
+            }
+        }
         return true;
     }
 

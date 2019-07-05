@@ -26,12 +26,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/TextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:text="@string/date"/>
 
                 <TextView
+                    style="@style/TextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -44,6 +46,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    style="@style/EditText"
                     android:id="@+id/tv_date"
                     android:editable="false"
                     android:focusable="false"
@@ -52,6 +55,7 @@
                     android:layout_weight="5" />
 
                 <EditText
+                    style="@style/EditText"
                     android:id="@+id/tv_time"
                     android:editable="false"
                     android:focusable="false"
@@ -60,6 +64,7 @@
                     android:layout_weight="5" />
             </LinearLayout>
             <TextView
+                style="@style/TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mothermilk" />
@@ -69,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
+                    style="@style/EditText"
                     android:id="@+id/et_mothermilk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -99,6 +105,7 @@
             </LinearLayout>
 
             <TextView
+                style="@style/TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/milk" />
@@ -108,12 +115,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
+                    style="@style/EditText"
                     android:id="@+id/et_milk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:inputType="number"
                     android:imeOptions="actionDone"
+
                     android:textAlignment="center"
                     android:text="0" />
 
@@ -124,7 +133,8 @@
                     android:layout_weight="1"
                     style="@style/btn_number_style"
                     android:drawableLeft="@drawable/ic_baseline_arrow_upward_24px"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingBottom="0dp"
                     android:text="10"/>
 
                 <Button
@@ -140,6 +150,7 @@
 
 
             <TextView
+                style="@style/TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rice" />
@@ -149,6 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
+                    style="@style/EditText"
                     android:id="@+id/et_rice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -180,6 +192,7 @@
             </LinearLayout>
 
             <EditText
+                style="@style/EditText"
                 android:id="@+id/et_remain_contents"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

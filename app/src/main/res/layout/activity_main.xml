@@ -19,6 +19,7 @@
         android:layout_marginBottom="67dp"
         android:layout_marginEnd="20dp"
         app:borderWidth="0dp"
+        android:visibility="invisible"
         android:backgroundTint="@color/buttonColor"
         android:src="@drawable/ic_outline_sms_24px" />
 

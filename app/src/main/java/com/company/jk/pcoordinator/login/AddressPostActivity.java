@@ -4,16 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.http.UrlPath;
 
 public class AddressPostActivity extends AppCompatActivity {
 
@@ -21,6 +18,7 @@ public class AddressPostActivity extends AppCompatActivity {
     private TextView result;
     private Handler handler;
     private static final int RESULT_CODE = 1;
+    UrlPath urlPath = new UrlPath();
 
 
     @Override
@@ -36,6 +34,8 @@ public class AddressPostActivity extends AppCompatActivity {
     }
 
     public void init_webView() {
+
+
         // WebView 설정
         webView = (WebView) findViewById(R.id.webView);
         // JavaScript 허용
@@ -48,8 +48,9 @@ public class AddressPostActivity extends AppCompatActivity {
         // web client 를 chrome 으로 설정
         webView.setWebChromeClient(new WebChromeClient());
         // webview url load
+
 //        webView.loadUrl("http://192.168.0.6:8080/dev.php/login/addresspost");
-        webView.loadUrl("http://slife705.cafe24.com/index.php/login/addresspost");  //회사
+        webView.loadUrl(urlPath.getUrlPath() +  "Pc_login/addresspost");  //회사
     }
 
     private class AndroidBridge {

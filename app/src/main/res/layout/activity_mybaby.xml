@@ -25,16 +25,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp">
-                <com.company.jk.pcoordinator.common.customview.Textview_ygotjalnanfont
+                <TextView
+                    style="@style/TextView"
                     android:text="@string/mainTarget"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquareeb"/>
                 <Spinner
                     android:id="@+id/spinner_main_target"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumsquareeb"/>
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/listView_main"
@@ -42,12 +45,13 @@
                 android:layout_height="wrap_content"
                 />
 
-            <com.company.jk.pcoordinator.common.customview.Textview_ygotjalnanfont
+            <TextView
                 android:id="@+id/tv_requestbaby"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:textColor="@color/buttonColorPressed"
+                android:fontFamily="@font/nanumsquareb"
                 android:text="@string/already_baby"
                 android:onClick="OnClickMethod" />
 

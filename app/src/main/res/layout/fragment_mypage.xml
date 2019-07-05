@@ -21,48 +21,41 @@
                         <TextView
                             android:id="@+id/tv_myinfo"
                             android:text="@string/txCustomerinfo"
-                            android:layout_height="70dp"
-                            android:layout_marginTop="@dimen/app_margin_top"
                             style="@style/Mypagebutton"/>
 
                         <TextView
                             android:id="@+id/tv_mybabyinfo"
                             android:text="@string/mybabyinfo"
-                            android:layout_height="70dp"
                             android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>
 
                         <TextView
                             android:id="@+id/tv_parentslist"
                             android:text="@string/parentlist"
-                            android:layout_height="70dp"
-                            android:layout_marginTop="@dimen/app_margin_top"
+                            android:layout_marginTop="1dp"
+                            android:drawableStart="@drawable/ic_baseline_people_outline_24px"
                             style="@style/Mypagebutton"/>
 
                         <TextView
                             android:id="@+id/tv_password"
                             android:text="@string/txPassword"
-                            android:layout_height="70dp"
-                            android:layout_marginTop="@dimen/app_margin_top"
+                            android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>
 
                         <TextView
                             android:id="@+id/tv_Logout"
                             android:text="@string/logout"
-                            android:layout_height="70dp"
                             android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>
 
                         <TextView
                             android:id="@+id/tv_QnA"
                             android:text="@string/QnA"
-                            android:layout_height="70dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>
                         <TextView
                             android:id="@+id/tv_review"
                             android:text="@string/review"
-                            android:layout_height="70dp"
                             android:layout_marginTop="1dp"
                             style="@style/Mypagebutton"/>
 

@@ -12,6 +12,7 @@
     <include layout="@layout/layout_toolbar"/>
 
     <EditText
+        style="@style/EditText"
         android:id="@+id/et_title"
         android:hint="@string/message_title"
         android:layout_width="match_parent"
@@ -24,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <EditText
+        style="@style/EditText"
         android:id="@+id/et_contents"
         android:hint="@string/message_contents"
         android:layout_width="match_parent"

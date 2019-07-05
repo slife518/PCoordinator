@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryDark">#AB47BC</color>
-    <color name="colorPrimary">#842BF1</color>
+    <color name="primaryColorDark">#9747F8</color>
+    <color name="primaryColor">#842BF1</color>
+    <color name="accentcolor">#842BF1</color>
+
+
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#ed0404</color>
@@ -20,8 +23,8 @@
     //<color name="loginEndColor">#4A148C</color>
 
     //버튼 컬러
-    <color name="buttonColor">#9752EC</color>
-    <color name="buttonColorPressed">#842BF1</color>
+    <color name="buttonColor">#842BF1</color>
+    <color name="buttonColorPressed">#9752EC</color>
     <color name="buttonColorGradation">#9752EC</color>
     <color name="buttonColorStroke">#9752EC</color>
     <color name="buttonColorTransparent">#ffffff</color>
@@ -30,12 +33,17 @@
     <color name="buttonTextColorPressed">#1F1E1E</color>
 
 
+    //ActionBar
+    <color name="actionbarBackground">#842BF1</color>
+    <color  name="actionbarTitle">#FFFFFF</color>
+    <color  name="actionbarSubtitle">#FFFFFF</color>
 
-
-    //BottomBar /댓글 바탕색 상
-    <color name="bottombarbackground">#ffffff</color>  //bottombarbackground
-    <color  name="inActivebuttonColor">#AFAAAA</color>
+    //BottomBar
+    <color name="bottombarbackground">#00000000</color>
+    <color  name="inActivebuttonColor">#842BF1</color>
     <color name="activebuttonColor">#842BF1</color>
+
+    //댓글 바탕색 상
     <color name="rereply_background">#d7d4d4</color>
     <color name="reply_point">#9b9898</color>
     <color name="reply_background">#FFFFFF</color>
@@ -43,9 +51,14 @@
     //차트 선 색상
     <!--<color name="mothermilkcolor">#9ae1ef</color>-->
     <color name="mothermilkcolor">#FFF176</color>
-    <color name="milkcolor">#B2EBF2</color>
+    <color name="milkcolor">#8B7FE029</color>
     <color name="ricecolor">#E1BEE7</color>
 
+
+    //icon color
+    <color name="iconColorDarkBackground">#FFFFFF</color>
+    <color name="iconColorLightBackground">#e0e0e0</color>
+    <color name="iconColorAccentLightBackground">#842BF1</color>
 
     //home화면 테이블
     <color name="maintablehader">#AB47BC</color>   //header

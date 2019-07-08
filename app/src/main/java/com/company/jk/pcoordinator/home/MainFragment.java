@@ -49,7 +49,7 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private MilkRiceListViewAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 //    private Integer max_milk, max_mothermilk, min_milk,  min_mothermilk;
-    private ImageView iv_sample1, iv_sample2;
+//    private ImageView iv_sample1, iv_sample2;
     private Boolean isValue = false;  // 차트를 보여줄 지 말지
     MyDataTransaction transaction;
     ListView mListView;
@@ -82,8 +82,8 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
         // layout_toolbar 설정 끝
 
 
-        iv_sample1 = v.findViewById(R.id.sample1);
-        iv_sample2 = v.findViewById(R.id.sample2);
+//        iv_sample1 = v.findViewById(R.id.sample1);
+//        iv_sample2 = v.findViewById(R.id.sample2);
 
         //listview layout
         mListView = v.findViewById(R.id.listView_main);
@@ -140,8 +140,8 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
             get_data_async();
         }else{   // 매핑된 아기가 없을 경우
 
-            iv_sample1.setVisibility(VISIBLE);
-            iv_sample2.setVisibility(VISIBLE);
+//            iv_sample1.setVisibility(VISIBLE);
+//            iv_sample2.setVisibility(VISIBLE);
         }
     }
 
@@ -200,11 +200,11 @@ public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRef
     private void afterResponse(String result) {
 
         if(!isValue){
-            iv_sample1.setVisibility(VISIBLE);
-            iv_sample2.setVisibility(VISIBLE);
+//            iv_sample1.setVisibility(VISIBLE);
+//            iv_sample2.setVisibility(VISIBLE);
         }else{
-            iv_sample1.setVisibility(GONE);
-            iv_sample2.setVisibility(GONE);
+//            iv_sample1.setVisibility(GONE);
+//            iv_sample2.setVisibility(GONE);
 
             mAdapter = new MilkRiceListViewAdapter(mContext, R.layout.layout_milk_rice_card, items);
             mListView.setAdapter(mAdapter);

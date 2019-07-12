@@ -265,6 +265,16 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
             beginCrop(data.getData());
         } else if (requestCode == UCrop.REQUEST_CROP) {
             handleCrop(resultCode, data, this);
+        }else  if (requestCode == ADDRESS_REQUEST) {
+            switch (resultCode) {
+                case 1:
+                    String result = data.getStringExtra("result");
+                    Log.i(TAG, "result는 " + result);
+                    _address1.setText(result);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

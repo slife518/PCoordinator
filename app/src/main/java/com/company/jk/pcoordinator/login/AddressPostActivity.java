@@ -49,7 +49,7 @@ public class AddressPostActivity extends AppCompatActivity {
         webView.setWebChromeClient(new WebChromeClient());
         // webview url load
 
-//        webView.loadUrl("http://192.168.0.6:8080/dev.php/login/addresspost");
+//        webView.loadUrl("http://10.0.2.2:80/dev.php/giantbaby/Pc_login/addresspost");
         webView.loadUrl(urlPath.getUrlPath() +  "Pc_login/addresspost");  //회사
     }
 

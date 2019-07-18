@@ -63,11 +63,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5" />
             </LinearLayout>
-            <TextView
+            <com.company.jk.pcoordinator.common.customview.TextViewWithImages
                 style="@style/TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mothermilk" />
+                android:text="@string/mothermilk_img" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -104,11 +104,11 @@
                     android:text="5"/>
             </LinearLayout>
 
-            <TextView
+            <com.company.jk.pcoordinator.common.customview.TextViewWithImages
                 style="@style/TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/milk" />
+                android:text="@string/milk_img" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -149,11 +149,11 @@
             </LinearLayout>
 
 
-            <TextView
+            <com.company.jk.pcoordinator.common.customview.TextViewWithImages
                 style="@style/TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/rice" />
+                android:text="@string/rice_img" />
 
             <LinearLayout
                 android:orientation="horizontal"

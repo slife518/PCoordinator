@@ -35,8 +35,14 @@
     <string name="mybabyinfo">아기정보</string>
     <string name="date">날짜</string>
     <string name="time">시간</string>
+
+    <string name="mothermilk">모유수유(분)</string>
     <string name="milk">분유(ml)</string>
     <string name="rice">이유식(ml)</string>
+    <string name="mothermilk_img">[img src=ic_breast/] 모유수유(분)</string>
+    <string name="milk_img">[img src=ic_baby_bottle/] 분유(ml)</string>
+    <string name="rice_img">[img src=ic_meal/] 이유식(ml)</string>
+
     <string name="remain_contents">남기고싶은말</string>
     <string name="baby_picture">아기사진을 올려주세요</string>
     <string name="home">홈</string>
@@ -64,7 +70,7 @@
     <string name="Already_a_member">이미 회원가입이 되어 있습니까?</string>
     <string name="confirm">비밀번호 보내기</string>
     <string name="password">비밀번호</string>
-    <string name="mothermilk">모유수유(분)</string>
+
     <string name="btn_update">수정하기</string>
     <string name="milk_list">분유</string>
     <string name="rice_list">이유식</string>

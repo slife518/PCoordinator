@@ -35,7 +35,6 @@ public class AddressPostActivity extends AppCompatActivity {
 
     public void init_webView() {
 
-
         // WebView 설정
         webView = (WebView) findViewById(R.id.webView);
         // JavaScript 허용

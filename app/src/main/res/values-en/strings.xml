@@ -35,6 +35,12 @@
     <string name="time">Time</string>
     <string name="milk">milk powder(ml)</string>
     <string name="rice">babyfood(ml)</string>
+
+    <string name="mothermilk_img">[img src=ic_breast/] breastfeeding(분)</string>
+    <string name="milk_img">[img src=ic_baby_bottle/] milk powder(ml)</string>
+    <string name="rice_img">[img src=ic_meal/] babyfood(ml)</string>
+
+
     <string name="milk_list">milk powder</string>
     <string name="rice_list">babyfood</string>
     <string name="mothermilk_list">breast-feed</string>

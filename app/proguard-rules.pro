@@ -35,3 +35,5 @@
     public static int e(...);
 
 }
+
+-keep class com.woxthebox.draglistview.** { *; }

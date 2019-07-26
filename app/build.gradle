@@ -4,6 +4,9 @@ allprojects {
     repositories {
         jcenter()
     }
+    repositories {
+        mavenCentral()
+    }
 }
 
 android {
@@ -47,7 +50,8 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.6'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
     implementation group: 'net.minidev', name: 'json-smart', version: '2.3'
-    implementation 'com.github.reinaldoarrosi:maskededittext:1.1.0'
+    implementation 'com.github.woxthebox:draglistview:1.6.6'
+
 //    implementation 'com.facebook.android:facebook-login:[4,5)'
 //    // 카카오 로그인 sdk를 사용하기 위해 필요.
 //    compile group: 'com.kakao.sdk', name: 'usermgmt', version: '1.1.0'

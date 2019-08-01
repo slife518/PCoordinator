@@ -1,10 +1,6 @@
 package com.company.jk.pcoordinator.bossbaby;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +9,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.fragment.app.Fragment;
+
 import com.company.jk.pcoordinator.R;
-import com.company.jk.pcoordinator.http.UrlPath;
-import com.company.jk.pcoordinator.login.LoginInfo;
 
 public class WebviewFragment extends Fragment {
 

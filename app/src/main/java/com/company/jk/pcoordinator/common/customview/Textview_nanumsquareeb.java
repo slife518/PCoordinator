@@ -2,14 +2,15 @@ package com.company.jk.pcoordinator.common.customview;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * Created by jungkukjo on 13/01/2019.
  */
 
-public class Textview_nanumsquareeb extends AppCompatTextView{
+public class Textview_nanumsquareeb extends AppCompatTextView {
 
 
 

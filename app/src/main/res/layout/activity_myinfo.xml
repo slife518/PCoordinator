@@ -50,7 +50,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_name"
@@ -63,9 +63,9 @@
                         android:inputType="textEmailAddress"
                         style="@style/EditText"
                         />
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/tel"
@@ -77,10 +77,10 @@
                             android:layout_height="wrap_content"
                             android:inputType="phone"
                             style="@style/EditText"/>
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_birthday"
@@ -93,7 +93,7 @@
                             android:clickable="true"
                             style="@style/EditText"
                             android:editable="false"/>
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/address"
@@ -118,7 +118,7 @@
                         style="@style/EditText"
                         android:focusableInTouchMode="false"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- 우편번호찾기 Button -->
                 <!--<android.support.v7.widget.AppCompatImageButton-->
@@ -165,7 +165,7 @@
             <!--</LinearLayout>-->
 
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_address_detail"
@@ -177,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     style="@style/EditText"/>
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button

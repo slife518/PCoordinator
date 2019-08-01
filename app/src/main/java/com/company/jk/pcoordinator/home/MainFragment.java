@@ -3,17 +3,17 @@ package com.company.jk.pcoordinator.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
@@ -35,8 +35,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.company.jk.pcoordinator.MainActivity.fab;
 
 public class MainFragment extends MyFragment implements SwipeRefreshLayout.OnRefreshListener{

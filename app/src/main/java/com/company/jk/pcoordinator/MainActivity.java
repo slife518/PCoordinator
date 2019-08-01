@@ -2,12 +2,12 @@ package com.company.jk.pcoordinator;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.company.jk.pcoordinator.board.talk.TalkActivity;
 import com.company.jk.pcoordinator.chart.ChartFragment;
@@ -17,6 +17,7 @@ import com.company.jk.pcoordinator.login.LoginInfo;
 import com.company.jk.pcoordinator.mypage.MypageFragment;
 import com.company.jk.pcoordinator.mypage.mybaby.MybabyDetailActivity;
 import com.company.jk.pcoordinator.record.RecordFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 

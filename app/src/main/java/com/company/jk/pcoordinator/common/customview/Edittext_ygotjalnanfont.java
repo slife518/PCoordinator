@@ -2,8 +2,9 @@ package com.company.jk.pcoordinator.common.customview;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 /**
  * Created by jungkukjo on 13/01/2019.
@@ -18,7 +19,7 @@ public class Edittext_ygotjalnanfont extends AppCompatEditText {
     }
 
     public Edittext_ygotjalnanfont(Context context, AttributeSet attrs) {
-        super(context, attrs, android.support.v7.appcompat.R.attr.editTextStyle);
+        super(context, attrs, androidx.appcompat.R.attr.editTextStyle);
         applyTypeface(context);
     }
 

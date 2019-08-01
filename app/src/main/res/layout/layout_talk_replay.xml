@@ -55,7 +55,7 @@
 
         </LinearLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                 android:textColor="@color/reply_point"
                 style="@style/iconColorWithLightBackground"
                 app:layout_constraintRight_toRightOf="parent"/>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>

@@ -1,6 +1,5 @@
 package com.company.jk.pcoordinator.chart;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +12,11 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.company.jk.pcoordinator.R;
 
-public class ChartActivity extends AppCompatActivity  implements View.OnClickListener{
+public class ChartActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button lineBtn;
     Button barBtn;

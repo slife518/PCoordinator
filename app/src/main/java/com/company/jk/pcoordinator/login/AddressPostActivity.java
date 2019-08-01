@@ -3,11 +3,12 @@ package com.company.jk.pcoordinator.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.UrlPath;

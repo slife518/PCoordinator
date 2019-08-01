@@ -2,7 +2,6 @@ package com.company.jk.pcoordinator.common;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
@@ -11,9 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.company.jk.pcoordinator.http.NetworkUtil;
 
-public class MyActivity extends AppCompatActivity  implements EditText.OnEditorActionListener{
+public class MyActivity extends AppCompatActivity implements EditText.OnEditorActionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

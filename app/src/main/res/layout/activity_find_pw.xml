@@ -37,14 +37,14 @@
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_find_pw"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="24dp"
             android:padding="12dp"
-            android:background="@drawable/button_bg_accent"
+            android:background="@drawable/button_bg"
             android:onClick="OnClickMethod"
             android:textColor="@color/buttonTextColor"
             android:text="@string/confirm" />

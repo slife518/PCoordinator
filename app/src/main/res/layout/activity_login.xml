@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="30dp"
             android:textColorHint="@color/white">
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/input_email"
@@ -71,7 +71,7 @@
                 android:text="@string/autologin"
                 android:textColor="@color/white"
                 android:background="@drawable/checkbox_background"
-               android:buttonTint="@color/buttonColor"
+               android:buttonTint="@color/white"
                 android:id="@+id/cb_Auto"
                 android:checked="true"/>
 
@@ -82,10 +82,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="40dp"
             android:padding="12dp"
-            android:background="@drawable/button_bg_transparent"
-            android:textColor="@color/buttonColorPressed"
+            android:background="@drawable/button_bg"
+            android:textColor="@color/buttonTextColor"
             android:onClick="OnClickMethod"
             android:text="@string/login" />
 
@@ -105,8 +105,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
-            android:background="@drawable/button_bg"
-            android:textColor="@color/buttonTextColor"
+            android:background="@drawable/button_bg_transparent"
+            android:textColor="@color/buttonColor"
             android:onClick="OnClickMethod"
             android:text="@string/signin" />
 

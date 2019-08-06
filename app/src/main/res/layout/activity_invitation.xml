@@ -86,7 +86,7 @@
             android:layout_height="150dp"
             android:visibility="invisible"
             android:layout_gravity="center"
-            android:foreground="@drawable/rounded_fg"
+            android:background="@drawable/imagebackground"
             android:layout_marginTop="10dp"/>
 
         <TextView

@@ -63,8 +63,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5" />
             </LinearLayout>
+
             <com.company.jk.pcoordinator.common.customview.TextViewWithImages
                 style="@style/TextView"
+                android:id="@+id/tx_mothermilk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mothermilk_img" />
@@ -106,6 +108,7 @@
 
             <com.company.jk.pcoordinator.common.customview.TextViewWithImages
                 style="@style/TextView"
+                android:id="@+id/tx_milk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/milk_img" />
@@ -151,6 +154,7 @@
 
             <com.company.jk.pcoordinator.common.customview.TextViewWithImages
                 style="@style/TextView"
+                android:id="@+id/tx_rice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rice_img" />

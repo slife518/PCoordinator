@@ -73,6 +73,8 @@ public class MypageFragment extends MyFragment {
         TextView btn_review = v.findViewById(R.id.tv_review);
         btn_review.setOnClickListener(onClickListener);
 
+        TextView btn_setting = v.findViewById(R.id.tv_setting);
+        btn_setting.setOnClickListener(onClickListener);
         return v;
     }
 
@@ -103,6 +105,10 @@ public class MypageFragment extends MyFragment {
                         intent = new Intent(getActivity(), ParentsActivity.class);
                         startActivityForResult(intent, 300);
                     }
+                    break;
+                case R.id.tv_setting:
+                    intent = new Intent(getActivity(), SettingsActivity.class);
+                    startActivityForResult(intent, 300);
                     break;
                 case R.id.tv_Logout:
                     showLogout();

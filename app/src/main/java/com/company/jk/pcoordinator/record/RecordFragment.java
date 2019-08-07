@@ -7,7 +7,9 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,16 +58,18 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
                                                                 TimePickerDialog.OnTimeSetListener,
                                                                 View.OnFocusChangeListener {
 
+    TextView _tx_mothermilk, _tx_milk, _tx_rice;
     EditText _milk,_mothermilk, _rice, _remainText,  _date, _time;
     Button _btn_plusMilk, _btn_minusMilk, _btn_plusRice, _btn_minusRice, _save, _delete,
             _btn_plusMotherMilk, _btn_minusMotherMilk, _btn_shortcut1, _btn_shortcut2,
             _btn_shortcut3, _btn_shortcut4,_btn_shortcut5, _btn_shortcutPlus;
-//    LinearLayout layout_shortcut;
 
     Context mContext;
     View v;
     LoginInfo loginInfo;
     RecordHistoryinfo info;
+    SharedPreferences mPreference;
+    Boolean milk_toggle, mothermilk_toggle, rice_toggle;
 
     // 간격
     final static String TAG = "RecordFragment";
@@ -83,6 +88,12 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         mContext = v.getContext();
 
         loginInfo = LoginInfo.getInstance(mContext);
+        mPreference = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mothermilk_toggle = mPreference.getBoolean("mothermilk", true);
+        milk_toggle = mPreference.getBoolean("milk", true);
+        rice_toggle = mPreference.getBoolean("rice", true);
+
+        Log.i(TAG, "수유는 " + mothermilk_toggle +", 분유는 "+ milk_toggle +", 이유식은 "+ rice_toggle);
 
         // layout_toolbar 설정1
 //        setHasOptionsMenu(true);   // layout_toolbar 의 추가 메뉴
@@ -110,6 +121,9 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
     private  void findViewById(View v){
 
+        _tx_mothermilk = v.findViewById(R.id.tx_mothermilk);
+        _tx_milk = v.findViewById(R.id.tx_milk);
+        _tx_rice = v.findViewById(R.id.tx_rice);
         _date = v.findViewById(R.id.tv_date);
         _time = v.findViewById(R.id.tv_time);
         _milk = v.findViewById(R.id.et_milk);
@@ -129,6 +143,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _btn_shortcut5 = v.findViewById(R.id.shortcut5);
         _btn_shortcutPlus = v.findViewById(R.id.shortcutplus);
 
+
 //        layout_shortcut = v.findViewById(R.id.layout_shortcut);
 
         _save = v.findViewById(R.id.btn_save);
@@ -144,6 +159,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _btn_minusMilk.setOnClickListener(this);
         _btn_minusMotherMilk.setOnClickListener(this);
 
+
         _btn_shortcut1.setOnClickListener(this);
         _btn_shortcut2.setOnClickListener(this);
         _btn_shortcut3.setOnClickListener(this);
@@ -155,6 +171,8 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         _btn_shortcut3.setOnLongClickListener(this);
         _btn_shortcut4.setOnLongClickListener(this);
         _btn_shortcut5.setOnLongClickListener(this);
+
+
 
         _milk.setOnClickListener(this);
         _mothermilk.setOnClickListener(this);
@@ -456,13 +474,67 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
 
     private  void  initialize(){
         set_time();   //화면 초기화
-//        _rice.setText("0");
-//        _milk.setText("0");
-//        _mothermilk.setText("0");
         _remainText.getText().clear();
+
+        if(mothermilk_toggle){
+            set_mothermilk_visibile();
+        }else {
+            set_mothermilk_invisible();
+        }
+        if(milk_toggle){
+            set_milk_visibile();
+        }else {
+            set_milk_invisible();
+        }
+
+        if(rice_toggle){
+            set_rice_visibile();
+        }else {
+            set_rice_invisible();
+        }
 
     }
 
+    private void  set_mothermilk_visibile(){
+        _mothermilk.setVisibility(View.VISIBLE);
+        _tx_mothermilk.setVisibility(View.VISIBLE);
+        _btn_plusMotherMilk.setVisibility(View.VISIBLE);
+        _btn_minusMotherMilk.setVisibility(View.VISIBLE);
+    }
+
+    private void  set_mothermilk_invisible(){
+        _mothermilk.setVisibility(View.GONE);
+        _tx_mothermilk.setVisibility(View.GONE);
+        _btn_plusMotherMilk.setVisibility(View.GONE);
+        _btn_minusMotherMilk.setVisibility(View.GONE);
+    }
+    private void  set_milk_visibile(){
+        _milk.setVisibility(View.VISIBLE);
+        _tx_milk.setVisibility(View.VISIBLE);
+        _btn_plusMilk.setVisibility(View.VISIBLE);
+        _btn_minusMilk.setVisibility(View.VISIBLE);
+    }
+
+    private void  set_milk_invisible(){
+        _milk.setVisibility(View.GONE);
+        _tx_milk.setVisibility(View.GONE);
+        _btn_plusMilk.setVisibility(View.GONE);
+        _btn_minusMilk.setVisibility(View.GONE);
+    }
+
+    private void  set_rice_visibile(){
+        _rice.setVisibility(View.VISIBLE);
+        _tx_rice.setVisibility(View.VISIBLE);
+        _btn_plusRice.setVisibility(View.VISIBLE);
+        _btn_minusRice.setVisibility(View.VISIBLE);
+    }
+
+    private void  set_rice_invisible(){
+        _rice.setVisibility(View.GONE);
+        _tx_rice.setVisibility(View.GONE);
+        _btn_plusRice.setVisibility(View.GONE);
+        _btn_minusRice.setVisibility(View.GONE);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

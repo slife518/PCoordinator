@@ -35,7 +35,12 @@
                             android:layout_marginTop="1dp"
                             android:drawableStart="@drawable/ic_baseline_people_outline_24px"
                             style="@style/Mypagebutton"/>
-
+                        <TextView
+                            android:id="@+id/tv_setting"
+                            android:text="@string/settings"
+                            android:layout_marginTop="1dp"
+                            android:drawableStart="@drawable/ic_outline_settings_24px"
+                            style="@style/Mypagebutton"/>
                         <TextView
                             android:id="@+id/tv_password"
                             android:text="@string/txPassword"

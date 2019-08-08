@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +14,7 @@ import androidx.core.content.ContextCompat;
 
 import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.common.EntryComparator;
 import com.company.jk.pcoordinator.common.JsonParse;
 import com.company.jk.pcoordinator.common.MyAxisValueFormatter;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
@@ -49,17 +49,13 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
     View v;
     Context mContext;
-
     private BarChart mChart;
-    private SeekBar mSeekBarY;
-    private TextView tvY;
     private final String TAG = "ChartFragment";
     private LoginInfo loginInfo ;
     MyDataTransaction transaction;
-//    private Integer max_milk, max_mothermilk, min_milk,  min_mothermilk;
+
     JSONArray jsonArray;
     final ArrayList<String> xVals = new ArrayList<String>();
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,10 +76,6 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         loginInfo = LoginInfo.getInstance(mContext);
         transaction = new MyDataTransaction(mContext);
 
-        tvY = v.findViewById(R.id.tvYMax);
-        mSeekBarY = v.findViewById(R.id.seekBar1);
-        mSeekBarY.setOnSeekBarChangeListener(this);
-
         mChart = v.findViewById(R.id.chart1);
 //        mChart.setOnChartValueSelectedListener(this);
         setingChart();
@@ -91,7 +83,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         return v;
     }
 
-    private void setingChart(){
+    private void setingChart(){   //차트 기본 세팅
 
         mChart.getDescription().setEnabled(false);
 
@@ -122,7 +114,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 //
 //        // setting data
 //        mSeekBarX.setProgress(12);
-//        mSeekBarY.setProgress(7);
+//        mSeekBarX.setProgress(7);
 //
         Legend l = mChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -134,7 +126,6 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         l.setXEntrySpace(6f);
 
     }
-
 
     @Override
     public void onStart() {
@@ -149,97 +140,46 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         Log.d(TAG, "get_data_async 시작");
         if(loginInfo.getBabyID() != 0) {
             if (NetworkUtil.getConnectivityStatusBoolean(mContext.getApplicationContext())) {
-//                new HttpTaskRecordList().execute();
-
                 Map<String, String> params = new HashMap<>();
                 params.put("email", loginInfo.getEmail());
-
                 VolleyCallback callback = new VolleyCallback() {
                     @Override
                     public void onSuccessResponse(String result, int method) {  // 성공이면 result = 1
-
-                        Log.d(TAG, "onSuccessResponse 결과값은" + result + method);
                         responseSuccess(result);
-
                     }
                     @Override
                     public void onFailResponse(VolleyError error) {
                         Log.d(TAG, "에러발생 원인은 " + error.getLocalizedMessage());
                     }
                 };
-
                 transaction.queryExecute(2, params, "Pc_record/record_list", callback);
-
             }
         }
     }
 
-    private void responseSuccess(String result) {
-
-
-        itemAppend(result);  // 조회 된 데이터 표현하기
-
-    }
-
-
-    private void itemAppend(String response) {
+    private void responseSuccess(String response) {
         Log.d(TAG, "결과값은 " + response);
+        // setting data
+        jsonArray = JsonParse.getJsonArrayFromString(response, "chartData");
 
-            //최대값 최소값 가져오기
-            //차트 데이터 가져오기
-//            jsonArray = JsonParse.getJsonArrayFromString(response, "max_value");
-//
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                try {
-//                    JSONObject rs = (JSONObject) jsonArray.get(i);
-//
-//                    max_mothermilk = rs.getInt("max_mothermilk");
-//                    min_mothermilk = 0;
-//                    max_milk = rs.getInt("max_milk");
-//                    min_milk = 0;
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-            // setting data
-            jsonArray = JsonParse.getJsonArrayFromString(response, "chartData");
+        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
 
-            mSeekBarY.setMax(jsonArray.length());
-            if(mSeekBarY.getProgress() == 0){
-                if(jsonArray.length() > 7) {
-                    mSeekBarY.setProgress(7);
-                }else {
-                    mSeekBarY.setProgress(jsonArray.length());
-                }
-            }
+        float val1, val2, val3;
 
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (mSeekBarY.getProgress() ==0){
-            return;
-        }
-
-        tvY.setText(getResources().getString(R.string.lastest) + " " + (mSeekBarY.getProgress()) + "일");
-
-        ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-
-        for (int i = 1; i < mSeekBarY.getProgress() + 1; i++) {
+        for (int i = 1; i < jsonArray.length() + 1; i++) {
             int k = jsonArray.length() - i;
             try {
                 JSONObject rs = (JSONObject) jsonArray.get(k);
 
-                float val1 = (float) rs.getInt("mothermilk");
-                float val2 = (float) rs.getInt("milk");
-                float val3 = (float) rs.getInt("rice");
+                val1 = (float) rs.getInt("mothermilk");
+                val2 = (float) rs.getInt("milk");
+                val3 = (float) rs.getInt("rice");
 
                 Log.d(TAG, "모유는 " + val1 + " 분유는 " + val2 + " 이유식은 " + val3);
-                yVals1.add(new BarEntry(
-                        mSeekBarY.getProgress() - i ,
-                        new float[]{val1, val2, val3}));
-                xVals.add( rs.getString("record_date"));
+                yVals.add(new BarEntry(jsonArray.length() - i , new float[]{val1, val2, val3}));
+
+                // 월일만 표현.. 만일 dday 로 표현하려면 이부분을 수정하면 됨.
+                xVals.add( rs.getString("record_date").substring(5,10));   //x축의 날짜표시
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -248,68 +188,170 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         Collections.reverse(xVals);
 
         BarDataSet set1;
+        Collections.sort(yVals, new EntryComparator());  // 이거를 안해주면 줌인할 때 그래프 사라짐.
 
 
-        if (mChart.getData() != null && mChart.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) mChart.getData().getDataSetByIndex(0);
-            set1.setValues(yVals1);
-
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
-            mChart.setScaleEnabled(false);  //확대 안되게
-        } else {
-            set1 = new BarDataSet(yVals1, "");  //타이틀 표시
+        //차트전체의 설정
+        set1 = new BarDataSet(yVals, "");  //타이틀 및 데이터 셋
 //            set1.setDrawIcons(false);  //아이콘
-            set1.setColors(getColors());  //바차트 색상 설정
-            set1.setStackLabels(new String[]{getResources().getString(R.string.mothermilk), getResources().getString(R.string.milk), getResources().getString(R.string.rice)});   //라벨명
+        set1.setColors(getColors());  //바차트 색상 설정
+        set1.setStackLabels(new String[]{getResources().getString(R.string.mothermilk), getResources().getString(R.string.milk), getResources().getString(R.string.rice)});   //라벨명
 
+        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+        dataSets.add(set1);
 
-            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-            dataSets.add(set1);
+        //차트안의 데이타표현관련 설정
+        BarData data = new BarData(dataSets);
+        data.setValueFormatter(new MyValueFormatter()); //차트 안의 값의 표현형식
+        data.setHighlightEnabled(true);
+        data.setValueTextColor(getResources().getColor(R.color.primaryColor )); //글자색
+        data.setValueTextSize(11f);  //차트 안의 값 글씨크기
 
-            BarData data = new BarData(dataSets);
-            data.setValueFormatter(new MyValueFormatter()); //차트 안의 값의 표현형식
-            data.setHighlightEnabled(true);
-            data.setValueTextColor(getResources().getColor(R.color.primaryColor )); //글자색
-            data.setValueTextSize(11f);  //차트 안의 값 글씨크기
+        // x축 label
+        XAxis xAxis1 = mChart.getXAxis();
+        xAxis1.setGranularity(1f);  // x레이블의 중복 방지
+        xAxis1.setGridColor(ContextCompat.getColor(getContext(), R.color.transparent)); // X축 줄의 컬러 설정
 
-            // x축 label
-            XAxis xAxis1 = mChart.getXAxis();
-            xAxis1.setGranularity(1f);  // x레이블의 중복 방지
-            xAxis1.setGridColor(ContextCompat.getColor(getContext(), R.color.transparent)); // X축 줄의 컬러 설정
+        xAxis1.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                if (xVals.size() > (int) value) {
+                    return xVals.get((int) value);
+                } else return null;
+            }
+        });
 
+        mChart.setData(data);
 
-            xAxis1.setValueFormatter(new ValueFormatter() {
+        // now modify viewport
+        mChart.setVisibleXRangeMaximum(7); // allow 20 values to be displayed at once on the x-axis, not more
+        mChart.moveViewToX(jsonArray.length()); // set the left edge of the chart to x-index 10
+        // moveViewToX(...) also calls invalidate()
 
-                @Override
-                public String getFormattedValue(float value) {
-                    if (xVals.size() > (int) value) {
+        set1 = (BarDataSet) mChart.getData().getDataSetByIndex(0);
+        set1.setValues(yVals);
 
-                        return xVals.get((int) value).substring(5,10);
-                    } else return null;
-                }
-
-            });
-
-            mChart.setData(data);
-        }
-
-        mChart.setFitBars(true);
+        mChart.getData().notifyDataChanged();
+        mChart.notifyDataSetChanged();
+        mChart.setScaleEnabled(true);  //확대
+        mChart.setFitBars(false);
         mChart.invalidate();
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        // TODO Auto-generated method stub
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
     }
 
+
+
+//    private void responseSuccess(String response) {
+//        Log.d(TAG, "결과값은 " + response);
+//        // setting data
+//        jsonArray = JsonParse.getJsonArrayFromString(response, "chartData");
+//
+//        // Progress Bar 의 기본세팅   7일이상의 데이터가 있으면 기본 7일 표현
+//        mSeekBarX.setMax(jsonArray.length());
+//        if(mSeekBarX.getProgress() == 0){
+////            if(jsonArray.length() > 7) {
+////                mSeekBarX.setProgress(7);
+////            }else {
+//            mSeekBarX.setProgress(jsonArray.length());
+////            }
+//        }
+//    }
+//
+//    @Override
+//    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//        if (mSeekBarX.getProgress() ==0){
+//            return;
+//        }
+//        // progress bar 의 최대 표현가능 일
+//        tvXmax.setText(getResources().getString(R.string.lastest) + " " + (mSeekBarX.getProgress()) + "일");
+//
+//        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
+//
+//        float val1, val2, val3;
+//
+//        for (int i = 1; i < mSeekBarX.getProgress() + 1; i++) {
+//            int k = jsonArray.length() - i;
+//            try {
+//                JSONObject rs = (JSONObject) jsonArray.get(k);
+//
+//                val1 = (float) rs.getInt("mothermilk");
+//                val2 = (float) rs.getInt("milk");
+//                val3 = (float) rs.getInt("rice");
+//
+//                Log.d(TAG, "모유는 " + val1 + " 분유는 " + val2 + " 이유식은 " + val3);
+//                yVals.add(new BarEntry(mSeekBarX.getProgress() - i , new float[]{val1, val2, val3}));
+//
+//                // 월일만 표현.. 만일 dday 로 표현하려면 이부분을 수정하면 됨.
+//                xVals.add( rs.getString("record_date").substring(5,10));   //x축의 날짜표시
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        Collections.reverse(xVals);
+//
+//        BarDataSet set1;
+//        Collections.sort(yVals, new EntryComparator());  // 이거를 안해주면 줌인할 때 그래프 사라짐.
+//        if (mChart.getData() != null && mChart.getData().getDataSetCount() > 0) {
+//            set1 = (BarDataSet) mChart.getData().getDataSetByIndex(0);
+//            set1.setValues(yVals);
+//
+//            mChart.getData().notifyDataChanged();
+//            mChart.notifyDataSetChanged();
+//            mChart.setScaleEnabled(true);  //확대
+//
+//
+//        } else {  //차트 데이터관련 설정
+//
+//
+//            //차트전체의 설정
+//            set1 = new BarDataSet(yVals, "");  //타이틀 및 데이터 셋
+////            set1.setDrawIcons(false);  //아이콘
+//            set1.setColors(getColors());  //바차트 색상 설정
+//            set1.setStackLabels(new String[]{getResources().getString(R.string.mothermilk), getResources().getString(R.string.milk), getResources().getString(R.string.rice)});   //라벨명
+//
+//            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+//            dataSets.add(set1);
+//
+//            //차트안의 데이타표현관련 설정
+//            BarData data = new BarData(dataSets);
+//            data.setValueFormatter(new MyValueFormatter()); //차트 안의 값의 표현형식
+//            data.setHighlightEnabled(true);
+//            data.setValueTextColor(getResources().getColor(R.color.primaryColor )); //글자색
+//            data.setValueTextSize(11f);  //차트 안의 값 글씨크기
+//
+//            // x축 label
+//            XAxis xAxis1 = mChart.getXAxis();
+//            xAxis1.setGranularity(1f);  // x레이블의 중복 방지
+//            xAxis1.setGridColor(ContextCompat.getColor(getContext(), R.color.transparent)); // X축 줄의 컬러 설정
+//
+//            xAxis1.setValueFormatter(new ValueFormatter() {
+//                @Override
+//                public String getFormattedValue(float value) {
+//                    if (xVals.size() > (int) value) {
+//                        return xVals.get((int) value);
+//                    } else return null;
+//                }
+//            });
+//
+//            mChart.setData(data);
+//
+//            // now modify viewport
+//            mChart.setVisibleXRangeMaximum(20); // allow 20 values to be displayed at once on the x-axis, not more
+//            mChart.moveViewToX(50); // set the left edge of the chart to x-index 10
+//            // moveViewToX(...) also calls invalidate()
+//
+//        }
+//        mChart.setFitBars(false);
+//        mChart.invalidate();
+//    }
+//
+//
     @Override
     public void onValueSelected(Entry e, Highlight h) {
 
@@ -323,24 +365,25 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         }
     }
 
-    @Override
-    public void onNothingSelected() {
-        // TODO Auto-generated method stub
-
-    }
-
     private int[] getColors() {
-//        int stacksize = 3;
-////         have as many colors as stack-values per entry
-//        int[] colors = new int[stacksize];
-//        for (int i = 0; i < colors.length; i++) {
-////            colors[i] = ColorTemplate.MATERIAL_COLORS[i];
-//            colors[i] = getResources().getColor(R.color.mothermilkcolor);
-//        }
-
         int[] colors = new int[]{ getResources().getColor(R.color.mothermilkcolor),  getResources().getColor(R.color.milkcolor),  getResources().getColor(R.color.ricecolor)};
-
         return colors;
     }
 
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        // TODO Auto-generated method stub
+
+    }
+    @Override
+    public void onNothingSelected() {
+        // TODO Auto-generated method stub
+    }
+
 }
+

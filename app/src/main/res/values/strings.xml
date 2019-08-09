@@ -87,6 +87,7 @@
     <string name="nomember">등록되지 않은 메일주소입니다.</string>
     <string name="QnA">문의하기</string>
     <string name="subtitle">태어난 지</string>
+    <string name="subtitle1">일 째</string>
     <string name="subtitle2">개월 지났습니다. (</string>
     <string name="day">일 )</string>
     <string name="milk_unit">(ml)</string>
@@ -112,7 +113,8 @@
     <!--//oauth -->
     <string name="autologin">자동로그인</string>
     <string name="already_baby">이미 등록된 아이가 있다면?</string>
-    <string name="talklist">엄마아빠의 수다</string>
+    <string name="talklist">개발자와 대화하기</string>
+    <string name="talkdescription">신규기능요구 및 에러 등</string>
     <string name="register">등록</string>
     <string name="message_title">제목을 입력하세요</string>
     <string name="message_contents">내용을 입력하세요</string>

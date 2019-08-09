@@ -4,10 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SeekBar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -40,12 +43,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChangeListener, OnChartValueSelectedListener {
+public class ChartFragment extends MyFragment implements OnChartValueSelectedListener {
 
     View v;
     Context mContext;
@@ -71,16 +76,35 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         myToolbar.setTitle(getResources().getString(R.string.chartTitle));
         myToolbar.setTitleTextAppearance(activity.getApplicationContext(), R.style.toolbarTitle);
         activity.setSupportActionBar(myToolbar);
+        setHasOptionsMenu(true);
+        myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                                                 @Override
+                                                 public boolean onMenuItemClick(MenuItem item) {
+                                                     showToast("준비 중에 있습니다.");
+                                                     return false;
+                                                 }
+                                             }
+
+        );
+
 
 
         loginInfo = LoginInfo.getInstance(mContext);
         transaction = new MyDataTransaction(mContext);
 
         mChart = v.findViewById(R.id.chart1);
-//        mChart.setOnChartValueSelectedListener(this);
+        mChart.setOnChartValueSelectedListener(this);
         setingChart();
 
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_chart, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+
     }
 
     private void setingChart(){   //차트 기본 세팅
@@ -159,7 +183,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 
     private void responseSuccess(String response) {
         Log.d(TAG, "결과값은 " + response);
-        // setting data
+        // setting barData
         jsonArray = JsonParse.getJsonArrayFromString(response, "chartData");
 
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
@@ -187,32 +211,31 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         }
         Collections.reverse(xVals);
 
-        BarDataSet set1;
+        BarDataSet barDataSet;
         Collections.sort(yVals, new EntryComparator());  // 이거를 안해주면 줌인할 때 그래프 사라짐.
 
-
         //차트전체의 설정
-        set1 = new BarDataSet(yVals, "");  //타이틀 및 데이터 셋
-//            set1.setDrawIcons(false);  //아이콘
-        set1.setColors(getColors());  //바차트 색상 설정
-        set1.setStackLabels(new String[]{getResources().getString(R.string.mothermilk), getResources().getString(R.string.milk), getResources().getString(R.string.rice)});   //라벨명
+        barDataSet = new BarDataSet(yVals, "");  //타이틀 및 데이터 셋
+//            barDataSet.setDrawIcons(false);  //아이콘
+        barDataSet.setColors(getColors());  //바차트 색상 설정
+        barDataSet.setStackLabels(new String[]{getResources().getString(R.string.mothermilk), getResources().getString(R.string.milk), getResources().getString(R.string.rice)});   //라벨명
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-        dataSets.add(set1);
+        dataSets.add(barDataSet);
 
         //차트안의 데이타표현관련 설정
-        BarData data = new BarData(dataSets);
-        data.setValueFormatter(new MyValueFormatter()); //차트 안의 값의 표현형식
-        data.setHighlightEnabled(true);
-        data.setValueTextColor(getResources().getColor(R.color.primaryColor )); //글자색
-        data.setValueTextSize(11f);  //차트 안의 값 글씨크기
+        BarData barData = new BarData(dataSets);
+        barData.setValueFormatter(new MyValueFormatter()); //차트 안의 값의 표현형식
+        barData.setHighlightEnabled(true);
+        barData.setValueTextColor(getResources().getColor(R.color.primaryColor )); //글자색
+        barData.setValueTextSize(11f);  //차트 안의 값 글씨크기
 
         // x축 label
-        XAxis xAxis1 = mChart.getXAxis();
-        xAxis1.setGranularity(1f);  // x레이블의 중복 방지
-        xAxis1.setGridColor(ContextCompat.getColor(getContext(), R.color.transparent)); // X축 줄의 컬러 설정
+        XAxis xAxis = mChart.getXAxis();
+        xAxis.setGranularity(1f);  // x레이블의 중복 방지
+        xAxis.setGridColor(ContextCompat.getColor(getContext(), R.color.transparent)); // X축 줄의 컬러 설정
 
-        xAxis1.setValueFormatter(new ValueFormatter() {
+        xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 if (xVals.size() > (int) value) {
@@ -221,26 +244,21 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
             }
         });
 
-        mChart.setData(data);
+        mChart.setData(barData);
 
         // now modify viewport
         mChart.setVisibleXRangeMaximum(7); // allow 20 values to be displayed at once on the x-axis, not more
-        mChart.moveViewToX(jsonArray.length()); // set the left edge of the chart to x-index 10
+        mChart.moveViewToX(jsonArray.length()-6); // set the left edge of the chart to x-index 10
         // moveViewToX(...) also calls invalidate()
 
-        set1 = (BarDataSet) mChart.getData().getDataSetByIndex(0);
-        set1.setValues(yVals);
+        barDataSet = (BarDataSet) mChart.getData().getDataSetByIndex(0);
+        barDataSet.setValues(yVals);
 
         mChart.getData().notifyDataChanged();
         mChart.notifyDataSetChanged();
         mChart.setScaleEnabled(true);  //확대
         mChart.setFitBars(false);
         mChart.invalidate();
-
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
     }
 
@@ -350,19 +368,60 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
 //        mChart.setFitBars(false);
 //        mChart.invalidate();
 //    }
-//
-//
+
     @Override
     public void onValueSelected(Entry e, Highlight h) {
 
         BarEntry entry = (BarEntry) e;
 
         if (entry.getYVals() != null) {
-            Log.d("VAL SELECTED", "Value: " + entry.getYVals()[h.getStackIndex()]);
-            showToast(xVals.get(jsonArray.length()-(int)h.getX()-1) + " " + entry.getYVals()[h.getStackIndex()]);
-        }else {
-            Log.d("VAL SELECTED", "Value: " + entry.getY());
+            Log.i("VAL SELECTED", "Value: " + entry.getYVals()[h.getStackIndex()]);
+//            showToast(xVals.get(jsonArray.length()-(int)h.getX()-1) + " " + entry.getYVals()[h.getStackIndex()]);
+
+            try {
+                JSONObject rs = (JSONObject) jsonArray.get((int)h.getX());
+                showToast(calculateDay(rs.getString("record_date")));
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+//            showToast(xVals.get((int)h.getX()));
+
         }
+    }
+
+    public String calculateDay(String today){
+
+        //String babybirthday = format.format(loginInfo.getBabyBirthday());
+        int diffmonth = 0, diffday = 0;
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            Date beginDate = formatter.parse(loginInfo.getBabyBirthday());
+
+            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+            Date endDate = formatter2.parse(today);
+            long diff = endDate.getTime() - beginDate.getTime();
+            diffmonth = (int)( diff / (24 * 60 * 60 * 1000) ) / 30;
+            diffday = (int)( diff / (24 * 60 * 60 * 1000) );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String message;
+        if(diffday <= 100 ){
+            message = getResources().getString(R.string.subtitle) + " "+ diffday + getResources().getString(R.string.subtitle1);
+
+        }else {
+            message = getResources().getString(R.string.subtitle) + " " + diffmonth + getResources().getString(R.string.subtitle2)
+                    + diffday + getResources().getString(R.string.day) ;
+        }
+
+        return message;
+
+    }
+
+    @Override
+    public void onNothingSelected() {
+        // TODO Auto-generated method stub
     }
 
     private int[] getColors() {
@@ -370,20 +429,7 @@ public class ChartFragment extends MyFragment implements SeekBar.OnSeekBarChange
         return colors;
     }
 
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        // TODO Auto-generated method stub
-    }
 
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        // TODO Auto-generated method stub
-
-    }
-    @Override
-    public void onNothingSelected() {
-        // TODO Auto-generated method stub
-    }
 
 }
 

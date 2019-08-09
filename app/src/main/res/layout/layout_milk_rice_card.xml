@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="gravity"
-        android:gravity="right"
+        android:gravity="right|bottom"
         android:layout_weight="1"
         android:textSize="8sp"
         android:text="2018-12-31"
@@ -20,55 +20,64 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.company.jk.pcoordinator.common.customview.DayTextView
             android:id="@+id/tv_day"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             custom:customTextColor="#0000ff"
-            android:layout_weight="0.8"/>
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1.2"
-            android:paddingStart="2dp"
-            android:text="am 12:24"/>
-
-            <com.company.jk.pcoordinator.common.customview.TextViewWithImages
-                android:id="@+id/tv_eat"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:text="120"
-                android:gravity="left|center"
-                android:textAlignment="gravity" />
-
+            android:layout_weight="1"/>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2">
+            android:layout_weight="7">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="0dp"
+                    android:layout_height="23dp"
+                    android:gravity="center"
+                    android:layout_weight="1.2"
+                    android:paddingStart="2dp"
+                    android:text="am 12:24"/>
+
+                <com.company.jk.pcoordinator.common.customview.TextViewWithImages
+                    android:id="@+id/tv_eat"
+                    android:layout_width="0dp"
+                    android:layout_height="23dp"
+                    android:layout_weight="3"
+                    android:text="120"
+                    android:gravity="left|center"
+                    android:textAlignment="gravity" />
 
                 <TextView
                     android:id="@+id/tv_author"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="23dp"
                     android:layout_weight="1"
                     android:text="홍길동"
                     android:gravity="center"/>
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_comments"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="잘 먹었어요"
-                    android:singleLine="true"/>
 
+            <TextView
+                android:id="@+id/tv_comments"
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="잘 먹었어요"
+                android:paddingRight="2dp"
+                android:singleLine="true"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

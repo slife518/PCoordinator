@@ -21,7 +21,7 @@
         app:borderWidth="0dp"
         android:visibility="invisible"
         android:backgroundTint="@color/buttonColor"
-        android:src="@drawable/ic_outline_sms_24px" />
+        android:src="@drawable/ic_call_center_worker_with_headset" />
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"

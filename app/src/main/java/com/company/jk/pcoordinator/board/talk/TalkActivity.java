@@ -53,6 +53,9 @@ public class TalkActivity extends MyActivity{
         setSupportActionBar(myToolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle(getResources().getString(R.string.talklist));
+        this.getSupportActionBar().setSubtitle(getResources().getString(R.string.talkdescription));
+
+
         myToolbar.setTitleTextAppearance(getApplicationContext(), R.style.toolbarTitle);
 
         mLayoutManager = new LinearLayoutManager(this);

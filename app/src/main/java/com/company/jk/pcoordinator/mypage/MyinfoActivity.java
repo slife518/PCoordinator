@@ -129,21 +129,27 @@ public class MyinfoActivity extends MyActivity implements View.OnClickListener {
                 }
         );
 
-        _birthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = 1985;
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+        _birthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                               @Override
+                                               public void onFocusChange(View view, boolean b) {
+                                                   if(b) {
+                                                       Log.i(TAG, "생년월일 클릭 ");
+                                                       Calendar cal = Calendar.getInstance();
+                                                       int year = 1985;
+                                                       int month = cal.get(Calendar.MONTH);
+                                                       int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(
-                        MyinfoActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
+                                                       DatePickerDialog dialog = new DatePickerDialog(
+                                                               MyinfoActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
 
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
+                                                       dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                                       dialog.show();
+                                                   }
+                                               }
+                                           }
+
+        );
+
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {

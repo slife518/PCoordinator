@@ -86,6 +86,7 @@
     <string name="nomember">Unregistered email address.</string>
     <string name="QnA">To inquire</string>
     <string name="subtitle"></string>
+    <string name="subtitle1">day</string>
     <string name="subtitle2">months old(</string>
     <string name="day">day )</string>
     <string name="milk_unit">(ml)</string>
@@ -111,7 +112,8 @@
     <!--//oauth -->
     <string name="autologin">Skip login process</string>
     <string name="already_baby"> if theres is a baby who was already registered?</string>
-    <string name="talklist">Talk Box</string>
+    <string name="talklist">Talk Box with developer</string>
+    <string name="talkdescription">Ask developer for your needs or bugs </string>
     <string name="register">register</string>
     <string name="message_title">title</string>
     <string name="message_contents">contents</string>

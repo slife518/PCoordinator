@@ -20,7 +20,8 @@
         android:layout_marginEnd="20dp"
         app:borderWidth="0dp"
         android:visibility="invisible"
-        android:backgroundTint="@color/buttonColor"
+        android:background="@color/transparent"
+        android:tooltipText="@string/QnA"
         android:src="@drawable/ic_call_center_worker_with_headset" />
 
     <com.roughike.bottombar.BottomBar

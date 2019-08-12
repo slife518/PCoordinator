@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -47,7 +50,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
+
+import static android.content.Context.MODE_PRIVATE;
 import static com.company.jk.pcoordinator.MainActivity.bottomBar;
+import static com.company.jk.pcoordinator.login.LoginInfo.APPLICATIONNAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.BABYBIRTHDAY;
+import static com.company.jk.pcoordinator.login.LoginInfo.BABYID;
+import static com.company.jk.pcoordinator.login.LoginInfo.BABYNAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.EMAIL;
+import static com.company.jk.pcoordinator.login.LoginInfo.ISAUTO_LOGIN;
+import static com.company.jk.pcoordinator.login.LoginInfo.NAME;
+import static com.company.jk.pcoordinator.login.LoginInfo.PASSWORD;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +84,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
     RecordHistoryinfo info;
     SharedPreferences mPreference;
     Boolean milk_toggle, mothermilk_toggle, rice_toggle;
+    Boolean check_tooltip_record1;
 
     // 간격
     final static String TAG = "RecordFragment";
@@ -92,6 +107,7 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         mothermilk_toggle = mPreference.getBoolean("mothermilk", true);
         milk_toggle = mPreference.getBoolean("milk", true);
         rice_toggle = mPreference.getBoolean("rice", true);
+        check_tooltip_record1 = mPreference.getBoolean("check_tooltip_record1", true);
 
         Log.i(TAG, "수유는 " + mothermilk_toggle +", 분유는 "+ milk_toggle +", 이유식은 "+ rice_toggle);
 
@@ -109,7 +125,48 @@ public class RecordFragment extends MyFragment implements View.OnClickListener,
         db =  new DatabaseHelper(v.getContext());
         select_comment_btn();
         Log.d(TAG , "loginInfo.getBabyID() " + loginInfo.getBabyID());
+
+//        setTooltip();
+
+
+
+//        ViewTooltip
+//                .on(this, _mothermilk)
+//                .autoHide(true, 5000)
+//                .corner(30)
+//                .clickToHide(true)
+//                .align(CENTER)
+//                .color(getResources().getColor(R.color.accentcolor))
+//                .position(ViewTooltip.Position.RIGHT)
+//                .text("터치하고 직접입력하셔도 됩니다.")
+//                .show();
+
+
+
         return v;
+    }
+
+    private void setTooltip() {
+
+        mPreference = mContext.getSharedPreferences(APPLICATIONNAME, MODE_PRIVATE);
+        final SharedPreferences.Editor editor = mPreference.edit();
+
+
+        Log.i(TAG, "말풍선"+String.valueOf( mPreference.getBoolean("check_tooltip_record1",false)));
+        if(!mPreference.getBoolean("check_tooltip_record1",false)) {
+            new SimpleTooltip.Builder(mContext)
+                    .anchorView(_milk)
+                    .text("터치하고 직접입력하셔도 됩니다.")
+                    .gravity(Gravity.END)
+                    .animated(true)
+                    .transparentOverlay(false)
+                    .textColor(Color.WHITE)
+                    .build()
+                    .show()
+            ;
+        }
+        editor.commit();
+
     }
 
     @Override

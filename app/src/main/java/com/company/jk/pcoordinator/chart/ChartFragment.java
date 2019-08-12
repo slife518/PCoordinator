@@ -87,8 +87,6 @@ public class ChartFragment extends MyFragment implements OnChartValueSelectedLis
 
         );
 
-
-
         loginInfo = LoginInfo.getInstance(mContext);
         transaction = new MyDataTransaction(mContext);
 

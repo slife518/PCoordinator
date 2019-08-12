@@ -7,7 +7,8 @@
     android:orientation="vertical">
 
     <!-- 툴바 -->
-    <include layout="@layout/layout_toolbar"/>
+    <include layout="@layout/layout_toolbar"
+        android:background="@color/actionbarTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView_main"

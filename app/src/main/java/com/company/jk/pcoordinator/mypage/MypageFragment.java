@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.company.jk.pcoordinator.ParentsActivity;
 import com.company.jk.pcoordinator.R;
+import com.company.jk.pcoordinator.board.talk.TalkActivity;
 import com.company.jk.pcoordinator.common.MyFragment;
 import com.company.jk.pcoordinator.login.LoginActivity;
 import com.company.jk.pcoordinator.login.LoginInfo;
@@ -114,7 +115,8 @@ public class MypageFragment extends MyFragment {
                     showLogout();
                     break;
                 case R.id.tv_QnA:
-                    intent = new Intent(getActivity(), AskActivity.class);
+//                    intent = new Intent(getActivity(), AskActivity.class);
+                    intent = new Intent(getActivity(), TalkActivity.class);
                     startActivityForResult(intent, 300);
                     break;
                 case R.id.tv_review:

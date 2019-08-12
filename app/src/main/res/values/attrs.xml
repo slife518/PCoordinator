@@ -7,4 +7,5 @@
     <declare-styleable name="MyView">
         <attr name="customTextColor" format="color"/>
     </declare-styleable>
+
 </resources>

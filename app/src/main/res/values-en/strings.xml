@@ -84,8 +84,8 @@
     <string name="message_OK">Confirm</string>
     <string name="message_confirm_password_count">You can only have at least five digits.</string>
     <string name="nomember">Unregistered email address.</string>
-    <string name="QnA">To inquire</string>
-    <string name="subtitle"></string>
+    <string name="QnA">Q&amp;A</string>
+    <string name="subtitle"> </string>
     <string name="subtitle1">day</string>
     <string name="subtitle2">months old(</string>
     <string name="day">day )</string>

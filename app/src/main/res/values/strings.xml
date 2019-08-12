@@ -85,7 +85,7 @@
     <string name="message_OK">확인</string>
     <string name="message_confirm_password_count">자릿수가 최소 5자리이상만 가능합니다.</string>
     <string name="nomember">등록되지 않은 메일주소입니다.</string>
-    <string name="QnA">문의하기</string>
+    <string name="QnA">Q&amp;A</string>
     <string name="subtitle">태어난 지</string>
     <string name="subtitle1">일 째</string>
     <string name="subtitle2">개월 지났습니다. (</string>
@@ -113,7 +113,7 @@
     <!--//oauth -->
     <string name="autologin">자동로그인</string>
     <string name="already_baby">이미 등록된 아이가 있다면?</string>
-    <string name="talklist">개발자와 대화하기</string>
+    <string name="talklist">Q&amp;A</string>
     <string name="talkdescription">신규기능요구 및 에러 등</string>
     <string name="register">등록</string>
     <string name="message_title">제목을 입력하세요</string>

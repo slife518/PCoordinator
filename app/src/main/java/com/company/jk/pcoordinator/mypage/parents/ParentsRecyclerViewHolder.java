@@ -1,4 +1,4 @@
-package com.company.jk.pcoordinator;
+package com.company.jk.pcoordinator.mypage.parents;
 
 import android.view.View;
 import android.widget.ImageButton;
@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.company.jk.pcoordinator.R;
 
 public class ParentsRecyclerViewHolder extends RecyclerView.ViewHolder {
     public TextView mEmail;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".InvitationActivity">
+    tools:context=".mypage.parents.InvitationActivity">
 
 
     <!-- 툴바, 추가된 소스 -->

@@ -1,9 +1,10 @@
-package com.company.jk.pcoordinator;
+package com.company.jk.pcoordinator.mypage.mybaby;
 
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.common.MyActivity;
 
 public class RequestBabyActivity extends MyActivity{

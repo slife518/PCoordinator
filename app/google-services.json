@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "969145549285",
+    "firebase_url": "https://giant-baby-1563754882747.firebaseio.com",
+    "project_id": "giant-baby-1563754882747",
+    "storage_bucket": "giant-baby-1563754882747.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969145549285:android:fed50e74df2e5c26",
+        "android_client_info": {
+          "package_name": "com.company.jk.pcoordinator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969145549285-4uc1rec8uaq0f8dfgddhmevd3n58sase.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV1tu3q-5nB3BW_9mkioIrAEUUU25bz9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969145549285-4uc1rec8uaq0f8dfgddhmevd3n58sase.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

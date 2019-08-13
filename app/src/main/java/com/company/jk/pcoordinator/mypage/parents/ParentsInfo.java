@@ -1,4 +1,4 @@
-package com.company.jk.pcoordinator;
+package com.company.jk.pcoordinator.mypage.parents;
 
 public class ParentsInfo {
     String email;

@@ -1,4 +1,4 @@
-package com.company.jk.pcoordinator;
+package com.company.jk.pcoordinator.mypage.parents;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.company.jk.pcoordinator.R;
 import com.company.jk.pcoordinator.http.UrlPath;
 import com.company.jk.pcoordinator.login.LoginInfo;
 import com.squareup.picasso.MemoryPolicy;

@@ -11,22 +11,26 @@ import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
 
-public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
+public class MyFirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
     private static final String TAG = "FirebaseMSGService";
 
     private String msg, title;
 
     @Override
-    public void onNewToken(String s) {
-        super.onNewToken(s);
-        Log.e("NEW_TOKEN",s);
+    public void onNewToken(String token) {
+
+        sendRegisterationToServer(token);
     }
+
+    private void sendRegisterationToServer(String token){
+        Log.d(TAG, "해당 토큰은 "+token);
+    }
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.e(TAG, "onMessageReceived");
-
+        Log.d(TAG, "onMessageReceived" + remoteMessage.getTo());
         title = remoteMessage.getNotification().getTitle();
         msg = remoteMessage.getNotification().getBody();
 
@@ -47,7 +51,9 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         mBuilder.setContentIntent(contentIntent);
 
+
     }
+
 
 
 }

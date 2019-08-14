@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.android.volley.VolleyError;
 import com.company.jk.pcoordinator.MainActivity;
@@ -22,6 +25,10 @@ import com.company.jk.pcoordinator.common.MyActivity;
 import com.company.jk.pcoordinator.common.MyDataTransaction;
 import com.company.jk.pcoordinator.common.VolleyCallback;
 import com.company.jk.pcoordinator.http.NetworkUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -188,6 +195,11 @@ public class LoginActivity extends MyActivity {
 
 //                    new HttpTaskSignIn().execute("signin");
                 }
+
+                getFirebaseInstanceid();
+
+
+
                 break;
 
             case R.id.btn_signup:
@@ -201,6 +213,28 @@ public class LoginActivity extends MyActivity {
                 startActivityForResult(intent, 1001);
                 break;
         }
+    }
+
+    private void getFirebaseInstanceid() {
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = token;
+                        Log.d(TAG, msg);
+                        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void findViewsById() {  // 위젯 세팅

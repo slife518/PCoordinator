@@ -245,7 +245,7 @@ public class ChartFragment extends MyFragment implements OnChartValueSelectedLis
         mChart.setData(barData);
 
         // now modify viewport
-        mChart.setVisibleXRangeMaximum(7); // allow 20 values to be displayed at once on the x-axis, not more
+        mChart.setVisibleXRangeMaximum(30); // 최대 표현 개수
         mChart.moveViewToX(jsonArray.length()-6); // set the left edge of the chart to x-index 10
         // moveViewToX(...) also calls invalidate()
 

@@ -106,7 +106,7 @@ public class DayTextView extends View {
     protected void onDraw(Canvas canvas) {
 
         Paint paint=new Paint();
-        paint.setColor(COLOR[Integer.parseInt(value)]);
+        paint.setColor(COLOR[Integer.parseInt(value) - 1]);
         canvas.drawCircle(67, 50, 50, paint);
 
         paint.setTextSize(60);

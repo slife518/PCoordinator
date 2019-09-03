@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -227,12 +226,12 @@ public class LoginActivity extends MyActivity {
                         }
 
                         // Get new Instance ID token
-                        String token = task.getResult().getToken();
+//                        String token = task.getResult().getToken();
 
                         // Log and toast
-                        String msg = token;
-                        Log.d(TAG, msg);
-                        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                        String msg = token;
+//                        Log.d(TAG, msg);
+//                        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

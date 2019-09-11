@@ -40,17 +40,23 @@ public class AddressPostActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webView);
         // JavaScript 허용
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setSupportMultipleWindows(true);
+
         // JavaScript의 window.open 허용
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         // JavaScript이벤트에 대응할 함수를 정의 한 클래스를 붙여줌
+
         // 두 번째 파라미터는 사용될 php에도 동일하게 사용해야함
         webView.addJavascriptInterface(new AndroidBridge(), "TestApp");
+
         // web client 를 chrome 으로 설정
         webView.setWebChromeClient(new WebChromeClient());
         // webview url load
 
 //        webView.loadUrl("http://10.0.2.2:80/dev.php/giantbaby/Pc_login/addresspost");
         webView.loadUrl(urlPath.getUrlPath() +  "Pc_login/addresspost");  //회사
+//        webView.loadUrl("https://slife705.cafe24.com/index.php/giantbaby/Pc_login/addresspost");  //회사
+//        webView.loadUrl("https://www.google.co.kr/");  //회사
     }
 
     private class AndroidBridge {

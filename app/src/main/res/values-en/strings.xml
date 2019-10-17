@@ -53,8 +53,8 @@
     <string name="cancel">Cancel</string>
     <string name="btn_delete">Delete</string>
     <string name="deleteAlert">Do you want delete?</string>
-    <string name="invite">Invite a Guardian</string>
-    <string name="invitation">Invite a Guardian</string>
+    <string name="invite">Add a Guardian</string>
+    <string name="invitation">Add a Guardian</string>
     <string name="parentlist">Guardian List</string>
     <string name="letsEmail">Enter email address</string>
     <string name="letsTel">Please enter your contact number.</string>
